@@ -11,6 +11,7 @@
     tools:context="com.leisurekr.leisuresportskorea.MainActivity">
 
     <TextView
+        android:id="@+id/basicText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello, Leisure Sports Korea!" />
