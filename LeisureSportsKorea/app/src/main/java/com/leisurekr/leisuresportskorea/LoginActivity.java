@@ -27,40 +27,40 @@ public class LoginActivity extends AppCompatActivity{
         facebookLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
-                //LoginActivity.this.startActivity(registerIntent);
+                // TODO : facebook API
             }
         });
 
         lineLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
-                //LoginActivity.this.startActivity(registerIntent);
+                // TODO : Line API
             }
         });
 
         signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
-                //LoginActivity.this.startActivity(registerIntent);
+                // TODO
+                Intent loginMemberIntent = new Intent(LoginActivity.this, LoginMemberActivity.class);
+                LoginActivity.this.startActivity(loginMemberIntent);
             }
         });
 
         regBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
-                //LoginActivity.this.startActivity(registerIntent);
+                // TODO
+                Intent regIntent = new Intent(LoginActivity.this, MemberRegisterActivity.class);
+                LoginActivity.this.startActivity(regIntent);
+
             }
         });
 
         skipBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
-                //LoginActivity.this.startActivity(registerIntent);
+                // TODO
             }
         });
     }
