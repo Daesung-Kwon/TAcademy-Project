@@ -11,9 +11,7 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        for(int i=0;i<2;i++){
-
-        }
+        android.widget.Toast.makeText(this, "1", Toast.LENGTH_SHORT).show();
 
 
     }
