@@ -2,13 +2,13 @@ package com.leisurekr.leisuresportskorea;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentPagerAdapter;
 
 /**
  * Created by mobile on 2017. 5. 11..
  */
 
-public class TabPagerAdapter extends FragmentStatePagerAdapter {
+public class TabPagerAdapter extends FragmentPagerAdapter {
 
     // 탭카운트 변수
     private int tabCount;
