@@ -12,6 +12,9 @@ import java.util.ArrayList;
 
 public class TabPagerAdapter extends FragmentPagerAdapter {
 
+    // 탭카운트 변수
+    private int tabCount;
+
     public TabPagerAdapter(FragmentManager fm, int tabCount) {
         super(fm);
     }
