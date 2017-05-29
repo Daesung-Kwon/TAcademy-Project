@@ -1,4 +1,4 @@
-package com.leisurekr.leisuresportskorea;
+package com.leisurekr.leisuresportskorea.home;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import com.leisurekr.leisuresportskorea.R;
 import com.leisurekr.leisuresportskorea.home.CircleAnimIndicator;
 import com.leisurekr.leisuresportskorea.home.GridAdapter;
 import com.leisurekr.leisuresportskorea.home.ImageAdapter;
