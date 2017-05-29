@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ViewFlipper
+        android:id="@+id/home_viewflipper_ad"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/home_image1_ad"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"/>
+
+        <ImageView
+            android:id="@+id/home_image2_ad"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"/>
+
+        <ImageView
+            android:id="@+id/home_image3_ad"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"/>
+
+        <ImageView
+            android:id="@+id/home_image4_ad"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"/>
+    </ViewFlipper>
+
+    <com.leisurekr.leisuresportskorea.home.CircleAnimIndicator
+        android:id="@+id/home_advertice_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/home_viewflipper_ad"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp">
+
+    </com.leisurekr.leisuresportskorea.home.CircleAnimIndicator>
+
+    <Button
+        android:id="@+id/home_prevbtn_ad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:text="A"
+        android:textSize="30sp"
+        android:background="#00ffffff"/>
+
+    <Button
+        android:id="@+id/home_nextbtn_ad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:textSize="30sp"
+        android:text="B"
+        android:background="#00ffffff"/>
+
+
+    <!--<android.support.v4.view.ViewPager
+        android:id="@+id/home_item_type1_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
+    </android.support.v4.view.ViewPager>
+
+    <com.leisurekr.leisuresportskorea.home.CircleAnimIndicator
+        android:id="@+id/circleAnimIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_alignBottom="@+id/home_item_type1_viewpager"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="0dp" />
+    &lt;!&ndash;android:layout_alignParentBottom="true"&ndash;&gt;-->
+</RelativeLayout>

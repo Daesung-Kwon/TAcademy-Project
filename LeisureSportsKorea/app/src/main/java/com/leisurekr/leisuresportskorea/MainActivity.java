@@ -1,21 +1,21 @@
 package com.leisurekr.leisuresportskorea;
 
-import android.graphics.Color;
-import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.transition.Explode;
-import android.transition.Transition;
-import android.view.Window;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
 
@@ -23,15 +23,68 @@ public class MainActivity extends AppCompatActivity{
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    Toolbar toolbar;
     private SwipeRefreshLayout refreshLayout;
+    private View searchView;
+    private FloatingActionButton searchButton;
+    boolean flag=false;
+    CoordinatorLayout coordinatorLayout;
+    PopupWindow popupWindow;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        Log.i("검색test","클릭됨");
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                if(searchView.getVisibility()==View.GONE) {
+                    Log.i("검색test1111","false = > true");
+                    searchView.setVisibility(View.VISIBLE);
+                    searchButton.setVisibility(View.VISIBLE);
+                    //popupWindow.setAnimationStyle(-1);
+                    //popupWindow.showAsDropDown(toolbar);
+                    //popupWindow.showAtLocation(coordinatorLayout, Gravity.CENTER,0,0);
+                    flag = true;
+                }
+                else {
+                    Log.i("검색test","true = > false");
+                    searchView.setVisibility(View.GONE);
+                    searchButton.setVisibility(View.GONE);
+                    //popupWindow.dismiss();
+                    flag = false;
+                }
+                return true;
+            case R.id.action_settings:
+                //openSettings();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        coordinatorLayout = (CoordinatorLayout)findViewById(R.id.main_content);
+
+       /* searchView = View.inflate(this,R.layout.search,null);
+        popupWindow = new PopupWindow(searchView,1000,500,true);*/
+
+        searchView = findViewById(R.id.search_view);
+        searchButton = (FloatingActionButton) findViewById(R.id.search_actionbtn);
+
         // Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         // Tab Layout
@@ -66,35 +119,9 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-        refreshLayout = (SwipeRefreshLayout) findViewById(R.id.refreshlayout);
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        // TO-DO : Refreshing List
 
-                        refreshLayout.setRefreshing(false);
-                    }
-                }, 2500);
-            }
-        });
-        refreshLayout.setColorSchemeColors(Color.BLUE, Color.RED, Color.GREEN);
-
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            Transition exitTrans = new Explode(); // Fade(), Slide()
-
-            Transition reenterTrans = new Explode(); // Fade(), Slide()
-
-            window.setExitTransition(exitTrans);
-            window.setReenterTransition(reenterTrans);
-            // window.setTransitionBackgroundFadeDuration(2000);
-            window.setAllowEnterTransitionOverlap(true);
-            window.setAllowReturnTransitionOverlap(true);
-        }
     }
+
 
     Handler mHandler = new Handler(Looper.getMainLooper());
 }

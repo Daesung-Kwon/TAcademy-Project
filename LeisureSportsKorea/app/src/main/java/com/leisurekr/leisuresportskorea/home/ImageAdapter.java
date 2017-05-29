@@ -26,7 +26,7 @@ public class ImageAdapter extends PagerAdapter {
         options = new BitmapFactory.Options();
     }
     int images[] ={
-                    R.drawable.aa, R.drawable.bb,R.drawable.aa,R.drawable.bb
+                    R.drawable.girls_eneration_all, R.drawable.exo_all,R.drawable.girls_eneration_all,R.drawable.exo_all
             };
 
     @Override
@@ -44,6 +44,7 @@ public class ImageAdapter extends PagerAdapter {
         ImageView imageView = new ImageView(context);
 
         imageView.setImageResource(images[position]);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         //galImage = BitmapFactory.decodeResource(context.getResources(), images[position]);
 
         //imageView.setImageBitmap(galImage);
