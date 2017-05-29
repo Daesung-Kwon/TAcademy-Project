@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity{
     private FloatingActionButton fab, fab1, fab2;
     private Animation fab_open, fab_close, rotate_forward, rotate_backward;
     Intent mapIntent;
+    Intent filterIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +88,8 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 // TODO : HHere, insert New Activity for Filter
+                filterIntent = new Intent(MainActivity.this, FilterActivity.class);
+                MainActivity.this.startActivity(filterIntent);
 
             }
         });
@@ -115,15 +118,21 @@ public class MainActivity extends AppCompatActivity{
                 switch (tabPosition) {
                     case 0: {
                         fab.hide();
-                        Log.i("FAB-Test", "Tap" + tabPosition);
+                        if (isFabOpen == true) {
+                            animateFAB();
+                        }
                         break;
                     }case 1: {
                         fab.show();
-                        Log.i("FAB-Test", "Tap" + tabPosition);
                         break;
                     }case 2: {
                         fab.hide();
-                        Log.i("FAB-Test", "Tap" + tabPosition);
+                        if (isFabOpen == true) {
+                            animateFAB();
+                        }
+                        break;
+                    }
+                    default: {
                         break;
                     }
                 }
@@ -139,22 +148,6 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-        refreshLayout = (SwipeRefreshLayout) findViewById(R.id.refreshlayout);
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        // TO-DO : Refreshing List
-
-                        refreshLayout.setRefreshing(false);
-                    }
-                }, 2000);
-            }
-        });
-        refreshLayout.setColorSchemeColors(Color.BLUE, Color.RED, Color.GREEN);
-
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             Transition exitTrans = new Explode(); // Fade(), Slide()
@@ -168,7 +161,6 @@ public class MainActivity extends AppCompatActivity{
             window.setAllowReturnTransitionOverlap(true);
         }
     }
-    Handler mHandler = new Handler(Looper.getMainLooper());
 
     @Override
     protected void onResume() {
@@ -224,7 +216,6 @@ public class MainActivity extends AppCompatActivity{
             fab1.setClickable(false);
             fab2.setClickable(false);
             isFabOpen = false;
-            Log.d("Test-Daon", "close");
         } else {
             fab.startAnimation(rotate_forward);
             fab1.startAnimation(fab_open);
@@ -232,7 +223,6 @@ public class MainActivity extends AppCompatActivity{
             fab1.setClickable(true);
             fab2.setClickable(true);
             isFabOpen = true;
-            Log.d("Test-Daon", "open");
         }
     }
 }

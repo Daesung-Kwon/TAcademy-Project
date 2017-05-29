@@ -2,6 +2,7 @@ package com.leisurekr.leisuresportskorea;
 
 import android.media.Image;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
@@ -25,13 +26,14 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        RecyclerView rv = (RecyclerView) inflater.inflate(R.layout.tab_fragment_2, container, false);
+        View view = inflater.inflate(R.layout.tab_fragment_2, container, false);
+        RecyclerView rv = (RecyclerView) view.findViewById(R.id.recyclerview);
 
         owner = (MainActivity)getActivity();
         rv.setLayoutManager(new LinearLayoutManager(LKApplication.getLKApplication()));
         rv.setAdapter(new TabFragment2RVAdapter(TestArrayList.getArrayList())); // Test...
 
-        return rv;
+        return view;
     }
 
     public static class TabFragment2RVAdapter
