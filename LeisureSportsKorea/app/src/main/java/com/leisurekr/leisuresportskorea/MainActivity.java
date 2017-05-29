@@ -3,45 +3,98 @@ package com.leisurekr.leisuresportskorea;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Build;
-import android.os.Handler;
-import android.os.Looper;
+import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-
 import android.transition.Explode;
 import android.transition.Transition;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.RelativeLayout;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private SwipeRefreshLayout refreshLayout;
+    Toolbar toolbar;
+
+    private View searchView;
+    private FloatingActionButton searchButton;
+    boolean flag = false;
+    CoordinatorLayout coordinatorLayout;
+    PopupWindow popupWindow;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        Log.i("검색test", "클릭됨");
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                if (searchView.getVisibility() == View.GONE) {
+                    Log.i("검색test1111", "false = > true");
+                    searchView.setVisibility(View.VISIBLE);
+                    searchButton.setVisibility(View.VISIBLE);
+                    //popupWindow.setAnimationStyle(-1);
+                    //popupWindow.showAsDropDown(toolbar);
+                    //popupWindow.showAtLocation(coordinatorLayout, Gravity.CENTER,0,0);
+                    flag = true;
+                } else {
+                    Log.i("검색test", "true = > false");
+                    searchView.setVisibility(View.GONE);
+                    searchButton.setVisibility(View.GONE);
+                    //popupWindow.dismiss();
+                    flag = false;
+                }
+                return true;
+            case R.id.action_settings:
+                //openSettings();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     private Boolean isFabOpen = false;
     private FloatingActionButton fab, fab1, fab2;
     private Animation fab_open, fab_close, rotate_forward, rotate_backward;
     Intent mapIntent;
     Intent filterIntent;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.main_content);
+
+       /* searchView = View.inflate(this,R.layout.search,null);
+        popupWindow = new PopupWindow(searchView,1000,500,true);*/
+
+        searchView = findViewById(R.id.search_view);
+        searchButton = (FloatingActionButton) findViewById(R.id.search_actionbtn);
 
         // Floating Action Button
         fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -55,7 +108,7 @@ public class MainActivity extends AppCompatActivity{
         rotate_backward = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_backward);
 
         // Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         // Tab Layout
@@ -101,9 +154,11 @@ public class MainActivity extends AppCompatActivity{
                     case R.id.fab: {
                         animateFAB();
                         break;
-                    }case R.id.fab1: {
+                    }
+                    case R.id.fab1: {
                         break;
-                    }case R.id.fab2: {
+                    }
+                    case R.id.fab2: {
                         break;
                     }
                 }
@@ -122,10 +177,12 @@ public class MainActivity extends AppCompatActivity{
                             animateFAB();
                         }
                         break;
-                    }case 1: {
+                    }
+                    case 1: {
                         fab.show();
                         break;
-                    }case 2: {
+                    }
+                    case 2: {
                         fab.hide();
                         if (isFabOpen == true) {
                             animateFAB();
@@ -138,37 +195,42 @@ public class MainActivity extends AppCompatActivity{
                 }
                 viewPager.setCurrentItem(tabPosition);
             }
+
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
 
             }
+
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
 
             }
         });
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 57bc024f30948b18ede711fbd0d410f145c5e1bf
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             Transition exitTrans = new Explode(); // Fade(), Slide()
 
             Transition reenterTrans = new Explode(); // Fade(), Slide()
 
-            window.setExitTransition(exitTrans);
-            window.setReenterTransition(reenterTrans);
-            // window.setTransitionBackgroundFadeDuration(2000);
-            window.setAllowEnterTransitionOverlap(true);
-            window.setAllowReturnTransitionOverlap(true);
+
         }
     }
+<<<<<<< HEAD
+=======
+        @Override
+        protected void onResume() {
+            super.onResume();
+            checkPermission();
+        }
+>>>>>>> 57bc024f30948b18ede711fbd0d410f145c5e1bf
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        checkPermission();
-    }
+        private final int MY_PERMISSION_REQUEST_LOCATION = 100;
 
-    private final int MY_PERMISSION_REQUEST_LOCATION = 100;
     private void checkPermission() {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
@@ -178,12 +240,13 @@ public class MainActivity extends AppCompatActivity{
                     Toast.makeText(this, "Shop Info. for Location", Toast.LENGTH_SHORT).show();
                 }
                 requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                                                MY_PERMISSION_REQUEST_LOCATION);
+                        MY_PERMISSION_REQUEST_LOCATION);
             } else {
                 // always granted
             }
         }
     }
+
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSION_REQUEST_LOCATION:
@@ -226,3 +289,4 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 }
+

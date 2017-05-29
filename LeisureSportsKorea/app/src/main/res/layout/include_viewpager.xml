@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_content"
     android:layout_width="match_parent"
@@ -12,29 +11,66 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+<<<<<<< HEAD
+=======
+
+>>>>>>> 57bc024f30948b18ede711fbd0d410f145c5e1bf
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+<<<<<<< HEAD
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:layout_scrollFlags="scroll|enterAlways|snap" />
+=======
+            app:layout_scrollFlags="scroll|enterAlways|snap"
+             />
+
+        <include
+            layout="@layout/search"
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            />
+
+>>>>>>> 57bc024f30948b18ede711fbd0d410f145c5e1bf
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/white"
             app:tabMinWidth="90dp"
             app:tabMode="fixed"
-            android:background="@android:color/white"/>
+            />
 
     </android.support.design.widget.AppBarLayout>
 
+<<<<<<< HEAD
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+=======
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/search_actionbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_anchor="@id/search_view"
+        app:layout_anchorGravity="right|bottom"
+        android:visibility="gone"
+        />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+>>>>>>> 57bc024f30948b18ede711fbd0d410f145c5e1bf
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab2"

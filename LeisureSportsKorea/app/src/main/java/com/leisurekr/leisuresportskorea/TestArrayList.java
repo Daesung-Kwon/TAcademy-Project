@@ -16,7 +16,7 @@ public class TestArrayList {
 
         imageResources.add(R.drawable.girls_generation_all);
         imageResources.add(R.drawable.girls_generation_tifany);
-        imageResources.add(R.drawable.girls_eneration_tifany);
+        imageResources.add(R.drawable.girls_generation_tifany);
     }
 
     private static HashMap<Integer, String> nameMaps;
@@ -25,7 +25,7 @@ public class TestArrayList {
 
         nameMaps.put(R.drawable.girls_generation_all, "소녀시대 멤버");
         nameMaps.put(R.drawable.girls_generation_tifany, "티파니");
-        nameMaps.put(R.drawable.girls_eneration_tifany, "티파니2");
+        nameMaps.put(R.drawable.girls_generation_tifany, "티파니2");
     }
 
     private static Random random = new Random(System.currentTimeMillis());

@@ -1,0 +1,36 @@
+From ba8d5a6d4e3e22756364fbfe483144828b8457a3 Mon Sep 17 00:00:00 2001
+From: dlddldwkak <dlddldwkak@gmail.com>
+Date: Fri, 12 May 2017 13:51:47 +0900
+Subject: [PATCH] =?UTF-8?q?test=202=EB=B2=88=EC=A7=B8?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+---
+ .../src/main/java/com/leisurekr/leisuresportskorea/MainActivity.java   | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/LeisureSportsKorea/app/src/main/java/com/leisurekr/leisuresportskorea/MainActivity.java b/LeisureSportsKorea/app/src/main/java/com/leisurekr/leisuresportskorea/MainActivity.java
+index f96a347..27e012a 100644
+--- a/LeisureSportsKorea/app/src/main/java/com/leisurekr/leisuresportskorea/MainActivity.java
++++ b/LeisureSportsKorea/app/src/main/java/com/leisurekr/leisuresportskorea/MainActivity.java
+@@ -2,6 +2,7 @@ package com.leisurekr.leisuresportskorea;
+ 
+ import android.os.Bundle;
+ import android.support.v7.app.AppCompatActivity;
++import android.widget.Toast;
+ 
+ 
+ public class MainActivity extends AppCompatActivity{
+@@ -11,7 +12,7 @@ public class MainActivity extends AppCompatActivity{
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_main);
+ 
+-        android.widget.Toast.makeText(this, "1", Toast.LENGTH_SHORT).show();
++        android.widget.Toast.makeText(this, "123", Toast.LENGTH_SHORT).show();
+ 
+ 
+     }
+-- 
+2.9.0.windows.1
+
