@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.leisurekr.leisuresportskorea.home.TabFragment1;
+import com.leisurekr.leisuresportskorea.profile.TabFragment3;
 
 /**
  * Created by mobile on 2017. 5. 11..

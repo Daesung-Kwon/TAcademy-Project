@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/profile_myprofile"
+            layout="@layout/profile_myprofile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPartition"></LinearLayout>
+
+
+        <!--          Group My Page                              -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="My Page"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="@dimen/profile_marginLeft"/>
+
+        <LinearLayout
+            android:id="@+id/profile_reservationlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_list"
+                android:layout_marginRight="@dimen/profile_marginRight"
+                android:layout_marginLeft="@dimen/profile_marginLeft"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Reservation list"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
+                android:textSize="18sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/profile_cartlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_cart"
+                android:layout_marginRight="@dimen/profile_marginRight"
+                android:layout_marginLeft="@dimen/profile_marginLeft"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cart"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
+                android:textSize="18sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/profile_favoriteslayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_favor"
+                android:layout_marginRight="@dimen/profile_marginRight"
+                android:layout_marginLeft="@dimen/profile_marginLeft"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Favorites"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
+                android:textSize="18sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorPartition"></LinearLayout>
+
+
+        <!--          Group Setting                              -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Setting"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="@dimen/profile_marginLeft"/>
+
+        <LinearLayout
+            android:id="@+id/profile_alarmlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_alarm"
+                android:layout_marginRight="@dimen/profile_marginRight"
+                android:layout_marginLeft="@dimen/profile_marginLeft"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Setting for push alarm"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
+                android:textSize="18sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/profile_logoutlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_logout"
+                android:layout_marginRight="@dimen/profile_marginRight"
+                android:layout_marginLeft="@dimen/profile_marginLeft"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Log Out"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
+                android:textSize="18sp"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPartition"></LinearLayout>
+
+        <!--          Group Customer Service Canter                              -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Customer Service Canter"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="@dimen/profile_marginLeft"/>
+
+        <LinearLayout
+            android:id="@+id/profile_aboutuslayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_about"
+                android:layout_marginRight="@dimen/profile_marginRight"
+                android:layout_marginLeft="@dimen/profile_marginLeft"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="About Us"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
+                android:textSize="18sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/profile_termslayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_terms"
+                android:layout_marginRight="@dimen/profile_marginRight"
+                android:layout_marginLeft="@dimen/profile_marginLeft"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Terms and Policies"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
+                android:textSize="18sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/profile_customerlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_custom"
+                android:layout_marginRight="@dimen/profile_marginRight"
+                android:layout_marginLeft="@dimen/profile_marginLeft"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Customer Support"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
+                android:textSize="18sp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

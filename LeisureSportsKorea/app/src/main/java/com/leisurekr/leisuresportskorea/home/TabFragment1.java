@@ -103,15 +103,15 @@ public class TabFragment1 extends android.support.v4.app.Fragment {
         activityImage5 = new ActivityImageObject(recommendActivity.findViewById(R.id.home_activity_image5));
 
         groupActivityName.setText("Recommend Activity");
-        activityImage1.setData(R.drawable.girls_eneration_hyoyeon,R.drawable.f,
+        activityImage1.setData(R.drawable.girls_generation_tifany,R.drawable.f,
                 "Water ski","River city's water ski","Beginer Lesson Package",300);
-        activityImage2.setData(R.drawable.girls_eneration_hyoyeon,R.drawable.f,
+        activityImage2.setData(R.drawable.girls_generation_tifany,R.drawable.f,
                 "Water ski","River city's water ski","Beginer Lesson Package",300);
-        activityImage3.setData(R.drawable.girls_eneration_hyoyeon,R.drawable.f,
+        activityImage3.setData(R.drawable.girls_generation_tifany,R.drawable.f,
                 "Water ski","River city's water ski","Beginer Lesson Package",300);
-        activityImage4.setData(R.drawable.girls_eneration_hyoyeon,R.drawable.f,
+        activityImage4.setData(R.drawable.girls_generation_tifany,R.drawable.f,
                 "Water ski","River city's water ski","Beginer Lesson Package",300);
-        activityImage5.setData(R.drawable.girls_eneration_hyoyeon,R.drawable.f,
+        activityImage5.setData(R.drawable.girls_generation_tifany,R.drawable.f,
                 "Water ski","River city's water ski","Beginer Lesson Package",300);
 
 
@@ -125,19 +125,19 @@ public class TabFragment1 extends android.support.v4.app.Fragment {
         shopImage5 = (ImageView) bestshop.findViewById(R.id.home_image5_shop);
 
         adverticeImage1.setImageResource(R.drawable.exo_all);
-        adverticeImage2.setImageResource(R.drawable.girls_eneration_all);
+        adverticeImage2.setImageResource(R.drawable.girls_generation_all);
         adverticeImage3.setImageResource(R.drawable.exo_all);
-        adverticeImage4.setImageResource(R.drawable.girls_eneration_all);
+        adverticeImage4.setImageResource(R.drawable.girls_generation_all);
 
 
 
 
         groupShopName.setText("Best Shop");
-        shopImage1.setImageResource(R.drawable.girls_eneration_taeyeon);
-        shopImage2.setImageResource(R.drawable.girls_eneration_yuna);
-        shopImage3.setImageResource(R.drawable.girls_eneration_tifany);
-        shopImage4.setImageResource(R.drawable.girls_eneration_sunny);
-        shopImage5.setImageResource(R.drawable.girls_eneration_yuri);
+        shopImage1.setImageResource(R.drawable.girls_generation_tifany);
+        shopImage2.setImageResource(R.drawable.girls_generation_tifany);
+        shopImage3.setImageResource(R.drawable.girls_generation_tifany);
+        shopImage4.setImageResource(R.drawable.girls_generation_tifany);
+        shopImage5.setImageResource(R.drawable.girls_generation_tifany);
 
         initIndicaotor();
         return view;
