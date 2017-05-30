@@ -13,8 +13,6 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.leisurekr.leisuresportskorea.home.ImageAdapter;
-
 /**
  * Created by mobile on 2017. 5. 29..
  */

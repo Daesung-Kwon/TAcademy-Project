@@ -207,10 +207,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 57bc024f30948b18ede711fbd0d410f145c5e1bf
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             Transition exitTrans = new Explode(); // Fade(), Slide()
@@ -220,16 +216,13 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-<<<<<<< HEAD
-=======
-        @Override
-        protected void onResume() {
-            super.onResume();
-            checkPermission();
-        }
->>>>>>> 57bc024f30948b18ede711fbd0d410f145c5e1bf
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkPermission();
+    }
 
-        private final int MY_PERMISSION_REQUEST_LOCATION = 100;
+    private final int MY_PERMISSION_REQUEST_LOCATION = 100;
 
     private void checkPermission() {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

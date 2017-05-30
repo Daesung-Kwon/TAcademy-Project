@@ -11,21 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-<<<<<<< HEAD
-=======
 
->>>>>>> 57bc024f30948b18ede711fbd0d410f145c5e1bf
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-<<<<<<< HEAD
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:layout_scrollFlags="scroll|enterAlways|snap" />
-=======
-            app:layout_scrollFlags="scroll|enterAlways|snap"
-             />
 
         <include
             layout="@layout/search"
@@ -35,7 +28,6 @@
             android:visibility="gone"
             />
 
->>>>>>> 57bc024f30948b18ede711fbd0d410f145c5e1bf
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
@@ -47,14 +39,12 @@
 
     </android.support.design.widget.AppBarLayout>
 
-<<<<<<< HEAD
-
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-=======
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/search_actionbtn"
         android:layout_width="wrap_content"
@@ -63,15 +53,6 @@
         app:layout_anchorGravity="right|bottom"
         android:visibility="gone"
         />
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
->>>>>>> 57bc024f30948b18ede711fbd0d410f145c5e1bf
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab2"
         android:layout_width="wrap_content"
