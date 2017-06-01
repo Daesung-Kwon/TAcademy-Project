@@ -1,30 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     >
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/profile_cart_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:background="?attr/colorPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         />
 
-    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_below="@+id/profile_cart_toolbar"
-        android:id="@+id/profile_cart_recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorCartBackDark" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical">
+    <android.support.v7.widget.RecyclerView
+    android:id="@+id/profile_cart_recyclerview"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:background="@color/colorCartBackDark"
+    />
 
         <TextView
             android:id="@+id/profile_cart_totalprice"
@@ -43,5 +38,5 @@
             android:text="CHECK OUT"
             android:background="@color/colorRed"/>
 
-    </LinearLayout>
-</RelativeLayout>
+
+</LinearLayout>

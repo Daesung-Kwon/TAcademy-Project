@@ -31,7 +31,8 @@ public class TabFragment3 extends android.support.v4.app.Fragment implements Vie
     LinearLayout terms;
     LinearLayout customerSupport;
 
-    ImageView backImage;
+    //ImageView backImage;
+    LinearLayout backImage;
     CircleImageView profileImage;
     ImageView settingBtn;
     TextView nickname, email, tag;
@@ -51,7 +52,7 @@ public class TabFragment3 extends android.support.v4.app.Fragment implements Vie
         customerSupport = (LinearLayout) view.findViewById(R.id.profile_customerlayout);
 
         myProfile = view.findViewById(R.id.profile_myprofile);
-        backImage = (ImageView)myProfile.findViewById(R.id.profile_backimage);
+        backImage = (LinearLayout)myProfile.findViewById(R.id.profile_backimage);
         profileImage = (CircleImageView) myProfile.findViewById(R.id.profile_circleimage);
         settingBtn = (ImageView)myProfile.findViewById(R.id.profile_editbtn_profile);
         nickname = (TextView)myProfile.findViewById(R.id.profile_nickname);
@@ -59,10 +60,11 @@ public class TabFragment3 extends android.support.v4.app.Fragment implements Vie
         tag = (TextView)myProfile.findViewById(R.id.profile_tag);
 
         reservationlist.setOnClickListener(this);
+        favorites.setOnClickListener(this);
         settingBtn.setOnClickListener(this);
         cart.setOnClickListener(this);
 
-        backImage.setImageResource(R.drawable.background);
+        backImage.setBackgroundResource(R.drawable.background);
         profileImage.setImageResource(R.mipmap.ic_launcher);
         settingBtn.setImageResource(R.drawable.ic_setting);
         nickname.setText("Kim Yong");
@@ -82,9 +84,15 @@ public class TabFragment3 extends android.support.v4.app.Fragment implements Vie
                 startActivity(intent);
                 break;
             case R.id.profile_reservationlayout:
+                intent = new Intent(getContext(),ProfileReservationActivity.class);
+                startActivity(intent);
                 break;
             case R.id.profile_cartlayout:
                 intent = new Intent(getContext(),ProfileCartActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.profile_favoriteslayout:
+                intent = new Intent(getContext(),ProfileFavoritesActivity.class);
                 startActivity(intent);
                 break;
             default:

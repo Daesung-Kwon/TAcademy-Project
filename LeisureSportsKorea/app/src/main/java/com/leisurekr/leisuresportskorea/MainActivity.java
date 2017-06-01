@@ -3,6 +3,7 @@ package com.leisurekr.leisuresportskorea;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -24,6 +25,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
+import com.leisurekr.leisuresportskorea.ticket.TicketActivity;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
 
     private View searchView;
-    private FloatingActionButton searchButton;
+    //private FloatingActionButton searchButton;
     boolean flag = false;
     CoordinatorLayout coordinatorLayout;
     PopupWindow popupWindow;
@@ -54,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 if (searchView.getVisibility() == View.GONE) {
                     Log.i("검색test1111", "false = > true");
                     searchView.setVisibility(View.VISIBLE);
-                    searchButton.setVisibility(View.VISIBLE);
+                    //searchButton.setVisibility(View.VISIBLE);
                     //popupWindow.setAnimationStyle(-1);
                     //popupWindow.showAsDropDown(toolbar);
                     //popupWindow.showAtLocation(coordinatorLayout, Gravity.CENTER,0,0);
@@ -62,13 +65,14 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Log.i("검색test", "true = > false");
                     searchView.setVisibility(View.GONE);
-                    searchButton.setVisibility(View.GONE);
+                    //searchButton.setVisibility(View.GONE);
                     //popupWindow.dismiss();
                     flag = false;
                 }
                 return true;
             case R.id.action_settings:
-                //openSettings();
+                Intent intent = new Intent(getApplicationContext(),TicketActivity.class);
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -94,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         popupWindow = new PopupWindow(searchView,1000,500,true);*/
 
         searchView = findViewById(R.id.search_view);
-        searchButton = (FloatingActionButton) findViewById(R.id.search_actionbtn);
+        //searchButton = (FloatingActionButton) findViewById(R.id.search_actionbtn);
 
         // Floating Action Button
         fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -113,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Tab Layout
         tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setSelectedTabIndicatorColor(Color.WHITE);
         tabLayout.addTab(tabLayout.newTab().setCustomView(R.layout.tap_homeimage_view));
         tabLayout.addTab(tabLayout.newTab().setCustomView(R.layout.tap_shopimage_view));
         tabLayout.addTab(tabLayout.newTab().setCustomView(R.layout.tap_mypageimage_view));
@@ -207,10 +212,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 57bc024f30948b18ede711fbd0d410f145c5e1bf
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             Transition exitTrans = new Explode(); // Fade(), Slide()
@@ -220,16 +222,14 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-<<<<<<< HEAD
-=======
-        @Override
-        protected void onResume() {
-            super.onResume();
-            checkPermission();
-        }
->>>>>>> 57bc024f30948b18ede711fbd0d410f145c5e1bf
 
-        private final int MY_PERMISSION_REQUEST_LOCATION = 100;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkPermission();
+    }
+
+    private final int MY_PERMISSION_REQUEST_LOCATION = 100;
 
     private void checkPermission() {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

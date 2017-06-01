@@ -3,11 +3,16 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="colorPartition">#A6A6A6</color>
-    <color name="colorCartBackDark">#747474</color>
-    <color name="colorCartBackMedium">#D5D5D5</color>
+    <color name="colorPartition">#D5D5D5</color>
+    <color name="colorCartBackDark">#838383</color>
+    <color name="colorCartBackGray">#D5D5D5</color>
+    <color name="colorCartBackMedium">#a9a9a9</color>
+    <color name="colorCartBackLightGray">#ebebeb</color>
     <color name="colorCartBackWhite">#ffffff</color>
-    <color name="colorRed">@android:color/holo_red_dark</color>
+    <color name="colorRed">#f01f1b</color>
+    <color name="colorLightBule">#D9E5FF</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorBule">#334aff</color>
 
 
 
