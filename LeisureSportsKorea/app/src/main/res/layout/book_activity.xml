@@ -120,6 +120,7 @@
                 android:paddingLeft="@dimen/book_leftPadding">
 
                 <TextView
+                    android:id="@+id/book_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -158,6 +159,7 @@
                 android:paddingLeft="@dimen/book_leftPadding">
 
                 <TextView
+                    android:id="@+id/book_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"

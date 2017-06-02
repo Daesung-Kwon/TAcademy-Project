@@ -39,7 +39,6 @@
 
         <activity android:name=".profile.ProfileReservationActivity" />
         <activity android:name=".profile.ReservationDetailActivity" />
-        <activity android:name=".ticket.TicketItemFragment" />
         <activity android:name=".ticket.TicketActivity" />
         <activity android:name=".BookActivity" />
         <activity android:name=".BookInformationActivity" />

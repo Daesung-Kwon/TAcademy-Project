@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,7 +23,9 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
     TextView price;
 
     Button datePopupBtn;
+    TextView date;
     Button timePopupBtn;
+    TextView time;
 
     TextView currentAdult;
     Button subAdult;
@@ -38,6 +41,8 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
 
     Button addToCartBtn;
     Button checkOutBtn;
+
+    DatePicker datePicker;
 
     int adult = 1;
     int children = 0;
@@ -66,7 +71,9 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
         price = (TextView) findViewById(R.id.book_price);
 
         datePopupBtn = (Button) findViewById(R.id.book_datepopup);
+        date = (TextView) findViewById(R.id.book_date);
         timePopupBtn = (Button) findViewById(R.id.book_timepopup);
+        time = (TextView) findViewById(R.id.book_time);
 
         currentAdult = (TextView) findViewById(R.id.book_currentadult);
         subAdult = (Button) findViewById(R.id.book_subadult);
@@ -84,7 +91,7 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
         checkOutBtn = (Button) findViewById(R.id.book_checkout);
 
         activityImage.setBackgroundResource(object.getActivityImage());
-        title1.setText(object.getShopName()+"'s");
+        title1.setText(object.getShopName() + "'s");
         title2.setText(object.getText1());
         title3.setText(object.getText2());
         price.setText("$" + object.getPrice());
@@ -101,7 +108,8 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
         addAdult.setOnClickListener(this);
         subChildren.setOnClickListener(this);
         addChildren.setOnClickListener(this);
-
+        datePopupBtn.setOnClickListener(this);
+        timePopupBtn.setOnClickListener(this);
 
     }
 
@@ -122,11 +130,11 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
                     new AlertDialog.Builder(BookActivity.this)
                             .setTitle("Yon must book more than 1 Adult")
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
 
-                        }
-                    }).show();
+                                }
+                            }).show();
                 }
                 s = "Adult " + adult + " $" + (adult * adultPrice);
                 currentAdult.setText(s);
@@ -152,6 +160,16 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
                     s = "Children " + children + " $" + (children * childrenPrice);
                 currentChildren.setText(s);
                 currentNumberChildren.setText(Integer.toString(children));
+                break;
+            case R.id.book_datepopup:
+                CalenderDialog cd = new CalenderDialog(BookActivity.this);
+                cd.setDate(date,0);
+                cd.show();
+                break;
+            case R.id.book_timepopup:
+                TimeDialog td = new TimeDialog(BookActivity.this);
+                td.setDate(time);
+                td.show();
                 break;
         }
 
