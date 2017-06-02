@@ -3,7 +3,43 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="profile_marginRight">20dp</dimen>
-    <dimen name="profile_marginLeft">15dp</dimen>
+
+    <!--Profile 화면-->
+    <dimen name="list_groupNameSize">14sp</dimen>
+    <dimen name="list_textSize">16sp</dimen>
+    <dimen name="list_height">48dp</dimen>
+    <dimen name="list_iconWidth">24dp</dimen>
+    <dimen name="list_iconHeight">24dp</dimen>
+    <dimen name="profile_marginRight">32dp</dimen>
+    <dimen name="profile_marginLeft">16dp</dimen>
+
+    <!--Profile 수정 화면-->
+    <dimen name="profile_edit_marginRight">5dp</dimen>
+    <dimen name="profile_edit_marginLeft">5dp</dimen>
+    <dimen name="profile_edit_marginBottom">15dp</dimen>
+
+    <!--Profile Cart화면-->
+    <dimen name="profile_cart_marginRight">10dp</dimen>
+    <dimen name="profile_cart_marginLeft">5dp</dimen>
+    <dimen name="profile_cart_marginLeftText">20dp</dimen>
+    <dimen name="profile_cart_marginBottom">15dp</dimen>
+
+    <!--Profile Reservation화면-->
+    <dimen name="profile_reservation_marginRight">10dp</dimen>
+    <dimen name="profile_reservation_marginLeft">5dp</dimen>
+    <dimen name="profile_reservation_marginLeftText">20dp</dimen>
+    <dimen name="profile_reservation_marginBottom">5dp</dimen>
+    <dimen name="profile_reservation_height">215dp</dimen>
+
+    <!--Book화면-->
+    <dimen name="book_leftPadding">10dp</dimen>
+    <dimen name="book_listHeight">48dp</dimen>
+    <dimen name="book_listimageWidth">150dp</dimen>
+    <dimen name="book_listimageHeight">150dp</dimen>
+    <dimen name="book_titleMarginLeft">10dp</dimen>
+    <dimen name="book_priceMarginRight">8dp</dimen>
+    <dimen name="book_priceSize">20sp</dimen>
+    <dimen name="book_titleSize">18sp</dimen>
+    <dimen name="book_textSize">15sp</dimen>
 
 </resources>

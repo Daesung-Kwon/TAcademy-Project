@@ -4,32 +4,36 @@
     android:layout_height="match_parent"
     >
 
-    <ImageView
+    <LinearLayout
         android:id="@+id/profile_backimage"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        />
+        android:layout_height="150dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:id="@+id/profile_circleimage"
-        android:layout_centerInParent="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="90dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/profile_backimage"
         android:orientation="vertical"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="17dp"
+        android:gravity="center_horizontal"
         >
         <ImageView
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
             android:id="@+id/profile_editbtn_profile"
             android:layout_gravity="right|center_vertical"
+
             />
         <TextView
             android:layout_width="wrap_content"

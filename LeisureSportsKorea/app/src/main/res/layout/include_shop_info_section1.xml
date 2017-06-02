@@ -53,7 +53,7 @@
                         android:scaleType="centerCrop"/>
                 </ViewFlipper>
 
-                <com.mobile.shopdetailactivity.CircleAnimIndicator
+                <com.leisurekr.leisuresportskorea.home.CircleAnimIndicator
                     android:id="@+id/shop_info_flipper_indicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="50dp">
 
-                </com.mobile.shopdetailactivity.CircleAnimIndicator>
+                </com.leisurekr.leisuresportskorea.home.CircleAnimIndicator>
 
                 <ImageView
                     android:id="@+id/favorite_item_icon"

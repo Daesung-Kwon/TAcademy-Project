@@ -63,7 +63,14 @@ public class TabFragment1 extends android.support.v4.app.Fragment {
         adverticeImage2 = (ImageView) advertice.findViewById(R.id.home_image2_ad);
         adverticeImage3 = (ImageView) advertice.findViewById(R.id.home_image3_ad);
         adverticeImage4 = (ImageView) advertice.findViewById(R.id.home_image4_ad);
+
+        adverticeImage1.setImageResource(R.drawable.exo_all);
+        adverticeImage2.setImageResource(R.drawable.girls_generation_all);
+        adverticeImage3.setImageResource(R.drawable.exo_all);
+        adverticeImage4.setImageResource(R.drawable.girls_generation_all);
+
         viewFlipper = (ViewFlipper) advertice.findViewById(R.id.home_viewflipper_ad);
+
         circleAnimIndicator = (CircleAnimIndicator) advertice.findViewById(R.id.home_advertice_indicator);
         previous = (Button) advertice.findViewById(R.id.home_prevbtn_ad);
         next = (Button) advertice.findViewById(R.id.home_nextbtn_ad);
@@ -103,15 +110,15 @@ public class TabFragment1 extends android.support.v4.app.Fragment {
         activityImage5 = new ActivityImageObject(recommendActivity.findViewById(R.id.home_activity_image5));
 
         groupActivityName.setText("Recommend Activity");
-        activityImage1.setData(R.drawable.girls_generation_tifany,R.drawable.f,
+        activityImage1.setData(R.drawable.activityimagelight,R.drawable.f,
                 "Water ski","River city's water ski","Beginer Lesson Package",300);
-        activityImage2.setData(R.drawable.girls_generation_tifany,R.drawable.f,
+        activityImage2.setData(R.drawable.activityimagelight,R.drawable.f,
                 "Water ski","River city's water ski","Beginer Lesson Package",300);
-        activityImage3.setData(R.drawable.girls_generation_tifany,R.drawable.f,
+        activityImage3.setData(R.drawable.activityimagelight,R.drawable.f,
                 "Water ski","River city's water ski","Beginer Lesson Package",300);
-        activityImage4.setData(R.drawable.girls_generation_tifany,R.drawable.f,
+        activityImage4.setData(R.drawable.activityimagelight,R.drawable.f,
                 "Water ski","River city's water ski","Beginer Lesson Package",300);
-        activityImage5.setData(R.drawable.girls_generation_tifany,R.drawable.f,
+        activityImage5.setData(R.drawable.activityimagelight,R.drawable.f,
                 "Water ski","River city's water ski","Beginer Lesson Package",300);
 
 
@@ -123,14 +130,6 @@ public class TabFragment1 extends android.support.v4.app.Fragment {
         shopImage3 = (ImageView) bestshop.findViewById(R.id.home_image3_shop);
         shopImage4 = (ImageView) bestshop.findViewById(R.id.home_image4_shop);
         shopImage5 = (ImageView) bestshop.findViewById(R.id.home_image5_shop);
-
-        adverticeImage1.setImageResource(R.drawable.exo_all);
-        adverticeImage2.setImageResource(R.drawable.girls_generation_all);
-        adverticeImage3.setImageResource(R.drawable.exo_all);
-        adverticeImage4.setImageResource(R.drawable.girls_generation_all);
-
-
-
 
         groupShopName.setText("Best Shop");
         shopImage1.setImageResource(R.drawable.girls_generation_tifany);

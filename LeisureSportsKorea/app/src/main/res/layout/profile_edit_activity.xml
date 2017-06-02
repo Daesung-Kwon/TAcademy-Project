@@ -3,25 +3,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.leisurekr.leisuresportskorea.profile.ProfileEditActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.leisurekr.leisuresportskorea.profile.ProfileEditActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/profile_edit_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/profile_edit_marginBottom"
         android:layout_weight="2">
+
         <ImageView
+            android:id="@+id/profile_edit_backimage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/profile_edit_backimage"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop" />
 
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_edit_circleimage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/profile_edit_circleimage"
             android:layout_alignBottom="@+id/profile_edit_backimage"
-            android:layout_alignParentLeft="true"/>
+            android:layout_alignParentLeft="true" />
     </RelativeLayout>
 
     <LinearLayout
@@ -29,44 +39,90 @@
         android:layout_height="0dp"
         android:layout_weight="6"
         android:orientation="vertical">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true">
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="name"/>
+            android:layout_marginBottom="@dimen/profile_edit_marginBottom"
+            android:hint="name" />
+        </android.support.design.widget.TextInputLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/profile_edit_marginBottom"
+            android:layout_marginLeft="@dimen/profile_edit_marginLeft"
+            android:layout_marginRight="@dimen/profile_edit_marginRight">
+
             <android.support.v7.widget.AppCompatSpinner
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></android.support.v7.widget.AppCompatSpinner>
-            <android.support.design.widget.TextInputEditText
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="age"/>
+                android:layout_weight="1"
+                android:entries="@array/Nationality" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_centerHorizontal="true">
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="age"
+                android:inputType="number"/>
+            </android.support.design.widget.TextInputLayout>
         </LinearLayout>
 
         <android.support.v7.widget.AppCompatSpinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></android.support.v7.widget.AppCompatSpinner>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/profile_edit_marginBottom"
+            android:layout_marginLeft="@dimen/profile_edit_marginLeft"
+            android:layout_marginRight="@dimen/profile_edit_marginRight"
+            android:entries="@array/Sex" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:background="@color/colorPartition"></LinearLayout>
+            android:layout_height="10dp"
+            android:layout_marginBottom="@dimen/profile_edit_marginBottom"
+            android:background="@color/colorPartition" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Email"/>
+            android:layout_marginBottom="@dimen/profile_edit_marginBottom"
+            android:layout_marginLeft="@dimen/profile_edit_marginLeft"
+            android:layout_marginRight="@dimen/profile_edit_marginRight"
+            android:text="Email"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="18dp"
+            android:elevation="5dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="@dimen/profile_edit_marginBottom"
+            android:background="@color/colorPartition" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Connected with SNS"/>
+            android:layout_marginBottom="@dimen/profile_edit_marginBottom"
+            android:layout_marginLeft="@dimen/profile_edit_marginLeft"
+            android:layout_marginRight="@dimen/profile_edit_marginRight"
+            android:text="Connected with SNS"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="18dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="@dimen/profile_edit_marginBottom"
+            android:background="@color/colorPartition" />
     </LinearLayout>
-
-
-
-
 </LinearLayout>

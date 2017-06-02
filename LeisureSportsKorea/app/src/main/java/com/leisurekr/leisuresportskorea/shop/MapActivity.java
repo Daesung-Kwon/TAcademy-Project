@@ -3,11 +3,10 @@ package com.leisurekr.leisuresportskorea.shop;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.support.v7.widget.Toolbar;
 
 import com.leisurekr.leisuresportskorea.R;
-
 
 /**
  * Created by mobile on 2017. 5. 26..
@@ -25,13 +24,10 @@ public class MapActivity extends AppCompatActivity {
 
         // View Pager
         viewPager = (ViewPager) findViewById(R.id.map_viewpager);
+
         toolbar = (Toolbar) findViewById(R.id.map_toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle("Shop Location on Map");
-
-        /*actionBar = (ActionBar) findViewById(R.id.appbar);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("Shop Info. On Map");*/
 
         // Adapter For View Pager
         MapPagerAdapter mapPagerAdapter = new MapPagerAdapter(getSupportFragmentManager());

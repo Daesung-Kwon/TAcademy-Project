@@ -15,7 +15,7 @@
             android:id="@+id/advertice"
             layout="@layout/home_fragment_advertice"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="360dp"
 
             />
 
@@ -23,16 +23,17 @@
             android:id="@+id/recommendactivity"
             layout="@layout/home_fragment_activity"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="260dp"
+            android:layout_marginTop="21dp"
             />
 
         <include
             android:id="@+id/bestshop"
             layout="@layout/home_fragment_shop"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="295dp"
+            android:layout_marginTop="21dp"
+            android:layout_marginBottom="26dp"
             />
 
     </LinearLayout>

@@ -13,6 +13,7 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.leisurekr.leisuresportskorea.BookActivity;
 import com.leisurekr.leisuresportskorea.R;
 
 import java.util.ArrayList;
@@ -125,7 +126,7 @@ public class ShopProgramFragment extends Fragment {
                     /**
                      * TODO : Intent 주석 해제, 클래스 명 aaa.class 변경
                      */
-                    Intent bookIntent = new Intent(getActivity(), WriteReviewActivity.class);
+                    Intent bookIntent = new Intent(getActivity(), BookActivity.class);
                     startActivity(bookIntent);
                 }
             });

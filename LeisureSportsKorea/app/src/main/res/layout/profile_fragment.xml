@@ -13,7 +13,7 @@
             android:id="@+id/profile_myprofile"
             layout="@layout/profile_myprofile"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="300dp" />
 
 
         <LinearLayout
@@ -23,123 +23,150 @@
 
 
         <!--          Group My Page                              -->
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="My Page"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="@dimen/profile_marginLeft"/>
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="22dp"
+                android:layout_marginLeft="@dimen/profile_marginLeft"
+                android:layout_marginTop="21dp"
+                android:text="My Page"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
+                android:textSize="@dimen/list_groupNameSize" />
+        </LinearLayout>
+
 
         <LinearLayout
             android:id="@+id/profile_reservationlayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/list_height"
             android:layout_marginBottom="8dp"
-            >
+            android:gravity="center_vertical">
+
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_list"
+                android:layout_width="@dimen/list_iconWidth"
+                android:layout_height="@dimen/list_iconHeight"
+                android:layout_marginLeft="@dimen/profile_marginLeft"
                 android:layout_marginRight="@dimen/profile_marginRight"
-                android:layout_marginLeft="@dimen/profile_marginLeft"/>
+                android:src="@drawable/ic_list" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Reservation list"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
-                android:textSize="18sp"/>
+                android:textSize="@dimen/list_textSize" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/profile_cartlayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp">
+            android:layout_height="@dimen/list_height"
+            android:layout_marginBottom="8dp"
+            android:gravity="center_vertical">
+
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_cart"
+                android:layout_width="@dimen/list_iconWidth"
+                android:layout_height="@dimen/list_iconHeight"
+                android:layout_marginLeft="@dimen/profile_marginLeft"
                 android:layout_marginRight="@dimen/profile_marginRight"
-                android:layout_marginLeft="@dimen/profile_marginLeft"/>
+                android:src="@drawable/ic_cart" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Cart"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
-                android:textSize="18sp"/>
+                android:textSize="@dimen/list_textSize" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/profile_favoriteslayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp">
+            android:layout_height="@dimen/list_height"
+            android:layout_marginBottom="8dp"
+            android:gravity="center_vertical">
+
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_favor"
+                android:layout_width="@dimen/list_iconWidth"
+                android:layout_height="@dimen/list_iconHeight"
+                android:layout_marginLeft="@dimen/profile_marginLeft"
                 android:layout_marginRight="@dimen/profile_marginRight"
-                android:layout_marginLeft="@dimen/profile_marginLeft"/>
+                android:src="@drawable/ic_favor" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Favorites"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
-                android:textSize="18sp"/>
+                android:textSize="@dimen/list_textSize" />
         </LinearLayout>
 
         <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorPartition"></LinearLayout>
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPartition"></LinearLayout>
 
 
         <!--          Group Setting                              -->
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Setting"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="@dimen/profile_marginLeft"/>
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="22dp"
+                android:layout_marginLeft="@dimen/profile_marginLeft"
+                android:layout_marginTop="21dp"
+                android:text="Setting"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
+                android:textSize="@dimen/list_groupNameSize" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/profile_alarmlayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp">
+            android:layout_height="@dimen/list_height"
+            android:layout_marginBottom="8dp"
+            android:gravity="center_vertical">
+
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_alarm"
+                android:layout_width="@dimen/list_iconWidth"
+                android:layout_height="@dimen/list_iconHeight"
+                android:layout_marginLeft="@dimen/profile_marginLeft"
                 android:layout_marginRight="@dimen/profile_marginRight"
-                android:layout_marginLeft="@dimen/profile_marginLeft"/>
+                android:src="@drawable/ic_alarm" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Setting for push alarm"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
-                android:textSize="18sp"/>
+                android:textSize="@dimen/list_textSize" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/profile_logoutlayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp">
+            android:layout_height="@dimen/list_height"
+            android:layout_marginBottom="8dp"
+            android:gravity="center_vertical">
+
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_logout"
+                android:layout_width="@dimen/list_iconWidth"
+                android:layout_height="@dimen/list_iconHeight"
+                android:layout_marginLeft="@dimen/profile_marginLeft"
                 android:layout_marginRight="@dimen/profile_marginRight"
-                android:layout_marginLeft="@dimen/profile_marginLeft"/>
+                android:src="@drawable/ic_logout" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Log Out"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
-                android:textSize="18sp"/>
+                android:textSize="@dimen/list_textSize" />
         </LinearLayout>
 
 
@@ -149,69 +176,84 @@
             android:background="@color/colorPartition"></LinearLayout>
 
         <!--          Group Customer Service Canter                              -->
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Customer Service Canter"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="@dimen/profile_marginLeft"/>
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="22dp"
+                android:layout_marginLeft="@dimen/profile_marginLeft"
+                android:layout_marginTop="21dp"
+                android:text="Customer Service Canter"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
+                android:textSize="@dimen/list_groupNameSize" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/profile_aboutuslayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp">
+            android:layout_height="@dimen/list_height"
+            android:layout_marginBottom="8dp"
+            android:gravity="center_vertical">
+
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_about"
+                android:layout_width="@dimen/list_iconWidth"
+                android:layout_height="@dimen/list_iconHeight"
+                android:layout_marginLeft="@dimen/profile_marginLeft"
                 android:layout_marginRight="@dimen/profile_marginRight"
-                android:layout_marginLeft="@dimen/profile_marginLeft"/>
+                android:src="@drawable/ic_about" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="About Us"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
-                android:textSize="18sp"/>
+                android:textSize="@dimen/list_textSize" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/profile_termslayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp">
+            android:layout_height="@dimen/list_height"
+            android:layout_marginBottom="8dp"
+            android:gravity="center_vertical">
+
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_terms"
+                android:layout_width="@dimen/list_iconWidth"
+                android:layout_height="@dimen/list_iconHeight"
+                android:layout_marginLeft="@dimen/profile_marginLeft"
                 android:layout_marginRight="@dimen/profile_marginRight"
-                android:layout_marginLeft="@dimen/profile_marginLeft"/>
+                android:src="@drawable/ic_terms" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Terms and Policies"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
-                android:textSize="18sp"/>
+                android:textSize="@dimen/list_textSize" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/profile_customerlayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp">
+            android:layout_height="@dimen/list_height"
+            android:layout_marginBottom="8dp"
+            android:gravity="center_vertical">
+
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_custom"
+                android:layout_width="@dimen/list_iconWidth"
+                android:layout_height="@dimen/list_iconHeight"
+                android:layout_marginLeft="@dimen/profile_marginLeft"
                 android:layout_marginRight="@dimen/profile_marginRight"
-                android:layout_marginLeft="@dimen/profile_marginLeft"/>
+                android:src="@drawable/ic_custom" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Customer Support"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
-                android:textSize="18sp"/>
+                android:textSize="@dimen/list_textSize" />
         </LinearLayout>
     </LinearLayout>
 

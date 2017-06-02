@@ -3,39 +3,43 @@
     android:id="@+id/activity_linear"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="160dp"
+    android:layout_height="213dp"
     android:gravity="center_horizontal"
-
     >
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/activity_icon"/>
+        android:id="@+id/activity_icon"
+        />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/activity_name"
-        android:textColor="#ffffff"/>
+        android:textColor="#ffffff"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/activity_description1"
+        android:textSize="10sp"
         android:textColor="#ffffff"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/activity_description2"
+        android:textSize="10sp"
         android:textColor="#ffffff"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/activity_price"
+        android:textSize="10sp"
         android:textColor="#ffffff"/>
 
 

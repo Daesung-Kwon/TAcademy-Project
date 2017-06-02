@@ -3,9 +3,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@android:color/holo_red_dark</item>
-        <item name="colorPrimaryDark">@android:color/holo_red_light</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">#f01f1b</item>
+        <item name="colorPrimaryDark">#d32f2f</item>
+        <item name="colorAccent">#f01f1b</item>
     </style>
 
     <style name="ReviewListTheme" parent="Theme.AppCompat.Light.NoActionBar">
