@@ -1,11 +1,10 @@
-package com.leisurekr.leisuresportskorea;
+package com.leisurekr.leisuresportskorea.shop;
 
-import android.media.Image;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,12 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.leisurekr.leisuresportskorea.LKApplication;
+import com.leisurekr.leisuresportskorea.MainActivity;
+import com.leisurekr.leisuresportskorea.R;
+import com.leisurekr.leisuresportskorea.shop_detail.ShopDetailActivity;
 
 import java.util.ArrayList;
 
@@ -46,7 +51,6 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
             shopImages = resources;
             slideInAnimation = AnimationUtils.loadAnimation(owner, android.R.anim.slide_in_left);
         }
-
         public static class ViewHolder extends RecyclerView.ViewHolder {
             public final View mView;
             public final ImageView mShopMainImage;
@@ -65,16 +69,14 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
                 mShopRating = (TextView) view.findViewById(R.id.shop_rating_text);
             }
         }
-
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(
                     R.layout.tab_fragment_2_item, parent, false);
             return new ViewHolder(view);
         }
-
         @Override
-        public void onBindViewHolder(TabFragment2RVAdapter.ViewHolder holder, int position) {
+        public void onBindViewHolder(final TabFragment2RVAdapter.ViewHolder holder, int position) {
             Integer shopImageInfo = shopImages.get(position); // main image;
             Integer shopCircleImageInfo = shopImages.get(position); // circle image;
             holder.mShopName.setText("LK Shop");
@@ -84,6 +86,16 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
             holder.mShopMainImage.setImageResource(R.drawable.exo_all);
             holder.mShopCircleImage.setImageResource(shopCircleImageInfo.intValue());
             holder.mShopCircleImage.startAnimation(slideInAnimation);
+            Log.i("Test", "test1");
+            holder.mView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.i("Test", "test2");
+                    Toast.makeText(v.getContext(), "Test", Toast.LENGTH_SHORT).show();
+                    Intent shopDetailIntent = new Intent(v.getContext(), ShopDetailActivity.class);
+                    owner.startActivity(shopDetailIntent);
+                }
+            });
         }
 
         @Override

@@ -61,7 +61,7 @@
         android:layout_gravity="bottom|end"
         android:layout_marginRight="@dimen/fab_margin"
         android:visibility="invisible"
-        app:backgroundTint="@android:color/holo_blue_dark"
+        app:backgroundTint="@color/floatingBlue"
         app:elevation="6dp"
         app:pressedTranslationZ="12dp"
         android:src="@android:drawable/ic_dialog_map" />
@@ -74,18 +74,30 @@
         android:layout_marginRight="@dimen/fab_margin"
         android:visibility="invisible"
         app:elevation="6dp"
-        app:backgroundTint="@android:color/holo_blue_dark"
+        app:backgroundTint="@color/floatingBlue"
         app:pressedTranslationZ="12dp"
         android:src="@android:drawable/ic_dialog_map" />
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        app:elevation="6dp"
-        app:backgroundTint="@android:color/holo_blue_bright"
-        app:pressedTranslationZ="12dp"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_menu_info_details" />
+        android:layout_gravity="bottom|end">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            app:elevation="6dp"
+            app:backgroundTint="@color/floatingBlue"
+            app:pressedTranslationZ="12dp"
+            android:layout_margin="@dimen/fab_margin" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="MORE"
+            android:textColor="@color/colorCartBackWhite"
+            android:elevation="7dp"/>
+
+    </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>

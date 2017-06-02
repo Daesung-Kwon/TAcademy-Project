@@ -1,13 +1,12 @@
-package com.leisurekr.leisuresportskorea;
+package com.leisurekr.leisuresportskorea.shop;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.app.FragmentManager;
-import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+
+import com.leisurekr.leisuresportskorea.R;
 
 
 /**

@@ -24,6 +24,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
+import com.leisurekr.leisuresportskorea.shop.FilterActivity;
+import com.leisurekr.leisuresportskorea.shop.MapActivity;
+
 
 public class MainActivity extends AppCompatActivity {
 

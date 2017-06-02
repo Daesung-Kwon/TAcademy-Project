@@ -76,12 +76,9 @@ public class CircleAnimIndicator extends LinearLayout {
             imageDot[i].setTag(imageDot[i].getId(), false);
             this.addView(imageDot[i]);
         }
-
-
         //첫인덱스 선택
         selectDot(0);
     }
-
 
     /**
      * 선택된 점 표시
@@ -103,7 +100,6 @@ public class CircleAnimIndicator extends LinearLayout {
         }
     }
 
-
     /**
      * 선택된 점의 애니메이션
      * @param view
@@ -121,7 +117,6 @@ public class CircleAnimIndicator extends LinearLayout {
         view.startAnimation(anim);
         view.setTag(view.getId(),true);
     }
-
 
     /**
      * 선택되지 않은 점의 애니메이션

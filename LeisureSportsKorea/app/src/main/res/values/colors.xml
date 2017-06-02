@@ -8,7 +8,10 @@
     <color name="colorCartBackMedium">#D5D5D5</color>
     <color name="colorCartBackWhite">#ffffff</color>
     <color name="colorRed">@android:color/holo_red_dark</color>
-
-
-
+    <color name="statusbarRed">#ba1b15</color>
+    <color name="toolbarRed">#f01f1b</color>
+    <color name="tapRed">#f01f1b</color>
+    <color name="rating">#f01f1b</color>
+    <color name="buttonRed">#d32f2f</color>
+    <color name="floatingBlue">#334aff</color>
 </resources>

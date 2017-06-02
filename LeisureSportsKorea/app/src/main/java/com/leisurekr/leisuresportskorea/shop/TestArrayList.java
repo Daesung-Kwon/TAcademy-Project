@@ -1,4 +1,6 @@
-package com.leisurekr.leisuresportskorea;
+package com.leisurekr.leisuresportskorea.shop;
+
+import com.leisurekr.leisuresportskorea.R;
 
 import java.util.ArrayList;
 import java.util.Collections;

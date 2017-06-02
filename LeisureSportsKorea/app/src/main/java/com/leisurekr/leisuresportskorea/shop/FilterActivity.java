@@ -1,4 +1,4 @@
-package com.leisurekr.leisuresportskorea;
+package com.leisurekr.leisuresportskorea.shop;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.leisurekr.leisuresportskorea.R;
 
 /**
  * Created by mobile on 2017. 5. 29..

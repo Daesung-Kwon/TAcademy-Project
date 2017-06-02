@@ -1,10 +1,10 @@
-package com.leisurekr.leisuresportskorea;
+package com.leisurekr.leisuresportskorea.shop;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.leisurekr.leisuresportskorea.MapCustomFragment;
+import com.leisurekr.leisuresportskorea.shop.MapCustomFragment;
 
 /**
  * Created by mobile on 2017. 5. 29..
