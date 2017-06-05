@@ -28,29 +28,38 @@
 
             <!--         맨위 글씨              -->
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Resercation Details" />
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Reservation Details"
+                android:layout_marginLeft="@dimen/bookInformation_textMarginLeft"
+                android:textSize="14sp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:layout_marginTop="20dp"/>
 
             <!--         첫 번째 줄   name            -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/bookInformation_textMarginTop">
 
                 <!--     아이콘     -->
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:src="@drawable/ic_about"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_name"
+                    android:layout_marginRight="@dimen/bookInformation_iconMarginRight"
+                    android:layout_marginLeft="@dimen/bookInformation_iconMarginLeft"/>
 
                 <!--       입력         -->
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:layout_weight="8">
+                    android:layout_weight="9"
+                    android:paddingLeft="@dimen/bookInformation_textPaddingLeft"
+                    android:paddingRight="@dimen/bookInformation_textPaddingRight">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/book_information_name"
@@ -64,20 +73,25 @@
             <!--         두 번째 줄 phone number             -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/bookInformation_textMarginTop">
 
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:src="@drawable/ic_custom"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_phone"
+                    android:layout_marginRight="@dimen/bookInformation_iconMarginRight"
+                    android:layout_marginLeft="@dimen/bookInformation_iconMarginLeft"/>
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:layout_weight="8">
+                    android:layout_weight="9"
+                    android:paddingLeft="@dimen/bookInformation_textPaddingLeft"
+                    android:paddingRight="@dimen/bookInformation_textPaddingRight">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/book_information_phonenumber"
@@ -91,20 +105,26 @@
             <!--         세번째 줄 email             -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/bookInformation_textMarginTop">
 
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:src="@drawable/ic_terms"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_email"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="@dimen/bookInformation_iconMarginRight"
+                    android:layout_marginLeft="@dimen/bookInformation_iconMarginLeft"/>
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:layout_weight="8">
+                    android:layout_weight="9"
+                    android:paddingLeft="@dimen/bookInformation_textPaddingLeft"
+                    android:paddingRight="@dimen/bookInformation_textPaddingRight">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/book_information_email"
@@ -119,7 +139,7 @@
                 android:id="@+id/book_information_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="@dimen/bookInformation_listMarginTop" />
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
@@ -128,9 +148,9 @@
         android:id="@+id/book_information_paypal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorBule"
         android:text="paypal"
-        android:textColor="@color/colorWhite"
-        android:background="@color/colorBule"/>
+        android:textColor="@color/colorWhite" />
 
 </LinearLayout>
 

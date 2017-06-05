@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/calender_title"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/colorRed"
+        android:paddingLeft="16dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_alarm"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Date"
+            android:textSize="20sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@color/colorWhite"/>
+    </LinearLayout>
+
+    <DatePicker
+        android:id="@+id/calender_pickerdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:calendarViewShown="true"
+        android:spinnersShown="false"
+        android:theme="@style/AppTheme"/>
+
+    <LinearLayout
+        android:id="@+id/calender_savelayout"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+        android:visibility="gone">
+        <Button
+            android:id="@+id/calender_save"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="save"/>
+    </LinearLayout>
+
+</LinearLayout>

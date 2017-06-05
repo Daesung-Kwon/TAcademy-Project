@@ -28,8 +28,11 @@
     <dimen name="profile_reservation_marginRight">10dp</dimen>
     <dimen name="profile_reservation_marginLeft">5dp</dimen>
     <dimen name="profile_reservation_marginLeftText">20dp</dimen>
-    <dimen name="profile_reservation_marginBottom">5dp</dimen>
+    <dimen name="profile_reservation_marginBottom">7dp</dimen>
     <dimen name="profile_reservation_height">215dp</dimen>
+
+    <!--Profile Resercation Detail화면-->
+    <dimen name="reservation_detail_iconMarginRight">10dp</dimen>
 
     <!--Book화면-->
     <dimen name="book_leftPadding">10dp</dimen>
@@ -45,5 +48,34 @@
     <!--공통-->
     <dimen name="margin_left_right">16dp</dimen>
     <dimen name="padding_left_right">16dp</dimen>
+
+    <!--Book Information화면-->
+    <dimen name="bookInformation_textMarginTop">11dp</dimen>
+    <dimen name="bookInformation_listMarginTop">31dp</dimen>
+    <dimen name="bookInformation_textPaddingRight">16dp</dimen>
+    <dimen name="bookInformation_textPaddingLeft">10dp</dimen>
+    <dimen name="bookInformation_iconMarginLeft">10dp</dimen>
+    <dimen name="bookInformation_iconMarginRight">18dp</dimen>
+    <dimen name="bookInformation_textMarginLeft">20dp</dimen>
+    <dimen name="bookInformation_textMarginRight">20dp</dimen>
+
+
+
+    <!--Home화면-->
+    <dimen name="home_activity_iconMarginTop">20dp</dimen>
+    <dimen name="home_activity_text1MarginTop">37dp</dimen>
+    <dimen name="home_activity_text2MarginTop">20dp</dimen>
+    <dimen name="home_activity_text3MarginTop">0dp</dimen>
+    <dimen name="home_activity_priceMarginTop">10dp</dimen>
+
+    <!--Ticket화면-->
+    <dimen name="ticket_textPaddingLeft">20dp</dimen>
+    <dimen name="ticket_textPaddingRigth">15dp</dimen>
+    <dimen name="ticket_iconMariginRight">15dp</dimen>
+    <dimen name="ticket_topTextSize">20sp</dimen>
+
+    <!--Guests Dialog화면-->
+    <dimen name="guests_marginLeft">20dp</dimen>
+    <dimen name="guests_marginRight">20dp</dimen>
 
 </resources>

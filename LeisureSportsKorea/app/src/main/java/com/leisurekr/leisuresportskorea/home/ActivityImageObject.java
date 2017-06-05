@@ -27,10 +27,18 @@ public class ActivityImageObject {
         activityDescrpption2 = (TextView) view.findViewById(R.id.activity_description2);
         activityPrice = (TextView) view.findViewById(R.id.activity_price);
     }
-    public void setData(int resid,int iconResid, String name, String description1
+    public void setData(int resid, String name, String description1
             , String description2, int price){
         view.setBackgroundResource(resid);
-        activityIcon.setImageResource(iconResid);
+        switch (name){
+            case "Water Ski":
+                activityIcon.setImageResource(R.drawable.icon_waterski);
+                break;
+            case "Fun Boat":
+                activityIcon.setImageResource(R.drawable.icon_funboat);
+                break;
+        }
+
         activityName.setText(name);
         activityDescrpption1.setText(description1);
         activityDescrpption2.setText(description2);

@@ -9,12 +9,14 @@
     >
 
     <ImageView
+        android:layout_marginTop="@dimen/home_activity_iconMarginTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/activity_icon"
         />
 
     <TextView
+        android:layout_marginTop="@dimen/home_activity_text1MarginTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/activity_name"
@@ -22,6 +24,7 @@
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
 
     <TextView
+        android:layout_marginTop="@dimen/home_activity_text2MarginTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/activity_description1"
@@ -29,6 +32,7 @@
         android:textColor="#ffffff"/>
 
     <TextView
+        android:layout_marginTop="@dimen/home_activity_text3MarginTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/activity_description2"
@@ -36,6 +40,7 @@
         android:textColor="#ffffff"/>
 
     <TextView
+        android:layout_marginTop="@dimen/home_activity_priceMarginTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/activity_price"

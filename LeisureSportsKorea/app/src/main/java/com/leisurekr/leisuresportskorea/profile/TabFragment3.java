@@ -64,8 +64,8 @@ public class TabFragment3 extends android.support.v4.app.Fragment implements Vie
         settingBtn.setOnClickListener(this);
         cart.setOnClickListener(this);
 
-        backImage.setBackgroundResource(R.drawable.background);
-        profileImage.setImageResource(R.mipmap.ic_launcher);
+        backImage.setBackgroundResource(R.drawable.pic_bg_surfing);
+        profileImage.setImageResource(R.drawable.ic_ma);
         settingBtn.setImageResource(R.drawable.ic_setting);
         nickname.setText("Kim Yong");
         email.setText("dlddldwkak@naver.com");

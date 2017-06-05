@@ -1,6 +1,7 @@
 package com.leisurekr.leisuresportskorea;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -10,6 +11,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.transition.Explode;
@@ -22,15 +24,24 @@ import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.leisurekr.leisuresportskorea.shop.FilterActivity;
 import com.leisurekr.leisuresportskorea.shop.MapActivity;
 import com.leisurekr.leisuresportskorea.ticket.TicketActivity;
 
+import static com.leisurekr.leisuresportskorea.R.id.action_search;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -39,13 +50,19 @@ public class MainActivity extends AppCompatActivity {
     private View searchView;
     //private FloatingActionButton searchButton;
     boolean flag = false;
-    CoordinatorLayout coordinatorLayout;
     PopupWindow popupWindow;
+    Menu topMenu;
+
+    MenuItem itemSearch;
+    MenuItem itemTicket;
+
+    String[] tabs = {"Leisure Korea", "Shop", "Profile"};
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
+        topMenu = menu;
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -55,29 +72,44 @@ public class MainActivity extends AppCompatActivity {
         Log.i("검색test", "클릭됨");
         // Handle presses on the action bar items
         switch (item.getItemId()) {
-            case R.id.action_search:
+            case action_search:
                 if (searchView.getVisibility() == View.GONE) {
                     Log.i("검색test1111", "false = > true");
                     searchView.setVisibility(View.VISIBLE);
-                    //searchButton.setVisibility(View.VISIBLE);
-                    //popupWindow.setAnimationStyle(-1);
-                    //popupWindow.showAsDropDown(toolbar);
-                    //popupWindow.showAtLocation(coordinatorLayout, Gravity.CENTER,0,0);
-                    flag = true;
-                } else {
-                    Log.i("검색test", "true = > false");
-                    searchView.setVisibility(View.GONE);
-                    //searchButton.setVisibility(View.GONE);
-                    //popupWindow.dismiss();
-                    flag = false;
+                    searchView.setClickable(true);
+
+                    toolbar.setTitle("Search");
+                    if (topMenu != null) {
+                        itemSearch = topMenu.findItem(R.id.action_search);
+                        itemTicket = topMenu.findItem(R.id.action_ticket);
+                        itemSearch.setVisible(false);
+                        itemTicket.setVisible(false);
+                        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                        //Intent in = new Intent(this, Search.class);
+                        //startActivity(in);
+
+                        flag = true;
+                    } else {
+                        Log.i("검색test", "true = > false");
+                        searchView.setVisibility(View.GONE);
+                        flag = false;
+                    }
                 }
                 return true;
-            case R.id.action_settings:
-                Intent intent = new Intent(getApplicationContext(),TicketActivity.class);
+            case R.id.action_ticket:
+                Intent intent = new Intent(getApplicationContext(), TicketActivity.class);
                 startActivity(intent);
+                return true;
+            case android.R.id.home:
+                searchView.setVisibility(View.GONE);
+                toolbar.setTitle(tabs[0]);
+                itemSearch.setVisible(true);
+                itemTicket.setVisible(true);
+                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+
         }
     }
 
@@ -87,6 +119,16 @@ public class MainActivity extends AppCompatActivity {
     Intent mapIntent;
     Intent filterIntent;
 
+    LinearLayout datelayout;
+    LinearLayout guestlayout;
+    LinearLayout locationlayout;
+
+    TextView date;
+    TextView guest;
+    TextView location;
+
+    FloatingActionButton searchBtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +136,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         searchView = findViewById(R.id.search_view);
+        datelayout = (LinearLayout) searchView.findViewById(R.id.search_datelayout);
+        guestlayout = (LinearLayout) searchView.findViewById(R.id.search_guestlayout);
+        locationlayout = (LinearLayout) searchView.findViewById(R.id.search_locationlayout);
+
+        date = (TextView) searchView.findViewById(R.id.search_date);
+        guest = (TextView) searchView.findViewById(R.id.search_guest);
+        location = (TextView) searchView.findViewById(R.id.search_location);
+
+        datelayout.setOnClickListener(this);
+        guestlayout.setOnClickListener(this);
+        locationlayout.setOnClickListener(this);
+
+        searchBtn = (FloatingActionButton) searchView.findViewById(R.id.search_searchbtn);
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         //searchButton = (FloatingActionButton) findViewById(R.id.search_actionbtn);
 
         // Floating Action Button
@@ -171,6 +232,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 int tabPosition = tab.getPosition();
+                toolbar.setTitle(tabs[tabPosition]);
+                if (topMenu != null) {
+                    itemSearch = topMenu.findItem(R.id.action_search);
+                    itemTicket = topMenu.findItem(R.id.action_ticket);
+                    if (tabPosition == 0) {
+                        itemSearch.setVisible(true);
+                        itemTicket.setVisible(true);
+                    } else {
+                        itemSearch.setVisible(false);
+                        itemTicket.setVisible(false);
+                    }
+                }
                 switch (tabPosition) {
                     case 0: {
                         fab.hide();
@@ -217,6 +290,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -280,6 +354,162 @@ public class MainActivity extends AppCompatActivity {
             fab1.setClickable(true);
             fab2.setClickable(true);
             isFabOpen = true;
+        }
+    }
+
+    LinearLayout title;
+    LinearLayout saveLayout;
+    Button saveBtn;
+    DatePicker datePicker;
+
+    ImageView subAdult;
+    TextView currentAdult;
+    ImageView addAdult;
+
+    ImageView subChildren;
+    TextView currentChildren;
+    ImageView addChildren;
+
+    int adult = 1;
+    int children = 0;
+
+    RadioGroup radioGroup;
+
+    @Override
+    public void onClick(View v) {
+        final View view;
+        switch (v.getId()) {
+            case R.id.search_datelayout:
+                view = View.inflate(MainActivity.this, R.layout.dialog_calender, null);
+
+                datePicker = (DatePicker) view.findViewById(R.id.calender_pickerdate);
+                datePicker.setDrawingCacheBackgroundColor(Color.RED);
+
+                new AlertDialog.Builder(MainActivity.this)
+                        .setView(view)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                int year = datePicker.getYear();
+                                int month = datePicker.getMonth() + 1;
+                                int day = datePicker.getDayOfMonth();
+                                date.setText(Integer.toString(year)
+                                        + "년 " + Integer.toString(month) + "월 " + Integer.toString(day) + "일");
+
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .show();
+
+
+                break;
+            case R.id.search_guestlayout:
+                view = View.inflate(MainActivity.this, R.layout.dialog_guests, null);
+
+
+                subAdult = (ImageView) view.findViewById(R.id.dialog_subadult);
+                currentAdult = (TextView) view.findViewById(R.id.dialog_currentadult);
+                addAdult = (ImageView) view.findViewById(R.id.dialog_addadult);
+                subChildren = (ImageView) view.findViewById(R.id.dialog_subchildren);
+                currentChildren = (TextView) view.findViewById(R.id.dialog_currentchildren);
+                addChildren = (ImageView) view.findViewById(R.id.dialog_addchildren);
+
+                currentAdult.setText("Adults "+adult);
+                currentChildren.setText("Children "+children);
+
+                SearchClickLisenter searchClickLisenter = new SearchClickLisenter();
+                subAdult.setOnClickListener(searchClickLisenter);
+                addAdult.setOnClickListener(searchClickLisenter);
+                subChildren.setOnClickListener(searchClickLisenter);
+                addChildren.setOnClickListener(searchClickLisenter);
+
+                new AlertDialog.Builder(MainActivity.this)
+                        .setView(view)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if(adult!=0&&children!=0)
+                                    guest.setText(currentAdult.getText().toString()
+                                            + "   " + currentChildren.getText().toString());
+                                else if(adult!=0)
+                                    guest.setText(currentAdult.getText().toString());
+                                else if(children!=0)
+                                    guest.setText(currentChildren.getText().toString());
+                                else
+                                    guest.setText("No. of Guests");
+
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .show();
+                break;
+            case R.id.search_locationlayout:
+                view = View.inflate(MainActivity.this, R.layout.dialog_location, null);
+
+                radioGroup = (RadioGroup) view.findViewById(R.id.dialog_group);
+                new AlertDialog.Builder(MainActivity.this)
+                        .setView(view)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                int id = radioGroup.getCheckedRadioButtonId();
+                                RadioButton rb = (RadioButton) view.findViewById(id);
+
+                                location.setText(rb.getText().toString());
+
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .show();
+                break;
+        }
+    }
+
+    class SearchClickLisenter implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.dialog_subadult:
+                    if (adult > 0) {
+                        adult--;
+                        currentAdult.setText("Adults " + Integer.toString(adult));
+                    }
+                    break;
+                case R.id.dialog_addadult:
+                    if (adult >= 0) {
+                        adult++;
+                        currentAdult.setText("Adults " + Integer.toString(adult));
+                    }
+                    break;
+                case R.id.dialog_subchildren:
+                    if (children > 0) {
+                        children--;
+                        currentChildren.setText("Children " + Integer.toString(children));
+                    }
+                    break;
+                case R.id.dialog_addchildren:
+                    if (children >= 0) {
+                        children++;
+                        currentChildren.setText("Children " + Integer.toString(children));
+                    }
+                    break;
+            }
+
         }
     }
 }

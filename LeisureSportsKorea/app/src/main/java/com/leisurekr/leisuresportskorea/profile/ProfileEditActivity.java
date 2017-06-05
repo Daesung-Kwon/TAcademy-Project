@@ -28,8 +28,8 @@ public class ProfileEditActivity extends AppCompatActivity {
         backImage = (ImageView)findViewById(R.id.profile_edit_backimage);
         profileImage = (CircleImageView) findViewById(R.id.profile_edit_circleimage);
 
-        backImage.setImageResource(R.drawable.background);
-        profileImage.setImageResource(R.mipmap.ic_launcher);
+        backImage.setImageResource(R.drawable.pic_bg_surfing);
+        profileImage.setImageResource(R.drawable.ic_ne);
 
     }
 
