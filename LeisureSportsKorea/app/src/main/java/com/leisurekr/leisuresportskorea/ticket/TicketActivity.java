@@ -51,7 +51,6 @@ public class TicketActivity extends AppCompatActivity {
         FragmentManager fm = getSupportFragmentManager();
         TicketPagerAdapter adapter = new TicketPagerAdapter(fm,arrayList);
         viewPager.setAdapter(adapter);
-
     }
 
     public class TicketPagerAdapter extends FragmentPagerAdapter {
@@ -74,7 +73,6 @@ public class TicketActivity extends AppCompatActivity {
             ticketItemFragment.setTicket(arrayList.get(position));
             return ticketItemFragment;
         }
-
     }
 
     @Override

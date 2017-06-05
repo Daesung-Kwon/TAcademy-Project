@@ -81,7 +81,7 @@
                 android:paddingRight="15dp"
                 android:paddingTop="5dp"
                 android:text="BOOK"
-                android:textColor="@color/buttonRed"
+                android:textColor="@color/colorRed"
                 android:textSize="15sp" />
 
         </RelativeLayout>

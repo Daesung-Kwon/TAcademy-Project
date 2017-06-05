@@ -93,12 +93,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.main_content);
-
-       /* searchView = View.inflate(this,R.layout.search,null);
-        popupWindow = new PopupWindow(searchView,1000,500,true);*/
-
         searchView = findViewById(R.id.search_view);
         //searchButton = (FloatingActionButton) findViewById(R.id.search_actionbtn);
 
@@ -140,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // TODO : HHere, insert New Activity for Map
                 mapIntent = new Intent(MainActivity.this, MapActivity.class);
-                MainActivity.this.startActivity(mapIntent);
+                startActivity(mapIntent);
 
             }
         });
@@ -149,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // TODO : HHere, insert New Activity for Filter
                 filterIntent = new Intent(MainActivity.this, FilterActivity.class);
-                MainActivity.this.startActivity(filterIntent);
+                startActivity(filterIntent);
 
             }
         });

@@ -13,7 +13,7 @@
         <com.google.android.gms.maps.MapView
             android:id="@+id/map_on_shop_info"
             android:layout_width="match_parent"
-            android:layout_height="300dp" />
+            android:layout_height="220dp" />
     </FrameLayout>
 
     <TextView
@@ -24,60 +24,69 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:text="How to get there"
-        android:textAppearance="@android:style/TextAppearance.Medium"/>
+        android:textSize="16sp"
+        android:textStyle="bold"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp">
+        android:layout_height="wrap_content"
+        android:paddingBottom="8dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="8dp">
+
+        <ImageView
+            android:id="@+id/transport_icon"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center_vertical"
+            android:padding="5dp"
+            android:layout_marginRight="16dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginRight="5dp">
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/get_there_text1"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="2dp"
-                android:text="Apgujeong Station"
-                android:textAppearance="@android:style/TextAppearance.Small"/>
-            <TextView
-                android:id="@+id/get_there_text2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="(Line3) Exit 6"
-                android:textAppearance="@android:style/TextAppearance.Small"/>
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="5dp">
+                    <TextView
+                        android:id="@+id/get_there_text1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Apgujeong Station Exit6"
+                        android:textSize="12sp"
+                        android:textStyle="bold"/>
 
-            <TextView
-                android:id="@+id/get_there_text3"
-                android:layout_width="match_parent"
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="2dp"
-                android:text="Walk 10 minutes"
-                android:textAppearance="@android:style/TextAppearance.Small"/>
-            <TextView
-                android:id="@+id/get_there_text4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="north to the Han river"
-                android:textAppearance="@android:style/TextAppearance.Small"/>
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/get_there_text2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Walk 10 minutes north to the Han river"
+                    android:textSize="12sp"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 

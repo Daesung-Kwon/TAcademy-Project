@@ -2,6 +2,7 @@ package com.leisurekr.leisuresportskorea.shop_detail;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -43,6 +44,7 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback,
 
     ImageView shareImageBtn;
     ImageView myFavoriteBtn;
+    ImageView transportIcon;
 
     Button previousImageBtn;
     Button nextImageBtn;
@@ -63,6 +65,8 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback,
     int currentPage = 1;
 
     static final String[] interestValues = new String[] {
+            "1", "0", "0", "0",
+            "1", "0", "1", "0",
             "1", "0", "0", "0"
     };
     static final String[] serviceValues = new String[] {
@@ -76,7 +80,7 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback,
     private Animation slideInAnimation;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        owner = (ShopDetailActivity)getActivity();
         View view = inflater.inflate(R.layout.include_shop_info_section1, container, false);
         circleAnimIndicator = (CircleAnimIndicator) view.findViewById(R.id.shop_info_flipper_indicator);
 
@@ -85,20 +89,37 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback,
         mapView.getMapAsync(this);
 
         interestGridView = (GridView) view.findViewById(R.id.shop_info_grid_view1);
-        interestGridView.setAdapter(new GridViewAdapter(getContext(), interestValues));
+        interestGridView.setAdapter(new CategoryGridAdapter(getContext(), interestValues));
         serviceGridView = (GridView) view.findViewById(R.id.shop_info_grid_view2);
-        serviceGridView.setAdapter(new GridViewAdapter(getContext(), serviceValues));
+        serviceGridView.setAdapter(new ServiceGridAdapter(getContext(), serviceValues));
         prepareGridView = (GridView) view.findViewById(R.id.shop_info_grid_view3);
-        prepareGridView.setAdapter(new GridViewAdapter(getContext(), prepareValues));
+        prepareGridView.setAdapter(new PrepareGridAdapter(getContext(), prepareValues));
 
         ImageView shopCircleImage = (ImageView) view.findViewById(R.id.shop_detail_circle_image);
         shopCircleImage.setImageResource(R.drawable.girls_generation_tifany);
         ImageView reviewerCircleImage = (ImageView) view.findViewById(R.id.reviewer_circle_image);
         reviewerCircleImage.setImageResource(R.drawable.girls_generation_tifany);
-        ImageView emailCircleButton = (ImageView) view.findViewById(R.id.email_btn);
-        emailCircleButton.setImageResource(R.drawable.ic_cart);
-        ImageView callCircleButton = (ImageView) view.findViewById(R.id.call_btn);
-        callCircleButton.setImageResource(R.drawable.ic_custom);
+        ImageView emailContactBtn = (ImageView) view.findViewById(R.id.email_btn);
+        emailContactBtn.setImageResource(R.drawable.ic_email);
+        emailContactBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), WriteReviewActivity.class);
+                startActivity(intent);
+            }
+        });
+        ImageView callingBtn = (ImageView) view.findViewById(R.id.call_btn);
+        callingBtn.setImageResource(R.drawable.ic_call);
+        callingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:010-2056-7973"));
+                startActivity(intent);
+            }
+        });
+
+        transportIcon = (ImageView) view.findViewById(R.id.transport_icon);
+        transportIcon.setImageResource(TransportList.getSubwayResource().get(3));
 
         slideInAnimation = AnimationUtils.loadAnimation(getContext(), android.R.anim.slide_in_left);
         shopCircleImage.startAnimation(slideInAnimation);
@@ -151,11 +172,6 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback,
         reviewMoreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /**
-                 * TODO:
-                 */
-                //Intent reviewIntent = new Intent(getActivity().getApplicationContext(), aaa.class);
-                //getActivity().getApplicationContext().startActivity(reviewIntent);
                 Intent reviewIntent = new Intent(getActivity(), ReviewActivity.class);
                 startActivity(reviewIntent);
             }
@@ -191,99 +207,6 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback,
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-    }
-
-    public class GridViewAdapter extends BaseAdapter {
-        private Context context;
-        private final String[] tagValues;
-
-        public GridViewAdapter(Context context, String[] interestValues) {
-            this.context = context;
-            this.tagValues = interestValues;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            LayoutInflater inflater = (LayoutInflater)
-                    context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            View gridView;
-
-            if (convertView == null) {
-                gridView = new View(context);
-
-                gridView = inflater.inflate(R.layout.interest_grid_item, null);
-
-                TextView textView = (TextView) gridView.findViewById(R.id.grid_item_label);
-                textView.setText(tagValues[position]);
-
-                ImageView imageView = (ImageView) gridView.findViewById(R.id.grid_item_image);
-                String tag = tagValues[position];
-
-                switch (position) {
-                    case 0:
-                        if (tag == "0") {
-                            imageView.setImageResource(R.drawable.ic_about);
-                        }else {
-                            imageView.setImageResource(R.drawable.ic_alarm);
-                        }
-                        break;
-                    case 1:
-                        if (tag == "0") {
-                            imageView.setImageResource(R.drawable.ic_alarm);
-                        }else {
-                            imageView.setImageResource(R.drawable.ic_about);
-                        }
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        break;
-                    case 5:
-                        if (tag == "0") {
-                            imageView.setImageResource(R.drawable.ic_alarm);
-                        }else {
-                            imageView.setImageResource(R.drawable.ic_about);
-                        }
-                        break;
-                    case 6:
-                        break;
-                    case 7:
-                        break;
-                    case 8:
-                        break;
-                    case 9:
-                        break;
-                    case 10:
-                        break;
-                    case 11:
-                        break;
-                    default:
-                        break;
-                }
-
-            } else {
-                gridView = (View) convertView;
-            }
-            return gridView;
-        }
-
-        @Override
-        public int getCount() {
-            return tagValues.length;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
     }
 
     @Override
@@ -322,6 +245,6 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback,
         //애니메이션 속도
         circleAnimIndicator.setAnimDuration(300);
         //indecator 생성
-        circleAnimIndicator.createDotPanel(4, R.mipmap.ic_launcher , R.mipmap.ic_launcher);
+        circleAnimIndicator.createDotPanel(4, R.drawable.icon_navi_unpress, R.drawable.icon_navi_press);
     }
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -24,9 +25,9 @@ public class FilterActivity extends AppCompatActivity {
     private GridView gridView;
 
     static final String[] interestsValues = new String[] {
-            "0", "0", "0", "0",
-            "0", "0", "0", "0",
-            "0", "0", "0", "0",
+            "1", "0", "1", "0",
+            "0", "1", "0", "0",
+            "0", "0", "0", "1",
     };
 
     @Override
@@ -34,19 +35,13 @@ public class FilterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.filter_toolbar);
+        toolbar.setTitle("Interests");
         setSupportActionBar(toolbar);
-        toolbar.setTitle("Filter");
-        toolbar.setNavigationIcon(R.drawable.common_google_signin_btn_icon_dark);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         gridView = (GridView) findViewById(R.id.grid_view);
-        gridView.setAdapter(new ImageAdapter(this, interestsValues));
+        gridView.setAdapter(new FilterImageAdapter(this, interestsValues));
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -137,5 +132,15 @@ public class FilterActivity extends AppCompatActivity {
         public long getItemId(int position) {
             return 0;
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case android.R.id.home:
+                finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

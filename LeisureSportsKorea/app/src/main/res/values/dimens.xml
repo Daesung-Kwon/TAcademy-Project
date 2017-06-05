@@ -42,4 +42,8 @@
     <dimen name="book_titleSize">18sp</dimen>
     <dimen name="book_textSize">15sp</dimen>
 
+    <!--공통-->
+    <dimen name="margin_left_right">16dp</dimen>
+    <dimen name="padding_left_right">16dp</dimen>
+
 </resources>

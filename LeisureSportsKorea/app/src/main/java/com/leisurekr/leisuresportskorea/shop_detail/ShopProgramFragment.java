@@ -24,9 +24,9 @@ import java.util.ArrayList;
 
 public class ShopProgramFragment extends Fragment {
 
-    private ExpandableListView expListView1;
-    private ExpandableListView expListView2;
-    private ExpandableListView expListView3;
+    private NonScrollExpandableListView nonScrollExpListView1;
+    private NonScrollExpandableListView nonScrollExpListView2;
+    private NonScrollExpandableListView nonScrollExpListView3;
 
     TextView bookButton;
     static ShopDetailActivity owner;
@@ -38,9 +38,9 @@ public class ShopProgramFragment extends Fragment {
 
         ArrayList<ParentData> data = new ArrayList<>();
 
-        expListView1 = (ExpandableListView) view.findViewById(R.id.best_program_elv);
-        expListView2 = (ExpandableListView) view.findViewById(R.id.package_program_elv);
-        expListView3 = (ExpandableListView) view.findViewById(R.id.individual_program_elv);
+        nonScrollExpListView1 = (NonScrollExpandableListView) view.findViewById(R.id.best_program_elv);
+        nonScrollExpListView2 = (NonScrollExpandableListView) view.findViewById(R.id.package_program_elv);
+        nonScrollExpListView3 = (NonScrollExpandableListView) view.findViewById(R.id.individual_program_elv);
 
         /* 테스트 데이터 */
         ParentData pData1 = new ParentData("Best Program");
@@ -51,11 +51,11 @@ public class ShopProgramFragment extends Fragment {
         data.add(pData1);
 
         ExpListViewAdapter listViewAdapter = new ExpListViewAdapter(getContext(), data);
-        expListView1.setAdapter(listViewAdapter);
-        expListView2.setAdapter(listViewAdapter);
-        expListView3.setAdapter(listViewAdapter);
+        nonScrollExpListView1.setAdapter(listViewAdapter);
+        nonScrollExpListView2.setAdapter(listViewAdapter);
+        nonScrollExpListView3.setAdapter(listViewAdapter);
 
-        expListView1.expandGroup(0);
+        nonScrollExpListView1.expandGroup(0);
 
         return view;
     }
@@ -64,7 +64,7 @@ public class ShopProgramFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // ListView Child 이벤트 리스너, 필요 시
-        /*expListView1.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+        /*nonScrollExpListView1.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 Toast.makeText(getContext(), "Group1 Child = " + childPosition, Toast.LENGTH_SHORT).show();
