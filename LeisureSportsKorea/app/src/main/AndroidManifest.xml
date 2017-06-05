@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.leisurekr.leisuresportskorea">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -12,11 +13,38 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_api_key" />
+        <!--
+            <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        -->
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            tools:replace="android:theme">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
         <activity android:name=".LoginMemberActivity" />
@@ -25,13 +53,20 @@
             android:name=".MainActivity"
             android:parentActivityName=".LoginMemberActivity" />
         <activity
-            android:name=".MapActivity"
+            android:name=".shop.MapActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".FilterActivity"
+            android:name=".shop.FilterActivity"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".profile.ProfileEditActivity" />
         <activity android:name=".profile.ProfileCartActivity" />
+        <activity android:name=".shop_detail.ShopDetailActivity" />
+        <activity
+            android:name=".shop_detail.ReviewActivity"
+            android:theme="@style/ReviewListTheme" />
+        <activity
+            android:name=".shop_detail.WriteReviewActivity"
+            android:theme="@style/ReviewListTheme" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -42,7 +77,8 @@
         <activity android:name=".ticket.TicketActivity" />
         <activity android:name=".BookActivity" />
         <activity android:name=".BookInformationActivity" />
-        <activity android:name=".profile.ProfileFavoritesActivity"></activity>
+        <activity android:name=".profile.ProfileFavoritesActivity" />
+        <activity android:name=".Search" />
     </application>
 
 </manifest>

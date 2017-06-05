@@ -36,7 +36,7 @@
                     android:id="@+id/book_activityimage"
                     android:layout_width="@dimen/book_listimageWidth"
                     android:layout_height="@dimen/book_listimageHeight"
-                    android:background="@drawable/girls_generation_tifany" />
+                    android:background="@drawable/pic_wakeboard" />
 
                 <!--사진 옆 활동 제목과 가격이 적혀있는 부분-->
                 <RelativeLayout
@@ -104,15 +104,10 @@
                     android:layout_centerVertical="true"
                     android:text="1. Select Date"
                     android:textSize="@dimen/book_titleSize"/>
-
-                <Button
-                    android:id="@+id/book_datepopup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true" />
             </RelativeLayout>
 
             <LinearLayout
+                android:id="@+id/book_datepopup"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/book_listHeight"
                 android:layout_weight="1"
@@ -144,14 +139,10 @@
                     android:text="2. Select Time"
                     android:textSize="@dimen/book_titleSize"/>
 
-                <Button
-                    android:id="@+id/book_timepopup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true" />
             </RelativeLayout>
 
             <LinearLayout
+                android:id="@+id/book_timepopup"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/book_listHeight"
                 android:layout_weight="1"
@@ -413,14 +404,18 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Add to cart" />
+            android:text="Add to cart"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorRed"/>
 
         <Button
             android:id="@+id/book_checkout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Check out" />
+            android:text="Check out"
+            android:textColor="@color/colorWhite"
+            android:background="@color/buttonRed" />
     </LinearLayout>
 
 </LinearLayout>

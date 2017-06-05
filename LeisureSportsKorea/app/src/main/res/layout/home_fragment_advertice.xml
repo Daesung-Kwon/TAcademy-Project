@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/home_viewflipper_ad"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp">
+        android:layout_marginBottom="25dp">
 
     </com.leisurekr.leisuresportskorea.home.CircleAnimIndicator>
 
@@ -50,9 +50,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:text="A"
-        android:textSize="30sp"
-        android:background="#00ffffff"/>
+        android:background="@drawable/btn_leftarrow_activate"
+        />
 
     <Button
         android:id="@+id/home_nextbtn_ad"
@@ -60,23 +59,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:textSize="30sp"
-        android:text="B"
-        android:background="#00ffffff"/>
+        android:background="@drawable/btn_rightarrow_activate"/>
 
-
-    <!--<android.support.v4.view.ViewPager
-        android:id="@+id/home_item_type1_viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="300dp">
-    </android.support.v4.view.ViewPager>
-
-    <com.leisurekr.leisuresportskorea.home.CircleAnimIndicator
-        android:id="@+id/circleAnimIndicator"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_alignBottom="@+id/home_item_type1_viewpager"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="0dp" />
-    &lt;!&ndash;android:layout_alignParentBottom="true"&ndash;&gt;-->
 </RelativeLayout>

@@ -9,11 +9,14 @@
     <color name="colorCartBackMedium">#a9a9a9</color>
     <color name="colorCartBackLightGray">#ebebeb</color>
     <color name="colorCartBackWhite">#ffffff</color>
+    <color name="statusbarRed">#ba1b15</color>
+    <color name="toolbarRed">#f01f1b</color>
+    <color name="tapRed">#f01f1b</color>
+    <color name="rating">#f01f1b</color>
+    <color name="buttonRed">#d32f2f</color>
+    <color name="floatingBlue">#334aff</color>
     <color name="colorRed">#f01f1b</color>
     <color name="colorLightBule">#D9E5FF</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorBule">#334aff</color>
-
-
-
 </resources>

@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">Leisure Korea</string>
     <string name="google_api_key">AIzaSyBulv6yQP_xfzDddnqdtYQDXv07hobYzIA</string>
+    <string name="facebook_app_id">706253886233836</string>
+    <string name="fb_login_protocol_scheme">fb706253886233836</string>
+    <string name="lt">&lt;</string>
+    <string name="gt">&gt;</string>
+    <string name="s_amp_f">Service &amp; Facility</string>
+    <string name="shop_description">Welcome to River City water leisure. We are located right at the center of the Seoul, Han River. Our speciality lies in water ski and wakeboard. Take a subway and enjoy the beautiful scenery of the metropolitan city at River City</string>
+    <string name="refund_policy">Refund Policy. Refund Policy. Refund Policy. Refund Policy. Refund Policy. Refund Policy. Refund Policy. Refund Policy. Refund Policy. Refund Policy. Refund Policy. Refund Policy. Refund Policy. Refund Policy. Refund Policy. Refund Policy.</string>
 </resources>

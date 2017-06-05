@@ -43,13 +43,7 @@
                 <LinearLayout
                     android:id="@+id/reservation_detail_dim"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"></LinearLayout>
-
-                <!--<ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/reservation_detail_backimage"
-                android:scaleType="centerCrop"/>-->
+                    android:layout_height="match_parent" />
 
                 <RelativeLayout
                     android:id="@+id/reservation_detail_topimage"
@@ -63,11 +57,6 @@
                     android:paddingRight="5dp"
                     android:paddingTop="13dp">
 
-                    <!--<ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-
-                        android:scaleType="centerInside"/>-->
 
                     <LinearLayout
                         android:id="@+id/linear1"
@@ -101,6 +90,7 @@
                         android:id="@+id/reservation_detail_activityimage"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
+                        android:layout_marginRight="@dimen/reservation_detail_iconMarginRight"
                         android:layout_alignParentRight="true"
                         android:src="@drawable/ic_terms" />
 

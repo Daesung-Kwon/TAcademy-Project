@@ -19,7 +19,8 @@ import android.widget.TextView;
 import com.leisurekr.leisuresportskorea.BookActivity;
 import com.leisurekr.leisuresportskorea.LKApplication;
 import com.leisurekr.leisuresportskorea.R;
-import com.leisurekr.leisuresportskorea.TestArrayList;
+import com.leisurekr.leisuresportskorea.shop.TestArrayList;
+
 
 import java.util.ArrayList;
 

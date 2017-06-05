@@ -9,7 +9,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_gravity="center"
-        android:src="@drawable/tag_home_img"
+        android:src="@drawable/ic_home_press"
         android:layout_weight="1"/>
 
 </LinearLayout>

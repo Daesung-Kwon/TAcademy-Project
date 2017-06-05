@@ -6,11 +6,14 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,20 +29,25 @@ public class BookInformationActivity extends AppCompatActivity {
     TextInputEditText emailEdit;
 
     RecyclerView recyclerView;
-
     Button paypal;
-
     ArrayList<CartObject> arrayList;
+
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.book_information_activity);
 
+        toolbar = (Toolbar) findViewById(R.id.book_information_toolbar);
+        toolbar.setTitle("Book Information");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         Intent intent = getIntent();
         arrayList = (ArrayList<CartObject>) intent.getSerializableExtra("check out");
-        if(arrayList == null){
-            Toast.makeText(BookInformationActivity.this,"2",Toast.LENGTH_SHORT).show();
+        if (arrayList == null) {
+            Toast.makeText(BookInformationActivity.this, "2", Toast.LENGTH_SHORT).show();
         }
 
         nameEdit = (TextInputEditText) findViewById(R.id.book_information_name);
@@ -69,7 +77,7 @@ public class BookInformationActivity extends AppCompatActivity {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.book_information_recycleritem,parent,false);
+                    .inflate(R.layout.book_information_recycleritem, parent, false);
             ViewHolder holder = new ViewHolder(view);
             return holder;
         }
@@ -77,7 +85,7 @@ public class BookInformationActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             CartObject object = arrayList.get(position);
-            if(object != null) {
+            if (object != null) {
                 holder.activityImage.setBackgroundResource(object.getActivityImage());
                 holder.text1.setText(object.getShopName() + "'s");
                 holder.text2.setText(object.getText1());
@@ -96,8 +104,8 @@ public class BookInformationActivity extends AppCompatActivity {
                     people = "Adult " + Integer.toString(adult);
                 }
                 holder.people.setText(people);
-            }else{
-                Log.e("1","1111111111111111");
+            } else {
+                Log.e("1", "1111111111111111");
             }
         }
 
@@ -116,6 +124,7 @@ public class BookInformationActivity extends AppCompatActivity {
             TextView date;
             TextView time;
             TextView people;
+            CheckBox isPickuped;
 
             public ViewHolder(View itemView) {
                 super(itemView);
@@ -128,8 +137,18 @@ public class BookInformationActivity extends AppCompatActivity {
                 date = (TextView) itemView.findViewById(R.id.information_recycler_date);
                 time = (TextView) itemView.findViewById(R.id.information_recycler_time);
                 people = (TextView) itemView.findViewById(R.id.information_recycler_people);
+                isPickuped = (CheckBox) itemView.findViewById(R.id.information_recycler_pickup);
             }
         }
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+        }
+        return true;
     }
 }

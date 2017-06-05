@@ -14,29 +14,32 @@
         />
 
     <android.support.v7.widget.RecyclerView
-    android:id="@+id/profile_cart_recyclerview"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1"
-    android:background="@color/colorCartBackDark"
-    />
 
-        <TextView
-            android:id="@+id/profile_cart_totalprice"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:paddingRight="10dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textSize="15sp"
-            android:background="@color/colorCartBackWhite"/>
+        android:id="@+id/profile_cart_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/colorCartBackDark"
+        />
 
-        <Button
-            android:id="@+id/profile_cart_checkout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="CHECK OUT"
-            android:background="@color/colorRed"/>
+    <TextView
+        android:id="@+id/profile_cart_totalprice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:paddingRight="10dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textSize="15sp"
+        android:background="@color/colorCartBackWhite"/>
+
+    <Button
+        android:id="@+id/profile_cart_checkout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CHECK OUT"
+        android:textSize="14sp"
+        android:textColor="@color/colorWhite"
+        android:background="@color/colorRed"/>
 
 
 </LinearLayout>

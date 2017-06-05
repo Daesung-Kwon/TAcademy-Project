@@ -77,7 +77,10 @@ public class TicketItemFragment extends Fragment {
         text3.setText(ticket.getText3());
         switch (ticket.getMain()){
             case "Water Ski":
-                activityIamge.setImageResource(R.drawable.ic_terms);
+                activityIamge.setImageResource(R.drawable.ic_waterski);
+                break;
+            case "Fun Boat":
+                activityIamge.setImageResource(R.drawable.ic_funboat);
                 break;
         }
 

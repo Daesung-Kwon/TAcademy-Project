@@ -1,8 +1,6 @@
 package com.leisurekr.leisuresportskorea;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -22,9 +20,9 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
     TextView title3;
     TextView price;
 
-    Button datePopupBtn;
+    LinearLayout datePopupBtn;
     TextView date;
-    Button timePopupBtn;
+    LinearLayout timePopupBtn;
     TextView time;
 
     TextView currentAdult;
@@ -56,7 +54,7 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.book_activity);
 
         BookObject object = new BookObject();
-        object.setData(R.drawable.girls_generation_tifany, "01. Water Ski", "Beginner Lesson"
+        object.setData(R.drawable.pic_wakeboard, "01. Water Ski", "Beginner Lesson"
                 , "Package", 50, 1, 50, 0, 5, 0);
 
         toolbar = (Toolbar) findViewById(R.id.book_toolbar);
@@ -70,9 +68,9 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
         title3 = (TextView) findViewById(R.id.book_text3);
         price = (TextView) findViewById(R.id.book_price);
 
-        datePopupBtn = (Button) findViewById(R.id.book_datepopup);
+        datePopupBtn = (LinearLayout) findViewById(R.id.book_datepopup);
         date = (TextView) findViewById(R.id.book_date);
-        timePopupBtn = (Button) findViewById(R.id.book_timepopup);
+        timePopupBtn = (LinearLayout) findViewById(R.id.book_timepopup);
         time = (TextView) findViewById(R.id.book_time);
 
         currentAdult = (TextView) findViewById(R.id.book_currentadult);
@@ -100,7 +98,7 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
         childrenPrice = object.getChildrenPrice();
 
         currentAdult.setText("Adult 1 $" + adultPrice);
-        currentChildren.setText("Children 0");
+        currentChildren.setText("");
 
         totalPrice.setText("$" + total);
 
@@ -119,35 +117,37 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.book_addadult:
                 adult++;
-                s = "Adult " + adult + " $" + (adult * adultPrice);
+                if (adult == 0)
+                    s = "";
+                else
+                    s = "Adult " + adult + " $" + (adult * adultPrice);
+
                 currentAdult.setText(s);
                 currentNumberAdult.setText(Integer.toString(adult));
+                totalPrice.setText("$"+((adult * adultPrice)+(children * childrenPrice)));
                 break;
             case R.id.book_subadult:
                 adult--;
-                if (adult < 1) {
-                    adult = 1;
-                    new AlertDialog.Builder(BookActivity.this)
-                            .setTitle("Yon must book more than 1 Adult")
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                }
-                            }).show();
+                if (adult < 0) {
+                    adult = 0;
                 }
-                s = "Adult " + adult + " $" + (adult * adultPrice);
+                if (adult == 0)
+                    s = "";
+                else
+                    s = "Adult " + adult + " $" + (adult * adultPrice);
                 currentAdult.setText(s);
                 currentNumberAdult.setText(Integer.toString(adult));
+                totalPrice.setText("$"+((adult * adultPrice)+(children * childrenPrice)));
                 break;
             case R.id.book_addchildren:
                 children++;
                 if (children == 0)
-                    s = "Children 0";
+                    s = "";
                 else
                     s = "Children " + children + " $" + (children * childrenPrice);
                 currentChildren.setText(s);
                 currentNumberChildren.setText(Integer.toString(children));
+                totalPrice.setText("$"+((adult * adultPrice)+(children * childrenPrice)));
                 break;
             case R.id.book_subchildren:
                 children--;
@@ -155,11 +155,12 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
                     children = 0;
                 }
                 if (children == 0)
-                    s = "Children 0";
+                    s = "";
                 else
                     s = "Children " + children + " $" + (children * childrenPrice);
                 currentChildren.setText(s);
                 currentNumberChildren.setText(Integer.toString(children));
+                totalPrice.setText("$"+((adult * adultPrice)+(children * childrenPrice)));
                 break;
             case R.id.book_datepopup:
                 CalenderDialog cd = new CalenderDialog(BookActivity.this);
