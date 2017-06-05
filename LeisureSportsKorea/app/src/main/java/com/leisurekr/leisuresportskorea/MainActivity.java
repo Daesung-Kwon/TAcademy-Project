@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -50,7 +49,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private View searchView;
     //private FloatingActionButton searchButton;
     boolean flag = false;
-    CoordinatorLayout coordinatorLayout;
     PopupWindow popupWindow;
     Menu topMenu;
 
@@ -135,11 +133,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.main_content);
-
-       /* searchView = View.inflate(this,R.layout.search,null);
-        popupWindow = new PopupWindow(searchView,1000,500,true);*/
 
         searchView = findViewById(R.id.search_view);
         datelayout = (LinearLayout) searchView.findViewById(R.id.search_datelayout);
