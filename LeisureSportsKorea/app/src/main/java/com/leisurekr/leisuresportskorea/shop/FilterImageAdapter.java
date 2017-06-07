@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.leisurekr.leisuresportskorea.R;
 import com.leisurekr.leisuresportskorea.shop_detail.PrepareIconList;
@@ -23,6 +24,9 @@ public class FilterImageAdapter extends BaseAdapter {
     private static int MAX_GRID_COUNT = 12;
     private String[] tag;
     ImageView imageView;
+
+    int MAX_SELECTED_COUNT = 4;
+    int currentSelectedCount;
 
     public FilterImageAdapter(Context context, String[] values) {
         this.context = context;
@@ -43,7 +47,7 @@ public class FilterImageAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater)
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -64,9 +68,35 @@ public class FilterImageAdapter extends BaseAdapter {
             imageView = (ImageView) gridView.findViewById(R.id.grid_item_image);
             imageView.setImageResource(interestMap.get(position));
 
+            final int p = position;
+            currentSelectedCount = getCurrentSelectedCount(tag);
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (currentSelectedCount == 4) {
+                        if (tag[p] == "1") {
+                            imageView.setImageResource(FilteringList.getInactiveIcoList().get(p));
+                            tag[p] = "0";
+                            currentSelectedCount--;
+                        }
+                    }else if (currentSelectedCount < 4) {
+                        if (tag[p] == "1") {
+                            imageView.setImageResource(FilteringList.getInactiveIcoList().get(p));
+                            tag[p] = "0";
+                            currentSelectedCount--;
+                        }else {
+                            imageView.setImageResource(FilteringList.getActiveIcoList().get(p));
+                            tag[p] = "1";
+                            currentSelectedCount++;
+                        }
+                    }
+                }
+            });
+
         } else {
             gridView = (View) convertView;
         }
+        notifyDataSetChanged();
         return gridView;
     }
 
@@ -91,5 +121,15 @@ public class FilterImageAdapter extends BaseAdapter {
             this.interestMap.remove(position);
             tag[position] = "0";
         }
+    }
+
+    public int getCurrentSelectedCount(String[] list) {
+        int cnt = 0;
+        for (int i = 0; i < list.length; i++) {
+            if (list[i] == "1") {
+                cnt++;
+            }
+        }
+        return cnt;
     }
 }

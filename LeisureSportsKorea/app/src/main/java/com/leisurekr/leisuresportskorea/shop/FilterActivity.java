@@ -54,31 +54,8 @@ public class FilterActivity extends AppCompatActivity {
         gridView = (GridView) findViewById(R.id.grid_view);
         gridAdapter = new FilterImageAdapter(this, interestsValues);
         gridView.setAdapter(gridAdapter);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (currentSelectedCount == 4) {
-                    if (interestsValues[position] == "1") {
-                        //gridAdapter.setChangeIconStatus(position);
-                        interestsValues[position] = "0";
-                        currentSelectedCount--;
-                        parent.getAdapter().getView(position, view, parent);
-                        gridAdapter.notifyDataSetChanged();
-                    }
-                }else if (currentSelectedCount < 4) {
-                    if (interestsValues[position] == "1") {
-                        //gridAdapter.setChangeIconStatus(position);
-                        currentSelectedCount--;
-                    }else {
-                        //gridAdapter.setChangeIconStatus(position);
-                        currentSelectedCount++;
-                    }
-                }
-            }
-        });
 
         saveBtn = (TextView) findViewById(R.id.save_button);
-
     }
 
     @Override
