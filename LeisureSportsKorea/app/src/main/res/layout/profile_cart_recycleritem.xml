@@ -13,17 +13,17 @@
 
         <CheckBox
             android:id="@+id/cart_recycler_checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="36dp"
+            android:layout_height="18dp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/profile_cart_marginLeft" />
+            android:layout_marginLeft="19dp"
+            android:layout_marginRight="28dp"/>
 
         <TextView
             android:id="@+id/cart_recycler_shopname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/profile_cart_marginLeftText"
             android:layout_toRightOf="@id/cart_recycler_checkbox"
             android:text="River city"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
@@ -31,11 +31,12 @@
 
         <ImageView
             android:id="@+id/cart_recycler_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/profile_cart_iconWidth"
+            android:layout_height="@dimen/profile_cart_iconHeight"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/profile_cart_marginRight" />
+            android:layout_marginRight="@dimen/profile_cart_iconMarginRight"
+            android:src="@drawable/ic_bin"/>
     </RelativeLayout>
 
 
@@ -54,20 +55,15 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp">
+                android:layout_height="@dimen/profile_cart_imageHeight">
 
                 <!--           활동 사진         -->
                 <LinearLayout
                     android:id="@+id/cart_recycler_activityimage"
                     android:layout_width="0dp"
-                    android:layout_height="200dp"
+                    android:layout_height="@dimen/profile_cart_imageHeight"
                     android:layout_weight="4"
                     android:orientation="horizontal" />
-                <!--<ImageView
-                    android:id="@+id/cart_recycler_activityimage"
-                    android:layout_width="0dp"
-                    android:layout_height="150dp"
-                    android:layout_weight="4" />-->
 
                 <!--           활동 내용         -->
                 <LinearLayout
@@ -83,34 +79,35 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                        android:textSize="16sp"/>
+                        android:textSize="@dimen/profile_cart_textSize"/>
 
                     <TextView
                         android:id="@+id/cart_recycler_text2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                        android:textSize="16sp"/>
+                        android:textSize="@dimen/profile_cart_textSize"/>
 
                     <TextView
                         android:id="@+id/cart_recycler_text3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/profile_cart_textSize"
                         android:layout_marginBottom="10dp"/>
 
                     <!--          Date         -->
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/profile_cart_textMarginBottom">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Date"
                             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                            android:textSize="14sp"
+                            android:textSize="@dimen/profile_cart_text1Size"
                             />
 
                         <TextView
@@ -119,21 +116,22 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="25dp"
                             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                            android:textSize="14sp"/>
+                            android:textSize="@dimen/profile_cart_text1Size"/>
 
                     </LinearLayout>
 
                     <!--          Time         -->
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/profile_cart_textMarginBottom">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Time"
                             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                            android:textSize="14sp"/>
+                            android:textSize="@dimen/profile_cart_text1Size"/>
 
                         <TextView
                             android:id="@+id/cart_recycler_time"
@@ -141,7 +139,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="22dp"
                             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                            android:textSize="14sp"/>
+                            android:textSize="@dimen/profile_cart_text1Size"/>
                     </LinearLayout>
 
 
@@ -160,23 +158,24 @@
                             android:layout_alignParentLeft="true"
                             android:text="People"
                             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                            android:textSize="14sp"/>
+                            android:textSize="@dimen/profile_cart_text1Size"/>
                         <TextView
                             android:id="@+id/cart_recycler_people"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                            android:textSize="14sp"/>
+                            android:textSize="@dimen/profile_cart_text1Size"/>
                         </LinearLayout>
 
                         <!--          펼치기         -->
                         <ImageView
                             android:id="@+id/cart_recycler_editbtn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/profile_cart_iconWidth"
+                            android:layout_height="@dimen/profile_cart_iconHeight"
                             android:layout_alignParentRight="true"
-                            android:layout_marginRight="10dp"
+                            android:layout_marginRight="@dimen/profile_cart_iconMarginRight"
+                            android:src="@drawable/ic_modify"
                             />
 
                     </RelativeLayout>
@@ -185,6 +184,7 @@
         </android.support.v7.widget.CardView>
 
         <!--         펼쳐지는 부분         -->
+
         <LinearLayout
             android:id="@+id/cart_recycler_editlayout"
             android:layout_width="match_parent"
@@ -194,6 +194,131 @@
             android:visibility="gone">
 
             <LinearLayout
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/profile_cart_iconMarginRight"
+                android:layout_marginRight="@dimen/profile_cart_iconMarginRight"
+                android:background="@color/colorLightBule"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_marginLeft="@dimen/profile_cart_iconMarginRight"
+                android:layout_marginRight="@dimen/profile_cart_iconMarginRight"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/cart_recycler_subadult"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/colorLightBule"
+                    android:src="@drawable/ic_minus" />
+
+                <TextView
+                    android:id="@+id/cart_recycler_curentadulttext"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8"
+                    android:text="Adults 1"
+                    android:gravity="center"/>
+
+                <ImageView
+                    android:id="@+id/cart_recycler_addadult"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/colorLightBule"
+                    android:src="@drawable/ic_plus" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/profile_cart_iconMarginRight"
+                android:layout_marginRight="@dimen/profile_cart_iconMarginRight"
+                android:background="@color/colorLightBule"
+                android:layout_marginBottom="8dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/profile_cart_iconMarginRight"
+                android:layout_marginRight="@dimen/profile_cart_iconMarginRight"
+                android:background="@color/colorLightBule" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_marginLeft="@dimen/profile_cart_iconMarginRight"
+                android:layout_marginRight="@dimen/profile_cart_iconMarginRight"
+                android:gravity="center"
+                >
+
+                <ImageView
+                    android:id="@+id/cart_recycler_subchildren"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/colorLightBule"
+                    android:src="@drawable/ic_minus" />
+
+                <TextView
+                    android:id="@+id/cart_recycler_currentchildren"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8"
+                    android:text="Children 0"
+                    android:gravity="center"/>
+
+                <ImageView
+                    android:id="@+id/cart_recycler_addchildren"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/colorLightBule"
+                    android:src="@drawable/ic_plus" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/profile_cart_iconMarginRight"
+                android:layout_marginRight="@dimen/profile_cart_iconMarginRight"
+                android:background="@color/colorLightBule"
+                android:layout_marginBottom="8dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="@dimen/profile_cart_iconMarginRight"
+                android:layout_marginRight="@dimen/profile_cart_iconMarginRight"
+                >
+
+                <Button
+                    android:id="@+id/cart_recycler_canceleditbtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="cancel"
+                    android:textSize="15sp"
+                    android:textColor="@color/colorWhite"
+                    android:background="#838383"/>
+
+                <Button
+                    android:id="@+id/cart_recycler_okeditbtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="OK"
+                    android:textSize="15sp"
+                    android:textColor="@color/colorWhite"
+                    android:background="@color/colorRed"/>
+            </LinearLayout>
+
+            <!--<LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
@@ -206,7 +331,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="-" />
+                    android:src="@drawable/ic_minus" />
 
                 <TextView
                     android:id="@+id/cart_recycler_curentadulttext"
@@ -222,7 +347,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="+" />
+                    android:src="@drawable/ic_plus" />
 
 
             </LinearLayout>
@@ -240,7 +365,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="-" />
+                    android:src="@drawable/ic_minus" />
 
                 <TextView
                     android:id="@+id/cart_recycler_currentchildrenbtn"
@@ -256,7 +381,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="+" />
+                    android:src="@drawable/ic_plus" />
 
             </LinearLayout>
 
@@ -281,7 +406,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
                     android:text="OK" />
-            </LinearLayout>
+            </LinearLayout>-->
         </LinearLayout>
 
         <android.support.v7.widget.CardView
@@ -299,17 +424,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="32dp"
                     android:text="order"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textSize="16sp"/>
+                    android:textSize="@dimen/profile_cart_textSize"/>
 
                 <TextView
                     android:id="@+id/cart_recycler_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:layout_marginRight="32dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                    android:textSize="16sp"/>
+                    android:textSize="@dimen/profile_cart_textSize"/>
             </RelativeLayout>
         </android.support.v7.widget.CardView>
     </LinearLayout>

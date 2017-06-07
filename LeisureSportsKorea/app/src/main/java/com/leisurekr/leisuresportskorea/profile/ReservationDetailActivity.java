@@ -99,7 +99,7 @@ public class ReservationDetailActivity extends AppCompatActivity {
         review = (Button) findViewById(R.id.reservation_detail_reviewbtn);
 
         //backImage.setImageResource(reservation.getBackImage());
-        backImage.setBackgroundResource(reservation.getBackImage());
+        backImage.setBackgroundResource(reservation.getLeftBackImage());
         text1.setText(reservation.getText1()+"'s");
         text2.setText(reservation.getText2());
         text3.setText(reservation.getText3());
@@ -166,21 +166,6 @@ public class ReservationDetailActivity extends AppCompatActivity {
                 //text1.setTextColor(getResources().getColor(R.color.colorCartBackMedium));
                 break;
             case "Canceled":
-                /*text1.setAlpha(0.3f);
-                text2.setAlpha(0.3f);
-                text3.setAlpha(0.3f);
-                date.setAlpha(0.3f);
-                dateText.setAlpha(0.3f);
-                time.setAlpha(0.3f);
-                timeText.setAlpha(0.3f);
-                price.setAlpha(0.3f);
-                priceText.setAlpha(0.3f);
-                people.setAlpha(0.3f);
-                peopleText.setAlpha(0.3f);
-                locationText.setAlpha(0.3f);
-                location1.setAlpha(0.3f);
-                location2.setAlpha(0.3f);
-                activityIamge.setAlpha(0.3f);*/
                 approvedBtnLayout.setVisibility(View.GONE);
                 finishedBtnLayout.setVisibility(View.GONE);
 

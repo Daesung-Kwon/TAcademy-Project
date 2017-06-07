@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.leisurekr.leisuresportskorea.LKApplication;
 import com.leisurekr.leisuresportskorea.MainActivity;
@@ -61,6 +59,7 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
             public final TextView mShopName;
             public final TextView mShopLocation;
             public final TextView mShopRating;
+            public final TextView mShopPrice;
 
             public ViewHolder(View view) {
                 super(view);
@@ -72,6 +71,7 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
                 mShopName = (TextView) view.findViewById(R.id.shop_name_text);
                 mShopLocation = (TextView) view.findViewById(R.id.shop_location_text);
                 mShopRating = (TextView) view.findViewById(R.id.shop_rating_text);
+                mShopPrice = (TextView) view.findViewById(R.id.shop_price_text);
             }
         }
         @Override
@@ -85,9 +85,10 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
             Integer shopCircleImageInfo = shopImages.get(position); // circle image;
             holder.mShopName.setText("Costa leisure sport");
             holder.mShopLocation.setText("Han River");
-            holder.mShopRating.setText("$54");
+            holder.mShopRating.setText("4.8");
+            holder.mShopPrice.setText("$54");
 
-            holder.mShopMainImage.setBackgroundResource(R.drawable.boat);
+            holder.mShopMainImage.setBackgroundResource(R.drawable.pic_shop);
             holder.dim.setAlpha(0.3f);
 
             holder.mShopMainImage.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +99,7 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
                 }
             });
 
-            holder.mShopCircleImage.setImageResource(shopCircleImageInfo.intValue());
+            holder.mShopCircleImage.setImageResource(R.drawable.pic_shop1);
             holder.mShopCircleImage.startAnimation(slideInAnimation);
         }
 

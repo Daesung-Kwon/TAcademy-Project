@@ -9,7 +9,6 @@ import java.io.Serializable;
 public class ReservationObject implements Serializable{
 
     private int leftBackImage;
-    private int backImage;
     private int price;
     private int adult;
     private int children;
@@ -31,12 +30,11 @@ public class ReservationObject implements Serializable{
 
     }
 
-    public void setData(int leftBackImage,int backImage, String main, String text1, String text2, String text3, int price
+    public void setData(int leftBackImage, String main, String text1, String text2, String text3, int price
             , String progress, String date,String time, int adult,int children, String location1, String location2
             , String location3)
     {
         this.leftBackImage = leftBackImage;
-        this.backImage = backImage;
         this.main = main;
         this.text1 = text1;
         this.text2 = text2;
@@ -58,14 +56,6 @@ public class ReservationObject implements Serializable{
 
     public void setLeftBackImage(int leftBackImage) {
         this.leftBackImage = leftBackImage;
-    }
-
-    public int getBackImage() {
-        return backImage;
-    }
-
-    public void setBackImage(int backImage) {
-        this.backImage = backImage;
     }
 
     public String getMain() {

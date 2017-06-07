@@ -25,17 +25,18 @@
     <TextView
         android:id="@+id/profile_cart_totalprice"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:paddingRight="10dp"
+        android:layout_height="56dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/colorCartBackWhite"
+        android:gravity="center_vertical|right"
+        android:text="text"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:textSize="15sp"
-        android:background="@color/colorCartBackWhite"/>
+        android:textSize="15sp" />
 
     <Button
         android:id="@+id/profile_cart_checkout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:text="CHECK OUT"
         android:textSize="14sp"
         android:textColor="@color/colorWhite"

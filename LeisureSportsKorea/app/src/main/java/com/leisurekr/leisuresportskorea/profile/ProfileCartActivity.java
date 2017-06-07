@@ -218,10 +218,6 @@ public class ProfileCartActivity extends AppCompatActivity {
                             + ", " + Integer.toString(checkcount) + " item(s) in your cart");
                 }
             });
-
-            holder.delete.setImageResource(R.drawable.ic_logout);//휴지통으로 수정해야함
-
-            holder.editbtn.setBackgroundResource(R.drawable.ic_setting);
             holder.editbtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -235,7 +231,7 @@ public class ProfileCartActivity extends AppCompatActivity {
                 }
             });
 
-            holder.addAdultBtn.setOnClickListener(new View.OnClickListener() {
+            holder.addAdult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     adult = cartObject.getAdult();
@@ -250,7 +246,8 @@ public class ProfileCartActivity extends AppCompatActivity {
                             people = "   Children " + Integer.toString(children);
                         } else if (children == 0 && adult != 0) {
                             people = "   Adult " + Integer.toString(adult);
-                        }
+                        }else
+                            people = " ";
                         holder.people.setText(people);
                     }
                     cartObject.setAdult(adult);
@@ -258,7 +255,7 @@ public class ProfileCartActivity extends AppCompatActivity {
                 }
             });
 
-            holder.subAdultBtn.setOnClickListener(new View.OnClickListener() {
+            holder.subAdult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     adult = cartObject.getAdult();
@@ -273,7 +270,8 @@ public class ProfileCartActivity extends AppCompatActivity {
                             people = "   Children " + Integer.toString(children);
                         } else if (children == 0 && adult != 0) {
                             people = "   Adult " + Integer.toString(adult);
-                        }
+                        }else
+                            people = " ";
                         holder.people.setText(people);
                     } else {
                         adult = 0;
@@ -282,7 +280,7 @@ public class ProfileCartActivity extends AppCompatActivity {
                     holder.price.setText("$ " + ((adult * adultPrice) + (children * childrenPrice)));
                 }
             });
-            holder.addChildrenBtn.setOnClickListener(new View.OnClickListener() {
+            holder.addChildren.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     adult = cartObject.getAdult();
@@ -297,7 +295,8 @@ public class ProfileCartActivity extends AppCompatActivity {
                             people = "   Children " + Integer.toString(children);
                         } else if (children == 0 && adult != 0) {
                             people = "   Adult " + Integer.toString(adult);
-                        }
+                        }else
+                            people = " ";
                         holder.people.setText(people);
                     }
                     cartObject.setChildren(children);
@@ -305,7 +304,7 @@ public class ProfileCartActivity extends AppCompatActivity {
                 }
             });
 
-            holder.subChildrenBtn.setOnClickListener(new View.OnClickListener() {
+            holder.subChildren.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     adult = cartObject.getAdult();
@@ -320,7 +319,8 @@ public class ProfileCartActivity extends AppCompatActivity {
                             people = "   Children " + Integer.toString(children);
                         } else if (children == 0 && adult != 0) {
                             people = "   Adult " + Integer.toString(adult);
-                        }
+                        }else
+                            people = " ";
                         holder.people.setText(people);
                     } else {
                         children = 0;
@@ -371,12 +371,12 @@ public class ProfileCartActivity extends AppCompatActivity {
             public TextView time;
             public TextView people;
             public ImageView editbtn;
-            public Button addAdultBtn;
+            public ImageView addAdult;
             public TextView currentAdultText;
-            public Button subAdultBtn;
-            public Button addChildrenBtn;
+            public ImageView subAdult;
+            public ImageView addChildren;
             public TextView currentChildrenText;
-            public Button subChildrenBtn;
+            public ImageView subChildren;
             public TextView price;
             public Button cancleEditBtn;
             public Button okEditBtn;
@@ -397,12 +397,12 @@ public class ProfileCartActivity extends AppCompatActivity {
                 time = (TextView) itemView.findViewById(R.id.cart_recycler_time);
                 people = (TextView) itemView.findViewById(R.id.cart_recycler_people);
                 editbtn = (ImageView) itemView.findViewById(R.id.cart_recycler_editbtn);
-                addAdultBtn = (Button) itemView.findViewById(R.id.cart_recycler_addadultbtn);
+                addAdult = (ImageView) itemView.findViewById(R.id.cart_recycler_addadult);
                 currentAdultText = (TextView) itemView.findViewById(R.id.cart_recycler_curentadulttext);
-                subAdultBtn = (Button) itemView.findViewById(R.id.cart_recycler_subadultbtn);
-                addChildrenBtn = (Button) itemView.findViewById(R.id.cart_recycler_addchildrenbtn);
-                currentChildrenText = (TextView) itemView.findViewById(R.id.cart_recycler_currentchildrenbtn);
-                subChildrenBtn = (Button) itemView.findViewById(R.id.cart_recycler_subchildrenbtn);
+                subAdult = (ImageView) itemView.findViewById(R.id.cart_recycler_subadult);
+                addChildren = (ImageView) itemView.findViewById(R.id.cart_recycler_addchildren);
+                currentChildrenText = (TextView) itemView.findViewById(R.id.cart_recycler_currentchildren);
+                subChildren = (ImageView) itemView.findViewById(R.id.cart_recycler_subchildren);
                 price = (TextView) itemView.findViewById(R.id.cart_recycler_price);
                 cancleEditBtn = (Button) itemView.findViewById(R.id.cart_recycler_canceleditbtn);
                 okEditBtn = (Button) itemView.findViewById(R.id.cart_recycler_okeditbtn);
