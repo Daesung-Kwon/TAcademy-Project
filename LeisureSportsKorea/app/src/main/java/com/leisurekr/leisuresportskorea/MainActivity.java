@@ -27,7 +27,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -47,9 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Toolbar toolbar;
 
     private View searchView;
-    //private FloatingActionButton searchButton;
     boolean flag = false;
-    PopupWindow popupWindow;
     Menu topMenu;
 
     MenuItem itemSearch;
@@ -69,14 +66,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
 
         Log.i("검색test", "클릭됨");
-        // Handle presses on the action bar items
         switch (item.getItemId()) {
             case action_search:
                 if (searchView.getVisibility() == View.GONE) {
                     Log.i("검색test1111", "false = > true");
                     searchView.setVisibility(View.VISIBLE);
                     searchView.setClickable(true);
-
                     toolbar.setTitle("Search");
                     if (topMenu != null) {
                         itemSearch = topMenu.findItem(R.id.action_search);
@@ -84,9 +79,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         itemSearch.setVisible(false);
                         itemTicket.setVisible(false);
                         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                        //Intent in = new Intent(this, Search.class);
-                        //startActivity(in);
-
                         flag = true;
                     } else {
                         Log.i("검색test", "true = > false");
@@ -152,7 +144,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(MainActivity.this,SearchResultActivity.class);
+                intent.putExtra("date",date.getText().toString());
+                intent.putExtra("guest",guest.getText().toString());
+                intent.putExtra("location",location.getText().toString());
+                startActivity(intent);
             }
         });
         //searchButton = (FloatingActionButton) findViewById(R.id.search_actionbtn);
@@ -233,17 +229,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onTabSelected(TabLayout.Tab tab) {
                 int tabPosition = tab.getPosition();
                 toolbar.setTitle(tabs[tabPosition]);
-                if (topMenu != null) {
-                    itemSearch = topMenu.findItem(R.id.action_search);
-                    itemTicket = topMenu.findItem(R.id.action_ticket);
-                    if (tabPosition == 0) {
-                        itemSearch.setVisible(true);
-                        itemTicket.setVisible(true);
-                    } else {
-                        itemSearch.setVisible(false);
-                        itemTicket.setVisible(false);
-                    }
-                }
                 switch (tabPosition) {
                     case 0: {
                         fab.hide();
@@ -373,7 +358,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     int adult = 1;
     int children = 0;
 
+
     RadioGroup radioGroup;
+    int selectedId;
 
     @Override
     public void onClick(View v) {
@@ -457,13 +444,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 view = View.inflate(MainActivity.this, R.layout.dialog_location, null);
 
                 radioGroup = (RadioGroup) view.findViewById(R.id.dialog_group);
+                if(!location.getText().toString().equals("Location")) {
+                    RadioButton rb = (RadioButton) view.findViewById(selectedId);
+                    rb.setChecked(true);
+                }else{
+                    RadioButton rb = (RadioButton) view.findViewById(R.id.dialog_yonsangu);
+                    rb.setChecked(true);
+                }
                 new AlertDialog.Builder(MainActivity.this)
-                        .setView(view)
+                        .setView(view).setTitle("Location")
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                int id = radioGroup.getCheckedRadioButtonId();
-                                RadioButton rb = (RadioButton) view.findViewById(id);
+                                selectedId = radioGroup.getCheckedRadioButtonId();
+                                RadioButton rb = (RadioButton) view.findViewById(selectedId);
 
                                 location.setText(rb.getText().toString());
 

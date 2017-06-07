@@ -1,18 +1,10 @@
 package com.leisurekr.leisuresportskorea.shop;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.leisurekr.leisuresportskorea.R;
@@ -56,6 +48,7 @@ public class FilterActivity extends AppCompatActivity {
         gridView.setAdapter(gridAdapter);
 
         saveBtn = (TextView) findViewById(R.id.save_button);
+
     }
 
     @Override

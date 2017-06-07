@@ -390,19 +390,18 @@
                     android:textSize="@dimen/book_priceSize"/>
             </RelativeLayout>
         </LinearLayout>
-
-
     </android.support.v4.widget.NestedScrollView>
+
     <!--맨 밑 버튼 레이아웃  -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         >
 
         <Button
             android:id="@+id/book_addtocart"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Add to cart"
             android:textColor="@color/colorWhite"
@@ -411,7 +410,7 @@
         <Button
             android:id="@+id/book_checkout"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Check out"
             android:textColor="@color/colorWhite"

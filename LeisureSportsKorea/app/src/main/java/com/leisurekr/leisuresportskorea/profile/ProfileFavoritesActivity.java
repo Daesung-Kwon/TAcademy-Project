@@ -57,18 +57,18 @@ public class ProfileFavoritesActivity extends AppCompatActivity {
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
-            public final View mView;
+            public final View includeView;
             public final LinearLayout mShopMainImage;
             public final LinearLayout dim;
-            //public final ImageView mShopMainImage;
             public final ImageView mShopCircleImage;
             public final TextView mShopName;
             public final TextView mShopLocation;
             public final TextView mShopRating;
+            public final TextView mShopPrice;
 
             public ViewHolder(View view) {
                 super(view);
-                mView = view;
+                includeView = view.findViewById(R.id.favor_recycler_layout);
                 mShopMainImage = (LinearLayout) view.findViewById(R.id.shop_main_image);
                 dim = (LinearLayout)view.findViewById(R.id.shop_dim);
                 //mShopMainImage = (ImageView) view.findViewById(R.id.shop_main_image);
@@ -76,6 +76,7 @@ public class ProfileFavoritesActivity extends AppCompatActivity {
                 mShopName = (TextView) view.findViewById(R.id.shop_name_text);
                 mShopLocation = (TextView) view.findViewById(R.id.shop_location_text);
                 mShopRating = (TextView) view.findViewById(R.id.shop_rating_text);
+                mShopPrice = (TextView) view.findViewById(R.id.shop_price_text);
             }
         }
 
@@ -88,15 +89,14 @@ public class ProfileFavoritesActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(TabFragment2RVAdapter.ViewHolder holder, int position) {
-            Integer shopImageInfo = shopImages.get(position); // main image;
             Integer shopCircleImageInfo = shopImages.get(position); // circle image;
-            holder.mShopName.setText("LK Shop");
-            holder.mShopLocation.setText("Seoul hangang-ro 1234-5");
-            holder.mShopRating.setText("4.0");
+            holder.mShopName.setText("Costa leisure sport");
+            holder.mShopLocation.setText("Han River");
+            holder.mShopRating.setText("4.8");
+            holder.mShopPrice.setText("$54");
 
-            holder.mShopMainImage.setBackgroundResource(R.drawable.exo_all);
+            holder.mShopMainImage.setBackgroundResource(R.drawable.pic_shop);
             holder.dim.setAlpha(0.3f);
-            //holder.mShopMainImage.setImageResource(R.drawable.exo_all);
             holder.mShopMainImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -104,7 +104,7 @@ public class ProfileFavoritesActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
-            holder.mShopCircleImage.setImageResource(shopCircleImageInfo.intValue());
+            holder.mShopCircleImage.setImageResource(R.drawable.pic_shop1);
             holder.mShopCircleImage.startAnimation(slideInAnimation);
         }
 

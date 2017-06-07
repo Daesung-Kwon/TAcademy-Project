@@ -17,7 +17,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/filtered_text_in_shop"
+            android:id="@+id/result_recycler_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
@@ -28,7 +28,7 @@
             android:elevation="10dp"/>
 
         <ImageView
-            android:id="@+id/favorite_item_icon_in_shop"
+            android:id="@+id/result_recycler_favoricon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -37,17 +37,17 @@
             android:elevation="10dp"/>
 
         <ImageView
-            android:id="@+id/share_item_icon_in_shop"
+            android:id="@+id/result_recycler_shareicon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/favorite_item_icon_in_shop"
-            android:layout_toLeftOf="@+id/favorite_item_icon_in_shop"
-            android:layout_toStartOf="@+id/favorite_item_icon_in_shop"
+            android:layout_alignTop="@+id/result_recycler_favoricon"
+            android:layout_toLeftOf="@+id/result_recycler_favoricon"
+            android:layout_toStartOf="@+id/result_recycler_favoricon"
             android:background="@drawable/btn_share_unpress"
             android:elevation="10dp"/>
 
         <LinearLayout
-            android:id="@+id/shop_main_image"
+            android:id="@+id/result_recycler_mainimage"
             android:layout_width="match_parent"
             android:layout_height="280dp"
             android:orientation="horizontal" />
@@ -69,7 +69,7 @@
                 android:paddingTop="8dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/shop_circle_image"
+                    android:id="@+id/result_recycler_circleimage"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     tools:ignore="RtlHardcoded"
@@ -89,7 +89,7 @@
                         android:paddingTop="4dp">
 
                         <TextView
-                            android:id="@+id/shop_name_text"
+                            android:id="@+id/result_recycler_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="26dp"
@@ -105,7 +105,7 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:id="@+id/map_marker_icon"
+                            android:id="@+id/result_recycler_mapicon"
                             android:layout_width="9dp"
                             android:layout_height="9dp"
                             android:layout_gravity="center"
@@ -113,7 +113,7 @@
                             android:background="@drawable/ic_map" />
 
                         <TextView
-                            android:id="@+id/shop_location_text"
+                            android:id="@+id/result_recycler_location"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
@@ -137,14 +137,14 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:id="@+id/favo_icon"
+                            android:id="@+id/result_recycler_favo_icon"
                             android:layout_width="15dp"
                             android:layout_height="15dp"
                             android:background="@drawable/ic_star"
                             android:layout_gravity="center"/>
 
                         <TextView
-                            android:id="@+id/shop_rating_text"
+                            android:id="@+id/result_recycler_rating"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="right"
@@ -163,7 +163,7 @@
                         >
 
                         <TextView
-                            android:id="@+id/shop_price_text"
+                            android:id="@+id/result_recycler_price"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center_horizontal"
@@ -179,7 +179,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/shop_dim"
+                android:id="@+id/result_recycler_dim"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_alignParentBottom="true"

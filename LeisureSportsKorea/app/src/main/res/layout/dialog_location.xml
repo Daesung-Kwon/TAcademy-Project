@@ -7,66 +7,89 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
 
         <RadioGroup
             android:id="@+id/dialog_group"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Seoul" />
+                android:text="Seoul"
+                android:textSize="@dimen/location_groupTextSize"
+                android:layout_marginTop="17dp"
+                android:layout_marginLeft="@dimen/location_totalMarginLeft"/>
 
             <RadioButton
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="30dp"
                 android:id="@+id/dialog_yonsangu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Yonsan-gu" />
+                android:text="Yonsan-gu"
+                android:textSize="@dimen/location_radioTextSize"
+                android:layout_marginLeft="@dimen/location_totalMarginLeft"/>
 
             <RadioButton
+                android:layout_marginTop="@dimen/location_radioMarginTop"
                 android:id="@+id/dialog_gangnamgu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gangnam-gu" />
+                android:text="Gangnam-gu"
+                android:textSize="@dimen/location_radioTextSize"
+                android:layout_marginLeft="@dimen/location_totalMarginLeft"/>
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="12dp"
                 android:background="@color/colorLightBule"></LinearLayout>
 
 
             <TextView
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="17dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gyeonggi-do" />
+                android:text="Gyeonggi-do"
+                android:textSize="@dimen/location_groupTextSize"
+                android:layout_marginLeft="@dimen/location_totalMarginLeft"/>
 
             <RadioButton
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="30dp"
                 android:id="@+id/dialog_yangpyeonggun"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Yangpyeong-gun" />
+                android:text="Yangpyeong-gun"
+                android:textSize="@dimen/location_radioTextSize"
+                android:layout_marginLeft="@dimen/location_totalMarginLeft"/>
 
             <RadioButton
+                android:layout_marginTop="@dimen/location_radioMarginTop"
                 android:id="@+id/dialog_gapyeonggun"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gapyeong-gun" />
+                android:text="Gapyeong-gun"
+                android:textSize="@dimen/location_radioTextSize"
+                android:layout_marginLeft="@dimen/location_totalMarginLeft"/>
 
             <RadioButton
+                android:layout_marginTop="@dimen/location_radioMarginTop"
                 android:id="@+id/dialog_namyangjusi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Namyangju_si" />
-
+                android:text="Namyangju_si"
+                android:textSize="@dimen/location_radioTextSize"
+                android:layout_marginLeft="@dimen/location_totalMarginLeft"/>
         </RadioGroup>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/colorLightBule"></LinearLayout>
     </LinearLayout>
 </LinearLayout>
 

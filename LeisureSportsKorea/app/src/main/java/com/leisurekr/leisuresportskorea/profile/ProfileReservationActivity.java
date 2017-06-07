@@ -35,15 +35,15 @@ public class ProfileReservationActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ReservationObject object1 = new ReservationObject();
-        object1.setData(R.drawable.list_image,R.drawable.activityimagelight,"Water Ski","River City","Water Ski Beginner",
+        object1.setData(R.drawable.pic_ti_2,"Water Ski","River City","Water Ski Beginner",
                 "Lesson Package",50,"Approved","May 22, 2017","17:00",2,0,"Apgujeong-dong","Gangnam-gu, Seoul","379-1");
 
         ReservationObject object2 = new ReservationObject();
-        object2.setData(R.drawable.list_image,R.drawable.activityimagelight,"Water Ski","River City","Water Ski Beginner",
+        object2.setData(R.drawable.pic_ti_2,"Water Ski","River City","Water Ski Beginner",
                 "Lesson Package",50,"Finished","May 22, 2017","15:00",2,0,"Apgujeong-dong","Gangnam-gu, Seoul","379-1");
 
         ReservationObject object3 = new ReservationObject();
-        object3.setData(R.drawable.list_image,R.drawable.activityimagelight,"Water Ski","River City","Water Ski Beginner",
+        object3.setData(R.drawable.pic_ti_2,"Water Ski","River City","Water Ski Beginner",
                 "Lesson Package",50,"Canceled","May 22, 2017","11:00",2,0,"Apgujeong-dong","Gangnam-gu, Seoul","379-1");
 
         arrayList = new ArrayList<>();
@@ -109,6 +109,7 @@ public class ProfileReservationActivity extends AppCompatActivity {
                 }
             });
             holder.leftBackImage.setBackgroundResource(object.getLeftBackImage());
+            holder.dim.setAlpha(0.3f);
             switch (object.getProgress()){
                 case "Approved":
                     holder.rightBackImage.setBackgroundResource(R.drawable.approved);
@@ -151,6 +152,8 @@ public class ProfileReservationActivity extends AppCompatActivity {
             LinearLayout rootLayout;
             LinearLayout rightBackImage;
             RelativeLayout leftBackImage;
+            LinearLayout dim;
+            LinearLayout border;
 
             TextView textView1;
             TextView textView2;
@@ -169,6 +172,8 @@ public class ProfileReservationActivity extends AppCompatActivity {
                 rootLayout = (LinearLayout)itemView.findViewById(R.id.reservation_recycler_rootlayout);
                 rightBackImage = (LinearLayout) itemView.findViewById(R.id.reservation_recycler_rightbackimage);
                 leftBackImage = (RelativeLayout) itemView.findViewById(R.id.reservation_recycler_leftbackimage);
+                dim = (LinearLayout) itemView.findViewById(R.id.reservation_recycler_dim);
+                border = (LinearLayout) itemView.findViewById(R.id.reservation_recycler_border);
 
                 textView1 = (TextView) itemView.findViewById(R.id.reservation_recycler_text1);
                 textView2 = (TextView) itemView.findViewById(R.id.reservation_recycler_text2);
