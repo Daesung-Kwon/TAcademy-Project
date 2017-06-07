@@ -5,23 +5,23 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="16dp"
+    android:paddingLeft="@dimen/home_activity_totalPaddinLeft"
     >
 
     <TextView
         android:id="@+id/home_activity_groupname"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:textSize="16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/home_activity_groupNameSize"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="@dimen/home_activity_groupNameMarginTop"
+        android:layout_marginBottom="@dimen/home_activity_groupNameMarginBottom"
         />
 
     <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="9">
+        android:layout_height="@dimen/home_activity_imageHeight"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,38 +31,38 @@
             <include
                 android:id="@+id/home_activity_image1"
                 layout="@layout/home_image_activity"
-                android:layout_width="160dp"
-                android:layout_height="213dp"
-                android:layout_marginRight="10dp"/>
+                android:layout_width="@dimen/home_activity_imageWidth"
+                android:layout_height="@dimen/home_activity_imageHeight"
+                android:layout_marginRight="@dimen/home_activity_imageMarginRight"/>
 
             <include
                 android:id="@+id/home_activity_image2"
                 layout="@layout/home_image_activity"
-                android:layout_width="160dp"
-                android:layout_height="213dp"
-                android:layout_marginRight="10dp"/>
+                android:layout_width="@dimen/home_activity_imageWidth"
+                android:layout_height="@dimen/home_activity_imageHeight"
+                android:layout_marginRight="@dimen/home_activity_imageMarginRight"/>
 
             <include
                 android:id="@+id/home_activity_image3"
                 layout="@layout/home_image_activity"
-                android:layout_width="160dp"
-                android:layout_height="213dp"
-                android:layout_marginRight="10dp"/>
+                android:layout_width="@dimen/home_activity_imageWidth"
+                android:layout_height="@dimen/home_activity_imageHeight"
+                android:layout_marginRight="@dimen/home_activity_imageMarginRight"/>
 
             <include
                 android:id="@+id/home_activity_image4"
                 layout="@layout/home_image_activity"
-                android:layout_width="160dp"
-                android:layout_height="213dp"
-                android:layout_marginRight="10dp"
+                android:layout_width="@dimen/home_activity_imageWidth"
+                android:layout_height="@dimen/home_activity_imageHeight"
+                android:layout_marginRight="@dimen/home_activity_imageMarginRight"
                 />
 
             <include
                 android:id="@+id/home_activity_image5"
                 layout="@layout/home_image_activity"
-                android:layout_width="160dp"
-                android:layout_height="213dp"
-                android:layout_marginRight="10dp"/>
+                android:layout_width="@dimen/home_activity_imageWidth"
+                android:layout_height="@dimen/home_activity_imageHeight"
+                android:layout_marginRight="@dimen/home_activity_imageMarginRight"/>
 
         </LinearLayout>
     </HorizontalScrollView>

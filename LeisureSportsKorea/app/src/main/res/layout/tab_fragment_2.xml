@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/colorWhite">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
+        android:orientation="vertical"
+        android:paddingBottom="17dp"
+        android:paddingTop="17dp">
+
         <TextView
             android:id="@+id/result_count_tex_tab2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="-20dp"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="0dp"
+            android:text="12 Results"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:text="12 Results"/>
+            android:textStyle="bold" />
+
         <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="2dp">
+
             <TextView
                 android:id="@+id/selected_filter_text1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="#WATER SKI"
                 android:textSize="16sp"
-                android:padding="3dp"
-                android:layout_marginRight="3dp"/>
+                android:includeFontPadding="false"/>
+
             <TextView
                 android:id="@+id/selected_filter_text2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="#Bungee Jump"
-                android:textSize="16sp"
-                android:padding="3dp"
-                android:layout_marginRight="3dp"/>
+                android:paddingLeft="5dp"
+                android:text="#BUNGEE JUMP"
+                android:textSize="16sp" />
+
             <TextView
                 android:id="@+id/selected_filter_text3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="#Scuba diving"
-                android:textSize="16sp"
-                android:padding="3dp"
-                android:layout_marginRight="3dp"/>
-            <TextView
-                android:id="@+id/selected_filter_text4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:padding="3dp" />
+                android:paddingLeft="5dp"
+                android:textSize="16sp" />
         </LinearLayout>
 
     </LinearLayout>

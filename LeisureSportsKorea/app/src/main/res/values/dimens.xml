@@ -14,9 +14,23 @@
     <dimen name="profile_marginLeft">16dp</dimen>
 
     <!--Profile 수정 화면-->
-    <dimen name="profile_edit_marginRight">5dp</dimen>
-    <dimen name="profile_edit_marginLeft">5dp</dimen>
-    <dimen name="profile_edit_marginBottom">15dp</dimen>
+    <dimen name="profile_edit_marginRight">16dp</dimen>
+    <dimen name="profile_edit_marginLeft">16dp</dimen>
+    <dimen name="profile_edit_marginBottom">24dp</dimen>
+
+    <dimen name="profile_edit_imageHeight">180dp</dimen>
+    <dimen name="profile_edit_imageMarginBottom">16dp</dimen>
+
+    <dimen name="profile_edit_circleimageWidth">80dp</dimen>
+    <dimen name="profile_edit_circleimageHeight">80dp</dimen>
+    <dimen name="profile_edit_circleimageMarginBottom">17dp</dimen>
+
+    <dimen name="profile_edit_middleMarginLeft">12dp</dimen>
+
+    <dimen name="profile_edit_listItemHeight">48dp</dimen>
+    <dimen name="profile_edit_listItemTextSize">16sp</dimen>
+
+
 
     <!--Profile Cart화면-->
     <dimen name="profile_cart_marginRight">10dp</dimen>
@@ -45,6 +59,10 @@
     <dimen name="book_titleSize">18sp</dimen>
     <dimen name="book_textSize">15sp</dimen>
 
+    <!--공통-->
+    <dimen name="margin_left_right">16dp</dimen>
+    <dimen name="padding_left_right">16dp</dimen>
+
     <!--Book Information화면-->
     <dimen name="bookInformation_textMarginTop">11dp</dimen>
     <dimen name="bookInformation_listMarginTop">31dp</dimen>
@@ -55,14 +73,93 @@
     <dimen name="bookInformation_textMarginLeft">20dp</dimen>
     <dimen name="bookInformation_textMarginRight">20dp</dimen>
 
+    <!--Home 배너 화면-->
+    <dimen name="home_advertice_imageHeight">358dp</dimen>
 
+    <!--Home Recommended Activity 화면-->
+    <dimen name="home_activity_totalPaddinLeft">16dp</dimen>
 
-    <!--Home화면-->
+    <dimen name="home_activity_groupNameSize">16sp</dimen>
+    <dimen name="home_activity_groupNameWidth">178dp</dimen>
+    <dimen name="home_activity_groupNameHeight">12dp</dimen>
+    <dimen name="home_activity_groupNameMarginTop">21dp</dimen>
+    <dimen name="home_activity_groupNameMarginBottom">16dp</dimen>
+
+    <dimen name="home_activity_imageWidth">160dp</dimen>
+    <dimen name="home_activity_imageHeight">214dp</dimen>
+    <dimen name="home_activity_imageMarginRight">8dp</dimen>
+
     <dimen name="home_activity_iconMarginTop">20dp</dimen>
-    <dimen name="home_activity_text1MarginTop">37dp</dimen>
-    <dimen name="home_activity_text2MarginTop">20dp</dimen>
+    <dimen name="home_activity_iconWidth">24dp</dimen>
+    <dimen name="home_activity_iconHeight">24dp</dimen>
+
+    <dimen name="home_activity_text1MarginTop">38dp</dimen>
+    <dimen name="home_activity_text1Size">20sp</dimen>
+    <dimen name="home_activity_text1Width">80dp</dimen>
+    <dimen name="home_activity_text1Height">15dp</dimen>
+
+    <dimen name="home_activity_text2MarginTop">24dp</dimen>
+    <dimen name="home_activity_text2Size">10sp</dimen>
+    <dimen name="home_activity_text2Width">115dp</dimen>
+    <dimen name="home_activity_text2Height">11dp</dimen>
+
     <dimen name="home_activity_text3MarginTop">0dp</dimen>
-    <dimen name="home_activity_priceMarginTop">10dp</dimen>
+    <dimen name="home_activity_text3Size">10sp</dimen>
+    <dimen name="home_activity_text3Width">115dp</dimen>
+    <dimen name="home_activity_text3Height">11dp</dimen>
+
+    <dimen name="home_activity_priceMarginTop">16dp</dimen>
+    <dimen name="home_activity_priceSize">13sp</dimen>
+    <dimen name="home_activity_priceWidth">30dp</dimen>
+    <dimen name="home_activity_priceHeight">12dp</dimen>
+
+    <!--Home Best Shop 화면-->
+    <dimen name="home_shop_totalPaddinLeft">16dp</dimen>
+    <dimen name="home_shop_totalMarginBottom">14dp</dimen>
+
+    <dimen name="home_shop_groupNameSize">16sp</dimen>
+    <dimen name="home_shop_groupNameWidth">178dp</dimen>
+    <dimen name="home_shop_groupNameHeight">12dp</dimen>
+    <dimen name="home_shop_groupNameMarginTop">21dp</dimen>
+    <dimen name="home_shop_groupNameMarginBottom">16dp</dimen>
+
+    <dimen name="home_shop_imageWidth">280dp</dimen>
+    <dimen name="home_shop_imageHeight">240dp</dimen>
+    <dimen name="home_shop_imageMarginRight">8dp</dimen>
+
+    <dimen name="home_shop_textAreaHeight">90dp</dimen>
+    <dimen name="home_shop_textAreaPaddingTop">12dp</dimen>
+    <dimen name="home_shop_textAreaPaddingLeft">16dp</dimen>
+    <dimen name="home_shop_textAreaPaddingRight">8dp</dimen>
+    <dimen name="home_shop_textAreaPaddingBottom">12dp</dimen>
+
+    <dimen name="home_shop_nameSize">16sp</dimen>
+    <dimen name="home_shop_nameMarginBottom">5dp</dimen>
+
+    <dimen name="home_shop_mapiconWidth">6dp</dimen>
+    <dimen name="home_shop_mapiconHeight">9dp</dimen>
+    <dimen name="home_shop_maptextSize">12sp</dimen>
+
+    <dimen name="home_shop_filterNameSize">10sp</dimen>
+
+    <dimen name="home_shop_ratingIconWidth">14dp</dimen>
+    <dimen name="home_shop_ratingIconHeight">14dp</dimen>
+    <dimen name="home_shop_ratingTextMarginLeft">5dp</dimen>
+    <dimen name="home_shop_ratingTextSize">23sp</dimen>
+
+    <dimen name="home_shop_iconWidth">40dp</dimen>
+    <dimen name="home_shop_iconHeight">40dp</dimen>
+    <dimen name="home_shop_iconMarginBottom">70dp</dimen>
+
+    <dimen name="home_shop_shareIconWidth">24dp</dimen>
+    <dimen name="home_shop_shareIconHeight">24dp</dimen>
+
+    <dimen name="home_shop_favorMarginTop">8dp</dimen>
+    <dimen name="home_shop_favorIconWidth">24dp</dimen>
+    <dimen name="home_shop_favorIconHeight">24dp</dimen>
+
+
+
 
     <!--Ticket화면-->
     <dimen name="ticket_textPaddingLeft">20dp</dimen>
@@ -73,7 +170,5 @@
     <!--Guests Dialog화면-->
     <dimen name="guests_marginLeft">20dp</dimen>
     <dimen name="guests_marginRight">20dp</dimen>
-
-
 
 </resources>

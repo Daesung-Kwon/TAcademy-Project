@@ -6,10 +6,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="8dp"
+        android:paddingBottom="16dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:paddingTop="8dp">
+        android:paddingTop="16dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/reviewer_circle_image"
@@ -27,7 +27,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="5dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
@@ -41,7 +41,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Smith john"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
 
                 </LinearLayout>
 
@@ -58,7 +59,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="17-04-15" />
+                        android:text="17-04-15"
+                        android:textSize="12sp"/>
 
                 </LinearLayout>
 
@@ -75,7 +77,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="it's so cool! it's nice time :)"
-                    android:lines="2"/>
+                    android:lines="1"/>
 
             </LinearLayout>
 
@@ -86,7 +88,12 @@
     <ImageView
         android:id="@+id/review_attached_image"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:maxHeight="168dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"/>
 
     <LinearLayout
         android:layout_width="match_parent"

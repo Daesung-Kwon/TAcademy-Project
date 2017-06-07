@@ -130,7 +130,7 @@ public class MapCustomFragment extends Fragment implements OnMapReadyCallback,
                 super(view);
                 mView = view;
                 mShopMainImage = (ImageView) view.findViewById(R.id.map_shop_main_image);
-                mShopName = (TextView) view.findViewById(R.id.map_shop_name_text);
+                mShopName = (TextView) view.findViewById(R.id.map_shop_name_text1);
                 mShopLocation = (TextView) view.findViewById(R.id.map_shop_location_text);
                 mShopRating = (TextView) view.findViewById(R.id.map_shop_rating_text);
                 mFocus = (TextView) view.findViewById(R.id.focus);
@@ -153,7 +153,7 @@ public class MapCustomFragment extends Fragment implements OnMapReadyCallback,
             holder.mShopMainImage.setImageResource(R.drawable.exo_all);//.(shopImageInfo.intValue())
 
             if (position == 0) {
-                holder.mFocus.setBackgroundColor(holder.mFocus.getResources().getColor(R.color.colorAccent));
+                //holder.mFocus.setBackgroundColor(R.color.cardview_shadow_end_color);
             }
         }
 

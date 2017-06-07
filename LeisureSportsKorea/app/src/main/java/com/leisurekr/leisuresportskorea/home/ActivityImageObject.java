@@ -2,6 +2,7 @@ package com.leisurekr.leisuresportskorea.home;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.leisurekr.leisuresportskorea.R;
@@ -13,6 +14,7 @@ import com.leisurekr.leisuresportskorea.R;
 public class ActivityImageObject {
 
     View view;
+    LinearLayout dim;
     ImageView activityIcon;
     TextView activityName;
     TextView activityDescrpption1;
@@ -21,6 +23,7 @@ public class ActivityImageObject {
 
     public ActivityImageObject(View view) {
         this.view = view;
+        dim = (LinearLayout) view.findViewById(R.id.activity_dim);
         activityIcon = (ImageView) view.findViewById(R.id.activity_icon);
         activityName = (TextView) view.findViewById(R.id.activity_name);
         activityDescrpption1 = (TextView) view.findViewById(R.id.activity_description1);
@@ -30,6 +33,7 @@ public class ActivityImageObject {
     public void setData(int resid, String name, String description1
             , String description2, int price){
         view.setBackgroundResource(resid);
+        dim.setAlpha(0.3f);
         switch (name){
             case "Water Ski":
                 activityIcon.setImageResource(R.drawable.icon_waterski);

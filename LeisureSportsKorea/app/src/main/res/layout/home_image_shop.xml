@@ -3,113 +3,170 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginBottom="5dp"
-    android:layout_marginLeft="0dp"
-    android:layout_marginRight="0dp"
+    android:layout_height="wrap_content"
     android:background="#ffffff"
     app:cardCornerRadius="2dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
-        >
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
         <LinearLayout
             android:id="@+id/bestshop_main_image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/home_shop_imageWidth"
+            android:layout_height="@dimen/home_shop_imageHeight"
             android:orientation="horizontal" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/filtered_text_in_shop"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignBottom="@id/bestshop_main_image"
+            android:layout_marginBottom="@dimen/home_shop_textAreaPaddingBottom"
+            android:layout_marginLeft="@dimen/home_shop_textAreaPaddingLeft"
+            android:elevation="10dp"
+            android:text="#WATER SKI"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/home_shop_filterNameSize" />
+
+        <RelativeLayout
+            android:layout_width="@dimen/home_shop_imageWidth"
+            android:layout_height="@dimen/home_shop_imageHeight"
             android:layout_alignParentBottom="true">
 
+            <ImageView
+                android:id="@+id/favorite_item_icon_in_shop"
+                android:layout_width="@dimen/home_shop_favorIconWidth"
+                android:layout_height="@dimen/home_shop_favorIconHeight"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/home_shop_favorMarginTop"
+                android:background="@drawable/btn_heart_unpress"
+                android:layout_marginRight="@dimen/home_shop_textAreaPaddingRight"
+                />
+
+            <ImageView
+                android:id="@+id/share_item_icon_in_shop"
+                android:layout_width="@dimen/home_shop_shareIconWidth"
+                android:layout_height="@dimen/home_shop_shareIconHeight"
+                android:layout_alignTop="@+id/favorite_item_icon_in_shop"
+                android:layout_toLeftOf="@+id/favorite_item_icon_in_shop"
+                android:layout_toStartOf="@+id/favorite_item_icon_in_shop"
+                android:background="@drawable/btn_share_unpress"
+                />
+
             <LinearLayout
+                android:id="@+id/linear1111"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:paddingBottom="8dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:background="#00000000"
-                android:elevation="10dp"
-                android:paddingTop="8dp"
+                android:layout_height="@dimen/home_shop_textAreaHeight"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true">
+                android:elevation="10dp"
+                android:paddingBottom="@dimen/home_shop_textAreaPaddingBottom"
+                android:paddingLeft="@dimen/home_shop_textAreaPaddingLeft"
+                android:paddingRight="@dimen/home_shop_textAreaPaddingRight"
+                android:paddingTop="@dimen/home_shop_textAreaPaddingTop">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/bestshop_name_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                        android:textColor="@color/colorWhite" />
-
-                    <TextView
-                        android:id="@+id/bestshop_location_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
-                        android:textColor="@color/colorWhite" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center_horizontal"
-                        android:text="평점:"
-                        android:textColor="@color/colorWhite" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                       >
 
-                    <TextView
-                        android:id="@+id/bestshop_rating_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center_horizontal"
-                        android:text="3.9"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/colorWhite" />
+                        <TextView
+                            android:id="@+id/bestshop_name_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/home_shop_nameSize"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/map_marker_icon"
+                            android:layout_width="@dimen/home_shop_mapiconWidth"
+                            android:layout_height="@dimen/home_shop_mapiconHeight"
+                            android:layout_gravity="center"
+                            android:background="@drawable/ic_map" />
+
+                        <TextView
+                            android:id="@+id/bestshop_location_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorCartBackGray"
+                            android:textSize="@dimen/home_shop_maptextSize" />
+                    </LinearLayout>
 
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:orientation="vertical"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/favo_icon"
+                            android:layout_width="@dimen/home_shop_ratingIconWidth"
+                            android:layout_height="@dimen/home_shop_ratingIconHeight"
+                            android:layout_gravity="center"
+                            android:background="@drawable/ic_star" />
+
+                        <TextView
+                            android:id="@+id/bestshop_rating_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/home_shop_ratingTextMarginLeft"
+                            android:gravity="bottom"
+                            android:text="4.8"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/home_shop_ratingTextSize" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
             </LinearLayout>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/bestshop_circle_image"
+                android:layout_width="@dimen/home_shop_iconWidth"
+                android:layout_height="@dimen/home_shop_iconHeight"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:elevation="10dp"
+                android:layout_marginRight="@dimen/home_shop_textAreaPaddingRight"
+                android:layout_marginBottom="@dimen/home_shop_iconMarginBottom" />
+
             <LinearLayout
                 android:id="@+id/bestshop_dim"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:background="#000000"
-                android:paddingBottom="8dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingTop="8dp"
-                android:orientation="horizontal"
+                android:layout_height="@dimen/home_shop_textAreaHeight"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true">
-            </LinearLayout>
-
+                android:background="#000000"
+                android:orientation="horizontal" />
         </RelativeLayout>
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/bestshop_circle_image"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="95dp"
-            />
+
     </RelativeLayout>
+
 </android.support.v7.widget.CardView>

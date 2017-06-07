@@ -3,12 +3,15 @@ package com.leisurekr.leisuresportskorea.shop_detail;
 import android.os.Build;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.transition.Explode;
 import android.transition.Transition;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 
@@ -29,13 +32,9 @@ public class ShopDetailActivity extends AppCompatActivity {
 
         // Toolbar
         toolbar = (Toolbar) findViewById(R.id.shop_detail_toolbar);
+        toolbar.setTitle("Shop Details");
         setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Tab Layout
         tabLayout = (TabLayout) findViewById(R.id.shop_detail_tabs);
@@ -75,5 +74,15 @@ public class ShopDetailActivity extends AppCompatActivity {
             Transition exitTrans = new Explode(); // Fade(), Slide()
             Transition reenterTrans = new Explode(); // Fade(), Slide()
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case android.R.id.home:
+                finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

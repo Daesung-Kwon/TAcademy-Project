@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(View v) {
                 // TODO : HHere, insert New Activity for Map
                 mapIntent = new Intent(MainActivity.this, MapActivity.class);
-                MainActivity.this.startActivity(mapIntent);
+                startActivity(mapIntent);
 
             }
         });
@@ -203,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(View v) {
                 // TODO : HHere, insert New Activity for Filter
                 filterIntent = new Intent(MainActivity.this, FilterActivity.class);
-                MainActivity.this.startActivity(filterIntent);
+                startActivity(filterIntent);
 
             }
         });

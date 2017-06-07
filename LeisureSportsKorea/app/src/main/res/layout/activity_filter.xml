@@ -6,12 +6,12 @@
     android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
+        android:id="@+id/filter_appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/filter_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -37,7 +37,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Interest"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+                android:textStyle="bold"
+                android:textSize="20sp"/>
         </LinearLayout>
 
         <RelativeLayout
@@ -60,13 +61,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="13dp"
             android:layout_marginBottom="15dp">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Alignment"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+                android:textStyle="bold"
+                android:textSize="20sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -81,47 +83,47 @@
             <TextView
                 android:id="@+id/popularity"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="48dp"
                 android:text="Popularity"
                 android:gravity="center"
                 android:layout_weight="1"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginRight="3.3dp"
                 android:textColor="@android:color/white"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                android:background="@android:color/holo_red_light"/>
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:background="@color/buttonRed"/>
             <TextView
                 android:id="@+id/rating"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="48dp"
                 android:text="Ratings"
                 android:gravity="center"
                 android:layout_weight="1"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginLeft="3.3dp"
+                android:layout_marginRight="3.3dp"
                 android:textColor="@android:color/white"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textSize="16sp"
                 android:background="@android:color/darker_gray"/>
             <TextView
                 android:id="@+id/latest"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="48dp"
                 android:text="Latest"
                 android:gravity="center"
                 android:layout_weight="1"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginLeft="3.3dp"
                 android:textColor="@android:color/white"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textSize="16sp"
                 android:background="@android:color/darker_gray"/>
         </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_gravity="center_vertical"
-        android:background="@android:color/holo_red_light">
+        android:background="@color/buttonRed">
 
         <TextView
             android:id="@+id/save_button"
@@ -130,7 +132,7 @@
             android:layout_gravity="center_vertical"
             android:text="SAVE"
             android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textSize="20sp"
             android:textColor="@android:color/white" />
     </LinearLayout>
 

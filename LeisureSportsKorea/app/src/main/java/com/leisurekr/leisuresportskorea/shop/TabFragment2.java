@@ -82,15 +82,14 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
         }
         @Override
         public void onBindViewHolder(final TabFragment2RVAdapter.ViewHolder holder, int position) {
-            Integer shopImageInfo = shopImages.get(position); // main image;
             Integer shopCircleImageInfo = shopImages.get(position); // circle image;
-            holder.mShopName.setText("LK Shop");
-            holder.mShopLocation.setText("Seoul hangang-ro 1234-5");
-            holder.mShopRating.setText("4.0");
+            holder.mShopName.setText("Costa leisure sport");
+            holder.mShopLocation.setText("Han River");
+            holder.mShopRating.setText("$54");
 
-            holder.mShopMainImage.setBackgroundResource(R.drawable.exo_all);
+            holder.mShopMainImage.setBackgroundResource(R.drawable.boat);
             holder.dim.setAlpha(0.3f);
-            //holder.mShopMainImage.setImageResource(R.drawable.exo_all);
+
             holder.mShopMainImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -98,18 +97,9 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
                     owner.startActivity(intent);
                 }
             });
+
             holder.mShopCircleImage.setImageResource(shopCircleImageInfo.intValue());
             holder.mShopCircleImage.startAnimation(slideInAnimation);
-            Log.i("Test", "test1");
-            holder.mView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.i("Test", "test2");
-                    Toast.makeText(v.getContext(), "Test", Toast.LENGTH_SHORT).show();
-                    Intent shopDetailIntent = new Intent(v.getContext(), ShopDetailActivity.class);
-                    owner.startActivity(shopDetailIntent);
-                }
-            });
         }
 
         @Override

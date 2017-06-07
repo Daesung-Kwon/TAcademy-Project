@@ -28,7 +28,7 @@
                 android:id="@+id/rating_total_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="12 Results"
+                android:text="12"
                 android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>

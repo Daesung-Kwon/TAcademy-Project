@@ -1,11 +1,14 @@
 package com.leisurekr.leisuresportskorea.shop_detail;
 
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -40,13 +43,9 @@ public class ReviewActivity extends AppCompatActivity {
 
         // Toolbar
         toolbar = (Toolbar) findViewById(R.id.review_toolbar);
+        toolbar.setTitle("Review List");
         setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ArrayList<ReviewData> reviewDatas = new ArrayList<>();
         /* 테스트 데이터 */
@@ -130,5 +129,15 @@ public class ReviewActivity extends AppCompatActivity {
         public int getItemCount() {
             return mReviewDatas.size();
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case android.R.id.home:
+                finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
