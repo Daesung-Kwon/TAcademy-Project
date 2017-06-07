@@ -22,14 +22,19 @@ public class FilterImageAdapter extends BaseAdapter {
     private HashMap<Integer, Integer> interestMap;
     private static int MAX_GRID_COUNT = 12;
     private String[] tag;
+    ImageView imageView;
 
     public FilterImageAdapter(Context context, String[] values) {
         this.context = context;
         tag = values;
 
         this.interestMap = new HashMap<>();
-        for (int i=0; i < values.length; i++) {
-            if (values[i] == "0") {
+        initValues();
+    }
+
+    public void initValues() {
+        for (int i=0; i < tag.length; i++) {
+            if (tag[i] == "0") {
                 interestMap.put(i, FilteringList.getInactiveIcoList().get(i));
             }else {
                 interestMap.put(i, FilteringList.getActiveIcoList().get(i));
@@ -56,7 +61,7 @@ public class FilterImageAdapter extends BaseAdapter {
                 textView.setText(FilteringList.getActiveSportsName(interestMap.get(position)));
             }
 
-            ImageView imageView = (ImageView) gridView.findViewById(R.id.grid_item_image);
+            imageView = (ImageView) gridView.findViewById(R.id.grid_item_image);
             imageView.setImageResource(interestMap.get(position));
 
         } else {
@@ -76,5 +81,15 @@ public class FilterImageAdapter extends BaseAdapter {
     @Override
     public long getItemId(int position) {
         return 0;
+    }
+
+    public void setChangeIconStatus(int position) {
+        if (tag[position] == "0") {
+            this.interestMap.remove(position);
+            tag[position] = "1";
+        }else {
+            this.interestMap.remove(position);
+            tag[position] = "0";
+        }
     }
 }

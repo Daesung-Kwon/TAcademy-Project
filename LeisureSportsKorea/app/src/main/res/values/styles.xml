@@ -15,5 +15,14 @@
         <item name="colorAccent">#f01f1b</item>
     </style>
 
+    <style name="LoginTheme" parent="AppTheme">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
 
 </resources>

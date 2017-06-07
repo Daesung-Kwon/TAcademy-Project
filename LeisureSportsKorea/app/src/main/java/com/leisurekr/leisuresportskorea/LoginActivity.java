@@ -72,10 +72,6 @@ public class LoginActivity extends AppCompatActivity{
         });
 
         lineLoginBtn = (Button) findViewById(R.id.lineLoginButton);
-        signInBtn = (Button) findViewById(R.id.signInButton);
-        regBtn = (Button) findViewById(R.id.registerButton);
-        skipBtn = (TextView) findViewById(R.id.loginSkipButton);
-
         lineLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,36 +79,21 @@ public class LoginActivity extends AppCompatActivity{
             }
         });
 
-        signInBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO
-                Intent loginMemberIntent = new Intent(LoginActivity.this, LoginMemberActivity.class);
-                LoginActivity.this.startActivity(loginMemberIntent);
-            }
-        });
-
-        regBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO
-                Intent regIntent = new Intent(LoginActivity.this, MemberRegisterActivity.class);
-                LoginActivity.this.startActivity(regIntent);
-
-            }
-        });
-
+        skipBtn = (TextView) findViewById(R.id.loginSkipButton);
         skipBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // TODO
                 Intent regIntent = new Intent(LoginActivity.this, MainActivity.class);
                 LoginActivity.this.startActivity(regIntent);
+                finish();
 
             }
         });
     }
 
+    int FB_LOGIN_REQUEST_CODE = 64206;
+    int FB_LOGIN_RESULT_OK_CODE = -1;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -121,5 +102,12 @@ public class LoginActivity extends AppCompatActivity{
         Log.i("[FB request code] : ", String.valueOf(requestCode));
         Log.i("[FB result code] : ", String.valueOf(resultCode));
         Log.i("[FB result data] : ", data.toString());
+
+        if (requestCode == FB_LOGIN_REQUEST_CODE &&
+                resultCode == FB_LOGIN_RESULT_OK_CODE) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }

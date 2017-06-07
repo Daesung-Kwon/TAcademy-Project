@@ -10,7 +10,7 @@
     <application
         android:name=".LKApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ico_app"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -26,7 +26,9 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".LoginActivity">
+        <activity android:name=".SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -48,17 +50,16 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+        <activity android:name=".LoginActivity"
+            android:theme="@style/LoginTheme"/>
         <activity android:name=".LoginMemberActivity" />
         <activity android:name=".MemberRegisterActivity" />
         <activity
-            android:name=".MainActivity"
-            android:parentActivityName=".LoginMemberActivity" />
+            android:name=".MainActivity" />
         <activity
-            android:name=".shop.MapActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name=".shop.MapActivity" />
         <activity
-            android:name=".shop.FilterActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name=".shop.FilterActivity" />
         <activity android:name=".profile.ProfileEditActivity" />
         <activity android:name=".profile.ProfileCartActivity" />
         <activity android:name=".shop_detail.ShopDetailActivity" />

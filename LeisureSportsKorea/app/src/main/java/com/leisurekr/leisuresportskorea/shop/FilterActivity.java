@@ -10,11 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.leisurekr.leisuresportskorea.R;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 /**
  * Created by mobile on 2017. 5. 29..
@@ -23,6 +27,11 @@ import com.leisurekr.leisuresportskorea.R;
 public class FilterActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private GridView gridView;
+    private FilterImageAdapter gridAdapter;
+    private TextView saveBtn;
+
+    int MAX_SELECTED_COUNT = 4;
+    int currentSelectedCount;
 
     static final String[] interestsValues = new String[] {
             "1", "0", "1", "0",
@@ -35,103 +44,41 @@ public class FilterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter);
 
+        currentSelectedCount = getCurrentSelectedCount(interestsValues);
+
         toolbar = (Toolbar) findViewById(R.id.filter_toolbar);
         toolbar.setTitle("Interests");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         gridView = (GridView) findViewById(R.id.grid_view);
-        gridView.setAdapter(new FilterImageAdapter(this, interestsValues));
+        gridAdapter = new FilterImageAdapter(this, interestsValues);
+        gridView.setAdapter(gridAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                if (currentSelectedCount == 4) {
+                    if (interestsValues[position] == "1") {
+                        //gridAdapter.setChangeIconStatus(position);
+                        interestsValues[position] = "0";
+                        currentSelectedCount--;
+                        parent.getAdapter().getView(position, view, parent);
+                        gridAdapter.notifyDataSetChanged();
+                    }
+                }else if (currentSelectedCount < 4) {
+                    if (interestsValues[position] == "1") {
+                        //gridAdapter.setChangeIconStatus(position);
+                        currentSelectedCount--;
+                    }else {
+                        //gridAdapter.setChangeIconStatus(position);
+                        currentSelectedCount++;
+                    }
+                }
             }
         });
-    }
 
-    public class ImageAdapter extends BaseAdapter {
-        private Context context;
-        private final String[] interestValues;
+        saveBtn = (TextView) findViewById(R.id.save_button);
 
-        public ImageAdapter(Context context, String[] interestValues) {
-            this.context = context;
-            this.interestValues = interestValues;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            LayoutInflater inflater = (LayoutInflater)
-                    context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            View gridView;
-
-            if (convertView == null) {
-                gridView = new View(context);
-
-                gridView = inflater.inflate(R.layout.interest_grid_item, null);
-
-                TextView textView = (TextView) gridView.findViewById(R.id.grid_item_label);
-                textView.setText(interestValues[position]);
-
-                ImageView imageView = (ImageView) gridView.findViewById(R.id.grid_item_image);
-
-                String interestTag = interestValues[position];
-
-                switch (position) {
-                    case 0:
-                        if (interestTag == "0") {
-                            imageView.setImageResource(R.drawable.bba);
-                        }else {
-                            imageView.setImageResource(R.drawable.bba);
-                        }
-                        break;
-                    case 1:
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        break;
-                    case 5:
-                        break;
-                    case 6:
-                        break;
-                    case 7:
-                        break;
-                    case 8:
-                        break;
-                    case 9:
-                        break;
-                    case 10:
-                        break;
-                    case 11:
-                        break;
-                   default:
-                       break;
-                }
-
-            } else {
-                gridView = (View) convertView;
-            }
-            return gridView;
-        }
-
-        @Override
-        public int getCount() {
-            return interestValues.length;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
     }
 
     @Override
@@ -142,5 +89,15 @@ public class FilterActivity extends AppCompatActivity {
                 finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public int getCurrentSelectedCount(String[] list) {
+        int cnt = 0;
+        for (int i = 0; i < list.length; i++) {
+            if (list[i] == "1") {
+                cnt++;
+            }
+        }
+        return cnt;
     }
 }

@@ -5,67 +5,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:text="Leisure"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="380dp"
+        android:background="@drawable/pic_login"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:text="Korea"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout2" />
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/facebookLoginButton"
-        android:layout_width="300dp"
+        android:layout_width="296dp"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout2"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
+        android:layout_marginTop="30dp"
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/lineLoginButton"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:text="Continue with Line"
-        android:layout_below="@+id/facebookLoginButton"
         android:layout_alignLeft="@+id/facebookLoginButton"
-        android:layout_alignStart="@+id/facebookLoginButton" />
-
-    <Button
-        android:id="@+id/signInButton"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/lineLoginButton"
-        android:layout_alignStart="@+id/lineLoginButton"
-        android:layout_below="@+id/lineLoginButton"
-        android:layout_marginTop="39dp"
-        android:text="Sign In" />
-
-    <Button
-        android:id="@+id/registerButton"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/lineLoginButton"
-        android:layout_alignRight="@+id/lineLoginButton"
-        android:layout_alignTop="@+id/signInButton"
-        android:text="Sign Up" />
+        android:layout_alignStart="@+id/facebookLoginButton"
+        android:layout_below="@+id/facebookLoginButton"
+        android:layout_marginTop="11dp"
+        android:text="Continue with Line" />
 
     <TextView
         android:id="@+id/loginSkipButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="Skip >"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="35dp"
+        android:text="Skip >" />
 </RelativeLayout>

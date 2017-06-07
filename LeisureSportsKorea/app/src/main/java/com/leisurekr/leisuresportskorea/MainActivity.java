@@ -112,6 +112,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    static final int MAP_REQUEST = 1;
+    static final int FILTER_REQUEST = 2;
     private Boolean isFabOpen = false;
     private FloatingActionButton fab, fab1, fab2;
     private Animation fab_open, fab_close, rotate_forward, rotate_backward;
@@ -127,7 +129,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView location;
 
     FloatingActionButton searchBtn;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -194,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(View v) {
                 // TODO : HHere, insert New Activity for Map
                 mapIntent = new Intent(MainActivity.this, MapActivity.class);
-                startActivity(mapIntent);
+                startActivityForResult(mapIntent, MAP_REQUEST);
 
             }
         });
