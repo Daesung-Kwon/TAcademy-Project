@@ -1,8 +1,10 @@
 package com.leisurekr.leisuresportskorea.shop_detail;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -27,6 +29,10 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.leisurekr.leisuresportskorea.R;
 import com.leisurekr.leisuresportskorea.home.CircleAnimIndicator;
+import com.leisurekr.leisuresportskorea.okhttp.OkHttpAPIHelperHandler;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 /**
  * Created by mobile on 2017. 5. 31..
@@ -147,6 +153,8 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback,
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        new AsyncShopInfoJSONList().execute();
+
         previousImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -246,5 +254,26 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback,
         circleAnimIndicator.setAnimDuration(300);
         //indecator 생성
         circleAnimIndicator.createDotPanel(4, R.drawable.icon_navi_unpress, R.drawable.icon_navi_press);
+    }
+
+    public static class AsyncShopInfoJSONList
+            extends AsyncTask<String, Integer, ArrayList<LKEntityObjectDataType2>> {
+
+        ProgressDialog dialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog = ProgressDialog.show(owner, "", "Data Loading...", true);
+        }
+
+        @Override
+        protected ArrayList<LKEntityObjectDataType2> doInBackground(String... params) {
+            return OkHttpAPIHelperHandler.testJSONAllSelect();
+        }
+        @Override
+        protected void onPostExecute(ArrayList<LKEntityObjectDataType2> result) {
+            dialog.dismiss();
+        }
     }
 }
