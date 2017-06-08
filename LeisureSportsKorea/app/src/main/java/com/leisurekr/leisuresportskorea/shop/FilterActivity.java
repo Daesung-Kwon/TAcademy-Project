@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.leisurekr.leisuresportskorea.R;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 /**
  * Created by mobile on 2017. 5. 29..
@@ -17,6 +19,11 @@ import com.leisurekr.leisuresportskorea.R;
 public class FilterActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private GridView gridView;
+    private FilterImageAdapter gridAdapter;
+    private TextView saveBtn;
+
+    int MAX_SELECTED_COUNT = 4;
+    int currentSelectedCount;
 
     static final String[] interestsValues = new String[] {
             "1", "0", "1", "0",
@@ -29,19 +36,19 @@ public class FilterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter);
 
+        currentSelectedCount = getCurrentSelectedCount(interestsValues);
+
         toolbar = (Toolbar) findViewById(R.id.filter_toolbar);
         toolbar.setTitle("Interests");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         gridView = (GridView) findViewById(R.id.grid_view);
-        gridView.setAdapter(new FilterImageAdapter(this, interestsValues));
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        gridAdapter = new FilterImageAdapter(this, interestsValues);
+        gridView.setAdapter(gridAdapter);
 
-            }
-        });
+        saveBtn = (TextView) findViewById(R.id.save_button);
+
     }
 
     @Override
@@ -52,5 +59,15 @@ public class FilterActivity extends AppCompatActivity {
                 finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public int getCurrentSelectedCount(String[] list) {
+        int cnt = 0;
+        for (int i = 0; i < list.length; i++) {
+            if (list[i] == "1") {
+                cnt++;
+            }
+        }
+        return cnt;
     }
 }
