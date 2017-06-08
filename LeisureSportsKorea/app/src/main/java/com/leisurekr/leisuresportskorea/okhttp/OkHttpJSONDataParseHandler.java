@@ -2,6 +2,7 @@ package com.leisurekr.leisuresportskorea.okhttp;
 
 import android.util.Log;
 
+import com.leisurekr.leisuresportskorea.home.HomeObject;
 import com.leisurekr.leisuresportskorea.shop_detail.LKEntityObjectDataType2;
 
 import org.json.JSONArray;
@@ -15,6 +16,27 @@ import java.util.ArrayList;
  */
 
 public class OkHttpJSONDataParseHandler {
+
+    public static HomeObject getJSONHomeList(
+            JSONObject buf) {
+        HomeObject object= new HomeObject();
+        JSONObject jsonObject=null;
+        JSONArray banner = null;
+        JSONArray activity = null;
+        JSONArray shop = null;
+        if(buf != null){
+            try {
+                jsonObject = buf;
+                banner = jsonObject.getJSONArray("banner");
+                activity = jsonObject.getJSONArray("recommand");
+                shop = jsonObject.getJSONArray("BestShop");
+                object.setData(banner,activity,shop);
+            }catch (JSONException je) {
+                Log.e("RequestAllList", "JSON파싱 중 에러발생", je);
+            }
+        }
+        return object;
+    }
 
     public static ArrayList<LKEntityObjectDataType2> getJSONTestList(
             JSONArray buf) {

@@ -1,6 +1,9 @@
 package com.leisurekr.leisuresportskorea.home;
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,7 +14,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import com.bumptech.glide.Glide;
 import com.leisurekr.leisuresportskorea.R;
+import com.leisurekr.leisuresportskorea.okhttp.OkHttpAPIHelperHandler;
 
 /**
  * Created by mobile on 2017. 5. 11..
@@ -50,11 +55,14 @@ public class TabFragment1 extends android.support.v4.app.Fragment {
 
     int count=1;
 
+    HomeObject bannerTest;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         final View view = inflater.inflate(R.layout.home_fragment,container,false);
+
 
         //Home 화면 advertice 부분
         View advertice = view.findViewById(R.id.advertice);
@@ -64,9 +72,9 @@ public class TabFragment1 extends android.support.v4.app.Fragment {
         adverticeImage3 = (ImageView) advertice.findViewById(R.id.home_image3_ad);
         adverticeImage4 = (ImageView) advertice.findViewById(R.id.home_image4_ad);
 
-        adverticeImage1.setImageResource(R.drawable.pic1);
+        adverticeImage1.setImageResource(R.drawable.girls_generation_all);
         adverticeImage2.setImageResource(R.drawable.girls_generation_all);
-        adverticeImage3.setImageResource(R.drawable.pic1);
+        adverticeImage3.setImageResource(R.drawable.girls_generation_all);
         adverticeImage4.setImageResource(R.drawable.girls_generation_all);
 
         viewFlipper = (ViewFlipper) advertice.findViewById(R.id.home_viewflipper_ad);
@@ -140,6 +148,47 @@ public class TabFragment1 extends android.support.v4.app.Fragment {
 
         initIndicaotor();
         return view;
+    }
+
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        new AsyncShopInfoJSONList().execute();
+
+    }
+
+    public void setData(){
+
+        //Log.e("banner image",bannerTest.banners.get(0).image);
+        Glide.with(this).load(bannerTest.banners.get(0).image).into(adverticeImage1);
+        Glide.with(this).load(bannerTest.banners.get(1).image).into(adverticeImage2);
+        Glide.with(this).load(bannerTest.banners.get(2).image).into(adverticeImage3);
+        Glide.with(this).load(bannerTest.banners.get(3).image).into(adverticeImage4);
+    }
+
+    public class AsyncShopInfoJSONList
+            extends AsyncTask<String, Integer, HomeObject> {
+
+        ProgressDialog dialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog = ProgressDialog.show(getContext(), "", "Data Loading...", true);
+        }
+
+        @Override
+        protected HomeObject doInBackground(String... params) {
+            return OkHttpAPIHelperHandler.homeJSONAllSelect();
+        }
+        @Override
+        protected void onPostExecute(HomeObject result) {
+            dialog.dismiss();
+            bannerTest = result;
+            setData();
+        }
     }
 
     private void initIndicaotor(){

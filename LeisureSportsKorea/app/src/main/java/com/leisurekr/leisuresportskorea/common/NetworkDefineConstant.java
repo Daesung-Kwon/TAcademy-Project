@@ -11,10 +11,13 @@ public class NetworkDefineConstant {
 
 
     //요청 URL path
+    public static String SERVER_URL_HOME_INFO_ALL_SELECT;
     public static String SERVER_URL_SHOP_DETAIL_INFO_ALL_SELECT;
     public static String SERVER_URL_SHOP_DETAIL_PROGRAM_ALL_SELECT;
 
     static{
+        SERVER_URL_HOME_INFO_ALL_SELECT =
+                HOST_URL + "/programs";
         SERVER_URL_SHOP_DETAIL_INFO_ALL_SELECT =
                 HOST_URL + "/programs";
         SERVER_URL_SHOP_DETAIL_PROGRAM_ALL_SELECT =
