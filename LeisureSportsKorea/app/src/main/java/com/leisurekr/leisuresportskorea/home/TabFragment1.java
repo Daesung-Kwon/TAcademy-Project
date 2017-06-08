@@ -72,10 +72,10 @@ public class TabFragment1 extends android.support.v4.app.Fragment {
         adverticeImage3 = (ImageView) advertice.findViewById(R.id.home_image3_ad);
         adverticeImage4 = (ImageView) advertice.findViewById(R.id.home_image4_ad);
 
-        adverticeImage1.setImageResource(R.drawable.girls_generation_all);
+        /*adverticeImage1.setImageResource(R.drawable.girls_generation_all);
         adverticeImage2.setImageResource(R.drawable.girls_generation_all);
         adverticeImage3.setImageResource(R.drawable.girls_generation_all);
-        adverticeImage4.setImageResource(R.drawable.girls_generation_all);
+        adverticeImage4.setImageResource(R.drawable.girls_generation_all);*/
 
         viewFlipper = (ViewFlipper) advertice.findViewById(R.id.home_viewflipper_ad);
 
@@ -198,6 +198,7 @@ public class TabFragment1 extends android.support.v4.app.Fragment {
         //애니메이션 속도
         circleAnimIndicator.setAnimDuration(300);
         //indecator 생성
+        circleAnimIndicator.setSavePosition(count-1);
         circleAnimIndicator.createDotPanel(4
                 , R.drawable.icon_navi_unpress , R.drawable.icon_navi_press);
     }
