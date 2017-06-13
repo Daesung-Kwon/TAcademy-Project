@@ -34,10 +34,14 @@
             tools:context="com.leisurekr.leisuresportskorea.profile.ReservationDetailActivity">
 
             <RelativeLayout
-                android:id="@+id/reservation_detail_backimage"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="5">
+
+                <ImageView
+                    android:id="@+id/reservation_detail_backimage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
                 <LinearLayout
                     android:id="@+id/reservation_detail_dim"

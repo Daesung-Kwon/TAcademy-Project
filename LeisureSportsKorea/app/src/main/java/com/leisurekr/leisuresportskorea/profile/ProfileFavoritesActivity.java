@@ -16,11 +16,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.leisurekr.leisuresportskorea.BookActivity;
 import com.leisurekr.leisuresportskorea.LKApplication;
 import com.leisurekr.leisuresportskorea.R;
 import com.leisurekr.leisuresportskorea.shop.TestArrayList;
-
+import com.leisurekr.leisuresportskorea.shop_detail.ShopDetailActivity;
 
 import java.util.ArrayList;
 
@@ -50,6 +49,7 @@ public class ProfileFavoritesActivity extends AppCompatActivity {
         private ArrayList<Integer> shopImages;
 
         private Animation slideInAnimation;
+
         public TabFragment2RVAdapter(ArrayList<Integer> resources) {
             shopImages = resources;
             slideInAnimation = AnimationUtils
@@ -58,7 +58,7 @@ public class ProfileFavoritesActivity extends AppCompatActivity {
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             public final View includeView;
-            public final LinearLayout mShopMainImage;
+            public final ImageView mShopMainImage;
             public final LinearLayout dim;
             public final ImageView mShopCircleImage;
             public final TextView mShopName;
@@ -69,8 +69,8 @@ public class ProfileFavoritesActivity extends AppCompatActivity {
             public ViewHolder(View view) {
                 super(view);
                 includeView = view.findViewById(R.id.favor_recycler_layout);
-                mShopMainImage = (LinearLayout) view.findViewById(R.id.shop_main_image);
-                dim = (LinearLayout)view.findViewById(R.id.shop_dim);
+                mShopMainImage = (ImageView) view.findViewById(R.id.shop_main_image);
+                dim = (LinearLayout) view.findViewById(R.id.shop_dim);
                 //mShopMainImage = (ImageView) view.findViewById(R.id.shop_main_image);
                 mShopCircleImage = (ImageView) view.findViewById(R.id.shop_circle_image);
                 mShopName = (TextView) view.findViewById(R.id.shop_name_text);
@@ -100,7 +100,8 @@ public class ProfileFavoritesActivity extends AppCompatActivity {
             holder.mShopMainImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(),BookActivity.class);
+
+                    Intent intent = new Intent(v.getContext(), ShopDetailActivity.class);
                     startActivity(intent);
                 }
             });

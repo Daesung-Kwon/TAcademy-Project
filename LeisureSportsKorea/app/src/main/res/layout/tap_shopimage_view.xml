@@ -6,10 +6,11 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:id="@+id/tab_shopimage"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_gravity="center"
-        android:src="@drawable/ic_shop_press"
+        android:src="@drawable/ic_shop_unpress"
         android:layout_weight="1"/>
 
 

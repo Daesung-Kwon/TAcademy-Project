@@ -5,6 +5,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.leisurekr.leisuresportskorea.LKApplication;
 import com.leisurekr.leisuresportskorea.R;
 
 /**
@@ -14,7 +16,7 @@ import com.leisurekr.leisuresportskorea.R;
 public class ShopImageObject {
 
     public final View mView;
-    public final LinearLayout mShopMainImage;
+    public final ImageView mShopMainImage;
     public final LinearLayout dim;
 
     public final ImageView mShopCircleImage;
@@ -24,7 +26,7 @@ public class ShopImageObject {
 
     public ShopImageObject(View mView) {
         this.mView = mView;
-        this.mShopMainImage = (LinearLayout) mView.findViewById(R.id.bestshop_main_image);
+        this.mShopMainImage = (ImageView) mView.findViewById(R.id.bestshop_main_image);
         this.dim = (LinearLayout) mView.findViewById(R.id.bestshop_dim);
         this.mShopCircleImage = (ImageView) mView.findViewById(R.id.bestshop_circle_image);
         this.mShopName = (TextView) mView.findViewById(R.id.bestshop_name_text);
@@ -39,6 +41,15 @@ public class ShopImageObject {
         mShopName.setText(name);
         mShopLocation.setText(location);
         mShopRating.setText(rate);
+    }
+
+    public void setData(ShopObject object){
+        Glide.with(LKApplication.getLKApplication()).load(object.image).into(mShopMainImage);
+        dim.setAlpha(0.4f);
+        mShopCircleImage.setBackgroundResource(R.drawable.pic_shop1);
+        mShopName.setText(object.shopName);
+        //mShopLocation.setText();
+        mShopRating.setText(Double.toString(object.score));
     }
 
 }

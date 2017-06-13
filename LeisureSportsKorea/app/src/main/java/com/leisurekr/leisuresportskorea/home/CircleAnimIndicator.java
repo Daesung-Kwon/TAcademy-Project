@@ -77,15 +77,21 @@ public class CircleAnimIndicator extends LinearLayout {
             this.addView(imageDot[i]);
         }
         //첫인덱스 선택
-        selectDot(0);
+        selectDot(savePosition);
     }
 
     /**
      * 선택된 점 표시
      * @param position
      */
+    int savePosition=0;
+    public void setSavePosition(int position){
+        savePosition = position;
+    }
+
     public void selectDot(int position) {
 
+        savePosition=position;
         for (int i = 0; i < imageDot.length; i++) {
             if (i == position) {
                 imageDot[i].setImageResource(mSelectCircle);

@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/profile_cart_toolbar"
@@ -14,7 +14,6 @@
         />
 
     <android.support.v7.widget.RecyclerView
-
         android:id="@+id/profile_cart_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -22,25 +21,50 @@
         android:background="@color/colorCartBackDark"
         />
 
-    <TextView
+    <!--<ImageView
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:src="@drawable/shadow"
+        android:background="#00ffffff"
+        android:scaleType="centerCrop"/>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:elevation="5dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorCartBackLightGray"></LinearLayout>
+
+        <!--<ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:src="@drawable/shadow"
+            android:background="#00ffffff"/>-->
+
+        <TextView
         android:id="@+id/profile_cart_totalprice"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:layout_marginRight="16dp"
-        android:background="@color/colorCartBackWhite"
+        android:paddingRight="16dp"
+        android:background="@color/colorWhite"
         android:gravity="center_vertical|right"
         android:text="text"
+            android:shadowColor="@color/colorBlack"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:textSize="15sp" />
-
+        android:textSize="15sp"/>
     <Button
         android:id="@+id/profile_cart_checkout"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:text="CHECK OUT"
-        android:textSize="14sp"
+        android:textSize="20sp"
         android:textColor="@color/colorWhite"
         android:background="@color/colorRed"/>
-
+    </LinearLayout>
 
 </LinearLayout>

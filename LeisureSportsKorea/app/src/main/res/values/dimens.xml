@@ -40,12 +40,12 @@
     <dimen name="home_activity_iconWidth">24dp</dimen>
     <dimen name="home_activity_iconHeight">24dp</dimen>
 
-    <dimen name="home_activity_text1MarginTop">38dp</dimen>
+    <dimen name="home_activity_text1MarginTop">28dp</dimen>
     <dimen name="home_activity_text1Size">20sp</dimen>
     <dimen name="home_activity_text1Width">80dp</dimen>
     <dimen name="home_activity_text1Height">15dp</dimen>
 
-    <dimen name="home_activity_text2MarginTop">24dp</dimen>
+    <dimen name="home_activity_text2MarginTop">18dp</dimen>
     <dimen name="home_activity_text2Size">10sp</dimen>
     <dimen name="home_activity_text2Width">115dp</dimen>
     <dimen name="home_activity_text2Height">11dp</dimen>
@@ -55,7 +55,7 @@
     <dimen name="home_activity_text3Width">115dp</dimen>
     <dimen name="home_activity_text3Height">11dp</dimen>
 
-    <dimen name="home_activity_priceMarginTop">16dp</dimen>
+    <dimen name="home_activity_priceMarginTop">14dp</dimen>
     <dimen name="home_activity_priceSize">13sp</dimen>
     <dimen name="home_activity_priceWidth">30dp</dimen>
     <dimen name="home_activity_priceHeight">12dp</dimen>
@@ -132,12 +132,14 @@
     <dimen name="location_radioMarginTop">27dp</dimen>
 
     <!--Book화면-->
-    <dimen name="book_leftPadding">10dp</dimen>
+    <dimen name="book_leftPadding">16dp</dimen>
     <dimen name="book_listHeight">48dp</dimen>
     <dimen name="book_listimageWidth">150dp</dimen>
     <dimen name="book_listimageHeight">150dp</dimen>
-    <dimen name="book_titleMarginLeft">10dp</dimen>
-    <dimen name="book_priceMarginRight">8dp</dimen>
+    <dimen name="book_titleMarginTop">24dp</dimen>
+    <dimen name="book_titleMarginLeft">16dp</dimen>
+    <dimen name="book_priceMarginRight">16dp</dimen>
+    <dimen name="book_priceMarginBottom">24dp</dimen>
     <dimen name="book_priceSize">20sp</dimen>
     <dimen name="book_titleSize">20sp</dimen>
     <dimen name="book_textSize">16sp</dimen>
@@ -170,7 +172,7 @@
 
     <!--Profile Cart화면-->
     <dimen name="profile_cart_marginRight">10dp</dimen>
-    <dimen name="profile_cart_marginLeft">5dp</dimen>
+    <dimen name="profile_cart_marginLeft">16dp</dimen>
     <dimen name="profile_cart_marginLeftText">20dp</dimen>
     <dimen name="profile_cart_marginBottom">15dp</dimen>
 
@@ -178,11 +180,12 @@
     <dimen name="profile_cart_iconHeight">24dp</dimen>
     <dimen name="profile_cart_iconMarginRight">16dp</dimen>
 
-    <dimen name="profile_cart_imageHeight">184dp</dimen>
+    <dimen name="profile_cart_imageHeight">208dp</dimen>
 
     <dimen name="profile_cart_textSize">16sp</dimen>
+    <dimen name="profile_cart_text2Size">20sp</dimen>
     <dimen name="profile_cart_text1Size">14sp</dimen>
-    <dimen name="profile_cart_textMarginBottom">14dp</dimen>
+    <dimen name="profile_cart_textMarginBottom">6dp</dimen>
 
 
     <!--Profile Reservation화면-->
@@ -191,12 +194,12 @@
     <dimen name="profile_reservation_marginLeftText">20dp</dimen>
 
     <dimen name="profile_reservation_leftImageWidth">197dp</dimen>
-    <dimen name="profile_reservation_leftImageHeight">179dp</dimen>
+    <dimen name="profile_reservation_leftImageHeight">200dp</dimen>
     <dimen name="profile_reservation_leftTextSize">16sp</dimen>
     <dimen name="profile_reservation_leftPriceSize">27sp</dimen>
 
     <dimen name="profile_reservation_rightImageWidth">131dp</dimen>
-    <dimen name="profile_reservation_rightImageHeight">179dp</dimen>
+    <dimen name="profile_reservation_rightImageHeight">200dp</dimen>
     <dimen name="profile_reservation_rightTextSize">11sp</dimen>
     <dimen name="profile_reservation_rightText1Size">13sp</dimen>
     <dimen name="profile_reservation_rightText1MarginBottom">7dp</dimen>

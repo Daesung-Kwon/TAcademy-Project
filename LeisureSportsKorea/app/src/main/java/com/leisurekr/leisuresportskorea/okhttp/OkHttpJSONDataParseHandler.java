@@ -8,6 +8,10 @@ import com.leisurekr.leisuresportskorea.shop_detail.LKShopListObject;
 import com.leisurekr.leisuresportskorea.shop_detail.LKShopProgramEntity;
 import com.leisurekr.leisuresportskorea.shop_detail.LKShopReviewsObject;
 import com.leisurekr.leisuresportskorea.shop_detail.ParentData;
+import com.leisurekr.leisuresportskorea.home.HomeObject;
+import com.leisurekr.leisuresportskorea.profile.CartObject;
+import com.leisurekr.leisuresportskorea.profile.ReservationObject;
+import com.leisurekr.leisuresportskorea.ticket.TicketObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,6 +24,106 @@ import java.util.ArrayList;
  */
 
 public class OkHttpJSONDataParseHandler {
+
+    public static HomeObject getJSONHomeList(
+            JSONObject buf) {
+        HomeObject object = new HomeObject();
+        JSONObject jsonObject = null;
+        JSONArray banner = null;
+        JSONArray activity = null;
+        JSONArray shop = null;
+        if (buf != null) {
+            try {
+                jsonObject = buf;
+                banner = jsonObject.getJSONArray("banner");
+                activity = jsonObject.getJSONArray("recommend");
+                shop = jsonObject.getJSONArray("bestShop");
+                object.setData(banner, activity, shop);
+            } catch (JSONException je) {
+                Log.e("RequestAllList", "Home JSON파싱 중 에러발생", je);
+            }
+        }
+        return object;
+    }
+
+    public static ArrayList<ReservationObject> getJSONReservationList(
+            JSONObject buf) {
+        ArrayList<ReservationObject> reservationArrayList = new ArrayList<>();
+        ReservationObject object = null;
+        JSONObject jsonObject = null;
+        JSONArray jsonArray = null;
+
+        if (buf != null) {
+            try {
+                jsonObject = buf;
+                jsonArray = jsonObject.getJSONArray("data");
+                int arrayLength = jsonArray.length();
+                for (int i = 0; i < arrayLength; i++) {
+                    object = new ReservationObject();
+                    object.setData(jsonArray.getJSONObject(i));
+                    reservationArrayList.add(object);
+
+                }
+
+            } catch (JSONException je) {
+                Log.e("RequestAllList", "Reservation JSON파싱 중 에러발생", je);
+            }
+        }
+        return reservationArrayList;
+    }
+
+    public static ArrayList<TicketObject> getJSONTicketList(
+            JSONObject buf) {
+        ArrayList<TicketObject> ticketArrayList = new ArrayList<>();
+        TicketObject object = null;
+        JSONObject jsonObject = null;
+        JSONArray jsonArray = null;
+
+        if (buf != null) {
+            try {
+                jsonObject = buf;
+                jsonArray = jsonObject.getJSONArray("data");
+                int arrayLength = jsonArray.length();
+                for (int i = 0; i < arrayLength; i++) {
+                    object = new TicketObject();
+                    object.setData(jsonArray.getJSONObject(i));
+                    ticketArrayList.add(object);
+
+                }
+
+            } catch (JSONException je) {
+                Log.e("RequestAllList", "ticket JSON파싱 중 에러발생", je);
+            }
+        }
+        return ticketArrayList;
+    }
+
+    public static ArrayList<CartObject> getJSONCartList(
+            JSONObject buf) {
+        ArrayList<CartObject> reservationArrayList = new ArrayList<>();
+        CartObject object = null;
+        JSONObject jsonObject = null;
+        JSONArray jsonArray = null;
+
+        if (buf != null) {
+            try {
+                jsonObject = buf;
+                jsonArray = jsonObject.getJSONArray("data");
+                int arrayLength = jsonArray.length();
+                for (int i = 0; i < arrayLength; i++) {
+                    object = new CartObject();
+                    object.setData(jsonArray.getJSONObject(i));
+                    reservationArrayList.add(object);
+
+                }
+
+            } catch (JSONException je) {
+                Log.e("RequestAllList", "cart JSON파싱 중 에러발생", je);
+            }
+        }
+        return reservationArrayList;
+    }
+
     public static ArrayList<ParentData> getJSONShopProgram(
             JSONObject buf) {
 
@@ -30,6 +134,7 @@ public class OkHttpJSONDataParseHandler {
         JSONArray jsonArray0 = null;
         JSONArray jsonArray1 = null;
         JSONArray jsonArray2 = null;
+
         try {
             jsonAllList = new ArrayList<ParentData>();
             jsonObject0 = buf.getJSONObject("data");
