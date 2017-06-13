@@ -13,17 +13,21 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.leisurekr.leisuresportskorea.R;
+import com.leisurekr.leisuresportskorea.shop_detail.WriteReviewActivity;
 
 
 public class ReservationDetailActivity extends AppCompatActivity {
 
     ReservationObject reservation;
+    ProgramObject programObject;
+    ShopObject shopObject;
 
     LinearLayout rootLayout;
     LinearLayout dimLayout;
 
-    RelativeLayout backImage;
+    ImageView backImage;
     RelativeLayout topImage;
     //ImageView backImage;
     //ImageView topImage;
@@ -71,7 +75,7 @@ public class ReservationDetailActivity extends AppCompatActivity {
         dimLayout = (LinearLayout) findViewById(R.id.reservation_detail_dim);
 
 
-        backImage = (RelativeLayout) findViewById(R.id.reservation_detail_backimage);
+        backImage = (ImageView) findViewById(R.id.reservation_detail_backimage);
         topImage = (RelativeLayout) findViewById(R.id.reservation_detail_topimage);
         text1 = (TextView) findViewById(R.id.reservation_detail_text1);
         text2 = (TextView) findViewById(R.id.reservation_detail_text2);
@@ -98,23 +102,41 @@ public class ReservationDetailActivity extends AppCompatActivity {
         detail = (Button) findViewById(R.id.reservation_detail_detailbtn);
         review = (Button) findViewById(R.id.reservation_detail_reviewbtn);
 
+        review.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ReservationDetailActivity.this, WriteReviewActivity.class);
+                intent.putExtra("id",shopObject.id);
+                startActivity(intent);
+            }
+        });
+
         //backImage.setImageResource(reservation.getBackImage());
-        backImage.setBackgroundResource(reservation.getLeftBackImage());
-        text1.setText(reservation.getText1()+"'s");
-        text2.setText(reservation.getText2());
-        text3.setText(reservation.getText3());
-        switch (reservation.getMain()){
+
+        if(reservation.programObject!=null) {
+            programObject = reservation.programObject;
+            shopObject = programObject.shopObject;
+            text1.setText(shopObject.name + "'s");
+            text2.setText(programObject.activityName);
+            text3.setText(programObject.name);
+            Glide.with(ReservationDetailActivity.this).load(shopObject.image).into(backImage);
+
+
+        switch (programObject.activityName){
             case "Water Ski":
                 activityIamge.setImageResource(R.drawable.ic_waterski);
                 break;
             case "Fun Boat":
                 activityIamge.setImageResource(R.drawable.ic_funboat);
                 break;
+            case "Ski":
+                activityIamge.setImageResource(R.drawable.ic_waterski);
+                break;
         }
 
         date.setText(reservation.getDate());
         time.setText(reservation.getTime());
-        price.setText("$"+Integer.toString(reservation.getPrice()));
+        price.setText("$"+Integer.toString(programObject.getPrice()));
 
         String s=" ";
         int adult = reservation.getAdult();
@@ -129,10 +151,11 @@ public class ReservationDetailActivity extends AppCompatActivity {
         }
         people.setText(s);
 
-        location1.setText(reservation.getLocation3()+", "+reservation.getLocation1()+",");
-        location2.setText(reservation.getLocation2());
+        location1.setText(shopObject.getLocation3()+",");
+        location2.setText(shopObject.getLocation2()+", "+shopObject.getLocation1());
 
         setLayout(reservation.getProgress());
+        }
     }
 
     public void setLayout(String mode){

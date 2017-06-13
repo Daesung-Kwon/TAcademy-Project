@@ -18,7 +18,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.ViewTarget;
 import com.leisurekr.leisuresportskorea.profile.CartObject;
+import com.leisurekr.leisuresportskorea.profile.ProgramObject;
+import com.leisurekr.leisuresportskorea.profile.ShopObject;
 
 import java.util.ArrayList;
 
@@ -83,13 +90,23 @@ public class BookInformationActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(final ViewHolder holder, int position) {
             CartObject object = arrayList.get(position);
+            ProgramObject programObject = object.getProgramObject();
+            ShopObject shopObject = programObject.getShopObject();
             if (object != null) {
+                Glide.with(BookInformationActivity.this).load(shopObject.getImage())
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(new ViewTarget<LinearLayout, GlideDrawable>(holder.activityImage) {
+                            @Override
+                            public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                                holder.activityImage.setBackgroundDrawable(resource);
+                            }
+                        });
                 holder.activityImage.setBackgroundResource(object.getActivityImage());
-                holder.text1.setText(object.getShopName() + "'s");
-                holder.text2.setText(object.getText1());
-                holder.text3.setText(object.getText2());
+                holder.text1.setText(shopObject.getName() + "'s");
+                holder.text2.setText(programObject.getActivityName());
+                holder.text3.setText(programObject.getName().substring(programObject.getActivityName().length()+1));
                 holder.date.setText((object.getDate()));
                 holder.time.setText(object.getTime());
                 adult = object.getAdult();

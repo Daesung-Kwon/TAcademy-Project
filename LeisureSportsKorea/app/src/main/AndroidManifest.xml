@@ -13,7 +13,8 @@
         android:icon="@mipmap/ico_app"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        >
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_api_key" />
@@ -27,8 +28,7 @@
             android:value="@string/facebook_app_id" />
 
         <activity android:name=".SplashActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/SplashTheme">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,7 +40,8 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            tools:replace="android:theme">
+            tools:replace="android:theme"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -51,32 +52,50 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity"
-            android:theme="@style/LoginTheme"/>
-        <activity android:name=".LoginMemberActivity" />
-        <activity android:name=".MemberRegisterActivity" />
+            android:theme="@style/LoginTheme"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".LoginMemberActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MemberRegisterActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".MainActivity" />
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".shop.MapActivity" />
+            android:name=".shop.MapActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".shop.FilterActivity" />
-        <activity android:name=".profile.ProfileEditActivity" />
-        <activity android:name=".profile.ProfileCartActivity" />
-        <activity android:name=".shop_detail.ShopDetailActivity" />
+            android:name=".shop.FilterActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".profile.ProfileEditActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".profile.ProfileCartActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".shop_detail.ShopDetailActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".shop_detail.ReviewActivity"
-            android:theme="@style/ReviewListTheme" />
+            android:theme="@style/ReviewListTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".shop_detail.WriteReviewActivity"
-            android:theme="@style/ReviewListTheme" />
-        <activity android:name=".profile.ProfileReservationActivity" />
-        <activity android:name=".profile.ReservationDetailActivity" />
-        <activity android:name=".ticket.TicketActivity" />
-        <activity android:name=".BookActivity" />
-        <activity android:name=".BookInformationActivity" />
-        <activity android:name=".profile.ProfileFavoritesActivity" />
-        <activity android:name=".Search" />
-        <activity android:name=".SearchResultActivity"></activity>
+            android:theme="@style/ReviewListTheme"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".profile.ProfileReservationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".profile.ReservationDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ticket.TicketActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".BookActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".BookInformationActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".profile.ProfileFavoritesActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SearchResultActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

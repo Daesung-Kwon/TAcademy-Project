@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ public class CalenderDialog extends Dialog {
     final int DIALOG_TYPE2 = 1;
 
     TextView date;
+    ImageView close;
     LinearLayout title;
     LinearLayout saveLayout;
     Button saveBtn;
@@ -42,6 +44,7 @@ public class CalenderDialog extends Dialog {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_calender);
 
+        close = (ImageView) findViewById(R.id.calender_close);
         datePicker = (DatePicker) findViewById(R.id.calender_pickerdate);
         datePicker.setDrawingCacheBackgroundColor(Color.RED);
         title = (LinearLayout) findViewById(R.id.calender_title);
@@ -55,6 +58,13 @@ public class CalenderDialog extends Dialog {
                 break;
         }
 
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,7 +73,7 @@ public class CalenderDialog extends Dialog {
                 int day = datePicker.getDayOfMonth();
 
                 date.setText(Integer.toString(year)
-                        + "년 " + Integer.toString(month) + "월 " + Integer.toString(day) + "일");
+                        + "-" + Integer.toString(month) + "-" + Integer.toString(day));
 
                 dismiss();
 

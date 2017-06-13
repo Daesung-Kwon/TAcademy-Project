@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="Nationality">
+        <item>Select</item>
         <item>U.S</item>
         <item>Korea</item>
         <item>Japan</item>
     </string-array>
 
     <string-array name="Sex">
+        <item>Select</item>
         <item>Male</item>
         <item>Female</item>
         <item>gender</item>

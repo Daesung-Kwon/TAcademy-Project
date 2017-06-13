@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorLightBule"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorCartBackLightGray"
     android:orientation="vertical">
 
     <!--   상단 업체이름나오는 부분      -->
@@ -45,13 +46,18 @@
         android:id="@+id/cart_recycler_expandedlayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/profile_cart_marginLeft"
+        >
 
         <!--           활동 사진및 내용         -->
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp">
+            android:layout_marginBottom="13dp"
+            android:layout_marginLeft="@dimen/profile_cart_marginLeft"
+            android:layout_marginRight="@dimen/profile_cart_marginLeft">
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -94,7 +100,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                         android:textSize="@dimen/profile_cart_textSize"
-                        android:layout_marginBottom="10dp"/>
+                        android:layout_marginBottom="16dp"/>
 
                     <!--          Date         -->
                     <LinearLayout
@@ -194,12 +200,12 @@
             android:visibility="gone">
 
             <LinearLayout
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginLeft="@dimen/profile_cart_iconMarginRight"
-                android:layout_marginRight="@dimen/profile_cart_iconMarginRight"
-                android:background="@color/colorLightBule"/>
+                android:layout_marginLeft="@dimen/profile_cart_marginLeft"
+                android:layout_marginRight="@dimen/profile_cart_marginLeft"
+                android:background="@color/colorCartBackLightGray"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -213,7 +219,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@color/colorLightBule"
+                    android:background="@color/colorCartBackLightGray"
                     android:src="@drawable/ic_minus" />
 
                 <TextView
@@ -229,7 +235,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@color/colorLightBule"
+                    android:background="@color/colorCartBackLightGray"
                     android:src="@drawable/ic_plus" />
             </LinearLayout>
 
@@ -238,7 +244,7 @@
                 android:layout_height="1dp"
                 android:layout_marginLeft="@dimen/profile_cart_iconMarginRight"
                 android:layout_marginRight="@dimen/profile_cart_iconMarginRight"
-                android:background="@color/colorLightBule"
+                android:background="@color/colorCartBackLightGray"
                 android:layout_marginBottom="8dp"/>
 
             <LinearLayout
@@ -246,7 +252,7 @@
                 android:layout_height="1dp"
                 android:layout_marginLeft="@dimen/profile_cart_iconMarginRight"
                 android:layout_marginRight="@dimen/profile_cart_iconMarginRight"
-                android:background="@color/colorLightBule" />
+                android:background="@color/colorCartBackLightGray" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -261,7 +267,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@color/colorLightBule"
+                    android:background="@color/colorCartBackLightGray"
                     android:src="@drawable/ic_minus" />
 
                 <TextView
@@ -277,7 +283,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@color/colorLightBule"
+                    android:background="@color/colorCartBackLightGray"
                     android:src="@drawable/ic_plus" />
             </LinearLayout>
 
@@ -286,10 +292,10 @@
                 android:layout_height="1dp"
                 android:layout_marginLeft="@dimen/profile_cart_iconMarginRight"
                 android:layout_marginRight="@dimen/profile_cart_iconMarginRight"
-                android:background="@color/colorLightBule"
-                android:layout_marginBottom="8dp"/>
+                android:background="@color/colorCartBackLightGray"
+                android:layout_marginBottom="10dp"/>
 
-            <LinearLayout
+            <!--<LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
@@ -297,7 +303,7 @@
                 android:layout_marginRight="@dimen/profile_cart_iconMarginRight"
                 >
 
-                <Button
+                <ImageView
                     android:id="@+id/cart_recycler_canceleditbtn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -305,9 +311,11 @@
                     android:text="cancel"
                     android:textSize="15sp"
                     android:textColor="@color/colorWhite"
-                    android:background="#838383"/>
+                    android:background="#838383"
+                    android:elevation="0dp"
+                    />
 
-                <Button
+                <ImageView
                     android:id="@+id/cart_recycler_okeditbtn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -315,128 +323,46 @@
                     android:text="OK"
                     android:textSize="15sp"
                     android:textColor="@color/colorWhite"
-                    android:background="@color/colorRed"/>
-            </LinearLayout>
-
-            <!--<LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="4dp">
-
-                <Button
-                    android:id="@+id/cart_recycler_subadultbtn"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_minus" />
-
-                <TextView
-                    android:id="@+id/cart_recycler_curentadulttext"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="8"
-                    android:gravity="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textSize="18sp"/>
-
-                <Button
-                    android:id="@+id/cart_recycler_addadultbtn"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_plus" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="4dp">
-
-                <Button
-                    android:id="@+id/cart_recycler_subchildrenbtn"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_minus" />
-
-                <TextView
-                    android:id="@+id/cart_recycler_currentchildrenbtn"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="8"
-                    android:gravity="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textSize="18sp" />
-
-                <Button
-                    android:id="@+id/cart_recycler_addchildrenbtn"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_plus" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="4dp">
-
-                <Button
-                    android:id="@+id/cart_recycler_canceleditbtn"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="5"
-                    android:text="cancel" />
-
-                <Button
-                    android:id="@+id/cart_recycler_okeditbtn"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="5"
-                    android:text="OK" />
+                    android:background="@color/colorRed"
+                    android:layout_marginBottom="16dp"
+                    android:elevation="0dp"/>
             </LinearLayout>-->
+
         </LinearLayout>
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp">
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="@dimen/profile_cart_marginLeft"
+            android:layout_marginRight="@dimen/profile_cart_marginLeft">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:layout_gravity="center_vertical"
                 android:background="@color/colorCartBackWhite">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="32dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
                     android:text="order"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textSize="@dimen/profile_cart_textSize"/>
+                    android:textSize="@dimen/profile_cart_text2Size" />
 
                 <TextView
                     android:id="@+id/cart_recycler_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="32dp"
+                    android:layout_marginRight="16dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                    android:textSize="@dimen/profile_cart_textSize"/>
+                    android:textSize="@dimen/profile_cart_text2Size" />
             </RelativeLayout>
         </android.support.v7.widget.CardView>
     </LinearLayout>

@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     MenuItem itemSearch;
     MenuItem itemTicket;
 
-    String[] tabs = {"Leisure Korea", "Shop", "Profile"};
+    String[] tabs = {"Leisure Korea", "Shop", "My Page"};
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return true;
             case android.R.id.home:
                 searchView.setVisibility(View.GONE);
-                toolbar.setTitle(tabs[0]);
+                //toolbar.setTitle(tabs[0]);
                 itemSearch.setVisible(true);
                 itemTicket.setVisible(true);
                 getSupportActionBar().setDisplayHomeAsUpEnabled(false);
@@ -122,6 +122,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     FloatingActionButton searchBtn;
 
+    ImageView tabHome;
+    ImageView tabShop;
+    ImageView tabMypage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,10 +148,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,SearchResultActivity.class);
-                intent.putExtra("date",date.getText().toString());
-                intent.putExtra("guest",guest.getText().toString());
-                intent.putExtra("location",location.getText().toString());
+                Intent intent = new Intent(MainActivity.this, SearchResultActivity.class);
+                intent.putExtra("date", date.getText().toString());
+                intent.putExtra("guest", guest.getText().toString());
+                intent.putExtra("location", location.getText().toString());
                 startActivity(intent);
             }
         });
@@ -171,9 +175,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Tab Layout
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setSelectedTabIndicatorColor(Color.WHITE);
-        tabLayout.addTab(tabLayout.newTab().setCustomView(R.layout.tap_homeimage_view));
-        tabLayout.addTab(tabLayout.newTab().setCustomView(R.layout.tap_shopimage_view));
-        tabLayout.addTab(tabLayout.newTab().setCustomView(R.layout.tap_mypageimage_view));
+
+        View home = getLayoutInflater().inflate(R.layout.tap_homeimage_view, null);
+        tabHome = (ImageView) home.findViewById(R.id.tab_homeimage);
+        View shop = getLayoutInflater().inflate(R.layout.tap_shopimage_view, null);
+        tabShop = (ImageView) shop.findViewById(R.id.tab_shopimage);
+        View maPage = getLayoutInflater().inflate(R.layout.tap_mypageimage_view, null);
+        tabMypage = (ImageView) maPage.findViewById(R.id.tab_mypageimage);
+
+        tabLayout.addTab(tabLayout.newTab().setCustomView(home), true);
+        tabLayout.addTab(tabLayout.newTab().setCustomView(shop));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(maPage));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         // View Pager
@@ -232,6 +244,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 switch (tabPosition) {
                     case 0: {
                         fab.hide();
+                        if (tabHome != null)
+                            tabHome.setImageResource(R.drawable.ic_home_press);
                         if (isFabOpen == true) {
                             animateFAB();
                         }
@@ -239,10 +253,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                     case 1: {
                         fab.show();
+                        if (tabShop != null)
+                            tabShop.setImageResource(R.drawable.ic_shop_press);
                         break;
                     }
                     case 2: {
                         fab.hide();
+                        if (tabMypage != null)
+                            tabMypage.setImageResource(R.drawable.ic_mypage_press);
                         if (isFabOpen == true) {
                             animateFAB();
                         }
@@ -257,6 +275,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
+                int tabPosition = tab.getPosition();
+
+                switch (tabPosition) {
+                    case 0:
+                        if (tabHome != null)
+                            tabHome.setImageResource(R.drawable.ic_home_unpress);
+                        break;
+                    case 1:
+                        if (tabShop != null)
+                            tabShop.setImageResource(R.drawable.ic_shop_unpress);
+                        break;
+                    case 2:
+                        if (tabMypage != null)
+                            tabMypage.setImageResource(R.drawable.ic_mypage_unpress);
+                        break;
+                }
 
             }
 
@@ -362,6 +396,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     RadioGroup radioGroup;
     int selectedId;
 
+
+
     @Override
     public void onClick(View v) {
         final View view;
@@ -406,8 +442,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 currentChildren = (TextView) view.findViewById(R.id.dialog_currentchildren);
                 addChildren = (ImageView) view.findViewById(R.id.dialog_addchildren);
 
-                currentAdult.setText("Adults "+adult);
-                currentChildren.setText("Children "+children);
+                currentAdult.setText("Adults " + adult);
+                currentChildren.setText("Children " + children);
 
                 SearchClickLisenter searchClickLisenter = new SearchClickLisenter();
                 subAdult.setOnClickListener(searchClickLisenter);
@@ -420,12 +456,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                if(adult!=0&&children!=0)
+                                if (adult != 0 && children != 0)
                                     guest.setText(currentAdult.getText().toString()
                                             + "   " + currentChildren.getText().toString());
-                                else if(adult!=0)
+                                else if (adult != 0)
                                     guest.setText(currentAdult.getText().toString());
-                                else if(children!=0)
+                                else if (children != 0)
                                     guest.setText(currentChildren.getText().toString());
                                 else
                                     guest.setText("No. of Guests");
@@ -444,10 +480,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 view = View.inflate(MainActivity.this, R.layout.dialog_location, null);
 
                 radioGroup = (RadioGroup) view.findViewById(R.id.dialog_group);
-                if(!location.getText().toString().equals("Location")) {
+                if (!location.getText().toString().equals("Location")) {
                     RadioButton rb = (RadioButton) view.findViewById(selectedId);
                     rb.setChecked(true);
-                }else{
+                } else {
                     RadioButton rb = (RadioButton) view.findViewById(R.id.dialog_yonsangu);
                     rb.setChecked(true);
                 }
@@ -504,6 +540,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
             }
 
+        }
+    }
+
+    private final long FINSH_INTERVAL_TIME = 2000;
+    private long backPressedTime = 0;
+
+    @Override
+    public void onBackPressed() {
+        long tempTime = System.currentTimeMillis();
+        long intervalTime = tempTime - backPressedTime;
+
+        if (searchView.getVisibility()==View.VISIBLE) {
+            searchView.setVisibility(View.GONE);
+            //toolbar.setTitle(tabs[0]);
+            itemSearch.setVisible(true);
+            itemTicket.setVisible(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
+        }else{
+            if (0 <= intervalTime && FINSH_INTERVAL_TIME >= intervalTime) {
+                super.onBackPressed();
+            } else {
+                backPressedTime = tempTime;
+                Toast.makeText(getApplicationContext(), "'뒤로'버튼을한번더누르시면종료됩니다.", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }
