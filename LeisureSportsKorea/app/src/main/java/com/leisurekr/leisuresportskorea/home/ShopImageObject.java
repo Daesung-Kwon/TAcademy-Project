@@ -34,7 +34,7 @@ public class ShopImageObject {
 
     public void setData(int shopMaonImage, String name, String location,String rate){
         mShopMainImage.setBackgroundResource(shopMaonImage);
-        dim.setAlpha(0.4f);
+        dim.setAlpha(0.9f);
         mShopCircleImage.setBackgroundResource(R.drawable.pic_shop1);
         mShopName.setText(name);
         mShopLocation.setText(location);

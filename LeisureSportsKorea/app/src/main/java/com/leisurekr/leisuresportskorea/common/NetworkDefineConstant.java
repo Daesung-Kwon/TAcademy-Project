@@ -11,14 +11,17 @@ public class NetworkDefineConstant {
 
 
     //요청 URL path
+    public static String SERVER_URL_SHOP_ALL_SELECT;
     public static String SERVER_URL_SHOP_DETAIL_INFO_ALL_SELECT;
-    public static String SERVER_URL_SHOP_DETAIL_PROGRAM_ALL_SELECT;
+    public static String SERVER_URL_SHOP_REVIEW_ALL_SELECT;
 
     static{
+        SERVER_URL_SHOP_ALL_SELECT =
+                HOST_URL + "/shops";
         SERVER_URL_SHOP_DETAIL_INFO_ALL_SELECT =
                 HOST_URL + "/programs";
-        SERVER_URL_SHOP_DETAIL_PROGRAM_ALL_SELECT =
-                HOST_URL + "/";
+        SERVER_URL_SHOP_REVIEW_ALL_SELECT =
+                HOST_URL + "/reviews";
     }
 
     //다이얼로그 요청값

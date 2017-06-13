@@ -1,19 +1,18 @@
 package com.leisurekr.leisuresportskorea.shop_detail;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -24,14 +23,15 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.leisurekr.leisuresportskorea.R;
 import com.leisurekr.leisuresportskorea.home.CircleAnimIndicator;
 import com.leisurekr.leisuresportskorea.okhttp.OkHttpAPIHelperHandler;
+import com.leisurekr.leisuresportskorea.shop.ShopInfoOnMapObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -42,6 +42,8 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback,
         GoogleMap.OnMarkerDragListener {
 
     static ShopDetailActivity owner;
+    static LKShopInfoObject shopInfoObject;
+    View view;
 
     ViewFlipper viewFlipper;
     GridView interestGridView;
@@ -69,6 +71,7 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback,
     Boolean FAVORITE_TAG;
 
     int currentPage = 1;
+    static int mShopId = -1;
 
     static final String[] interestValues = new String[] {
             "1", "0", "0", "0",
@@ -84,10 +87,22 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback,
     };
 
     private Animation slideInAnimation;
+
+    public ShopInfoFragment() {}
+    public static ShopInfoFragment newInstance(int shopId) {
+        ShopInfoFragment shopInfoFragment = new ShopInfoFragment();
+        mShopId = shopId;
+        shopInfoObject = new LKShopInfoObject();
+
+        return shopInfoFragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         owner = (ShopDetailActivity)getActivity();
-        View view = inflater.inflate(R.layout.include_shop_info_section1, container, false);
+        view = inflater.inflate(R.layout.include_shop_info_section1, container, false);
+        new AsyncShopInfoJSONList().execute();
+
         circleAnimIndicator = (CircleAnimIndicator) view.findViewById(R.id.shop_info_flipper_indicator);
 
         mapView = (MapView) view.findViewById(R.id.map_on_shop_info);
@@ -152,8 +167,6 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback,
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        new AsyncShopInfoJSONList().execute();
 
         previousImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -221,16 +234,18 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback,
     public void onMapReady(GoogleMap googleMap) {
         gMap = googleMap;
 
-        shopLatLng = new LatLng(37.56, 126.97);
+        shopLatLng = new LatLng(shopInfoObject.latitude, shopInfoObject.longitude);
 
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(shopLatLng);
-        markerOptions.title("서울");
-        markerOptions.snippet("한국의 수도");
-        gMap.addMarker(markerOptions);
+        markerOptions.title(shopInfoObject.address2 + ", " + shopInfoObject.address1);
+        markerOptions.snippet(shopInfoObject.address3);
 
-        gMap.moveCamera(CameraUpdateFactory.newLatLng(shopLatLng));
-        gMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+        Marker marker = gMap.addMarker(markerOptions);
+        marker.showInfoWindow();
+
+        int zoom = (int) gMap.getCameraPosition().zoom;
+        gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(shopLatLng, zoom), 2000, null);
     }
 
     @Override
@@ -247,33 +262,32 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback,
     }
 
     private void initIndicator() {
-
-        //원사이의 간격
         circleAnimIndicator.setItemMargin(15);
-        //애니메이션 속도
         circleAnimIndicator.setAnimDuration(300);
-        //indecator 생성
         circleAnimIndicator.createDotPanel(4, R.drawable.icon_navi_unpress, R.drawable.icon_navi_press);
     }
 
     public static class AsyncShopInfoJSONList
-            extends AsyncTask<String, Integer, ArrayList<LKEntityObjectDataType2>> {
+            extends AsyncTask<String, Integer, LKShopInfoObject> {
 
         ProgressDialog dialog;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dialog = ProgressDialog.show(owner, "", "Data Loading...", true);
+            dialog = ProgressDialog.show(owner, "", "Loading...", true);
         }
 
         @Override
-        protected ArrayList<LKEntityObjectDataType2> doInBackground(String... params) {
-            return OkHttpAPIHelperHandler.testJSONAllSelect();
+        protected LKShopInfoObject doInBackground(String... params) {
+            return OkHttpAPIHelperHandler.shopInfoJSONALLSelect(mShopId);
         }
         @Override
-        protected void onPostExecute(ArrayList<LKEntityObjectDataType2> result) {
+        protected void onPostExecute(LKShopInfoObject result) {
             dialog.dismiss();
+            if (result != null) {
+                shopInfoObject = result;
+            }
         }
     }
 }

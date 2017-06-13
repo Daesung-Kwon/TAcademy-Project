@@ -1,7 +1,9 @@
 package com.leisurekr.leisuresportskorea.shop_detail;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,8 +15,12 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.leisurekr.leisuresportskorea.BookActivity;
+import com.leisurekr.leisuresportskorea.LKApplication;
 import com.leisurekr.leisuresportskorea.R;
+import com.leisurekr.leisuresportskorea.okhttp.OkHttpAPIHelperHandler;
 
 import java.util.ArrayList;
 
@@ -24,6 +30,7 @@ import java.util.ArrayList;
 
 public class ShopProgramFragment extends Fragment {
 
+    private static ExpListViewAdapter listViewAdapter;
     private NonScrollExpandableListView nonScrollExpListView1;
     private NonScrollExpandableListView nonScrollExpListView2;
     private NonScrollExpandableListView nonScrollExpListView3;
@@ -31,31 +38,27 @@ public class ShopProgramFragment extends Fragment {
     TextView bookButton;
     static ShopDetailActivity owner;
 
+    static int mShopId = -1;
+
+    public ShopProgramFragment() {}
+    public static ShopProgramFragment newInstance(int shopId) {
+        ShopProgramFragment shopProgramFragment = new ShopProgramFragment();
+        mShopId = shopId;
+        return shopProgramFragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         owner = (ShopDetailActivity)getActivity();
         View view = inflater.inflate(R.layout.shop_program_fragment, container, false);
-
-        ArrayList<ParentData> data = new ArrayList<>();
 
         nonScrollExpListView1 = (NonScrollExpandableListView) view.findViewById(R.id.best_program_elv);
         nonScrollExpListView2 = (NonScrollExpandableListView) view.findViewById(R.id.package_program_elv);
         nonScrollExpListView3 = (NonScrollExpandableListView) view.findViewById(R.id.individual_program_elv);
 
         /* 테스트 데이터 */
-        ParentData pData1 = new ParentData("Best Program");
-        pData1.child.add(new ChildData("Water Ski Beginner Lesson Package",
-                "$"+"50", "One lesson on the deck and two rides on the river"));
-        pData1.child.add(new ChildData("Water Ski Beginner Lesson Package",
-                "$"+"50", "One lesson on the deck and two rides on the river"));
-        data.add(pData1);
-
-        ExpListViewAdapter listViewAdapter = new ExpListViewAdapter(getContext(), data);
-        nonScrollExpListView1.setAdapter(listViewAdapter);
-        nonScrollExpListView2.setAdapter(listViewAdapter);
-        nonScrollExpListView3.setAdapter(listViewAdapter);
-
-        nonScrollExpListView1.expandGroup(0);
+        ArrayList<ParentData> data = new ArrayList<>();
+        listViewAdapter = new ExpListViewAdapter(getContext(), data);
 
         return view;
     }
@@ -63,15 +66,7 @@ public class ShopProgramFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // ListView Child 이벤트 리스너, 필요 시
-        /*nonScrollExpListView1.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                Toast.makeText(getContext(), "Group1 Child = " + childPosition, Toast.LENGTH_SHORT).show();
-
-                return false;
-            }
-        });*/
+        new AsyncShopProgramJSONList().execute();
     }
 
     public class ExpListViewAdapter extends BaseExpandableListAdapter {
@@ -102,7 +97,7 @@ public class ShopProgramFragment extends Fragment {
         }
 
         @Override
-        public View getChildView(int groupPosition, int childPosition,
+        public View getChildView(final int groupPosition, final int childPosition,
                                  boolean isLastChild, View convertView, ViewGroup parent) {
             if (convertView == null) {
                 convertView = inflater.inflate(CHILD_ROW, parent, false);
@@ -114,19 +109,27 @@ public class ShopProgramFragment extends Fragment {
             TextView activityDescTextView = (TextView) convertView.findViewById(R.id.activity_description);
             bookButton = (TextView) convertView.findViewById(R.id.shop_detail_book_btn);
 
-            activityImage.setImageResource(R.drawable.girls_generation_tifany);
             activityNameTextView.setText(data.get(groupPosition).child.get(childPosition).getActivityName());
-            activityPriceTextView.setText(data.get(groupPosition).child.get(childPosition).getActivityPrice());
+            activityPriceTextView.setText("$"+String.valueOf(data.get(groupPosition).child.get(childPosition).getActivityPrice()));
             activityDescTextView.setText(data.get(groupPosition).child.get(childPosition).getActivityDesc());
+
+            Glide.with(LKApplication.getLKApplication())
+                    .load(data.get(groupPosition).child.get(childPosition).activityImage)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .animate(android.R.anim.slide_in_left)
+                    //.override(40, 40)
+                    .into(activityImage);
 
             // Book Activity 화면 전환
             bookButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    /**
-                     * TODO : Intent 주석 해제, 클래스 명 aaa.class 변경
-                     */
                     Intent bookIntent = new Intent(getActivity(), BookActivity.class);
+                    bookIntent.putExtra("programId", data.get(groupPosition).child.get(childPosition).programId);
+                    bookIntent.putExtra("programName", data.get(groupPosition).child.get(childPosition).programName);
+                    bookIntent.putExtra("adultPrice", data.get(groupPosition).child.get(childPosition).adultPrice);
+                    bookIntent.putExtra("childPrice", data.get(groupPosition).child.get(childPosition).childPrice);
+                    bookIntent.putExtra("programImage", data.get(groupPosition).child.get(childPosition).activityImage);
                     startActivity(bookIntent);
                 }
             });
@@ -159,5 +162,70 @@ public class ShopProgramFragment extends Fragment {
 
         @Override
         public boolean isChildSelectable(int groupPosition, int childPosition) { return true; }
+
+        public void setupAdapter(ArrayList<ParentData> item) {
+            ArrayList<ParentData> parentDatas1, parentDatas2, parentDatas3;
+            switch (item.size()) {
+                case 1:
+                    parentDatas1 = new ArrayList<>();
+                    parentDatas1.add(item.get(0));
+                    listViewAdapter = new ExpListViewAdapter(getContext(), parentDatas1);
+                    nonScrollExpListView1.setAdapter(listViewAdapter);
+                    break;
+                case 2:
+                    parentDatas1 = new ArrayList<>();
+                    parentDatas1.add(item.get(0));
+                    listViewAdapter = new ExpListViewAdapter(getContext(), parentDatas1);
+                    nonScrollExpListView1.setAdapter(listViewAdapter);
+
+                    parentDatas2 = new ArrayList<>();
+                    parentDatas2.add(item.get(1));
+                    listViewAdapter = new ExpListViewAdapter(getContext(), parentDatas2);
+                    nonScrollExpListView2.setAdapter(listViewAdapter);
+                    break;
+                case 3:
+                    parentDatas1 = new ArrayList<>();
+                    parentDatas1.add(item.get(0));
+                    listViewAdapter = new ExpListViewAdapter(getContext(), parentDatas1);
+                    nonScrollExpListView1.setAdapter(listViewAdapter);
+
+                    parentDatas2 = new ArrayList<>();
+                    parentDatas2.add(item.get(1));
+                    listViewAdapter = new ExpListViewAdapter(getContext(), parentDatas2);
+                    nonScrollExpListView2.setAdapter(listViewAdapter);
+
+                    parentDatas3 = new ArrayList<>();
+                    parentDatas3.add(item.get(2));
+                    listViewAdapter = new ExpListViewAdapter(getContext(), parentDatas3);
+                    nonScrollExpListView3.setAdapter(listViewAdapter);
+                    break;
+            }
+            nonScrollExpListView1.expandGroup(0);
+        }
+    }
+
+    public static class AsyncShopProgramJSONList
+            extends AsyncTask<String, Integer, ArrayList<ParentData>> {
+
+        ProgressDialog dialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog = ProgressDialog.show(owner, "", "Loading...", true);
+        }
+
+        @Override
+        protected ArrayList<ParentData> doInBackground(String... params) {
+            return OkHttpAPIHelperHandler.shopProgramJSONALLSelect(mShopId);
+        }
+        @Override
+        protected void onPostExecute(ArrayList<ParentData> result) {
+            dialog.dismiss();
+            // TODO
+            if (result != null && result.size() > 0) {
+                listViewAdapter.setupAdapter(result);
+            }
+        }
     }
 }

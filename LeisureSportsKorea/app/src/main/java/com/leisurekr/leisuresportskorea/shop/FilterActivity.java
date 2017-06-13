@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.leisurekr.leisuresportskorea.R;
@@ -21,6 +23,7 @@ public class FilterActivity extends AppCompatActivity {
     private GridView gridView;
     private FilterImageAdapter gridAdapter;
     private TextView saveBtn;
+    private ImageView cancelBtn;
 
     int MAX_SELECTED_COUNT = 4;
     int currentSelectedCount;
@@ -38,17 +41,19 @@ public class FilterActivity extends AppCompatActivity {
 
         currentSelectedCount = getCurrentSelectedCount(interestsValues);
 
-        toolbar = (Toolbar) findViewById(R.id.filter_toolbar);
-        toolbar.setTitle("Interests");
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        gridView = (GridView) findViewById(R.id.grid_view);
+        gridView = (GridView) findViewById(R.id.filter_grid_view);
         gridAdapter = new FilterImageAdapter(this, interestsValues);
         gridView.setAdapter(gridAdapter);
 
         saveBtn = (TextView) findViewById(R.id.save_button);
 
+        cancelBtn = (ImageView) findViewById(R.id.cancel_btn_on_filter);
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     @Override

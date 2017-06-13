@@ -8,21 +8,20 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:text="Review"
         android:textStyle="bold"
-        android:textSize="16sp"/>
+        android:textSize="16sp"
+        android:textColor="@color/colorBlack"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="8dp"
         android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="8dp">
+        android:paddingRight="16dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/reviewer_circle_image"
@@ -55,7 +54,8 @@
                         android:layout_height="wrap_content"
                         android:text="Smith john"
                         android:textSize="16sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold"
+                        android:textColor="#494949"/>
 
                 </LinearLayout>
 
@@ -72,7 +72,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="17-04-15" />
+                        android:text="17-04-15"
+                        android:textColor="#494949"/>
 
                 </LinearLayout>
 
@@ -88,7 +89,8 @@
                     android:id="@+id/review_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="it's so cool! it's nice time :)" />
+                    android:text="it's so cool! it's nice time :)"
+                    android:textColor="#494949"/>
 
             </LinearLayout>
 
@@ -107,7 +109,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:background="@drawable/textview_border"
-            android:text="View other 12 review"
+            android:text="View other 12 review >"
             android:textAlignment="center"
             android:textSize="16sp"
             android:textColor="@color/buttonRed"

@@ -96,7 +96,7 @@ public class ProfileFavoritesActivity extends AppCompatActivity {
             holder.mShopPrice.setText("$54");
 
             holder.mShopMainImage.setBackgroundResource(R.drawable.pic_shop);
-            holder.dim.setAlpha(0.3f);
+            holder.dim.setAlpha(0.9f);
             holder.mShopMainImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

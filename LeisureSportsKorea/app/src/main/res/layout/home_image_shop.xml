@@ -163,7 +163,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/home_shop_textAreaHeight"
                 android:layout_alignParentBottom="true"
-                android:background="#000000"
+                android:background="#494949"
                 android:orientation="horizontal" />
         </RelativeLayout>
 

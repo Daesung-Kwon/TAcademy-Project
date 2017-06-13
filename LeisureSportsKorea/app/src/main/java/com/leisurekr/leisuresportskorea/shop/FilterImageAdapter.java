@@ -56,7 +56,7 @@ public class FilterImageAdapter extends BaseAdapter {
         if (convertView == null) {
             gridView = new View(context);
 
-            gridView = inflater.inflate(R.layout.interest_grid_item, null);
+            gridView = inflater.inflate(R.layout.interest_grid_item2, null);
 
             TextView textView = (TextView) gridView.findViewById(R.id.grid_item_label);
             if (tag[position] == "0") {

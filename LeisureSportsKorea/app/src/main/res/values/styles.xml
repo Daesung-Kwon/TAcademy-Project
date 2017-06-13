@@ -19,10 +19,17 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
-    <style name="SplashTheme" parent="AppTheme">
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:windowBackground">@drawable/splash_screen</item>
+    <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabTextAppearance">@style/MyCustomTextAppearance</item>
     </style>
 
+    <style name="MyCustomTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="CustomRatingbarBig" parent="Widget.AppCompat.RatingBar">
+        <item name="android:progressDrawable">@drawable/big_ratingbar_selector</item>
+        <item name="android:scaleType">fitXY</item>
+    </style>
 
 </resources>

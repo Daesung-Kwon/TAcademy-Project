@@ -1,5 +1,6 @@
 package com.leisurekr.leisuresportskorea;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class BookActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -52,6 +54,13 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.book_activity);
+
+        /**
+         * "programId", "programName", "adultPrice", "childPrice", "programImage"
+         */
+        Intent intent = getIntent();
+        int programId = intent.getIntExtra("programId", -1);
+        String programName = intent.getStringExtra("programName");
 
         BookObject object = new BookObject();
         object.setData(R.drawable.pic_wakeboard, "01. Water Ski", "Beginner Lesson"

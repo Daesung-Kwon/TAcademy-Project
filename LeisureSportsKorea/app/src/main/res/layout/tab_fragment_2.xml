@@ -16,13 +16,13 @@
         android:paddingTop="17dp">
 
         <TextView
-            android:id="@+id/result_count_tex_tab2"
+            android:id="@+id/result_count_text_tab2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="-20dp"
             android:includeFontPadding="false"
             android:lineSpacingExtra="0dp"
-            android:text="12 Results"
+            android:textColor="@color/colorBlack"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -36,23 +36,32 @@
                 android:id="@+id/selected_filter_text1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="#WATER SKI"
                 android:textSize="16sp"
+                android:paddingRight="5dp"
+                android:textColor="@color/colorBlack"
                 android:includeFontPadding="false"/>
 
             <TextView
                 android:id="@+id/selected_filter_text2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:text="#BUNGEE JUMP"
+                android:paddingRight="5dp"
+                android:textColor="@color/colorBlack"
                 android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/selected_filter_text3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/selected_filter_text4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
                 android:textSize="16sp" />
         </LinearLayout>
 

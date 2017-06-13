@@ -1,5 +1,6 @@
 package com.leisurekr.leisuresportskorea.shop;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -34,7 +36,6 @@ public class MapCustomFragment extends Fragment implements OnMapReadyCallback,
         GoogleMap.OnMarkerDragListener, StreetViewPanorama.OnStreetViewPanoramaCameraChangeListener {
 
     int btnFlag = 0;
-    FrameLayout frameLayout;
 
     MapView mapView;
     GoogleMap gMap;
@@ -56,25 +57,9 @@ public class MapCustomFragment extends Fragment implements OnMapReadyCallback,
                 LKApplication.getLKApplication(), LinearLayoutManager.HORIZONTAL, false));
         rv.setAdapter(new MapCustomFragmentRVAdapter(TestArrayList.getArrayList())); // Test...
 
-        //Button btn = (Button) view.findViewById(R.id.btn);
-        //frameLayout = (FrameLayout) view.findViewById(R.id.frame_roadview);
         mapView = (MapView) view.findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
-
-        /*frameLayout.setVisibility(View.INVISIBLE);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (btnFlag == 0) {
-                    frameLayout.setVisibility(View.VISIBLE);
-                    btnFlag = 0;
-                }else {
-                    frameLayout.setVisibility(View.INVISIBLE);
-                    btnFlag = 1;
-                }
-            }
-        });*/
 
         return view;
     }
@@ -124,7 +109,7 @@ public class MapCustomFragment extends Fragment implements OnMapReadyCallback,
             public final TextView mShopName;
             public final TextView mShopLocation;
             public final TextView mShopRating;
-            public final TextView mFocus;
+            public final LinearLayout mFocus;
 
             public ViewHolder(View view) {
                 super(view);
@@ -133,7 +118,7 @@ public class MapCustomFragment extends Fragment implements OnMapReadyCallback,
                 mShopName = (TextView) view.findViewById(R.id.map_shop_name_text1);
                 mShopLocation = (TextView) view.findViewById(R.id.map_shop_location_text);
                 mShopRating = (TextView) view.findViewById(R.id.map_shop_rating_text);
-                mFocus = (TextView) view.findViewById(R.id.focus);
+                mFocus = (LinearLayout) view.findViewById(R.id.focus_color);
             }
         }
 
@@ -148,12 +133,13 @@ public class MapCustomFragment extends Fragment implements OnMapReadyCallback,
         public void onBindViewHolder(ViewHolder holder, int position) {
             Integer shopImageInfo = shopImages.get(position); // main image;
             holder.mShopName.setText("LK Shop");
-            holder.mShopLocation.setText("Seoul hangang-ro 1234-5");
+            holder.mShopLocation.setText("Han river");
             holder.mShopRating.setText("4.0");
             holder.mShopMainImage.setImageResource(R.drawable.exo_all);//.(shopImageInfo.intValue())
 
+            String focus = "#f01f1b";
             if (position == 0) {
-                //holder.mFocus.setBackgroundColor(R.color.cardview_shadow_end_color);
+                holder.mFocus.setBackgroundColor(Color.parseColor(focus));
             }
         }
 

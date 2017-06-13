@@ -16,7 +16,7 @@ public class MapPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        MapCustomFragment mapCustomFragment = new MapCustomFragment();
+        MapCustomFragment2 mapCustomFragment = new MapCustomFragment2();
         return mapCustomFragment;
     }
 

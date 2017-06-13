@@ -12,13 +12,14 @@
 
         <RatingBar
             android:id="@+id/write_rating_bar"
+            style="@style/CustomRatingbarBig"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:numStars="5"
-            android:stepSize="0.2"
-            android:layout_marginTop="45dp"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="45dp"
+            android:numStars="5"
+            android:stepSize="0.5" />
 
         <TextView
             android:id="@+id/textView"
@@ -75,7 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="12sp"
-            android:hint="Title"
+            android:hint="Leave a message"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="16sp"
             android:background="@android:color/transparent"/>
@@ -86,7 +87,7 @@
             android:layout_height="24dp"
             android:layout_marginEnd="11dp"
             android:layout_marginRight="11dp"
-            app:srcCompat="@drawable/ic_modify" />
+            app:srcCompat="@drawable/ic_clip" />
     </LinearLayout>
 
     <LinearLayout

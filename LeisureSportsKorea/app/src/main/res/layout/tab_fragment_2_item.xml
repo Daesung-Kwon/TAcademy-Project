@@ -20,12 +20,12 @@
             android:id="@+id/filtered_text_in_shop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            android:text="#WATER SKI"
-            android:textSize="16sp"
             android:layout_alignParentLeft="true"
+            android:layout_margin="12dp"
+            android:elevation="10dp"
+            android:text="#WATER SKI"
             android:textColor="@color/colorWhite"
-            android:elevation="10dp"/>
+            android:textSize="16sp" />
 
         <ImageView
             android:id="@+id/favorite_item_icon_in_shop"
@@ -34,7 +34,7 @@
             android:layout_alignParentRight="true"
             android:layout_margin="12dp"
             android:background="@drawable/btn_heart_unpress"
-            android:elevation="10dp"/>
+            android:elevation="10dp" />
 
         <ImageView
             android:id="@+id/share_item_icon_in_shop"
@@ -44,13 +44,14 @@
             android:layout_toLeftOf="@+id/favorite_item_icon_in_shop"
             android:layout_toStartOf="@+id/favorite_item_icon_in_shop"
             android:background="@drawable/btn_share_unpress"
-            android:elevation="10dp"/>
+            android:elevation="10dp" />
 
-        <LinearLayout
+        <ImageView
             android:id="@+id/shop_main_image"
             android:layout_width="match_parent"
             android:layout_height="280dp"
-            android:orientation="horizontal" />
+            android:orientation="horizontal"
+            android:scaleType="centerCrop"/>
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -72,8 +73,8 @@
                     android:id="@+id/shop_circle_image"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    tools:ignore="RtlHardcoded"
-                    android:layout_marginTop="8dp"/>
+                    android:layout_marginTop="8dp"
+                    tools:ignore="RtlHardcoded" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -95,7 +96,7 @@
                             android:layout_marginLeft="26dp"
                             android:textColor="@color/colorWhite"
                             android:textSize="20sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -140,15 +141,15 @@
                             android:id="@+id/favo_icon"
                             android:layout_width="15dp"
                             android:layout_height="15dp"
-                            android:background="@drawable/ic_star"
-                            android:layout_gravity="center"/>
+                            android:layout_gravity="center"
+                            android:background="@drawable/ic_star_inact" />
 
                         <TextView
                             android:id="@+id/shop_rating_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="right"
                             android:layout_marginLeft="8dp"
+                            android:gravity="right"
                             android:text="4.8"
                             android:textColor="@color/colorWhite"
                             android:textSize="22sp" />
@@ -159,8 +160,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:orientation="vertical"
-                        >
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/shop_price_text"
@@ -169,7 +169,6 @@
                             android:gravity="center_horizontal"
                             android:text="$33"
                             android:textColor="@color/colorWhite"
-                            android:letterSpacing="0.1"
                             android:textSize="33sp" />
 
                     </LinearLayout>
@@ -183,7 +182,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_alignParentBottom="true"
-                android:background="#000000"
+                android:background="#494949"
                 android:orientation="horizontal" />
         </RelativeLayout>
 

@@ -34,6 +34,7 @@ import android.widget.Toast;
 
 import com.leisurekr.leisuresportskorea.shop.FilterActivity;
 import com.leisurekr.leisuresportskorea.shop.MapActivity;
+import com.leisurekr.leisuresportskorea.shop.MapActivity2;
 import com.leisurekr.leisuresportskorea.ticket.TicketActivity;
 
 import static com.leisurekr.leisuresportskorea.R.id.action_search;
@@ -108,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     static final int FILTER_REQUEST = 2;
     private Boolean isFabOpen = false;
     private FloatingActionButton fab, fab1, fab2;
+    private TextView textViewForFab1, textViewForFab2;
     private Animation fab_open, fab_close, rotate_forward, rotate_backward;
     Intent mapIntent;
     Intent filterIntent;
@@ -157,6 +159,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab1 = (FloatingActionButton) findViewById(R.id.fab1);
         fab2 = (FloatingActionButton) findViewById(R.id.fab2);
+        textViewForFab1 = (TextView) findViewById(R.id.text_for_fab1);
+        textViewForFab2 = (TextView) findViewById(R.id.text_for_fab2);
 
         // FAB Animation Setting
         fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
@@ -186,12 +190,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // FAB Listener
         fab.hide();
+        textViewForFab1.setVisibility(View.INVISIBLE);
+        textViewForFab2.setVisibility(View.INVISIBLE);
         fab2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // TODO : HHere, insert New Activity for Map
-                mapIntent = new Intent(MainActivity.this, MapActivity.class);
+                mapIntent = new Intent(MainActivity.this, MapActivity2.class);
                 startActivityForResult(mapIntent, MAP_REQUEST);
+                animateFAB();
 
             }
         });
@@ -201,6 +208,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // TODO : HHere, insert New Activity for Filter
                 filterIntent = new Intent(MainActivity.this, FilterActivity.class);
                 startActivity(filterIntent);
+                animateFAB();
 
             }
         });
@@ -211,12 +219,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 switch (id) {
                     case R.id.fab: {
                         animateFAB();
-                        break;
-                    }
-                    case R.id.fab1: {
-                        break;
-                    }
-                    case R.id.fab2: {
                         break;
                     }
                 }
@@ -256,14 +258,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
+            public void onTabUnselected(TabLayout.Tab tab) {}
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
+            public void onTabReselected(TabLayout.Tab tab) {}
         });
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -328,14 +326,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (isFabOpen) {
             fab.startAnimation(rotate_backward);
             fab1.startAnimation(fab_close);
+            textViewForFab1.startAnimation(fab_close);
             fab2.startAnimation(fab_close);
+            textViewForFab2.startAnimation(fab_close);
             fab1.setClickable(false);
             fab2.setClickable(false);
             isFabOpen = false;
         } else {
             fab.startAnimation(rotate_forward);
             fab1.startAnimation(fab_open);
+            textViewForFab1.startAnimation(fab_open);
             fab2.startAnimation(fab_open);
+            textViewForFab2.startAnimation(fab_open);
             fab1.setClickable(true);
             fab2.setClickable(true);
             isFabOpen = true;

@@ -89,12 +89,12 @@ public class CircleAnimIndicator extends LinearLayout {
         for (int i = 0; i < imageDot.length; i++) {
             if (i == position) {
                 imageDot[i].setImageResource(mSelectCircle);
-                selectScaleAnim(imageDot[i],1f,1.5f);
+                selectScaleAnim(imageDot[i],1f,1f);
             } else {
 
                 if((boolean)imageDot[i].getTag(imageDot[i].getId()) == true){
                     imageDot[i].setImageResource(mDefaultCircle);
-                    defaultScaleAnim(imageDot[i], 1.5f, 1f);
+                    defaultScaleAnim(imageDot[i], 1f, 1f);
                 }
             }
         }

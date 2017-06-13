@@ -26,9 +26,7 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".SplashActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/SplashTheme">
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -59,6 +57,8 @@
         <activity
             android:name=".shop.MapActivity" />
         <activity
+            android:name=".shop.MapActivity2" />
+        <activity
             android:name=".shop.FilterActivity" />
         <activity android:name=".profile.ProfileEditActivity" />
         <activity android:name=".profile.ProfileCartActivity" />
@@ -75,8 +75,7 @@
         <activity android:name=".BookActivity" />
         <activity android:name=".BookInformationActivity" />
         <activity android:name=".profile.ProfileFavoritesActivity" />
-        <activity android:name=".Search" />
-        <activity android:name=".SearchResultActivity"></activity>
+        <activity android:name=".SearchResultActivity"/>
     </application>
 
 </manifest>
