@@ -23,15 +23,17 @@ public class LKShopListObject implements Parcelable{
     public String shopAddress1;
     public String shopAddress2;
     public String shopAddress3;
+    public double latitude;
+    public double longitude;
     public String shopImages;
     public boolean likes;
-    public float score;
+    public double score;
     public ArrayList<String> filterTag;
 
     public LKShopListObject() { }
-    public LKShopListObject(String activityName, int price, int shopId,
-                            String shopIcon, String shopName, String shopAddress1, String shopAddress2, String shopAddress3,
-                            String shopImages, boolean likes, float score, ArrayList<String> filterTag) {
+    public LKShopListObject(String activityName, int price, int shopId, String shopIcon, String shopName,
+                            String shopAddress1, String shopAddress2, String shopAddress3, double latitude, double longitude,
+                            String shopImages, boolean likes, double score, ArrayList<String> filterTag) {
         this.activityName = activityName;
         this.price = price;
         this.shopId = shopId;
@@ -40,6 +42,8 @@ public class LKShopListObject implements Parcelable{
         this.shopAddress1 = shopAddress1;
         this.shopAddress2 = shopAddress2;
         this.shopAddress3 = shopAddress3;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.shopImages = shopImages;
         this.likes = likes;
         this.score = score;
@@ -55,9 +59,11 @@ public class LKShopListObject implements Parcelable{
         shopAddress1 = in.readString();
         shopAddress2 = in.readString();
         shopAddress3 = in.readString();
+        latitude = in.readDouble();
+        longitude = in.readDouble();
         shopImages = in.readString();
         likes = in.readByte() != 0;
-        score = in.readFloat();
+        score = in.readDouble();
         filterTag = in.createStringArrayList();
     }
 
@@ -88,9 +94,11 @@ public class LKShopListObject implements Parcelable{
         dest.writeString(shopAddress1);
         dest.writeString(shopAddress2);
         dest.writeString(shopAddress3);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
         dest.writeString(shopImages);
         dest.writeByte((byte) (likes ? 1 : 0));
-        dest.writeFloat(score);
+        dest.writeDouble(score);
         dest.writeStringList(filterTag);
     }
 }

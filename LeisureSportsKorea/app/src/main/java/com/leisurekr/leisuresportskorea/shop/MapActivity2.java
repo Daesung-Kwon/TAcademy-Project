@@ -1,13 +1,16 @@
 package com.leisurekr.leisuresportskorea.shop;
 
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -20,6 +23,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.leisurekr.leisuresportskorea.R;
+import com.leisurekr.leisuresportskorea.shop_detail.LKShopListObject;
+
+import java.util.ArrayList;
 
 /**
  * Created by mobile on 2017. 6. 12..
@@ -27,6 +33,7 @@ import com.leisurekr.leisuresportskorea.R;
 
 public class MapActivity2 extends AppCompatActivity implements OnMapReadyCallback,
         GoogleMap.OnMarkerDragListener {
+    ArrayList<LKShopListObject> shopListObjects;
     private ViewPager viewPager;
     MapView mapView;
     GoogleMap gMap;
@@ -36,6 +43,10 @@ public class MapActivity2 extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map2);
+
+        // Fragment2 -> MainActivity -> MapActivity2 로 넘겨진 Shop List 객체 가져오기
+        Intent intent = getIntent();
+        shopListObjects = intent.getParcelableArrayListExtra("shopInfoList");
 
         MapsInitializer.initialize(this);
 
@@ -87,11 +98,10 @@ public class MapActivity2 extends AppCompatActivity implements OnMapReadyCallbac
     private void setupViewPager(ViewPager viewPager) {
         MapPagerAdapter2 mapPagerAdapter = new MapPagerAdapter2(getSupportFragmentManager());
 
-        int count = 5;
+        int count = shopListObjects.size();
         for (int i = 0; i < count; i++) {
-            mapPagerAdapter.addFragment(MapCustomFragment2.newInstance());
+            mapPagerAdapter.addFragment(MapCustomFragment2.newInstance(shopListObjects.get(i)));
         }
-
         viewPager.setAdapter(mapPagerAdapter);
     }
 

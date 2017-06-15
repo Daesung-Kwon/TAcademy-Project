@@ -10,7 +10,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_gravity="center"
-        android:src="@drawable/ic_home_unpress"
+        android:src="@drawable/ic_home_press"
         android:layout_weight="1"/>
 
 </LinearLayout>

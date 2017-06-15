@@ -110,7 +110,7 @@
             app:pressedTranslationZ="12dp"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
-            android:src="@drawable/ic_plus"/>
+            android:src="@drawable/ic_plus_fab"/>
 
     </android.support.design.widget.CoordinatorLayout>
 

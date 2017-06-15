@@ -1,6 +1,7 @@
 package com.leisurekr.leisuresportskorea.shop;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.leisurekr.leisuresportskorea.LKApplication;
 import com.leisurekr.leisuresportskorea.MainActivity;
 import com.leisurekr.leisuresportskorea.R;
+import com.leisurekr.leisuresportskorea.interfaces.ShopListSetListener;
 import com.leisurekr.leisuresportskorea.okhttp.OkHttpAPIHelperHandler;
 import com.leisurekr.leisuresportskorea.shop_detail.LKShopInfoObject;
 import com.leisurekr.leisuresportskorea.shop_detail.LKShopListObject;
@@ -35,15 +37,28 @@ import java.util.ArrayList;
  */
 
 public class TabFragment2 extends android.support.v4.app.Fragment {
+    private static ShopListSetListener shopListSetListener;
+
     static MainActivity owner;
     RecyclerView rv;
-    private static TabFragment2RVAdapter rvAdapter;
+    static TabFragment2RVAdapter rvAdapter;
     static TextView resultsCountTextView;
     static TextView filterTag1;
     static TextView filterTag2;
     static TextView filterTag3;
     static TextView filterTag4;
     static ArrayList<String> tagList = null;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof ShopListSetListener) {
+            shopListSetListener = (ShopListSetListener) context;
+        }else {
+            throw new RuntimeException(context.toString()
+            + " must implement ShopListSetListener");
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -70,6 +85,12 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
         new AsyncShopInfoJSONList().execute();
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        shopListSetListener = null;
+    }
+
     public static class TabFragment2RVAdapter
             extends RecyclerView.Adapter<TabFragment2RVAdapter.ViewHolder> {
 
@@ -91,6 +112,7 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
             public final TextView mShopLocation;
             public final TextView mShopRating;
             public final TextView mShopPrice;
+            public final ImageView mLikes;
 
             public ViewHolder(View view) {
                 super(view);
@@ -104,6 +126,7 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
                 mShopLocation = (TextView) view.findViewById(R.id.shop_location_text);
                 mShopRating = (TextView) view.findViewById(R.id.shop_rating_text);
                 mShopPrice = (TextView) view.findViewById(R.id.shop_price_text);
+                mLikes = (ImageView) view.findViewById(R.id.favorite_item_icon_in_shop);
             }
         }
         @Override
@@ -117,7 +140,7 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
             int p = position;
             holder.dim.setAlpha(0.9f);
 
-            LKShopListObject shopInfo = mResult.get(p);
+            final LKShopListObject shopInfo = mResult.get(p);
             holder.mFilterTag.setText("#" + shopInfo.activityName);
             holder.mShopName.setText(shopInfo.shopName);
             holder.mShopLocation.setText(shopInfo.shopAddress2 + " " + shopInfo.shopAddress1);
@@ -133,7 +156,7 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(), ShopDetailActivity.class);
-                    intent.putExtra("shopId", 2); // shopInfo.shopId
+                    intent.putExtra("shopId", shopInfo.shopId);
                     owner.startActivity(intent);
                 }
             });
@@ -144,6 +167,9 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
                     .animate(android.R.anim.slide_in_left)
                     .override(40, 40)
                     .into(holder.mShopCircleImage);
+            if (shopInfo.likes) {
+                holder.mLikes.setImageResource(R.drawable.btn_heart_press);
+            }
         }
 
         @Override
@@ -175,6 +201,9 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
         protected void onPostExecute(ArrayList<LKShopListObject> result) {
             dialog.dismiss();
             if (result != null && result.size() > 0) {
+                // MainActivity.class로 Object 전달
+                shopListSetListener.shopListSetData(result);
+                // Adapter result 값 Add
                 rvAdapter.addAll(result);
                 rvAdapter.notifyDataSetChanged();
 

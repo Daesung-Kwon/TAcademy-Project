@@ -84,8 +84,8 @@ public class LoginActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 // TODO
-                Intent regIntent = new Intent(LoginActivity.this, MainActivity.class);
-                LoginActivity.this.startActivity(regIntent);
+                Intent skipIntent = new Intent(LoginActivity.this, MainActivity.class);
+                LoginActivity.this.startActivity(skipIntent);
                 finish();
 
             }

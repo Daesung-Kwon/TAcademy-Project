@@ -1,10 +1,7 @@
 package com.leisurekr.leisuresportskorea.shop;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,42 +9,31 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.MapsInitializer;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.StreetViewPanorama;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.StreetViewPanoramaCamera;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.leisurekr.leisuresportskorea.LKApplication;
 import com.leisurekr.leisuresportskorea.R;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.leisurekr.leisuresportskorea.shop_detail.LKShopListObject;
 
 /**
  * Created by mobile on 2017. 5. 29..
  */
 
 public class MapCustomFragment2 extends Fragment {
-    static ShopInfoOnMapObject entity = new ShopInfoOnMapObject();
-
     public ImageView mShopMainImage;
     public TextView mShopName;
     public TextView mShopLocation;
     public TextView mShopRating;
+    public ImageView mLikes;
     public LinearLayout mFocus;
 
     public MapCustomFragment2() { }
-    public static MapCustomFragment2 newInstance() {
+    public static MapCustomFragment2 newInstance(LKShopListObject data) {
         MapCustomFragment2 fragment2 = new MapCustomFragment2();
 
-        entity.shopName = "Hangan Seve Watersprots Comp";
-        entity.shopLocation = "Han river";
-        entity.shopRating = (double) 4.8;
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("data", data);
+        fragment2.setArguments(bundle);
 
         return fragment2;
     }
@@ -59,16 +45,27 @@ public class MapCustomFragment2 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.map_fragment_item, container, false);
 
+        LKShopListObject obj = getArguments().getParcelable("data");
+
         mShopMainImage = (ImageView) view.findViewById(R.id.map_shop_main_image);
         mShopName = (TextView) view.findViewById(R.id.map_shop_name_text1);
         mShopLocation = (TextView) view.findViewById(R.id.map_shop_location_text);
         mShopRating = (TextView) view.findViewById(R.id.map_shop_rating_text);
+        mLikes = (ImageView) view.findViewById(R.id.likes_on_map_activity);
         mFocus = (LinearLayout) view.findViewById(R.id.focus_color);
 
-        mShopName.setText(entity.shopName);
-        mShopLocation.setText(entity.shopLocation);
-        mShopRating.setText(Double.toString(entity.shopRating));
-
+        Glide.with(LKApplication.getLKApplication())
+                .load(obj.shopImages)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .animate(android.R.anim.slide_in_left)
+                //.override(360, 280)
+                .into(mShopMainImage);
+        mShopName.setText(obj.shopName);
+        mShopLocation.setText(obj.shopAddress1);
+        mShopRating.setText(Double.toString(obj.score));
+        if (obj.likes == true) {
+            mLikes.setImageResource(R.drawable.btn_heart_press);
+        }
         return view;
     }
 

@@ -18,6 +18,8 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Set;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -57,7 +59,7 @@ public class OkHttpAPIHelperHandler {
             JSONObject msg = null;
             if (flag) { //성공했다면
                 returnedJSON = response.body().string();
-                Log.e("resultJSON1", returnedJSON);
+                //Log.e("resultJSON1", returnedJSON);
 
                 try {
                     jsonObject = new JSONObject(returnedJSON);
@@ -71,7 +73,7 @@ public class OkHttpAPIHelperHandler {
                 }
                 // Parser가 들어간다.
                 objects = OkHttpJSONDataParseHandler.getJSONHomeList(jsonObject);
-                //Log.i("After Parser", bloodEntityObjects.toString());
+                Log.e("Handler 성공", "getJSONHomeList Handler 성공");
 
             } else {
                 //요청에러 발생시(http 에러)
@@ -116,7 +118,7 @@ public class OkHttpAPIHelperHandler {
             JSONObject msg = null;
             if (flag) { //성공했다면
                 returnedJSON = response.body().string();
-                Log.e("resultJSON1", returnedJSON);
+                //Log.e("resultJSON1", returnedJSON);
 
                 try {
                     jsonObject = new JSONObject(returnedJSON);
@@ -129,7 +131,7 @@ public class OkHttpAPIHelperHandler {
                 else {
                     //실패하면 뭔가를 한다.
                 }
-                Log.e("Handler 성공", "Reservation Handler 성공");
+                Log.e("Handler 성공", "getJSONReservationList Handler 성공");
                 //Log.i("After Parser", bloodEntityObjects.toString());
 
             } else {
@@ -175,7 +177,7 @@ public class OkHttpAPIHelperHandler {
             JSONObject msg = null;
             if (flag) { //성공했다면
                 returnedJSON = response.body().string();
-                Log.e("resultJSON1", returnedJSON);
+                //Log.e("resultJSON1", returnedJSON);
 
                 try {
                     jsonObject = new JSONObject(returnedJSON);
@@ -188,7 +190,7 @@ public class OkHttpAPIHelperHandler {
                 else {
                     //실패하면 뭔가를 한다.
                 }
-                Log.e("Handler 성공", "ticket Handler 성공");
+                Log.e("Handler 성공", "getJSONTicketList Handler 성공");
                 //Log.i("After Parser", bloodEntityObjects.toString());
 
             } else {
@@ -236,7 +238,7 @@ public class OkHttpAPIHelperHandler {
             JSONObject msg = null;
             if (flag) { //성공했다면
                 returnedJSON = response.body().string();
-                Log.e("resultJSON1", returnedJSON);
+                //Log.e("resultJSON1", returnedJSON);
 
                 try {
                     jsonObject = new JSONObject(returnedJSON);
@@ -249,8 +251,7 @@ public class OkHttpAPIHelperHandler {
                 else {
                     //실패하면 뭔가를 한다.
                 }
-                Log.e("Handler 성공", "Reservation Handler 성공");
-                //Log.i("After Parser", bloodEntityObjects.toString());
+                Log.e("Handler 성공", "getJSONCartList Handler 성공");
 
             } else {
                 //요청에러 발생시(http 에러)
@@ -304,7 +305,7 @@ public class OkHttpAPIHelperHandler {
             String returedJSON;
             if( flag ){ //성공했다면
                 returedJSON = response.body().string();
-                Log.e("resultJSON", returedJSON);
+                //Log.e("resultJSON", returedJSON);
                 try {
                     JSONObject jsonObject = new JSONObject(returedJSON);
                     bloodInsertResultValue = jsonObject.optString("result");
@@ -352,17 +353,18 @@ public class OkHttpAPIHelperHandler {
             JSONObject jsonObject = null;
             if (flag) { //성공했다면
                 returnedJSON = response.body().string();
-                Log.e("Response.body()", returnedJSON);
+                //Log.e("Response.body()", returnedJSON);
 
                 try {
                     jsonObject = new JSONObject(returnedJSON);
 
-                    Log.e("resultJSON2", jsonObject.toString());
+                    //Log.e("resultJSON2", jsonObject.toString());
                 }catch (JSONException jsonE) {
                     Log.e("json에러", jsonE.toString());
                 }
                 // Parser가 들어간다.
                 parentDatas = OkHttpJSONDataParseHandler.getJSONShopProgram(jsonObject);
+                Log.e("Handler 성공", "getJSONShopProgram Handler 성공");
 
             }else{
                 //요청에러 발생시(http 에러)
@@ -421,6 +423,7 @@ public class OkHttpAPIHelperHandler {
                 }
                 // Parser가 들어간다.
                 lkTestEntityObjects = OkHttpJSONDataParseHandler.getJSONShopInfo(jsonObject);
+                Log.e("Handler 성공", "getJSONShopInfo Handler 성공");
 
             } else {
                 //요청에러 발생시(http 에러)
@@ -467,7 +470,7 @@ public class OkHttpAPIHelperHandler {
 
             if( flag ){ //성공했다면
                 returnedJSON = response.body().string();
-                Log.e("resultJSON", returnedJSON);
+                //Log.e("resultJSON", returnedJSON);
 
                 try {
                     jsonObject = new JSONObject(returnedJSON);
@@ -477,7 +480,7 @@ public class OkHttpAPIHelperHandler {
                 }
                 // Parser가 들어간다.
                 shopListEntityObjects = OkHttpJSONDataParseHandler.getJSONShopList(jsonObject);
-                //Log.i("After Parser", bloodEntityObjects.toString());
+                Log.e("Handler 성공", "getJSONShopList Handler 성공");
 
             }else{
                 //요청에러 발생시(http 에러)
@@ -495,5 +498,113 @@ public class OkHttpAPIHelperHandler {
             }
         }
         return shopListEntityObjects;
+    }
+
+    /**
+     * 관심사 서버 저장
+     * @return
+     */
+    public static String interestsJSONAllInsert(Integer[] data) {
+        boolean flag;
+        String insertResultValue = "";
+        Integer[] reqParams = data;
+        Log.e("reqParams", String.valueOf(reqParams.length));
+        Response response = null;
+        OkHttpClient toServer;
+
+        try{
+            toServer = OkHttpInitSingletonManager.getOkHttpClient();
+            //요청 Body Form 세팅
+            RequestBody postBody = requestBodyParseData(reqParams);
+            //요청 세팅(form(Query String) 방식의 포스트)
+            Request request = new Request.Builder()
+                    .url(NetworkDefineConstant.SERVER_URL_INTERESTS_INSERT)
+                    .post(postBody)
+                    .build();
+            //동기 방식
+            response = toServer.newCall(request).execute();
+
+            flag = response.isSuccessful();
+            String returnedJSON;
+            if( flag ){ //성공했다면
+                returnedJSON = response.body().string();
+                //Log.e("interests resultJSON", returnedJSON);
+                try {
+                    JSONObject jsonObject = new JSONObject(returnedJSON);
+                    insertResultValue = jsonObject.optString("msg");
+                    Log.e("Handler 성공", "getJSONShopList Handler 성공");
+                }catch(JSONException jsone){
+                    Log.e("interests json에러", jsone.toString());
+                }
+            }else{
+                //요청에러 발생시(http 에러)
+                Log.e("interests resultJSON", "Flag is NULL");
+            }
+
+        }catch (UnknownHostException une) {
+            e("aaa", une.toString());
+        } catch (UnsupportedEncodingException uee) {
+            e("bbb", uee.toString());
+        } catch (Exception e) {
+            e("ccc", e.toString());
+        } finally{ /** TODO : Very Important!!! **/
+            if(response != null) {
+                response.close(); //3.* 이상에서는 반드시 닫아 준다.
+            }
+        }
+        return insertResultValue;
+    }
+
+    public static RequestBody requestBodyParseData(Integer[] data) {
+        Integer[] parsedData = getParsingData(data);
+        int length = 0;
+        for(int i=0;i<parsedData.length;i++){
+            if(!parsedData[i].equals(new Integer(0))){
+                length++;
+            }
+        }
+        switch (length) {
+            case 1: {
+                return new FormBody.Builder()
+                        .add("userId", String.valueOf(2))
+                        .add("activityId", String.valueOf(parsedData[0]))
+                        .build();
+            }
+            case 2:
+                return new FormBody.Builder()
+                        .add("userId", String.valueOf(2))
+                        .add("activityId", String.valueOf(parsedData[0]))
+                        .add("activityId", String.valueOf(parsedData[1]))
+                        .build();
+            case 3:
+                return new FormBody.Builder()
+                        .add("userId", String.valueOf(2))
+                        .add("activityId", String.valueOf(parsedData[0]))
+                        .add("activityId", String.valueOf(parsedData[1]))
+                        .add("activityId", String.valueOf(parsedData[2]))
+                        .build();
+            case 4:
+                return new FormBody.Builder()
+                        .add("userId", String.valueOf(2))
+                        .add("activityId", String.valueOf(parsedData[0]))
+                        .add("activityId", String.valueOf(parsedData[1]))
+                        .add("activityId", String.valueOf(parsedData[2]))
+                        .add("activityId", String.valueOf(parsedData[3]))
+                        .build();
+        }
+        return null;
+    }
+
+    public static Integer[] getParsingData(Integer[] rawData) {
+        Integer[] parsed = {0,0,0,0,0,0,0,0,0,0,0,0};
+
+        int index = 0;
+        for (int i = 0; i < rawData.length; i++) {
+            if (rawData[i] == 1) {
+                parsed[index] = i+1;
+                index++;
+            }
+        }
+        return parsed;
     }
 }

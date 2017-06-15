@@ -19,7 +19,9 @@ public class NetworkDefineConstant {
     public static String SERVER_URL_CART_INFO_ALL_SELECT;
     public static String SERVER_URL_SHOP_DETAIL_INFO_ALL_SELECT;
     public static String SERVER_URL_SHOP_DETAIL_PROGRAM_ALL_SELECT;
+
     public static String SERVER_URL_BOOK_INSERT;
+    public static String SERVER_URL_INTERESTS_INSERT;
 
     static {
             SERVER_URL_SHOP_ALL_SELECT =
@@ -40,6 +42,9 @@ public class NetworkDefineConstant {
                     HOST_URL + "/";
             SERVER_URL_BOOK_INSERT =
                     HOST_URL + "/books";
+            SERVER_URL_INTERESTS_INSERT =
+                    HOST_URL + "/interests";
+
     }
 
     //다이얼로그 요청값

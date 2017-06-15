@@ -215,7 +215,7 @@ public class OkHttpJSONDataParseHandler {
             }
 
         } catch (JSONException je) {
-            Log.e("getJSONShopInfo", "JSON파싱 중 에러발생", je);
+            Log.e("getJSONShopProgram", "JSON파싱 중 에러발생", je);
         }
         return jsonAllList;
     }
@@ -229,11 +229,12 @@ public class OkHttpJSONDataParseHandler {
             JSONObject buf) {
 
         LKShopInfoObject entity = null;
-        JSONObject jsonObject0 = null;
-        JSONObject jsonObject1 = null;
-        JSONObject jsonObject2 = null;
-        JSONArray jsonArray0 = null;
-        JSONArray jsonArray1 = null;
+        JSONObject jsonObject0  = null;
+        JSONObject jsonObject1  = null;
+        JSONObject jsonObject2  = null;
+        JSONObject jsonObject3  = null;
+        JSONArray jsonArray0    = null;
+        JSONArray jsonArray1    = null;
         try {
             jsonObject0 = buf.getJSONObject("data");
             jsonObject1 = jsonObject0.getJSONObject("review");
@@ -243,30 +244,45 @@ public class OkHttpJSONDataParseHandler {
 
             entity = new LKShopInfoObject();
 
-            entity.id = jsonObject2.getInt("id");
-            entity.name = jsonObject2.getString("name");
-            entity.image = jsonObject2.getString("logoImage");
-            entity.about = jsonObject2.getString("about");
-            entity.howTo = jsonObject2.getString("howto");
-            entity.latitude = jsonObject2.getDouble("latitude");
-            entity.longitude = jsonObject2.getDouble("longtitude");
-            entity.address1 = jsonObject2.getString("address1");
-            entity.address2 = jsonObject2.getString("address2");
-            entity.address3 = jsonObject2.getString("address3");
-            entity.pNumber = jsonObject2.getString("pNumber");
-            entity.email = jsonObject2.getString("email");
-            entity.isPickUp = jsonObject2.getBoolean("pickUp");
-            entity.isBasicEnglish = jsonObject2.getBoolean("basicEnglish");
-            entity.isBasicChinese = jsonObject2.getBoolean("basicChinese");
-            entity.isLockerRoom = jsonObject2.getBoolean("lockerRoom");
-            entity.isShowerRoom = jsonObject2.getBoolean("showerRoom");
-            entity.isParkingLot = jsonObject2.getBoolean("parkingLot");
+            entity.id                = jsonObject2.getInt("id");
+            entity.name              = jsonObject2.getString("name");
+            entity.image             = jsonObject2.getString("logoImage");
+            entity.about             = jsonObject2.getString("about");
+            entity.howTo             = jsonObject2.getString("howto");
+            entity.latitude          = jsonObject2.getDouble("latitude");
+            entity.longitude         = jsonObject2.getDouble("longitude");
+            entity.address1          = jsonObject2.getString("address1");
+            entity.address2          = jsonObject2.getString("address2");
+            entity.address3          = jsonObject2.getString("address3");
+            entity.pNumber           = jsonObject2.getString("pNumber");
+            entity.email             = jsonObject2.getString("email");
+            entity.isPickUp          = jsonObject2.getBoolean("pickUp");
+            entity.isBasicEnglish    = jsonObject2.getBoolean("basicEnglish");
+            entity.isBasicChinese    = jsonObject2.getBoolean("basicChinese");
+            entity.isLockerRoom      = jsonObject2.getBoolean("lockerRoom");
+            entity.isShowerRoom      = jsonObject2.getBoolean("showerRoom");
+            entity.isParkingLot      = jsonObject2.getBoolean("parkingLot");
             entity.isClothsForChange = jsonObject2.getBoolean("clothsForChange");
-            entity.isTowels = jsonObject2.getBoolean("towels");
-            entity.isSunBlock = jsonObject2.getBoolean("sunBloack");
-            entity.isWashingKit = jsonObject2.getBoolean("washingKit");
-            entity.createdAt = jsonObject2.getString("createdAt");
-            entity.updatedAt = jsonObject2.getString("updatedAt");
+            entity.isTowels          = jsonObject2.getBoolean("towels");
+            entity.isSunBlock        = jsonObject2.getBoolean("sunBloack");
+            entity.isWashingKit      = jsonObject2.getBoolean("washingKit");
+            entity.createdAt         = jsonObject2.getString("createdAt");
+            entity.updatedAt         = jsonObject2.getString("updatedAt");
+
+            jsonObject3 = jsonObject2.getJSONObject("tags");
+            entity.shopActivityTag = new ArrayList<>();
+            entity.shopActivityTag.add(0, jsonObject3.getBoolean("ATV"));
+            entity.shopActivityTag.add(1, jsonObject3.getBoolean("Bungee Jump"));
+            entity.shopActivityTag.add(2, jsonObject3.getBoolean("Fun Boat"));
+            entity.shopActivityTag.add(3, jsonObject3.getBoolean("Paintball"));
+            entity.shopActivityTag.add(4, jsonObject3.getBoolean("Paragliding"));
+            entity.shopActivityTag.add(5, jsonObject3.getBoolean("Rafting"));
+            entity.shopActivityTag.add(6, jsonObject3.getBoolean("Scuba Diving"));
+            entity.shopActivityTag.add(7, jsonObject3.getBoolean("Ski"));
+            entity.shopActivityTag.add(8, jsonObject3.getBoolean("Snowboard"));
+            entity.shopActivityTag.add(9, jsonObject3.getBoolean("Surfing"));
+            entity.shopActivityTag.add(10, jsonObject3.getBoolean("Wakeboard"));
+            entity.shopActivityTag.add(11, jsonObject3.getBoolean("Water Ski"));
 
             jsonArray1 = jsonObject2.getJSONArray("shopImages");
             int cnt = jsonArray1.length();
@@ -274,12 +290,12 @@ public class OkHttpJSONDataParseHandler {
             for (int i = 0; i < cnt; i++) {
                 entity.shopImages.add(jsonArray1.getJSONObject(i).getString("image"));
             }
-            entity.reviewsObject = new LKShopReviewsObject();
-            entity.reviewsObject.review = jsonObject1.getString("review");
-            entity.reviewsObject.rating = jsonObject1.getDouble("star");
-            entity.reviewsObject.attachedImage = jsonObject1.getString("image");
-            entity.reviewsObject.userName = jsonObject1.getJSONObject("user").getString("username");
-            entity.reviewsObject.data = jsonObject1.getString("date");
+            entity.reviewsObject                = new LKShopReviewsObject();
+            entity.reviewsObject.review         = jsonObject1.getString("review");
+            entity.reviewsObject.rating         = jsonObject1.getDouble("star");
+            entity.reviewsObject.attachedImage  = jsonObject1.getString("image");
+            entity.reviewsObject.userName       = jsonObject1.getJSONObject("user").getString("username");
+            entity.reviewsObject.data           = jsonObject1.getString("date");
 
         } catch (JSONException je) {
             Log.e("getJSONShopInfo", "JSON파싱 중 에러발생", je);
@@ -316,37 +332,25 @@ public class OkHttpJSONDataParseHandler {
                 int programCnt = jsonArray1.length();
                 for (int j = 0; j < programCnt; j++) {
                     LKShopListObject entity = new LKShopListObject();
-                    entity.activityName = jData.getString("activityName");
-
-                    jsonObject1 = jsonArray1.getJSONObject(j);
-                    entity.price = jsonObject1.getInt("price");
-
-                    jsonObject2 = jsonObject1.getJSONObject("shop");
-                    entity.shopId = jsonObject2.getInt("id");
-                    entity.shopIcon = jsonObject2.getString("icon");
-                    entity.shopName = jsonObject2.getString("name");
-                    entity.shopAddress1 = jsonObject2.getString("address1");
-                    entity.shopAddress2 = jsonObject2.getString("address2");
-                    entity.shopAddress3 = jsonObject2.getString("address3");
-                    entity.shopImages = jsonObject2.getJSONArray("shopImages").getJSONObject(0).getString("image");
-                    entity.likes = jsonObject2.getBoolean("likes");
-                    entity.score = (float) jsonObject2.getLong("score");
-
-                    Log.i("Activity name", entity.activityName);
-                    Log.i("Price", String.valueOf(entity.price));
-                    Log.i("Shop ID", String.valueOf(entity.shopId));
-                    Log.i("Shop Icon", entity.shopIcon);
-                    Log.i("Shop name", entity.shopName);
-                    Log.i("Shop Address", entity.shopAddress1);
-                    Log.i("Shop Image", entity.shopImages);
-                    Log.i("Likes", String.valueOf(entity.likes));
-                    Log.i("Rating Score", String.valueOf(entity.score));
+                    entity.activityName     = jData.getString("activityName");
+                    jsonObject1             = jsonArray1.getJSONObject(j);
+                    entity.price            = jsonObject1.getInt("price");
+                    jsonObject2             = jsonObject1.getJSONObject("shop");
+                    entity.shopId           = jsonObject2.getInt("id");
+                    entity.shopIcon         = jsonObject2.getString("icon");
+                    entity.shopName         = jsonObject2.getString("name");
+                    entity.shopAddress1     = jsonObject2.getString("address1");
+                    entity.shopAddress2     = jsonObject2.getString("address2");
+                    entity.shopAddress3     = jsonObject2.getString("address3");
+                    entity.shopImages       = jsonObject2.getJSONArray("shopImages").getJSONObject(0).getString("image");
+                    entity.likes            = jsonObject2.getBoolean("likes");
+                    entity.score            = jsonObject2.getDouble("score");
 
                     jsonAllList.add(entity);
                 }
             }
         } catch (JSONException je) {
-            Log.e("RequestAllList", "JSON파싱 중 에러발생", je);
+            Log.e("getJSONShopList", "JSON파싱 중 에러발생", je);
         }
         return jsonAllList;
     }

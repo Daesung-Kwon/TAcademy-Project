@@ -58,7 +58,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Interest"
+                    android:text="Interests"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:textColor="@color/colorBlack"/>
@@ -102,7 +102,7 @@
                 android:layout_marginLeft="10dp">
 
                 <TextView
-                    android:id="@+id/popularity"
+                    android:id="@+id/popularity_in_filter"
                     android:layout_width="105dp"
                     android:layout_height="48dp"
                     android:text="Popularity"
@@ -114,7 +114,7 @@
                     android:textStyle="bold"
                     android:background="@color/toolbarRed"/>
                 <TextView
-                    android:id="@+id/rating"
+                    android:id="@+id/ratings_in_filter"
                     android:layout_width="105dp"
                     android:layout_height="48dp"
                     android:text="Ratings"
@@ -124,9 +124,9 @@
                     android:layout_marginRight="3.3dp"
                     android:textColor="@android:color/white"
                     android:textSize="16sp"
-                    android:background="@android:color/darker_gray"/>
+                    android:background="@color/colorCartBackDark"/>
                 <TextView
-                    android:id="@+id/latest"
+                    android:id="@+id/latest_in_filter"
                     android:layout_width="105dp"
                     android:layout_height="48dp"
                     android:text="Latest"
@@ -135,7 +135,7 @@
                     android:layout_marginLeft="3.3dp"
                     android:textColor="@android:color/white"
                     android:textSize="16sp"
-                    android:background="@android:color/darker_gray"/>
+                    android:background="@color/colorCartBackDark"/>
             </LinearLayout>
 
         </LinearLayout>

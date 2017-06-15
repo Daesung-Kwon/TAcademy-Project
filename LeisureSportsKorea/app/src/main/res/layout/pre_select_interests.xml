@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite">
 
     <LinearLayout
         android:orientation="vertical"
@@ -12,7 +12,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="46dp"
             android:layout_gravity="center_vertical"
             android:background="@color/toolbarRed"
             android:layout_marginBottom="24dp">
@@ -30,19 +30,8 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
 
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="4dp"
-                android:layout_marginStart="4dp"
-                android:background="@drawable/ic_close" />
-
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/skip_btn_on_popup_activity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -66,7 +55,7 @@
                 android:layout_height="wrap_content">
 
                 <GridView
-                    android:id="@+id/filter_grid_view"
+                    android:id="@+id/filter_grid_view_on_popup_activity"
                     android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -81,13 +70,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="46dp"
         android:layout_alignParentBottom="true"
         android:layout_gravity="center_vertical"
         android:background="@color/toolbarRed">
 
         <TextView
-            android:id="@+id/save_button"
+            android:id="@+id/save_button_on_popup_activity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"

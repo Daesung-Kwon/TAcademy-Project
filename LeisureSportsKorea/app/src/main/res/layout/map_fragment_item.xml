@@ -38,6 +38,7 @@
                 android:scaleType="centerCrop" />
 
             <ImageView
+                android:id="@+id/likes_on_map_activity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignEnd="@+id/map_shop_main_image"

@@ -32,16 +32,21 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.leisurekr.leisuresportskorea.interfaces.ShopListSetListener;
 import com.leisurekr.leisuresportskorea.shop.FilterActivity;
-import com.leisurekr.leisuresportskorea.shop.MapActivity;
 import com.leisurekr.leisuresportskorea.shop.MapActivity2;
+import com.leisurekr.leisuresportskorea.shop_detail.LKShopListObject;
 import com.leisurekr.leisuresportskorea.ticket.TicketActivity;
+
+import java.util.ArrayList;
 
 import static com.leisurekr.leisuresportskorea.R.id.action_search;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity
+        implements View.OnClickListener, ShopListSetListener {
 
+    ArrayList<LKShopListObject> objectsFromShopList;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     Toolbar toolbar;
@@ -128,6 +133,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageView tabShop;
     ImageView tabMypage;
 
+    int callPopupActivityCount = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -207,8 +214,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fab2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO : HHere, insert New Activity for Map
                 mapIntent = new Intent(MainActivity.this, MapActivity2.class);
+                // Fragment2로 부터 Shop List 객체 가져와서 Map Activity로 값 전달.
+                mapIntent.putParcelableArrayListExtra("shopInfoList", objectsFromShopList);
                 startActivityForResult(mapIntent, MAP_REQUEST);
                 animateFAB();
 
@@ -307,6 +315,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Transition reenterTrans = new Explode(); // Fade(), Slide()
 
 
+        }
+
+        if (callPopupActivityCount == 0) {
+            Intent intent = new Intent(getApplicationContext(), PopupActivity.class);
+            startActivity(intent);
+            callPopupActivityCount++;
         }
     }
 
@@ -511,6 +525,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         })
                         .show();
                 break;
+        }
+    }
+
+    @Override
+    public void shopListSetData(ArrayList<LKShopListObject> data) {
+        objectsFromShopList = new ArrayList<>();
+
+        for (int i = 0; i < data.size(); i++) {
+            LKShopListObject obj = new LKShopListObject();
+
+            obj.activityName = data.get(i).activityName;
+            obj.price = data.get(i).price;
+            obj.shopId = data.get(i).shopId;
+            obj.shopIcon = data.get(i).shopIcon;
+            obj.shopName = data.get(i).shopName;
+            obj.shopAddress1 = data.get(i).shopAddress1;
+            obj.shopAddress2 = data.get(i).shopAddress2;
+            obj.shopAddress3 = data.get(i).shopAddress3;
+            obj.latitude = data.get(i).latitude;
+            obj.longitude = data.get(i).longitude;
+            obj.shopImages = data.get(i).shopImages;
+            obj.likes = data.get(i).likes;
+            obj.score = data.get(i).score;
+
+            objectsFromShopList.add(obj);
         }
     }
 

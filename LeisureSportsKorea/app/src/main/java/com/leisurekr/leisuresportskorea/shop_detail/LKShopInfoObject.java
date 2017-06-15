@@ -36,6 +36,7 @@ public class LKShopInfoObject {
     public String createdAt;
     public String updatedAt;
     public ArrayList<String> shopImages;
+    public ArrayList<Boolean> shopActivityTag;
     public LKShopReviewsObject reviewsObject;
 
     public LKShopInfoObject(){}
@@ -47,7 +48,7 @@ public class LKShopInfoObject {
                             boolean isShowerRoom, boolean isParkingLot, boolean isClothsForChange,
                             boolean isTowels, boolean isSunBlock, boolean isWashingKit,
                             String createdAt, String updatedAt, ArrayList<String> shopImages,
-                            LKShopReviewsObject reviewsObject) {
+                            ArrayList<Boolean> shopActivityTag, LKShopReviewsObject reviewsObject) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -73,6 +74,7 @@ public class LKShopInfoObject {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.shopImages = shopImages;
+        this.shopActivityTag = shopActivityTag;
         this.reviewsObject = reviewsObject;
     }
 }
