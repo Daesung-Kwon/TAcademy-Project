@@ -33,7 +33,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.leisurekr.leisuresportskorea.shop.FilterActivity;
-import com.leisurekr.leisuresportskorea.shop.MapActivity;
 import com.leisurekr.leisuresportskorea.shop.MapActivity2;
 import com.leisurekr.leisuresportskorea.ticket.TicketActivity;
 
@@ -150,11 +149,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SearchResultActivity.class);
-                intent.putExtra("date", date.getText().toString());
-                intent.putExtra("guest", guest.getText().toString());
-                intent.putExtra("location", location.getText().toString());
-                startActivity(intent);
+                if(date.getText().toString()==null||date.getText().toString().equals("Date")){
+                    Toast.makeText(MainActivity.this, "Please select Date of use"
+                            , Toast.LENGTH_SHORT).show();
+                }else if((adult == 0 && children == 0)||guest.getText().toString()
+                        .equals("No. of Guests")){
+                    Toast.makeText(MainActivity.this, "Please select Number of Guests"
+                            , Toast.LENGTH_SHORT).show();
+                }else if(location.getText().toString()==null||location.getText().toString()
+                        .equals("Location")){
+                    Toast.makeText(MainActivity.this, "Please select Location"
+                            , Toast.LENGTH_SHORT).show();
+                }else {
+                    Intent intent = new Intent(MainActivity.this, SearchResultActivity.class);
+                    intent.putExtra("date", date.getText().toString());
+                    intent.putExtra("dateString", dateString);
+                    intent.putExtra("guest", guest.getText().toString());
+                    intent.putExtra("adult", adult);
+                    intent.putExtra("children", children);
+                    intent.putExtra("location", location.getText().toString());
+                    startActivity(intent);
+                    if (searchView.getVisibility()==View.VISIBLE) {
+                        searchView.setVisibility(View.GONE);
+                        //toolbar.setTitle(tabs[0]);
+                        itemSearch.setVisible(true);
+                        itemTicket.setVisible(true);
+                        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                    }
+                }
             }
         });
         //searchButton = (FloatingActionButton) findViewById(R.id.search_actionbtn);
@@ -395,6 +417,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     int adult = 1;
     int children = 0;
+    String dateString=null;
 
 
     RadioGroup radioGroup;
@@ -420,6 +443,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 int year = datePicker.getYear();
                                 int month = datePicker.getMonth() + 1;
                                 int day = datePicker.getDayOfMonth();
+                                dateString = year + "-" + month + "-" + day;
                                 date.setText(Integer.toString(year)
                                         + "년 " + Integer.toString(month) + "월 " + Integer.toString(day) + "일");
 

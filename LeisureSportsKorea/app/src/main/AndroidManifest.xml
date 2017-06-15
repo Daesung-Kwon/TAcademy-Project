@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".LKApplication"
@@ -23,6 +25,8 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
         -->
+        <meta-data android:name="com.leisurekr.leisuresportskorea.LKGlideModule"
+            android:value="GlideModule" />
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -62,7 +66,7 @@
             android:name=".MainActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".shop.MapActivity"
+            android:name=".shop.MapActivity2"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".shop.FilterActivity"

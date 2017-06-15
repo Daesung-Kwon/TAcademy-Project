@@ -169,6 +169,7 @@
 
     <dimen name="profile_edit_listItemHeight">48dp</dimen>
     <dimen name="profile_edit_listItemTextSize">16sp</dimen>
+    <dimen name="profile_edit_interestsTextSize">12sp</dimen>
 
     <!--Profile Cart화면-->
     <dimen name="profile_cart_marginRight">10dp</dimen>

@@ -1,9 +1,5 @@
 package com.leisurekr.leisuresportskorea.shop_detail;
 
-import android.support.annotation.Nullable;
-
-import org.json.JSONArray;
-
 import java.util.ArrayList;
 
 /**

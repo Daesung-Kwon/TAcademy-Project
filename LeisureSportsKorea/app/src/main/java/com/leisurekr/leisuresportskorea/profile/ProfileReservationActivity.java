@@ -44,21 +44,11 @@ public class ProfileReservationActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ReservationObject object1 = new ReservationObject();
-        object1.setData(R.drawable.pic_waterski1, "Water Ski", "River City", "Water Ski Beginner",
-                "Lesson Package", 50, "Approved", "May 22, 2017", "17:00", 2, 0, "Apgujeong-dong", "Gangnam-gu, Seoul", "379-1");
-
-        ReservationObject object2 = new ReservationObject();
-        object2.setData(R.drawable.pic_ti_2, "Water Ski", "River City", "Water Ski Beginner",
-                "Lesson Package", 50, "Finished", "May 22, 2017", "15:00", 2, 0, "Apgujeong-dong", "Gangnam-gu, Seoul", "379-1");
-
-        ReservationObject object3 = new ReservationObject();
-        object3.setData(R.drawable.pic_ti_2, "Water Ski", "River City", "Water Ski Beginner",
-                "Lesson Package", 50, "Canceled", "May 22, 2017", "11:00", 2, 0, "Apgujeong-dong", "Gangnam-gu, Seoul", "379-1");
+        object1.setData(R.drawable.pic_waterski1, " ", " ", " ",
+                " ", 0, " ", " ", " ", 0, 0, " ", " ", " ");
 
         arrayList = new ArrayList<>();
         arrayList.add(object1);
-        arrayList.add(object2);
-        arrayList.add(object3);
 
         recyclerView = (RecyclerView) findViewById(R.id.profile_reservation_recycler);
         adapter = new ReservationAdapter(arrayList);
@@ -116,7 +106,7 @@ public class ProfileReservationActivity extends AppCompatActivity {
                 holder.textView1.setText(shopObject.name + "'s");
                 holder.textView2.setText(programObject.activityName);
                 holder.textView3.setText(programObject.name);
-                Glide.with(ProfileReservationActivity.this).load(shopObject.image)
+                Glide.with(ProfileReservationActivity.this).load(programObject.image)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(new ViewTarget<LinearLayout, GlideDrawable>(holder.leftBackImage) {
                             @Override

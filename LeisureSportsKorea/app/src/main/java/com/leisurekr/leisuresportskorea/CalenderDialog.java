@@ -29,7 +29,7 @@ public class CalenderDialog extends Dialog {
     Button saveBtn;
     DatePicker datePicker;
 
-    int type=0;
+    String dateString;
 
     public CalenderDialog(@NonNull Context context) {
         super(context);
@@ -50,14 +50,8 @@ public class CalenderDialog extends Dialog {
         title = (LinearLayout) findViewById(R.id.calender_title);
         saveLayout = (LinearLayout) findViewById(R.id.calender_savelayout);
         saveBtn = (Button) findViewById(R.id.calender_save);
-
-        switch (type){
-            case DIALOG_TYPE1:
-                title.setVisibility(View.VISIBLE);
-                saveLayout.setVisibility(View.VISIBLE);
-                break;
-        }
-
+        title.setVisibility(View.VISIBLE);
+        saveLayout.setVisibility(View.VISIBLE);
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,18 +65,52 @@ public class CalenderDialog extends Dialog {
                 int year = datePicker.getYear();
                 int month = datePicker.getMonth() + 1;
                 int day = datePicker.getDayOfMonth();
-
-                date.setText(Integer.toString(year)
-                        + "-" + Integer.toString(month) + "-" + Integer.toString(day));
-
+                dateString=year+"-"+month+"-"+day;
+                switch (month){
+                    case 1:
+                        date.setText("January "+day+", "+year);
+                        break;
+                    case 2:
+                        date.setText("Febuary "+day+", "+year);
+                        break;
+                    case 3:
+                        date.setText("March "+day+", "+year);
+                        break;
+                    case 4:
+                        date.setText("April "+day+", "+year);
+                        break;
+                    case 5:
+                        date.setText("May "+day+", "+year);
+                        break;
+                    case 6:
+                        date.setText("Jun "+day+", "+year);
+                        break;
+                    case 7:
+                        date.setText("July "+day+", "+year);
+                        break;
+                    case 8:
+                        date.setText("August "+day+", "+year);
+                        break;
+                    case 9:
+                        date.setText("September "+day+", "+year);
+                        break;
+                    case 10:
+                        date.setText("October "+day+", "+year);
+                        break;
+                    case 11:
+                        date.setText("Novenber "+day+", "+year);
+                        break;
+                    case 12:
+                        date.setText("December "+day+", "+year);
+                        break;
+                }
                 dismiss();
-
             }}
         );
     }
 
-    public void setDate(TextView text,int i){
+    public void setDate(TextView text,String dateString){
         this.date = text;
-        this.type = i;
+        this.dateString = dateString;
     }
 }

@@ -13,6 +13,7 @@ import java.io.Serializable;
 
 public class CartObject implements Serializable{
 
+    private int id;
     private String shopName;
     private int activityImage;
     private String text1;
@@ -25,6 +26,7 @@ public class CartObject implements Serializable{
     private int adultPrice;
     private int childrenPrice;
     private int totalPrice;
+    private boolean isPicked;
 
     ProgramObject programObject;
 
@@ -49,6 +51,7 @@ public class CartObject implements Serializable{
     public void setData(JSONObject jsonObject)
     {
         try {
+            id = jsonObject.getInt("id");
             this.adult = jsonObject.getInt("adult");
             this.children = jsonObject.getInt("child");
             this.date = jsonObject.getString("strDate");
@@ -71,6 +74,14 @@ public class CartObject implements Serializable{
         }catch (JSONException e){
             Log.e("파싱 오류","cart Parsing 오류");
         }
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setShopname(String shopname) {
@@ -185,5 +196,13 @@ public class CartObject implements Serializable{
 
     public void setProgramObject(ProgramObject programObject) {
         this.programObject = programObject;
+    }
+
+    public boolean isPicked() {
+        return isPicked;
+    }
+
+    public void setPicked(boolean picked) {
+        isPicked = picked;
     }
 }

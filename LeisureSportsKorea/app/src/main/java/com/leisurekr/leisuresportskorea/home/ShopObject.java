@@ -17,6 +17,7 @@ public class ShopObject {
     int id;
     String image;
     double score;
+    Boolean likes;
 
     public void setDate(JSONObject object){
         try {
@@ -28,6 +29,7 @@ public class ShopObject {
             JSONObject ob = jsonArray.getJSONObject(0);
             image = ob.getString("image");
             score = object.getDouble("score");
+            likes = object.getBoolean("likes");
 
 
             Log.e("파싱 성공", "shop 파싱 성공");

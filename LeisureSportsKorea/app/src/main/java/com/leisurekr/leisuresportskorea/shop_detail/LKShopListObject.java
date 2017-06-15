@@ -2,13 +2,8 @@ package com.leisurekr.leisuresportskorea.shop_detail;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.Nullable;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * Created by mobile on 2017. 6. 7..

@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +35,7 @@ public class BookInformationActivity extends AppCompatActivity {
     TextInputEditText nameEdit;
     TextInputEditText phoneEdit;
     TextInputEditText emailEdit;
+
 
     RecyclerView recyclerView;
     Button paypal;
@@ -69,6 +71,36 @@ public class BookInformationActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         paypal = (Button) findViewById(R.id.book_information_paypal);
+        paypal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CheckoutObject checkoutObject = new CheckoutObject();
+                checkoutObject.setName(nameEdit.getText().toString());
+                checkoutObject.setPhoneNum(phoneEdit.getText().toString());
+                checkoutObject.setEmail(emailEdit.getText().toString());
+                checkoutObject.setDate(arrayList.get(0).getDate());
+                checkoutObject.setTime(arrayList.get(0).getTime());
+                checkoutObject.setAdult(arrayList.get(0).getAdult());
+                checkoutObject.setChild(arrayList.get(0).getChildren());
+                checkoutObject.setStatus(2);
+                checkoutObject.setPicked(arrayList.get(0).isPicked());
+                checkoutObject.setProgramId(arrayList.get(0).getProgramObject().getId());
+
+                if(checkoutObject.getName()==""||checkoutObject.getName()==null){
+                    Toast.makeText(BookInformationActivity.this,
+                            "Please Input your name",Toast.LENGTH_SHORT).show();
+                }else if(checkoutObject.getPhoneNum()==""||checkoutObject.getPhoneNum()==null){
+                    Toast.makeText(BookInformationActivity.this,
+                            "Please Input your phoneNumber",Toast.LENGTH_SHORT).show();
+                }else if(checkoutObject.getEmail()==""||checkoutObject.getEmail()==null
+                        ||emailEdit.isInEditMode()){
+                    Toast.makeText(BookInformationActivity.this,
+                            "Please Input your phoneNumber",Toast.LENGTH_SHORT).show();
+                }else {
+                    new AsyncCheckoutInsert(BookInformationActivity.this, 2).execute(checkoutObject);
+                }
+            }
+        });
     }
 
     class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.ViewHolder> {
@@ -91,7 +123,7 @@ public class BookInformationActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            CartObject object = arrayList.get(position);
+            final CartObject object = arrayList.get(position);
             ProgramObject programObject = object.getProgramObject();
             ShopObject shopObject = programObject.getShopObject();
             if (object != null) {
@@ -103,10 +135,9 @@ public class BookInformationActivity extends AppCompatActivity {
                                 holder.activityImage.setBackgroundDrawable(resource);
                             }
                         });
-                holder.activityImage.setBackgroundResource(object.getActivityImage());
                 holder.text1.setText(shopObject.getName() + "'s");
                 holder.text2.setText(programObject.getActivityName());
-                holder.text3.setText(programObject.getName().substring(programObject.getActivityName().length()+1));
+                holder.text3.setText(programObject.getName().substring(programObject.getActivityName().length()));
                 holder.date.setText((object.getDate()));
                 holder.time.setText(object.getTime());
                 adult = object.getAdult();
@@ -121,8 +152,14 @@ public class BookInformationActivity extends AppCompatActivity {
                     people = "Adult " + Integer.toString(adult);
                 }
                 holder.people.setText(people);
+                holder.isPickuped.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        object.setPicked(isChecked);
+                    }
+                });
             } else {
-                Log.e("1", "1111111111111111");
+                Log.e("BookInformation", "cartObject = null");
             }
         }
 
@@ -157,7 +194,6 @@ public class BookInformationActivity extends AppCompatActivity {
                 isPickuped = (CheckBox) itemView.findViewById(R.id.information_recycler_pickup);
             }
         }
-
     }
 
     @Override
