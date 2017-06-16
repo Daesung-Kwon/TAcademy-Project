@@ -79,7 +79,8 @@ public class TicketItemFragment extends Fragment {
             shopObject = programObject.getShopObject();
             text1.setText(shopObject.getName() + "'s");
             text2.setText(programObject.getActivityName());
-            text3.setText(programObject.getName());
+            text3.setText(programObject.getName()
+                    .substring(programObject.getActivityName().length()+1));
             Glide.with(TicketItemFragment.this).load(shopObject.getImage()).into(backImage);
 
 

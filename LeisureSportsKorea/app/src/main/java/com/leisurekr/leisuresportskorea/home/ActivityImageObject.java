@@ -22,6 +22,7 @@ public class ActivityImageObject {
     TextView activityName;
     TextView activityDescrpption1;
     TextView activityDescrpption2;
+    TextView activityDescrpption3;
     TextView activityPrice;
 
     public ActivityImageObject(View view) {
@@ -32,6 +33,7 @@ public class ActivityImageObject {
         activityName = (TextView) view.findViewById(R.id.activity_name);
         activityDescrpption1 = (TextView) view.findViewById(R.id.activity_description1);
         activityDescrpption2 = (TextView) view.findViewById(R.id.activity_description2);
+        activityDescrpption3 = (TextView) view.findViewById(R.id.activity_description3);
         activityPrice = (TextView) view.findViewById(R.id.activity_price);
     }
     public void setData(int resid, String name, String description1
@@ -70,7 +72,9 @@ public class ActivityImageObject {
 
         activityName.setText(object.activityName);
         activityDescrpption1.setText(object.shopName+"'s ");
-        activityDescrpption2.setText(object.programName);
+        activityDescrpption2.setText(object.activityName);
+        activityDescrpption3.setText(object.programName
+                .substring(object.activityName.length()+1));
         activityPrice.setText("$"+Integer.toString(object.price));
     }
 

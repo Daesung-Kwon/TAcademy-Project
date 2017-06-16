@@ -3,6 +3,7 @@ package com.leisurekr.leisuresportskorea.okhttp;
 import android.util.Log;
 
 import com.leisurekr.leisuresportskorea.CheckoutObject;
+import com.leisurekr.leisuresportskorea.FavorObject;
 import com.leisurekr.leisuresportskorea.SearchObject;
 import com.leisurekr.leisuresportskorea.common.NetworkDefineConstant;
 import com.leisurekr.leisuresportskorea.home.HomeObject;
@@ -366,6 +367,7 @@ public class OkHttpAPIHelperHandler {
         return objects;
     }
 
+
     public static String bookJSONInsert(CartObject... cartObjects) {
 
         boolean flag;
@@ -481,30 +483,24 @@ public class OkHttpAPIHelperHandler {
         return editInsertResultValue;
     }
 
-    public static String favorJSONInsert(CartObject... cartObjects) {
+    public static String favorJSONInsert(FavorObject... favorObjects) {
 
+        Log.e("heart","중");
         boolean flag;
-        String bookInsertResultValue = "";
-        CartObject reqParams = cartObjects[0];
+        String favorResultValue = "";
+        FavorObject reqParams = favorObjects[0];
         Response response = null;
         OkHttpClient toServer;
-
-
         try {
             toServer = OkHttpInitSingletonManager.getOkHttpClient();
             //요청 바디부분을 Form세팅 url에 포함되지 않는 자료
             RequestBody postBody = new FormBody.Builder()
-                    .add("adult", Integer.toString(reqParams.getAdult()))
-                    .add("child", Integer.toString(reqParams.getChildren()))
-                    .add("status", Integer.toString(1))
-                    .add("userId", Integer.toString(1))
-                    .add("programId", Integer.toString(reqParams.getProgramObject().getId()))
-                    .add("date", reqParams.getDate())
-                    .add("time", reqParams.getTime())
+                    .add("userId", Integer.toString(reqParams.getUserId()))
+                    .add("shopId", Integer.toString(reqParams.getShopId()))
                     .build();
             //요청 세팅(form(Query String) 방식의 포스트)
             Request request = new Request.Builder()
-                    .url(NetworkDefineConstant.SERVER_URL_BOOK_INSERT)
+                    .url(NetworkDefineConstant.SERVER_URL_FAVOR_POST)
                     .post(postBody)
                     .build();
             //동기 방식 실제 연결이 되고 요청이 이루어지는 부분
@@ -514,16 +510,16 @@ public class OkHttpAPIHelperHandler {
             String returedJSON;
             if (flag) { //성공했다면
                 returedJSON = response.body().string();
-                Log.e("resultJSON", returedJSON);
+                Log.e("favor resultJSON", returedJSON);
                 try {
                     JSONObject jsonObject = new JSONObject(returedJSON);
-                    bookInsertResultValue = jsonObject.optString("result");
+                    favorResultValue = jsonObject.optString("msg");
                 } catch (JSONException jsone) {
                     Log.e("json에러", jsone.toString());
                 }
             } else {
                 //요청에러 발생시(http 에러)
-                Log.e("toCart", "flag = false");
+                Log.e("Favor", "flag = false");
             }
 
         } catch (UnknownHostException une) {
@@ -537,7 +533,7 @@ public class OkHttpAPIHelperHandler {
                 response.close(); //3.* 이상에서는 반드시 닫아 준다.
             }
         }
-        return bookInsertResultValue;
+        return favorResultValue;
     }
 
     public static String checkoutJSONInsert(int status,CheckoutObject... checkoutObjects) {

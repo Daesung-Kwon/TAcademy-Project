@@ -18,10 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.ViewTarget;
 import com.leisurekr.leisuresportskorea.common.NetworkDefineConstant;
 import com.leisurekr.leisuresportskorea.okhttp.OkHttpAPIHelperHandler;
 import com.leisurekr.leisuresportskorea.profile.CartObject;
@@ -35,7 +31,7 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
 
     Toolbar toolbar;
 
-    LinearLayout activityImage;
+    ImageView activityImage;
     TextView title1;
     TextView title2;
     TextView title3;
@@ -138,7 +134,7 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        activityImage = (LinearLayout) findViewById(R.id.book_activityimage);
+        activityImage = (ImageView) findViewById(R.id.book_activityimage);
         title1 = (TextView) findViewById(R.id.book_text1);
         title2 = (TextView) findViewById(R.id.book_text2);
         title3 = (TextView) findViewById(R.id.book_text3);
@@ -166,13 +162,7 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
 
 
         Glide.with(BookActivity.this).load(object.getActivityImage())
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(new ViewTarget<LinearLayout, GlideDrawable>(activityImage) {
-                    @Override
-                    public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
-                        activityImage.setBackgroundDrawable(resource);
-                    }
-                });
+                .into(activityImage);
         title1.setText(object.getActivityName());
         title2.setText(object.getText1());
         title3.setText(object.getText2());

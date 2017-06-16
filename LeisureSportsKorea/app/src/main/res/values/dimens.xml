@@ -83,7 +83,7 @@
     <dimen name="home_shop_nameSize">16sp</dimen>
     <dimen name="home_shop_nameMarginBottom">5dp</dimen>
 
-    <dimen name="home_shop_mapiconWidth">6dp</dimen>
+    <dimen name="home_shop_mapiconWidth">9dp</dimen>
     <dimen name="home_shop_mapiconHeight">9dp</dimen>
     <dimen name="home_shop_maptextSize">12sp</dimen>
 
@@ -140,8 +140,8 @@
     <dimen name="book_titleMarginLeft">16dp</dimen>
     <dimen name="book_priceMarginRight">16dp</dimen>
     <dimen name="book_priceMarginBottom">24dp</dimen>
-    <dimen name="book_priceSize">20sp</dimen>
-    <dimen name="book_titleSize">20sp</dimen>
+    <dimen name="book_priceSize">24sp</dimen>
+    <dimen name="book_titleSize">16sp</dimen>
     <dimen name="book_textSize">16sp</dimen>
 
     <!--Profile 화면-->
