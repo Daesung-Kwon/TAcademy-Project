@@ -1,6 +1,8 @@
 package com.leisurekr.leisuresportskorea.profile;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +11,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.ViewTarget;
 import com.leisurekr.leisuresportskorea.R;
+import com.leisurekr.leisuresportskorea.okhttp.OkHttpAPIHelperHandler;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -36,6 +48,8 @@ public class TabFragment3 extends android.support.v4.app.Fragment implements Vie
     CircleImageView profileImage;
     ImageView settingBtn;
     TextView nickname, email, tag;
+
+    ProfileObject profileObject;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -64,15 +78,77 @@ public class TabFragment3 extends android.support.v4.app.Fragment implements Vie
         settingBtn.setOnClickListener(this);
         cart.setOnClickListener(this);
 
-        backImage.setBackgroundResource(R.drawable.pic_bg_surfing);
-        profileImage.setImageResource(R.drawable.ic_ma);
-        settingBtn.setImageResource(R.drawable.ic_setting);
-        nickname.setText("Kim Yong");
-        email.setText("dlddldwkak@naver.com");
-        tag.setText("#WaterSki #Ski #FunBoats");
-
         return view;
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        new AsyncProfileJSON().execute();
+    }
+
+    public class AsyncProfileJSON extends AsyncTask<String, Integer, ProfileObject>{
+        ProgressDialog dialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog = ProgressDialog.show(getContext(), "", "Data Loading...", true);
+        }
+
+        @Override
+        protected ProfileObject doInBackground(String... params) {
+            return OkHttpAPIHelperHandler.profileJSONAllSelect();
+        }
+
+        @Override
+        protected void onPostExecute(ProfileObject result) {
+            dialog.dismiss();
+            refresh(result);
+
+        }
+    }
+
+    public void refresh(ProfileObject profileObject){
+        this.profileObject = profileObject;
+        Glide.with(getContext()).load(profileObject.getBackImage())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(new ViewTarget<LinearLayout, GlideDrawable>(backImage) {
+            @Override
+            public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                backImage.setBackgroundDrawable(resource);
+            }
+        });
+        switch (profileObject.getSex()){
+            case "Male":
+                profileImage.setImageResource(R.drawable.ic_ma);
+                break;
+            case "Female":
+                profileImage.setImageResource(R.drawable.ic_fe);
+                break;
+            case "Gender":
+                profileImage.setImageResource(R.drawable.ic_ne);
+                break;
+
+        }
+        settingBtn.setImageResource(R.drawable.ic_setting);
+        nickname.setText(profileObject.getName());
+        email.setText(profileObject.getEmail());
+
+        String interests=" ";
+        HashMap<String, Boolean> tags = profileObject.getTags();
+        Set<String> keys = tags.keySet();
+        Iterator<String> iterator = keys.iterator();
+        while(iterator.hasNext()){
+            String s = iterator.next();
+            if(tags.get(s)){
+                interests = interests +"# "+ s+" ";
+            }
+        }
+        tag.setText(interests);
+    }
+
 
 
     @Override
@@ -81,6 +157,7 @@ public class TabFragment3 extends android.support.v4.app.Fragment implements Vie
         switch (v.getId()){
             case R.id.profile_editbtn_profile:
                 intent = new Intent(getContext(),ProfileEditActivity.class);
+                intent.putExtra("profileObject",profileObject);
                 startActivity(intent);
                 break;
             case R.id.profile_reservationlayout:

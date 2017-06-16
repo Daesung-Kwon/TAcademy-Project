@@ -95,7 +95,7 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback, Vi
             "0", "0", "1", "0",
     };
 
-    private Animation slideInAnimation;
+    //private Animation slideInAnimation;
 
     public ShopInfoFragment() {}
     public static ShopInfoFragment newInstance(int shopId) {
@@ -147,9 +147,9 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback, Vi
         callingBtn.setImageResource(R.drawable.ic_call);
         transportIcon.setImageResource(TransportList.getSubwayResource().get(3));
 
-        slideInAnimation = AnimationUtils.loadAnimation(getContext(), android.R.anim.slide_in_left);
-        shopCircleImage.startAnimation(slideInAnimation);
-        reviewerCircleImage.startAnimation(slideInAnimation);
+        //slideInAnimation = AnimationUtils.loadAnimation(getContext(), android.R.anim.slide_in_left);
+        //shopCircleImage.startAnimation(slideInAnimation);
+        //reviewerCircleImage.startAnimation(slideInAnimation);
 
         return view;
     }

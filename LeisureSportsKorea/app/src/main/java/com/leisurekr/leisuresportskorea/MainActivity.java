@@ -34,7 +34,7 @@ import android.widget.Toast;
 
 import com.leisurekr.leisuresportskorea.interfaces.ShopListSetListener;
 import com.leisurekr.leisuresportskorea.shop.FilterActivity;
-import com.leisurekr.leisuresportskorea.shop.MapActivity2;
+import com.leisurekr.leisuresportskorea.shop.MapActivity;
 import com.leisurekr.leisuresportskorea.shop_detail.LKShopListObject;
 import com.leisurekr.leisuresportskorea.ticket.TicketActivity;
 
@@ -157,11 +157,34 @@ public class MainActivity extends AppCompatActivity
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SearchResultActivity.class);
-                intent.putExtra("date", date.getText().toString());
-                intent.putExtra("guest", guest.getText().toString());
-                intent.putExtra("location", location.getText().toString());
-                startActivity(intent);
+                if(date.getText().toString()==null||date.getText().toString().equals("Date")){
+                    Toast.makeText(MainActivity.this, "Please select Date of use"
+                            , Toast.LENGTH_SHORT).show();
+                }else if((adult == 0 && children == 0)||guest.getText().toString()
+                        .equals("No. of Guests")){
+                    Toast.makeText(MainActivity.this, "Please select Number of Guests"
+                            , Toast.LENGTH_SHORT).show();
+                }else if(location.getText().toString()==null||location.getText().toString()
+                        .equals("Location")){
+                    Toast.makeText(MainActivity.this, "Please select Location"
+                            , Toast.LENGTH_SHORT).show();
+                }else {
+                    Intent intent = new Intent(MainActivity.this, SearchResultActivity.class);
+                    intent.putExtra("date", date.getText().toString());
+                    intent.putExtra("dateString", dateString);
+                    intent.putExtra("guest", guest.getText().toString());
+                    intent.putExtra("adult", adult);
+                    intent.putExtra("children", children);
+                    intent.putExtra("location", location.getText().toString());
+                    startActivity(intent);
+                    if (searchView.getVisibility()==View.VISIBLE) {
+                        searchView.setVisibility(View.GONE);
+                        //toolbar.setTitle(tabs[0]);
+                        itemSearch.setVisible(true);
+                        itemTicket.setVisible(true);
+                        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                    }
+                }
             }
         });
         //searchButton = (FloatingActionButton) findViewById(R.id.search_actionbtn);
@@ -214,7 +237,7 @@ public class MainActivity extends AppCompatActivity
         fab2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mapIntent = new Intent(MainActivity.this, MapActivity2.class);
+                mapIntent = new Intent(MainActivity.this, MapActivity.class);
                 // Fragment2로 부터 Shop List 객체 가져와서 Map Activity로 값 전달.
                 mapIntent.putParcelableArrayListExtra("shopInfoList", objectsFromShopList);
                 startActivityForResult(mapIntent, MAP_REQUEST);
@@ -318,7 +341,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         if (callPopupActivityCount == 0) {
-            Intent intent = new Intent(getApplicationContext(), PopupActivity.class);
+            Intent intent = new Intent(getApplicationContext(), PreInterestsActivity.class);
             startActivity(intent);
             callPopupActivityCount++;
         }
@@ -409,6 +432,7 @@ public class MainActivity extends AppCompatActivity
 
     int adult = 1;
     int children = 0;
+    String dateString=null;
 
 
     RadioGroup radioGroup;
@@ -434,6 +458,7 @@ public class MainActivity extends AppCompatActivity
                                 int year = datePicker.getYear();
                                 int month = datePicker.getMonth() + 1;
                                 int day = datePicker.getDayOfMonth();
+                                dateString = year + "-" + month + "-" + day;
                                 date.setText(Integer.toString(year)
                                         + "년 " + Integer.toString(month) + "월 " + Integer.toString(day) + "일");
 

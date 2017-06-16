@@ -11,6 +11,6 @@
         <item>Select</item>
         <item>Male</item>
         <item>Female</item>
-        <item>gender</item>
+        <item>Gender</item>
     </string-array>
 </resources>

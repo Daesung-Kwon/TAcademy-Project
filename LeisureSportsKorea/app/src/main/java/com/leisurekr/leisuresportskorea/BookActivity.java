@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -16,9 +17,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.ViewTarget;
 import com.leisurekr.leisuresportskorea.common.NetworkDefineConstant;
 import com.leisurekr.leisuresportskorea.okhttp.OkHttpAPIHelperHandler;
 import com.leisurekr.leisuresportskorea.profile.CartObject;
+import com.leisurekr.leisuresportskorea.profile.ProfileCartActivity;
 import com.leisurekr.leisuresportskorea.profile.ProgramObject;
 import com.leisurekr.leisuresportskorea.profile.ShopObject;
 
@@ -36,6 +43,7 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
 
     LinearLayout datePopupBtn;
     TextView date;
+    String dateString;
     LinearLayout timePopupBtn;
     TextView time;
 
@@ -63,22 +71,67 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
     int total = 0;
     BookObject object;
 
+    int programId;
+    String programName;
+    String programImage;
+    String activityName;
+    String shopName;
+    String shopImage;
+    int shopId;
+    int number;
+
+    int groupId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.book_activity);
 
         /**
-         * "programId", "programName", "adultPrice", "childPrice", "programImage"
-         */
+         * "programId", "programName", "adultPrice", "childPrice", "programImage", "activityName"
+         "shopName", "shopImage", "shopId","number"*/
         Intent intent = getIntent();
-        int programId = intent.getIntExtra("programId", -1);
-        String programName = intent.getStringExtra("programName");
-
+        programId = intent.getIntExtra("programId", -1);
+        programName = intent.getStringExtra("programName");
+        adultPrice = intent.getIntExtra("adultPrice",0);
+        childrenPrice = intent.getIntExtra("childPrice",0);
+        programImage = intent.getStringExtra("programImage");
+        activityName = intent.getStringExtra("activityName");
+        shopName = intent.getStringExtra("shopName");
+        shopImage = intent.getStringExtra("shopImage");
+        shopId = intent.getIntExtra("shopId",0);
+        number = intent.getIntExtra("number",0);
+        groupId = intent.getIntExtra("groupId",0);
+        Log.e("groupId",R.id.individual_program_elv+" / "+groupId);
         object = new BookObject();
-
-        object.setData(R.drawable.pic_wakeboard, "01. Water Ski", "Beginner Lesson"
-                , "Package", 50, 1, 50, 0, 5, 0);
+        String s;//action이름앞에 숫자를 위한 스트링 0~9까지는 00. 01. 02. 로 만든고 10부터는 10. 11. 12 로 만듬
+        if(number<10){
+            s= "0"+number;
+        }else{
+            s = Integer.toString(number);
+        }
+        String a;//프로그램 이름에 액티비티 이름을 분리하는 경우 Fun Boat만 s와 공백의 추가로 붙기에 +2을 한다
+                    //Fun Boat가 아닌경우에는 공백만 제거하기 위해 +1을 한다.
+                    //activityName이 null인 경우는 관심사에 포함되지 않은 개별 종목이 오는경우 이름을 분리하지 않는다.
+                    //
+        if(activityName!=null) {
+            if(groupId!=R.id.individual_program_elv) {
+                if (activityName.equals("Fun Boat")) {
+                    a = programName.substring(activityName.length() + 2);
+                } else {
+                    a = programName.substring(activityName.length() + 1);
+                }
+            }else{
+                a = programName;
+            }
+        }else{
+            a = programName;
+        }
+        object.setData(programImage
+                , s+". "+activityName
+                , a
+                , ""
+                , adultPrice, 1, adultPrice, 0, childrenPrice, 0);
 
         toolbar = (Toolbar) findViewById(R.id.book_toolbar);
         toolbar.setTitle("Book");
@@ -111,8 +164,16 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
         addToCartBtn = (Button) findViewById(R.id.book_addtocart);
         checkOutBtn = (Button) findViewById(R.id.book_checkout);
 
-        activityImage.setBackgroundResource(object.getActivityImage());
-        title1.setText(object.getShopName() + "'s");
+
+        Glide.with(BookActivity.this).load(object.getActivityImage())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(new ViewTarget<LinearLayout, GlideDrawable>(activityImage) {
+                    @Override
+                    public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                        activityImage.setBackgroundDrawable(resource);
+                    }
+                });
+        title1.setText(object.getActivityName());
         title2.setText(object.getText1());
         title3.setText(object.getText2());
         price.setText("$" + object.getPrice());
@@ -137,7 +198,10 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    ArrayList<CartObject> arrayList = new ArrayList<>();
+    ArrayList<CartObject> arrayList;
+    CartObject cartObject;
+    ProgramObject programObject;
+    ShopObject shopObject;
 
     @Override
     public void onClick(View v) {
@@ -192,7 +256,7 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.book_datepopup:
                 CalenderDialog cd = new CalenderDialog(BookActivity.this);
-                cd.setDate(date,0);
+                cd.setDate(date,dateString);
                 cd.show();
                 break;
             case R.id.book_timepopup:
@@ -201,9 +265,9 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
                 td.show();
                 break;
             case R.id.book_addtocart:
-                CartObject cartObject = new CartObject();
-                ProgramObject programObject = new ProgramObject();
-                ShopObject shopObject = new ShopObject();
+                cartObject = new CartObject();
+                programObject = new ProgramObject();
+                shopObject = new ShopObject();
                 cartObject.setDate(date.getText().toString());
                 cartObject.setTime(time.getText().toString());
                 cartObject.setProgramObject(programObject);
@@ -211,13 +275,48 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
                 cartObject.setChildren(children);
                 cartObject.setAdultPrice(adultPrice);
                 cartObject.setChildrenPrice(childrenPrice);
-                programObject.setId(1);
-                programObject.setName(object.getShopName());
-                programObject.setActivityName("Water Ski");
+                programObject.setId(programId);
+                Log.e("programId", " "+programId);
+                if(date.getText()==null||date.getText().toString().equals("Select date of use")){
+                    Toast.makeText(BookActivity.this, "Please select date of use"
+                            , Toast.LENGTH_SHORT).show();
+                }else if(time.getText()==null||time.getText().toString().equals("Select time of use")) {
+                    Toast.makeText(BookActivity.this, "Please select time of use"
+                            , Toast.LENGTH_SHORT).show();
+                }else if(adult == 0 && children == 0){
+                    Toast.makeText(BookActivity.this, "Please select number of people more than 1"
+                            , Toast.LENGTH_SHORT).show();
+                }else{
+                    new AsyncBookInsert().execute(cartObject);
+
+                    //아래 세줄을 어싱크가 onPostExecute()에서 할지 생각해보자.
+                    Intent toCartIntent = new Intent(BookActivity.this, ProfileCartActivity.class);
+                    startActivity(toCartIntent);
+                    finish();
+                }
+                break;
+
+            case R.id.book_checkout:
+                arrayList = new ArrayList<>();
+                cartObject = new CartObject();
+                programObject = new ProgramObject();
+                shopObject = new ShopObject();
+                cartObject.setDate(date.getText().toString());
+                cartObject.setTime(time.getText().toString());
+                cartObject.setProgramObject(programObject);
+                cartObject.setAdult(adult);
+                cartObject.setChildren(children);
+                cartObject.setAdultPrice(adultPrice);
+                cartObject.setChildrenPrice(childrenPrice);
+                programObject.setName(programName);
+                programObject.setId(programId);
                 programObject.setPrice(total);
                 programObject.setShopObject(shopObject);
-                shopObject.setName("Costa Leisure sport");
-                shopObject.setId(1);
+                programObject.setActivityName(activityName);
+                programObject.setImage(programImage);
+                shopObject.setName(shopName);
+                shopObject.setId(shopId);
+                shopObject.setImage(shopImage);
                 shopObject.setLocation1("");
                 shopObject.setLocation2("");
                 shopObject.setLocation3("");
@@ -231,19 +330,12 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(BookActivity.this, "Please select number of people more than 1"
                             , Toast.LENGTH_SHORT).show();
                 }else{
-                    new AsyncBookInsert().execute(cartObject);
+                    Intent intent = new Intent(BookActivity.this, BookInformationActivity.class);
+                    arrayList.add(cartObject);
+                    intent.putExtra("check out", arrayList);
+                    startActivity(intent);
                 }
 
-                break;
-
-            case R.id.book_checkout:
-                //예약하는 페이지로 이동
-                Intent intent = new Intent(BookActivity.this, BookInformationActivity.class);
-                CartObject object = new CartObject();
-                //object.setData();
-                arrayList.add(object);
-                intent.putExtra("check out",arrayList);
-                startActivity(intent);
                 break;
 
         }

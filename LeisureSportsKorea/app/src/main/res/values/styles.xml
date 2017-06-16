@@ -25,6 +25,7 @@
 
     <style name="MyCustomTextAppearance" parent="TextAppearance.Design.Tab">
         <item name="textAllCaps">false</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
     <style name="CustomRatingbarBig" parent="Widget.AppCompat.RatingBar">

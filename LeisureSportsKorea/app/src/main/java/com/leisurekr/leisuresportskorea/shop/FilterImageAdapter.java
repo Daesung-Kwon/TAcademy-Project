@@ -8,7 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.leisurekr.leisuresportskorea.PopupActivity;
 import com.leisurekr.leisuresportskorea.R;
 
 import java.util.HashMap;

@@ -16,7 +16,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -25,9 +24,7 @@ import com.leisurekr.leisuresportskorea.MainActivity;
 import com.leisurekr.leisuresportskorea.R;
 import com.leisurekr.leisuresportskorea.interfaces.ShopListSetListener;
 import com.leisurekr.leisuresportskorea.okhttp.OkHttpAPIHelperHandler;
-import com.leisurekr.leisuresportskorea.shop_detail.LKShopInfoObject;
 import com.leisurekr.leisuresportskorea.shop_detail.LKShopListObject;
-import com.leisurekr.leisuresportskorea.shop_detail.LKShopProgramEntity;
 import com.leisurekr.leisuresportskorea.shop_detail.ShopDetailActivity;
 
 import java.util.ArrayList;
@@ -96,10 +93,8 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
 
         private ArrayList<LKShopListObject> mResult;
 
-        private Animation slideInAnimation;
         public TabFragment2RVAdapter(ArrayList<LKShopListObject> resources) {
             mResult = resources;
-            slideInAnimation = AnimationUtils.loadAnimation(owner, android.R.anim.slide_in_left);
         }
         public static class ViewHolder extends RecyclerView.ViewHolder {
             public final View mView;
@@ -149,7 +144,6 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
             Glide.with(LKApplication.getLKApplication())
                     .load(shopInfo.shopImages)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .animate(android.R.anim.slide_in_left)
                     //.override(360, 280)
                     .into(holder.mShopMainImage);
             holder.mShopMainImage.setOnClickListener(new View.OnClickListener() {
@@ -164,7 +158,6 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
             Glide.with(LKApplication.getLKApplication())
                     .load(shopInfo.shopIcon)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .animate(android.R.anim.slide_in_left)
                     .override(40, 40)
                     .into(holder.mShopCircleImage);
             if (shopInfo.likes) {

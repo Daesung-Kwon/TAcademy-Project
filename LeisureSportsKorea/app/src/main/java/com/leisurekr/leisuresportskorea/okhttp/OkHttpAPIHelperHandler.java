@@ -2,13 +2,16 @@ package com.leisurekr.leisuresportskorea.okhttp;
 
 import android.util.Log;
 
+import com.leisurekr.leisuresportskorea.CheckoutObject;
+import com.leisurekr.leisuresportskorea.SearchObject;
 import com.leisurekr.leisuresportskorea.common.NetworkDefineConstant;
+import com.leisurekr.leisuresportskorea.home.HomeObject;
+import com.leisurekr.leisuresportskorea.profile.CartObject;
+import com.leisurekr.leisuresportskorea.profile.ProfileObject;
+import com.leisurekr.leisuresportskorea.profile.ReservationObject;
 import com.leisurekr.leisuresportskorea.shop_detail.LKShopInfoObject;
 import com.leisurekr.leisuresportskorea.shop_detail.LKShopListObject;
 import com.leisurekr.leisuresportskorea.shop_detail.ParentData;
-import com.leisurekr.leisuresportskorea.home.HomeObject;
-import com.leisurekr.leisuresportskorea.profile.CartObject;
-import com.leisurekr.leisuresportskorea.profile.ReservationObject;
 import com.leisurekr.leisuresportskorea.ticket.TicketObject;
 
 import org.json.JSONArray;
@@ -212,6 +215,98 @@ public class OkHttpAPIHelperHandler {
         return objects;
     }
 
+    /*public static String reviewJSONAllInsert(){
+        String resultValue = "";
+        File upLoadfile = new File(upLoadFilePath[0]);
+        Response response = null;
+        try {
+            //업로드는 타임 및 리드타임을 넉넉히 준다.
+            OkHttpClient toServer = new OkHttpClient.Builder()
+                    .connectTimeout(20, TimeUnit.SECONDS)
+                    .readTimeout(20, TimeUnit.SECONDS)
+                    .writeTimeout(20, TimeUnit.SECONDS)
+                    .build();
+
+            RequestBody fileUploadBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM) //파일 업로드시 반드시 설정
+                    .addFormDataPart("queryName1", formMemberValue) //기본 쿼리
+                    .addFormDataPart("uploadfile", upLoadfile.getName(), RequestBody.create(IMAGE_MIME_TYPE, upLoadfile))
+                    .build();
+            //요청 세팅
+            Request request = new Request.Builder()
+                    .url("http://192.168.0.19:5678/androidNetwork/fileUpload.pyo")
+                    .post(fileUploadBody) //반드시 post로
+                    .build();
+
+            //동기 방식
+            response = toServer.newCall(request).execute();
+            if (response.isSuccessful()) {
+                resultValue = response.body().string();
+            }
+        } catch (Exception e) {
+            Log.e("UploadError", e.toString());
+        } finally {
+            if (response != null) {
+                response.close();
+            }
+        }
+        return resultValue;
+    }*/
+
+
+    public static ProfileObject profileJSONAllSelect() {
+        OkHttpClient toServer = null;
+        ProfileObject objects = null;
+
+        boolean flag;
+        Response response = null;
+        try {
+            toServer = OkHttpInitSingletonManager.getOkHttpClient();
+
+            Request request = new Request.Builder()
+                    .url(NetworkDefineConstant.SERVER_URL_PROFILE_ALL_SELECT)
+                    .build();
+            response = toServer.newCall(request).execute();
+            flag = response.isSuccessful();
+
+            String returnedJSON;
+            JSONObject jsonObject = null;
+            if (flag) { //성공했다면
+                returnedJSON = response.body().string();
+                Log.e("resultJSON1", returnedJSON);
+
+                try {
+                    jsonObject = new JSONObject(returnedJSON);
+                } catch (JSONException jsonE) {
+                    Log.e("json에러", jsonE.toString());
+                }
+                // Parser가 들어간다.
+                if (jsonObject.getString("msg").equals("success"))
+                    objects = OkHttpJSONDataParseHandler.getJSONProfile(jsonObject);
+                else {
+                    //실패하면 뭔가를 한다.
+                }
+                Log.e("Handler 성공", "profile select Handler 성공");
+                //Log.i("After Parser", bloodEntityObjects.toString());
+
+            } else {
+                //요청에러 발생시(http 에러)
+            }
+
+        } catch (UnknownHostException une) {
+            e("une", une.toString());
+        } catch (UnsupportedEncodingException uee) {
+            e("uee", uee.toString());
+        } catch (Exception e) {
+            e("e", e.toString());
+        } finally { /** TODO : Very Important!!! **/
+            if (response != null) {
+                response.close(); //3.* 이상에서는 반드시 닫아 준다.
+            }
+        }
+
+        return objects;
+    }
 
 
     public static ArrayList<CartObject> cartJSONAllSelect() {
@@ -251,7 +346,9 @@ public class OkHttpAPIHelperHandler {
                 else {
                     //실패하면 뭔가를 한다.
                 }
-                Log.e("Handler 성공", "getJSONCartList Handler 성공");
+
+                Log.e("Handler 성공", "cart select Handler 성공");
+                //Log.i("After Parser", bloodEntityObjects.toString());
 
             } else {
                 //요청에러 발생시(http 에러)
@@ -275,13 +372,13 @@ public class OkHttpAPIHelperHandler {
     public static String bookJSONInsert(CartObject... cartObjects) {
 
         boolean flag;
-        String bloodInsertResultValue = "";
+        String bookInsertResultValue = "";
         CartObject reqParams = cartObjects[0];
         Response response = null;
         OkHttpClient toServer;
 
 
-        try{
+        try {
             toServer = OkHttpInitSingletonManager.getOkHttpClient();
             //요청 바디부분을 Form세팅 url에 포함되지 않는 자료
             RequestBody postBody = new FormBody.Builder()
@@ -289,7 +386,7 @@ public class OkHttpAPIHelperHandler {
                     .add("child", Integer.toString(reqParams.getChildren()))
                     .add("status", Integer.toString(1))
                     .add("userId", Integer.toString(1))
-                    .add("programId", Integer.toString(3))
+                    .add("programId", Integer.toString(reqParams.getProgramObject().getId()))
                     .add("date", reqParams.getDate())
                     .add("time", reqParams.getTime())
                     .build();
@@ -303,31 +400,346 @@ public class OkHttpAPIHelperHandler {
 
             flag = response.isSuccessful();
             String returedJSON;
-            if( flag ){ //성공했다면
+            if (flag) { //성공했다면
                 returedJSON = response.body().string();
-                //Log.e("resultJSON", returedJSON);
+                Log.e("resultJSON", returedJSON);
                 try {
                     JSONObject jsonObject = new JSONObject(returedJSON);
-                    bloodInsertResultValue = jsonObject.optString("result");
-                }catch(JSONException jsone){
+                    bookInsertResultValue = jsonObject.optString("result");
+                } catch (JSONException jsone) {
                     Log.e("json에러", jsone.toString());
                 }
-            }else{
+            } else {
                 //요청에러 발생시(http 에러)
+                Log.e("toCart", "flag = false");
             }
 
-        }catch (UnknownHostException une) {
+        } catch (UnknownHostException une) {
             e("aaa", une.toString());
         } catch (UnsupportedEncodingException uee) {
             e("bbb", uee.toString());
         } catch (Exception e) {
             e("ccc", e.toString());
-        } finally{
-            if(response != null) {
+        } finally {
+            if (response != null) {
                 response.close(); //3.* 이상에서는 반드시 닫아 준다.
             }
         }
-        return bloodInsertResultValue;
+        return bookInsertResultValue;
+    }
+
+    public static String editJSONInsert(ProfileObject... profileObjects) {
+
+        boolean flag;
+        String editInsertResultValue = "";
+        ProfileObject reqParams = profileObjects[0];
+        Response response = null;
+        OkHttpClient toServer;
+
+
+        try {
+            toServer = OkHttpInitSingletonManager.getOkHttpClient();
+            //요청 바디부분을 Form세팅 url에 포함되지 않는 자료
+            RequestBody postBody = new FormBody.Builder()
+                    .add("username", reqParams.getName())
+                    .add("nationality", reqParams.getNationality())
+                    .add("age", Integer.toString(reqParams.getAge()))
+                    .add("sex", reqParams.getSex())
+                    .build();
+            //요청 세팅(form(Query String) 방식의 포스트)
+            Request request = new Request.Builder()
+                    .url(NetworkDefineConstant.SERVER_URL_EDIT_INSERT+"/"+reqParams.getId())
+                    .put(postBody)
+                    .build();
+            //동기 방식 실제 연결이 되고 요청이 이루어지는 부분
+            response = toServer.newCall(request).execute();
+
+            flag = response.isSuccessful();
+            String returedJSON;
+            if (flag) { //성공했다면
+                returedJSON = response.body().string();
+                //Log.e("resultJSON", returedJSON);
+                try {
+                    JSONObject jsonObject = new JSONObject(returedJSON);
+                    editInsertResultValue = jsonObject.optString("msg");
+                } catch (JSONException jsone) {
+                    Log.e("json에러", jsone.toString());
+                }
+            } else {
+                //요청에러 발생시(http 에러)
+                Log.e("toCart", "flag = false");
+            }
+
+        } catch (UnknownHostException une) {
+            e("aaa", une.toString());
+        } catch (UnsupportedEncodingException uee) {
+            e("bbb", uee.toString());
+        } catch (Exception e) {
+            e("ccc", e.toString());
+        } finally {
+            if (response != null) {
+                response.close(); //3.* 이상에서는 반드시 닫아 준다.
+            }
+        }
+        return editInsertResultValue;
+    }
+
+    public static String favorJSONInsert(CartObject... cartObjects) {
+
+        boolean flag;
+        String bookInsertResultValue = "";
+        CartObject reqParams = cartObjects[0];
+        Response response = null;
+        OkHttpClient toServer;
+
+
+        try {
+            toServer = OkHttpInitSingletonManager.getOkHttpClient();
+            //요청 바디부분을 Form세팅 url에 포함되지 않는 자료
+            RequestBody postBody = new FormBody.Builder()
+                    .add("adult", Integer.toString(reqParams.getAdult()))
+                    .add("child", Integer.toString(reqParams.getChildren()))
+                    .add("status", Integer.toString(1))
+                    .add("userId", Integer.toString(1))
+                    .add("programId", Integer.toString(reqParams.getProgramObject().getId()))
+                    .add("date", reqParams.getDate())
+                    .add("time", reqParams.getTime())
+                    .build();
+            //요청 세팅(form(Query String) 방식의 포스트)
+            Request request = new Request.Builder()
+                    .url(NetworkDefineConstant.SERVER_URL_BOOK_INSERT)
+                    .post(postBody)
+                    .build();
+            //동기 방식 실제 연결이 되고 요청이 이루어지는 부분
+            response = toServer.newCall(request).execute();
+
+            flag = response.isSuccessful();
+            String returedJSON;
+            if (flag) { //성공했다면
+                returedJSON = response.body().string();
+                Log.e("resultJSON", returedJSON);
+                try {
+                    JSONObject jsonObject = new JSONObject(returedJSON);
+                    bookInsertResultValue = jsonObject.optString("result");
+                } catch (JSONException jsone) {
+                    Log.e("json에러", jsone.toString());
+                }
+            } else {
+                //요청에러 발생시(http 에러)
+                Log.e("toCart", "flag = false");
+            }
+
+        } catch (UnknownHostException une) {
+            e("aaa", une.toString());
+        } catch (UnsupportedEncodingException uee) {
+            e("bbb", uee.toString());
+        } catch (Exception e) {
+            e("ccc", e.toString());
+        } finally {
+            if (response != null) {
+                response.close(); //3.* 이상에서는 반드시 닫아 준다.
+            }
+        }
+        return bookInsertResultValue;
+    }
+
+    public static String checkoutJSONInsert(int status,CheckoutObject... checkoutObjects) {
+
+        boolean flag;
+        String checkoutInsertResultValue = "";
+        CheckoutObject reqParams = checkoutObjects[0];
+        Log.e("checkoutJSONinsert", Integer.toString(reqParams.getBookid()));
+        Response response = null;
+        OkHttpClient toServer;
+
+
+        try {
+            toServer = OkHttpInitSingletonManager.getOkHttpClient();
+            //요청 바디부분을 Form세팅 url에 포함되지 않는 자료
+            RequestBody postBody=null;
+            Request request = null;
+            switch (status) {
+                case 2:
+                postBody = new FormBody.Builder()
+                        .add("name", reqParams.getName())
+                        .add("pNum", reqParams.getPhoneNum())
+                        .add("email", reqParams.getEmail())
+                        .add("date", reqParams.getDate())
+                        .add("time", reqParams.getTime())
+                        .add("adult", Integer.toString(reqParams.getAdult()))
+                        .add("child", Integer.toString(reqParams.getChild()))
+                        .add("status", Integer.toString(status))
+                        .add("userId", Integer.toString(1))
+                        .add("programId", Integer.toString(reqParams.getProgramId()))
+                        .build();
+                    request = new Request.Builder()
+                            .url(NetworkDefineConstant.SERVER_URL_RESERVATION_DELEDTE)
+                            .post(postBody)
+                            .build();
+
+                    break;
+                case 4:
+                    postBody = new FormBody.Builder()
+                            .add("date", reqParams.getDate())
+                            .add("time", reqParams.getTime())
+                            .add("adult", Integer.toString(reqParams.getAdult()))
+                            .add("child", Integer.toString(reqParams.getChild()))
+                            .add("status", Integer.toString(status))
+                            .build();
+                    request = new Request.Builder()
+                            .url(NetworkDefineConstant.SERVER_URL_RESERVATION_DELEDTE+"/"+reqParams.getBookid())
+                            .put(postBody)
+                            .build();
+                    break;
+            }
+            //요청 세팅(form(Query String) 방식의 포스트)
+
+            //동기 방식 실제 연결이 되고 요청이 이루어지는 부분
+            response = toServer.newCall(request).execute();
+
+            flag = response.isSuccessful();
+            String returedJSON;
+            if (flag) { //성공했다면
+                returedJSON = response.body().string();
+                Log.e("resultJSON", returedJSON);
+                try {
+                    JSONObject jsonObject = new JSONObject(returedJSON);
+                    checkoutInsertResultValue = jsonObject.optString("result");
+                } catch (JSONException jsone) {
+                    Log.e("json에러", jsone.toString());
+                }
+            } else {
+                //요청에러 발생시(http 에러)
+                Log.e("checkoutJSONInsert", "flag = false  "+status);
+            }
+
+        } catch (UnknownHostException une) {
+            e("aaa", une.toString());
+        } catch (UnsupportedEncodingException uee) {
+            e("bbb", uee.toString());
+        } catch (Exception e) {
+            e("ccc", e.toString());
+        } finally {
+            if (response != null) {
+                response.close(); //3.* 이상에서는 반드시 닫아 준다.
+            }
+        }
+        return checkoutInsertResultValue;
+    }
+
+    public static String cartJSONDelete(CartObject... cartObjects) {
+
+        boolean flag;
+        CartObject reqParams = cartObjects[0];
+        Log.e("searchJSONInsert()", " "+reqParams.getId());
+        Response response = null;
+        OkHttpClient toServer;
+        String cartDeleteResultValue = null;
+
+        try {
+            //shopListEntityObjects = new ArrayList<LKShopListObject>();
+            toServer = OkHttpInitSingletonManager.getOkHttpClient();
+            //요청 세팅(form(Query String) 방식의 포스트)
+            Request request = new Request.Builder()
+                    .url(NetworkDefineConstant.SERVER_URL_CART_DELETE
+                            + reqParams.getId())
+                    .delete()
+                    .build();
+            //동기 방식 실제 연결이 되고 요청이 이루어지는 부분
+            response = toServer.newCall(request).execute();
+
+            flag = response.isSuccessful();
+            String returedJSON;
+            if (flag) { //성공했다면
+                returedJSON = response.body().string();
+                Log.e("resultJSON", returedJSON);
+                Log.e("cartDelete", "flag = true");
+                try {
+                    JSONObject jsonObject = new JSONObject(returedJSON);
+                    cartDeleteResultValue = jsonObject.optString("result");
+                    Log.e("cartDelete", cartDeleteResultValue);
+                } catch (JSONException jsone) {
+                    Log.e("json에러", jsone.toString());
+                }
+            } else {
+                //요청에러 발생시(http 에러)
+            }
+
+        } catch (UnknownHostException une) {
+            e("aaa", une.toString());
+        } catch (UnsupportedEncodingException uee) {
+            e("bbb", uee.toString());
+        } catch (Exception e) {
+            e("ccc", e.toString());
+        } finally {
+            if (response != null) {
+                response.close(); //3.* 이상에서는 반드시 닫아 준다.
+            }
+        }
+        return cartDeleteResultValue;
+    }
+
+    public static ArrayList<LKShopListObject> searchJSONInsert(SearchObject... searchObjects) {
+
+        boolean flag;
+        SearchObject reqParams = searchObjects[0];
+        Log.i("searchJSONInsert()", reqParams.getDate());
+        Response response = null;
+        OkHttpClient toServer;
+        ArrayList<LKShopListObject> shopListEntityObjects = null;
+
+
+        try {
+            //shopListEntityObjects = new ArrayList<LKShopListObject>();
+            toServer = OkHttpInitSingletonManager.getOkHttpClient();
+            //요청 세팅(form(Query String) 방식의 포스트)
+            Request request = new Request.Builder()
+                    .url(NetworkDefineConstant.SERVER_URL_SEARCH_INSERT
+                            + "date=" + reqParams.getDate() + "&adult=" + reqParams.getAdult()
+                            + "&child=" + reqParams.getChildren())
+                    .build();
+            //동기 방식 실제 연결이 되고 요청이 이루어지는 부분
+            response = toServer.newCall(request).execute();
+
+            flag = response.isSuccessful();
+            String returedJSON;
+            JSONObject jsonObject = null;
+            if (flag) { //성공했다면
+                returedJSON = response.body().string();
+                Log.i("resultJSON", returedJSON);
+                try {
+                    jsonObject = new JSONObject(returedJSON);
+                    if (jsonObject == null) {
+                        Log.i("searchJSONInsert()", "jsonObject==null");
+                    }
+                    if (OkHttpJSONDataParseHandler.getJSONShopList(jsonObject) != null) {
+                        Log.i("searchJSONInsert()", "OkHttpJSONDataParseHandler.getJSONShopList(jsonObject)==null");
+                    }
+                    Log.i("resultJSON", "파싱 성공");
+                } catch (JSONException jsone) {
+                    Log.e("json에러", jsone.toString());
+                }
+                shopListEntityObjects = OkHttpJSONDataParseHandler.getJSONShopList(jsonObject);
+            } else {
+                //요청에러 발생시(http 에러)
+                Log.i("searchJSONInsert()", "요청 에러");
+            }
+        } catch (UnknownHostException une) {
+            Log.i("aaa", une.toString());
+        } catch (UnsupportedEncodingException uee) {
+            Log.i("bbb", uee.toString());
+        } catch (Exception e) {
+            Log.i("ccc", e.toString());
+        } finally {
+            if (response != null) {
+                response.close(); //3.* 이상에서는 반드시 닫아 준다.
+            }
+        }
+
+        if (shopListEntityObjects == null) {
+            Log.i("searchJSONInsert()", "shopListEntityObjects==null");
+        }
+        return shopListEntityObjects;
     }
 
 
@@ -358,15 +770,17 @@ public class OkHttpAPIHelperHandler {
                 try {
                     jsonObject = new JSONObject(returnedJSON);
 
-                    //Log.e("resultJSON2", jsonObject.toString());
-                }catch (JSONException jsonE) {
+
+                    Log.e("resultJSON2", jsonObject.toString());
+                } catch (JSONException jsonE) {
+
                     Log.e("json에러", jsonE.toString());
                 }
                 // Parser가 들어간다.
                 parentDatas = OkHttpJSONDataParseHandler.getJSONShopProgram(jsonObject);
                 Log.e("Handler 성공", "getJSONShopProgram Handler 성공");
 
-            }else{
+            } else {
                 //요청에러 발생시(http 에러)
             }
 
@@ -376,8 +790,8 @@ public class OkHttpAPIHelperHandler {
             e("uee", uee.toString());
         } catch (Exception e) {
             e("e", e.toString());
-        } finally{ /** TODO : Very Important!!! **/
-            if(response != null) {
+        } finally { /** TODO : Very Important!!! **/
+            if (response != null) {
                 response.close(); //3.* 이상에서는 반드시 닫아 준다.
             }
         }
@@ -387,6 +801,7 @@ public class OkHttpAPIHelperHandler {
 
     /**
      * 샵의 상세 정보
+     *
      * @param shopId
      * @return
      */
@@ -401,7 +816,7 @@ public class OkHttpAPIHelperHandler {
 
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_SHOP_ALL_SELECT
-                    + "/" + String.valueOf(shopId))
+                            + "/" + String.valueOf(shopId))
                     .build();
 
             response = toServer.newCall(request).execute();
@@ -410,7 +825,7 @@ public class OkHttpAPIHelperHandler {
 
             String returnedJSON;
             JSONObject jsonObject = null;
-            if( flag ){ //성공했다면
+            if (flag) { //성공했다면
                 returnedJSON = response.body().string();
                 Log.e("Response.body()", returnedJSON);
 
@@ -418,7 +833,7 @@ public class OkHttpAPIHelperHandler {
                     jsonObject = new JSONObject(returnedJSON);
 
                     Log.e("resultJSON2", jsonObject.toString());
-                }catch (JSONException jsonE) {
+                } catch (JSONException jsonE) {
                     Log.e("json에러", jsonE.toString());
                 }
                 // Parser가 들어간다.
@@ -446,6 +861,7 @@ public class OkHttpAPIHelperHandler {
 
     /**
      * 샵 리스트
+     *
      * @return
      */
     public static ArrayList<LKShopListObject> shopListJSONAllSelect() {
@@ -468,21 +884,21 @@ public class OkHttpAPIHelperHandler {
             String returnedJSON;
             JSONObject jsonObject = null;
 
-            if( flag ){ //성공했다면
+            if (flag) { //성공했다면
                 returnedJSON = response.body().string();
                 //Log.e("resultJSON", returnedJSON);
 
                 try {
                     jsonObject = new JSONObject(returnedJSON);
 
-                }catch (JSONException jsonE) {
+                } catch (JSONException jsonE) {
                     Log.e("json에러", jsonE.toString());
                 }
                 // Parser가 들어간다.
                 shopListEntityObjects = OkHttpJSONDataParseHandler.getJSONShopList(jsonObject);
                 Log.e("Handler 성공", "getJSONShopList Handler 성공");
 
-            }else{
+            } else {
                 //요청에러 발생시(http 에러)
             }
 
@@ -492,8 +908,8 @@ public class OkHttpAPIHelperHandler {
             e("uee", uee.toString());
         } catch (Exception e) {
             e("e", e.toString());
-        } finally{ /** TODO : Very Important!!! **/
-            if(response != null) {
+        } finally { /** TODO : Very Important!!! **/
+            if (response != null) {
                 response.close(); //3.* 이상에서는 반드시 닫아 준다.
             }
         }

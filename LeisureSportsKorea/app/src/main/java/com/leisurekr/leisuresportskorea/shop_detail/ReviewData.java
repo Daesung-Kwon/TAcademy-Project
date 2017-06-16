@@ -13,6 +13,8 @@ public class ReviewData {
     private String reviewText;
     private String reviewDate;
 
+    public ReviewData(){}
+
     public ReviewData(@Nullable Integer reviewerImage, @Nullable Integer attachedReviewImage,
                       String reviewerName, String reviewText, String reviewDate){
         this.reviewerImage = reviewerImage;
@@ -21,6 +23,7 @@ public class ReviewData {
         this.reviewText = reviewText;
         this.reviewDate = reviewDate;
     }
+
 
     public Integer getReviewerImage() {
         return reviewerImage;

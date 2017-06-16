@@ -2,15 +2,15 @@ package com.leisurekr.leisuresportskorea.okhttp;
 
 import android.util.Log;
 
+import com.leisurekr.leisuresportskorea.home.HomeObject;
+import com.leisurekr.leisuresportskorea.profile.CartObject;
+import com.leisurekr.leisuresportskorea.profile.ProfileObject;
+import com.leisurekr.leisuresportskorea.profile.ReservationObject;
 import com.leisurekr.leisuresportskorea.shop_detail.ChildData;
 import com.leisurekr.leisuresportskorea.shop_detail.LKShopInfoObject;
 import com.leisurekr.leisuresportskorea.shop_detail.LKShopListObject;
-import com.leisurekr.leisuresportskorea.shop_detail.LKShopProgramEntity;
 import com.leisurekr.leisuresportskorea.shop_detail.LKShopReviewsObject;
 import com.leisurekr.leisuresportskorea.shop_detail.ParentData;
-import com.leisurekr.leisuresportskorea.home.HomeObject;
-import com.leisurekr.leisuresportskorea.profile.CartObject;
-import com.leisurekr.leisuresportskorea.profile.ReservationObject;
 import com.leisurekr.leisuresportskorea.ticket.TicketObject;
 
 import org.json.JSONArray;
@@ -124,6 +124,27 @@ public class OkHttpJSONDataParseHandler {
         return reservationArrayList;
     }
 
+    public static ProfileObject getJSONProfile(
+            JSONObject buf) {
+        ProfileObject object = null;
+        JSONObject jsonObject = null;
+
+        if (buf != null) {
+            try {
+                jsonObject = buf;
+                JSONObject jsonObject1 = jsonObject.getJSONObject("data");
+                    object = new ProfileObject();
+                    object.setData(jsonObject1);
+            } catch (JSONException je) {
+                Log.e("RequestAllList", "profile JSON파싱 중 에러발생", je);
+            }
+        }
+        if(object == null){
+            Log.e("getJSONProfile", "profile object = null");
+        }
+        return object;
+    }
+
     public static ArrayList<ParentData> getJSONShopProgram(
             JSONObject buf) {
 
@@ -154,6 +175,7 @@ public class OkHttpJSONDataParseHandler {
                     childData.adultPrice = jsonArray0.getJSONObject(i).getInt("adultPrice");
                     childData.childPrice = jsonArray0.getJSONObject(i).getInt("childPrice");
                     childData.activityImage = jsonArray0.getJSONObject(i).getString("image");
+                    childData.activityName = jsonArray0.getJSONObject(i).getString("activityName");
                     childData.activityDesc = jsonArray0.getJSONObject(i).getString("description");
                     childData.activityId = jsonArray0.getJSONObject(i).getInt("activityId");
                     childData.shopId = jsonArray0.getJSONObject(i).getInt("shopId");
@@ -179,10 +201,13 @@ public class OkHttpJSONDataParseHandler {
                     childData.adultPrice = jsonArray1.getJSONObject(i).getInt("adultPrice");
                     childData.childPrice = jsonArray1.getJSONObject(i).getInt("childPrice");
                     childData.activityImage = jsonArray1.getJSONObject(i).getString("image");
+                    childData.activityName = jsonArray1.getJSONObject(i).getString("activityName");
                     childData.activityDesc = jsonArray1.getJSONObject(i).getString("description");
                     childData.activityId = jsonArray1.getJSONObject(i).getInt("activityId");
                     childData.shopId = jsonArray1.getJSONObject(i).getInt("shopId");
                     childData.status = jsonArray1.getJSONObject(i).getInt("status");
+                    childData.shopName = jsonArray1.getJSONObject(i).getString("shopName");
+                    childData.shopImage = jsonArray1.getJSONObject(i).getString("shopImage");
 
                     entity.child.add(childData);
                 }
@@ -204,10 +229,13 @@ public class OkHttpJSONDataParseHandler {
                     childData.adultPrice = jsonArray2.getJSONObject(i).getInt("adultPrice");
                     childData.childPrice = jsonArray2.getJSONObject(i).getInt("childPrice");
                     childData.activityImage = jsonArray2.getJSONObject(i).getString("image");
+                    childData.activityName = jsonArray2.getJSONObject(i).getString("activityName");
                     childData.activityDesc = jsonArray2.getJSONObject(i).getString("description");
                     childData.activityId = jsonArray2.getJSONObject(i).getInt("activityId");
                     childData.shopId = jsonArray2.getJSONObject(i).getInt("shopId");
                     childData.status = jsonArray2.getJSONObject(i).getInt("status");
+                    childData.shopName = jsonArray2.getJSONObject(i).getString("shopName");
+                    childData.shopImage = jsonArray2.getJSONObject(i).getString("shopImage");
 
                     entity.child.add(childData);
                 }
@@ -342,6 +370,8 @@ public class OkHttpJSONDataParseHandler {
                     entity.shopAddress1     = jsonObject2.getString("address1");
                     entity.shopAddress2     = jsonObject2.getString("address2");
                     entity.shopAddress3     = jsonObject2.getString("address3");
+                    entity.latitude         = jsonObject2.getDouble("latitude");
+                    entity.longitude        = jsonObject2.getDouble("longitude");
                     entity.shopImages       = jsonObject2.getJSONArray("shopImages").getJSONObject(0).getString("image");
                     entity.likes            = jsonObject2.getBoolean("likes");
                     entity.score            = jsonObject2.getDouble("score");

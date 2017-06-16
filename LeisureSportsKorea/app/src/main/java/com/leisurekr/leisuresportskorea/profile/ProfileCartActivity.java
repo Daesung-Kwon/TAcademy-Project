@@ -30,6 +30,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.ViewTarget;
 import com.leisurekr.leisuresportskorea.BookInformationActivity;
 import com.leisurekr.leisuresportskorea.R;
+import com.leisurekr.leisuresportskorea.common.NetworkDefineConstant;
 import com.leisurekr.leisuresportskorea.okhttp.OkHttpAPIHelperHandler;
 
 import java.util.ArrayList;
@@ -72,42 +73,8 @@ public class ProfileCartActivity extends AppCompatActivity {
                 , "May 22, 2017", "14:00"
                 , 1, 50, 0, 1, 50, 0);
 
-        CartObject object1 = new CartObject();
-        object1.setData(R.drawable.activityimagelight
-                , "River City", "Water Ski Beginner ", "Lesson Package"
-                , "May 22, 2017", "14:00"
-                , 1, 60, 1, 1, 61, 0);
-
-        CartObject object2 = new CartObject();
-        object2.setData(R.drawable.activityimagelight
-                , "River City", "Water Ski Beginner ", "Lesson Package"
-                , "May 22, 2017", "14:00"
-                , 2, 60, 1, 1, 121, 0);
-
-        CartObject object3 = new CartObject();
-        object3.setData(R.drawable.activityimagelight
-                , "River City", "Water Ski Beginner ", "Lesson Package"
-                , "May 22, 2017", "14:00"
-                , 3, 60, 1, 1, 181, 0);
-
-        CartObject object4 = new CartObject();
-        object4.setData(R.drawable.activityimagelight
-                , "River City", "Water Ski Beginner ", "Lesson Package"
-                , "May 22, 2017", "14:00"
-                , 4, 60, 1, 1, 241, 0);
-
-        CartObject object5 = new CartObject();
-        object5.setData(R.drawable.activityimagelight
-                , "River City", "Water Ski Beginner ", "Lesson Package"
-                , "May 22, 2017", "14:00"
-                , 5, 60, 1, 1, 301, 0);
 
         arrayList.add(object);
-        arrayList.add(object1);
-        arrayList.add(object2);
-        arrayList.add(object3);
-        arrayList.add(object4);
-        arrayList.add(object5);
 
         cartAdapter = new CartAdapter(arrayList);
         recyclerView.setAdapter(cartAdapter);
@@ -130,7 +97,6 @@ public class ProfileCartActivity extends AppCompatActivity {
 
     public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
-
         ArrayList<CartObject> arrayList;
         ArrayList<CartObject> checkedArray;
         boolean isEditable = false;
@@ -140,7 +106,6 @@ public class ProfileCartActivity extends AppCompatActivity {
         int adultPrice = 0;
         int childrenPrice = 0;
         String people;
-
 
         public CartAdapter(ArrayList<CartObject> arrayList) {
             this.arrayList = arrayList;
@@ -155,7 +120,6 @@ public class ProfileCartActivity extends AppCompatActivity {
                     checkedArray.add(arrayList.get(j));
                 }
             }
-
         }
 
         public void addAll(ArrayList<CartObject> arrayList) {
@@ -203,7 +167,7 @@ public class ProfileCartActivity extends AppCompatActivity {
 
                 holder.shopNmae.setText(cartObject.getShopname());
 
-                Glide.with(ProfileCartActivity.this).load(shopObject.image)
+                Glide.with(ProfileCartActivity.this).load(programObject.image)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(new ViewTarget<LinearLayout, GlideDrawable>(holder.activityImage) {
                             @Override
@@ -415,6 +379,7 @@ public class ProfileCartActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         remove(p);
+                                        new AsyncCartDelete().execute(cartObject);
                                     }
                                 }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
                             @Override
@@ -459,8 +424,6 @@ public class ProfileCartActivity extends AppCompatActivity {
             public TextView currentChildrenText;
             public ImageView subChildren;
             public TextView price;
-            //public Button cancleEditBtn;
-            //public Button okEditBtn;
 
             public ViewHolder(View itemView) {
                 super(itemView);
@@ -470,7 +433,6 @@ public class ProfileCartActivity extends AppCompatActivity {
                 expandedLayout = (LinearLayout) itemView.findViewById(R.id.cart_recycler_expandedlayout);
                 edit = (LinearLayout) itemView.findViewById(R.id.cart_recycler_editlayout);
                 activityImage = (LinearLayout) itemView.findViewById(R.id.cart_recycler_activityimage);
-                //activityImage = (ImageView) itemView.findViewById(R.id.cart_recycler_activityimage);
                 text1 = (TextView) itemView.findViewById(R.id.cart_recycler_text1);
                 text2 = (TextView) itemView.findViewById(R.id.cart_recycler_text2);
                 text3 = (TextView) itemView.findViewById(R.id.cart_recycler_text3);
@@ -485,8 +447,6 @@ public class ProfileCartActivity extends AppCompatActivity {
                 currentChildrenText = (TextView) itemView.findViewById(R.id.cart_recycler_currentchildren);
                 subChildren = (ImageView) itemView.findViewById(R.id.cart_recycler_subchildren);
                 price = (TextView) itemView.findViewById(R.id.cart_recycler_price);
-                //cancleEditBtn = (Button) itemView.findViewById(R.id.cart_recycler_canceleditbtn);
-                //okEditBtn = (Button) itemView.findViewById(R.id.cart_recycler_okeditbtn);
             }
         }
     }
@@ -497,6 +457,7 @@ public class ProfileCartActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        Log.e("11","11");
         new AsyncCartJSONList().execute();
     }
 
@@ -522,6 +483,36 @@ public class ProfileCartActivity extends AppCompatActivity {
             cartArrayList = result;
             cartAdapter = new CartAdapter(cartArrayList);
             recyclerView.setAdapter(cartAdapter);
+        }
+    }
+
+    public class AsyncCartDelete extends AsyncTask<CartObject , Integer, String>{
+
+        private ProgressDialog progressDialog;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = ProgressDialog.show(ProfileCartActivity.this,
+                    "서버입력중","잠시만 기다려 주세요 ...", true);
+        }
+        @Override
+        protected String doInBackground(CartObject... cartObjects) {
+            return OkHttpAPIHelperHandler.cartJSONDelete(cartObjects);
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            progressDialog.dismiss();
+            if( result != null){
+                if( result.equalsIgnoreCase("OK")){
+                    showDialog(NetworkDefineConstant.LK_INSERT_DIALOG_OK, null);
+                }else{
+                    showDialog(NetworkDefineConstant.LK_INSERT_DIALOG_FAIL,null);
+                }
+            }else{
+                Bundle bundle = new Bundle();
+                bundle.putString("message", "삭제 중 문제 발생[디버깅]!");
+                showDialog(NetworkDefineConstant.LK_INSERT_DIALOG_FAIL,bundle);
+            }
         }
     }
 

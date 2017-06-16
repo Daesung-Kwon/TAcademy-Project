@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
@@ -33,11 +34,9 @@ import static com.leisurekr.leisuresportskorea.common.SharedPreferencesDefineCon
  * Created by mobile on 2017. 6. 14..
  */
 
-public class PopupActivity extends Activity implements View.OnClickListener {
+public class PreInterestsActivity extends AppCompatActivity implements View.OnClickListener {
     SharedPreferences mPrefs; // 키-값 형태로 데이터를 저장하는 구조
     SharedPreferences.Editor mEditor; // 프리퍼런스 편집(CRUD) 에딧터
-
-    Display display;
 
     private GridView gridView;
     private static FilterImageAdapter gridAdapter;
@@ -53,15 +52,13 @@ public class PopupActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setFinishOnTouchOutside(false);
         setContentView(R.layout.pre_select_interests);
 
         mPrefs = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         mEditor = mPrefs.edit();
 
-        display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-        setupActivityDisplaySize(0.9, 0.8);
+        /*display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+        setupActivityDisplaySize(0.9, 0.8);*/
 
         gridView = (GridView) findViewById(R.id.filter_grid_view_on_popup_activity);
         skipBtn  = (TextView) findViewById(R.id.skip_btn_on_popup_activity);
@@ -81,12 +78,12 @@ public class PopupActivity extends Activity implements View.OnClickListener {
         saveBtn.setOnClickListener(this);
     }
 
-    public void setupActivityDisplaySize(double resizeWidth, double resizeHeight) {
+    /*public void setupActivityDisplaySize(double resizeWidth, double resizeHeight) {
         int width = (int)(display.getWidth() * resizeWidth);
         int height = (int)(display.getHeight() * resizeHeight);
         getWindow().getAttributes().width = width;
         getWindow().getAttributes().height = height;
-    }
+    }*/
 
     @Override
     public void onClick(View v) {
@@ -124,7 +121,7 @@ public class PopupActivity extends Activity implements View.OnClickListener {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            //dialog = ProgressDialog.show(LKApplication.getLKApplication(), "", "Loading...", true);
+            dialog = ProgressDialog.show(LKApplication.getLKApplication(), "", "Loading...", true);
         }
 
         @Override
@@ -133,7 +130,7 @@ public class PopupActivity extends Activity implements View.OnClickListener {
         }
         @Override
         protected void onPostExecute(String result) {
-            //dialog.dismiss();
+            dialog.dismiss();
             if (result.equals("success")) {
                 Log.i("Interests Insert", "OK");
             }else {

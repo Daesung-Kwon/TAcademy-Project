@@ -14,7 +14,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.leisurekr.leisuresportskorea.AsyncCheckoutInsert;
+import com.leisurekr.leisuresportskorea.CheckoutObject;
 import com.leisurekr.leisuresportskorea.R;
+import com.leisurekr.leisuresportskorea.shop_detail.ShopDetailActivity;
 import com.leisurekr.leisuresportskorea.shop_detail.WriteReviewActivity;
 
 
@@ -102,11 +105,33 @@ public class ReservationDetailActivity extends AppCompatActivity {
         detail = (Button) findViewById(R.id.reservation_detail_detailbtn);
         review = (Button) findViewById(R.id.reservation_detail_reviewbtn);
 
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CheckoutObject checkoutObject = new CheckoutObject();
+                checkoutObject.setBookid(reservation.getBookId());
+                checkoutObject.setAdult(reservation.getAdult());
+                checkoutObject.setChild(reservation.getChildren());
+                checkoutObject.setDate(reservation.getDate());
+                checkoutObject.setTime(reservation.getTime());
+                new AsyncCheckoutInsert(ReservationDetailActivity.this,4).execute(checkoutObject);
+                finish();
+            }
+        });
         review.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ReservationDetailActivity.this, WriteReviewActivity.class);
                 intent.putExtra("id",shopObject.id);
+                startActivity(intent);
+            }
+        });
+
+        detail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ShopDetailActivity.class);
+                intent.putExtra("shopId", shopObject.getId()); // shopInfo.shopId
                 startActivity(intent);
             }
         });

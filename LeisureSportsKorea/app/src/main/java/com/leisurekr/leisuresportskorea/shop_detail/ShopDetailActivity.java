@@ -14,8 +14,6 @@ import android.view.MenuItem;
 import android.view.Window;
 
 import com.leisurekr.leisuresportskorea.R;
-import com.leisurekr.leisuresportskorea.shop.MapCustomFragment2;
-import com.leisurekr.leisuresportskorea.shop.MapPagerAdapter2;
 
 public class ShopDetailActivity extends AppCompatActivity {
     private TabLayout tabLayout;
@@ -42,7 +40,7 @@ public class ShopDetailActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.shop_detail_tabs);
         tabLayout.addTab(tabLayout.newTab().setText("Shop Info"));
         tabLayout.addTab(tabLayout.newTab().setText("Program Info"));
-        tabLayout.setTabTextColors(Color.parseColor("#000000"), Color.parseColor("#ffffff"));
+        tabLayout.setTabTextColors(Color.parseColor("#550c0a"), Color.parseColor("#ffffff"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         // View Pager

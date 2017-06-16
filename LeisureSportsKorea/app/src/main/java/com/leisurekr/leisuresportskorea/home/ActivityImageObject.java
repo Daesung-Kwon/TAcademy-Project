@@ -74,5 +74,7 @@ public class ActivityImageObject {
         activityPrice.setText("$"+Integer.toString(object.price));
     }
 
-
+    public void setOnClick(View.OnClickListener listener){
+        view.setOnClickListener(listener);
+    }
 }
