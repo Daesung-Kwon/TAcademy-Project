@@ -25,7 +25,8 @@
             <ImageView
                 android:id="@+id/ticket_backimage"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"/>
 
             <LinearLayout
                 android:id="@+id/ticket_dim"
@@ -38,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="5"
-            android:background="@color/colorCartBackMedium">
+            android:background="@color/colorCartBackLightGray">
 
         </RelativeLayout>
 

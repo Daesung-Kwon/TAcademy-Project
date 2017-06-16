@@ -51,6 +51,7 @@ public class NetworkDefineConstant {
     public static String SERVER_URL_CART_DELETE;
     public static String SERVER_URL_PROFILE_ALL_SELECT;
     public static String SERVER_URL_REVIEW_INSERT;
+    public static String SERVER_URL_FAVOR_POST;
 
     static {
         SERVER_URL_SHOP_ALL_SELECT =
@@ -87,6 +88,8 @@ public class NetworkDefineConstant {
                 HOST_URL + "/users";
         SERVER_URL_INTERESTS_INSERT =
                 HOST_URL + "/interests";
+        SERVER_URL_FAVOR_POST=
+                HOST_URL + "/likes";
     }
 
     //다이얼로그 요청값

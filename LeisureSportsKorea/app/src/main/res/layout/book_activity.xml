@@ -31,11 +31,12 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite">
                 <!--활동 사진을 담는 레이아웃-->
-                <LinearLayout
+                <ImageView
                     android:id="@+id/book_activityimage"
                     android:layout_width="@dimen/book_listimageWidth"
                     android:layout_height="@dimen/book_listimageHeight"
-                    android:background="@drawable/pic_wakeboard" />
+                    android:scaleType="centerCrop"
+                    />
 
                 <!--사진 옆 활동 제목과 가격이 적혀있는 부분-->
                 <RelativeLayout
@@ -238,7 +239,7 @@
                         android:gravity="center"
                         android:text="1"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                        android:textSize="@dimen/book_priceSize" />
+                        android:textSize="@dimen/book_titleSize" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -289,7 +290,7 @@
                         android:layout_weight="6"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
                         android:textColor="@color/colorRed"
-                        android:textSize="@dimen/book_titleSize" />
+                        android:textSize="@dimen/book_titleSize"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -324,7 +325,7 @@
                         android:gravity="center"
                         android:text="0"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
-                        android:textSize="@dimen/book_priceSize" />
+                        android:textSize="@dimen/book_titleSize" />
                 </LinearLayout>
 
                 <LinearLayout

@@ -15,10 +15,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.bumptech.glide.Glide;
+import com.leisurekr.leisuresportskorea.FavorObject;
+import com.leisurekr.leisuresportskorea.LKApplication;
 import com.leisurekr.leisuresportskorea.MainActivity;
 import com.leisurekr.leisuresportskorea.R;
 import com.leisurekr.leisuresportskorea.okhttp.OkHttpAPIHelperHandler;
@@ -57,6 +58,52 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
 
 
     TextView groupShopName;
+
+    ImageView mShopMainImage1;
+    LinearLayout dim1;
+    ImageView mShopCircleImage1;
+    TextView mShopName1;
+    TextView mShopLocation1;
+    TextView mShopRating1;
+    ImageView heart1;
+    ImageView share1;
+
+    ImageView mShopMainImage2;
+    LinearLayout dim2;
+    ImageView mShopCircleImage2;
+    TextView mShopName2;
+    TextView mShopLocation2;
+    TextView mShopRating2;
+    ImageView heart2;
+    ImageView share2;
+
+    ImageView mShopMainImage3;
+    LinearLayout dim3;
+    ImageView mShopCircleImage3;
+    TextView mShopName3;
+    TextView mShopLocation3;
+    TextView mShopRating3;
+    ImageView heart3;
+    ImageView share3;
+
+    ImageView mShopMainImage4;
+    LinearLayout dim4;
+    ImageView mShopCircleImage4;
+    TextView mShopName4;
+    TextView mShopLocation4;
+    TextView mShopRating4;
+    ImageView heart4;
+    ImageView share4;
+
+    ImageView mShopMainImage5;
+    LinearLayout dim5;
+    ImageView mShopCircleImage5;
+    TextView mShopName5;
+    TextView mShopLocation5;
+    TextView mShopRating5;
+    ImageView heart5;
+    ImageView share5;
+
     ShopImageObject shopImage1;
     ShopImageObject shopImage2;
     ShopImageObject shopImage3;
@@ -178,19 +225,210 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
 
         //Home 화면 Best Shop 부분
         View bestshop = view.findViewById(R.id.bestshop);
-        bestshop.setOnClickListener(new View.OnClickListener() {
+        View shop1 = bestshop.findViewById(R.id.home_image1_shop);
+        View shop2 = bestshop.findViewById(R.id.home_image2_shop);
+        View shop3 = bestshop.findViewById(R.id.home_image3_shop);
+        View shop4 = bestshop.findViewById(R.id.home_image4_shop);
+        View shop5 = bestshop.findViewById(R.id.home_image5_shop);
+
+        mShopMainImage1 = (ImageView) shop1.findViewById(R.id.bestshop_main_image);
+        dim1 = (LinearLayout) shop1.findViewById(R.id.bestshop_dim);
+        mShopCircleImage1 = (ImageView) shop1.findViewById(R.id.bestshop_circle_image);
+        mShopName1 = (TextView) shop1.findViewById(R.id.bestshop_name_text);
+        mShopLocation1 = (TextView) shop1.findViewById(R.id.bestshop_location_text);
+        mShopRating1 = (TextView) shop1.findViewById(R.id.bestshop_rating_text);
+        heart1 = (ImageView) shop1.findViewById(R.id.favorite_item_icon_in_shop);
+        share1 = (ImageView) shop1.findViewById(R.id.share_item_icon_in_shop);
+        heart1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),"test",Toast.LENGTH_SHORT).show();
+                Log.e("heart in home","click");
+                final FavorObject favorObject = new FavorObject();
+                favorObject.setShopId(shops.get(0).id);
+                favorObject.setUserId(1);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.e("heart","전");
+                        final String result = OkHttpAPIHelperHandler.favorJSONInsert(favorObject);
+                        Log.e("heart","후: "+result);
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(result.equals("success")) {
+                                    if(heart1.isSelected()) {
+                                        heart1.setImageResource(R.drawable.btn_heart_unpress);
+                                        heart1.setSelected(false);
+                                    }else{
+                                        heart1.setImageResource(R.drawable.btn_heart_press);
+                                        heart1.setSelected(true);
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }).start();
+
             }
         });
-        groupShopName = (TextView) bestshop.findViewById(R.id.home_groupname_shop);
+        mShopMainImage2 = (ImageView) shop2.findViewById(R.id.bestshop_main_image);
+        dim2 = (LinearLayout) shop2.findViewById(R.id.bestshop_dim);
+        mShopCircleImage2 = (ImageView) shop2.findViewById(R.id.bestshop_circle_image);
+        mShopName2 = (TextView) shop2.findViewById(R.id.bestshop_name_text);
+        mShopLocation2 = (TextView) shop2.findViewById(R.id.bestshop_location_text);
+        mShopRating2 = (TextView) shop2.findViewById(R.id.bestshop_rating_text);
+        heart2 = (ImageView) shop2.findViewById(R.id.favorite_item_icon_in_shop);
+        share2 = (ImageView) shop2.findViewById(R.id.share_item_icon_in_shop);
+        heart2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("heart in home","click");
+                final FavorObject favorObject = new FavorObject();
+                favorObject.setShopId(shops.get(1).id);
+                favorObject.setUserId(1);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        final String result = OkHttpAPIHelperHandler.favorJSONInsert(favorObject);
+                        owner.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.e("heart",result);
+                                if(result.equals("success")) {
+                                    if(heart2.isSelected()) {
+                                        heart2.setImageResource(R.drawable.btn_heart_unpress);
+                                        heart2.setSelected(false);
+                                    }else{
+                                        heart2.setImageResource(R.drawable.btn_heart_press);
+                                        heart2.setSelected(true);
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }).start();
 
-        shopImage1 = new ShopImageObject(bestshop.findViewById(R.id.home_image1_shop));
-        shopImage2 = new ShopImageObject(bestshop.findViewById(R.id.home_image2_shop));
-        shopImage3 = new ShopImageObject(bestshop.findViewById(R.id.home_image3_shop));
-        shopImage4 = new ShopImageObject(bestshop.findViewById(R.id.home_image4_shop));
-        shopImage5 = new ShopImageObject(bestshop.findViewById(R.id.home_image5_shop));
+            }
+        });
+        mShopMainImage3 = (ImageView) shop3.findViewById(R.id.bestshop_main_image);
+        dim3 = (LinearLayout) shop3.findViewById(R.id.bestshop_dim);
+        mShopCircleImage3 = (ImageView) shop3.findViewById(R.id.bestshop_circle_image);
+        mShopName3 = (TextView) shop3.findViewById(R.id.bestshop_name_text);
+        mShopLocation3 = (TextView) shop3.findViewById(R.id.bestshop_location_text);
+        mShopRating3 = (TextView) shop3.findViewById(R.id.bestshop_rating_text);
+        heart3 = (ImageView) shop3.findViewById(R.id.favorite_item_icon_in_shop);
+        share3 = (ImageView) shop3.findViewById(R.id.share_item_icon_in_shop);
+        heart3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("heart in home","click");
+                final FavorObject favorObject = new FavorObject();
+                favorObject.setShopId(shops.get(2).id);
+                favorObject.setUserId(1);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        final String result = OkHttpAPIHelperHandler.favorJSONInsert(favorObject);
+                        owner.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.e("heart",result);
+                                if(result.equals("success")) {
+                                    if(heart3.isSelected()) {
+                                        heart3.setImageResource(R.drawable.btn_heart_unpress);
+                                        heart3.setSelected(false);
+                                    }else{
+                                        heart3.setImageResource(R.drawable.btn_heart_press);
+                                        heart3.setSelected(true);
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }).start();
+
+            }
+        });
+        mShopMainImage4 = (ImageView) shop4.findViewById(R.id.bestshop_main_image);
+        dim4 = (LinearLayout) shop4.findViewById(R.id.bestshop_dim);
+        mShopCircleImage4 = (ImageView) shop4.findViewById(R.id.bestshop_circle_image);
+        mShopName4 = (TextView) shop4.findViewById(R.id.bestshop_name_text);
+        mShopLocation4 = (TextView) shop4.findViewById(R.id.bestshop_location_text);
+        mShopRating4 = (TextView) shop4.findViewById(R.id.bestshop_rating_text);
+        heart4 = (ImageView) shop4.findViewById(R.id.favorite_item_icon_in_shop);
+        share4 = (ImageView) shop4.findViewById(R.id.share_item_icon_in_shop);
+        heart4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("heart in home","click");
+                final FavorObject favorObject = new FavorObject();
+                favorObject.setShopId(shops.get(3).id);
+                favorObject.setUserId(1);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        final String result = OkHttpAPIHelperHandler.favorJSONInsert(favorObject);
+                        owner.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.e("heart",result);
+                                if(result.equals("success")) {
+                                    if(heart4.isSelected()) {
+                                        heart4.setImageResource(R.drawable.btn_heart_unpress);
+                                        heart4.setSelected(false);
+                                    }else{
+                                        heart4.setImageResource(R.drawable.btn_heart_press);
+                                        heart4.setSelected(true);
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }).start();
+
+            }
+        });
+        mShopMainImage5 = (ImageView) shop5.findViewById(R.id.bestshop_main_image);
+        dim5 = (LinearLayout) shop5.findViewById(R.id.bestshop_dim);
+        mShopCircleImage5 = (ImageView) shop5.findViewById(R.id.bestshop_circle_image);
+        mShopName5 = (TextView) shop5.findViewById(R.id.bestshop_name_text);
+        mShopLocation5 = (TextView) shop5.findViewById(R.id.bestshop_location_text);
+        mShopRating5 = (TextView) shop5.findViewById(R.id.bestshop_rating_text);
+        heart5 = (ImageView) shop5.findViewById(R.id.favorite_item_icon_in_shop);
+        share5 = (ImageView) shop5.findViewById(R.id.share_item_icon_in_shop);
+        heart5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("heart in home","click");
+                final FavorObject favorObject = new FavorObject();
+                favorObject.setShopId(shops.get(4).id);
+                favorObject.setUserId(1);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        final String result = OkHttpAPIHelperHandler.favorJSONInsert(favorObject);
+                        owner.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.e("heart",result);
+                                if(result.equals("success")) {
+                                    if(heart5.isSelected()) {
+                                        heart5.setImageResource(R.drawable.btn_heart_unpress);
+                                        heart5.setSelected(false);
+                                    }else{
+                                        heart5.setImageResource(R.drawable.btn_heart_press);
+                                        heart5.setSelected(true);
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }).start();
+
+            }
+        });
+
+        groupShopName = (TextView) bestshop.findViewById(R.id.home_groupname_shop);
 
         groupShopName.setText("Best Shop");
 
@@ -306,11 +544,126 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
         activityImage4.setData(activities.get(3));
         activityImage5.setData(activities.get(4));
 
-        shopImage1.setData(shops.get(0));
-        shopImage2.setData(shops.get(1));
-        shopImage3.setData(shops.get(2));
-        shopImage4.setData(shops.get(3));
-        shopImage5.setData(shops.get(4));
+        Glide.with(LKApplication.getLKApplication()).load(shops.get(0).image).into(mShopMainImage1);
+        mShopMainImage1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ShopDetailActivity.class);
+                intent.putExtra("shopId", shops.get(0).id); // shopInfo.shopId
+                owner.startActivity(intent);
+            }
+        });
+        Glide.with(LKApplication.getLKApplication()).load(shops.get(0).logoImage)
+                .into(mShopCircleImage1);
+        dim1.setAlpha(0.9f);
+        mShopName1.setText(shops.get(0).shopName);
+        //mShopLocation.setText();
+        mShopRating1.setText(Double.toString(shops.get(0).score));
+
+        if(shops.get(0).likes){
+            heart1.setImageResource(R.drawable.btn_heart_press);
+            heart1.setSelected(true);
+        }else {
+            heart1.setImageResource(R.drawable.btn_heart_unpress);
+            heart1.setSelected(false);
+        }
+
+        Glide.with(LKApplication.getLKApplication()).load(shops.get(1).image).into(mShopMainImage2);
+        mShopMainImage2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ShopDetailActivity.class);
+                intent.putExtra("shopId", shops.get(1).id); // shopInfo.shopId
+                owner.startActivity(intent);
+            }
+        });
+        Glide.with(LKApplication.getLKApplication()).load(shops.get(1).logoImage)
+                .into(mShopCircleImage2);
+        dim2.setAlpha(0.9f);
+        mShopName2.setText(shops.get(1).shopName);
+        //mShopLocation.setText();
+        mShopRating2.setText(Double.toString(shops.get(1).score));
+
+        if(shops.get(1).likes){
+            heart2.setImageResource(R.drawable.btn_heart_press);
+            heart2.setSelected(true);
+        }else {
+            heart2.setImageResource(R.drawable.btn_heart_unpress);
+            heart2.setSelected(false);
+        }
+
+        Glide.with(LKApplication.getLKApplication()).load(shops.get(2).image).into(mShopMainImage3);
+        mShopMainImage3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ShopDetailActivity.class);
+                intent.putExtra("shopId", shops.get(2).id); // shopInfo.shopId
+                owner.startActivity(intent);
+            }
+        });
+        Glide.with(LKApplication.getLKApplication()).load(shops.get(0).logoImage)
+                .into(mShopCircleImage3);
+        dim3.setAlpha(0.9f);
+        mShopName3.setText(shops.get(2).shopName);
+        //mShopLocation.setText();
+        mShopRating3.setText(Double.toString(shops.get(2).score));
+
+        if(shops.get(2).likes){
+            heart3.setImageResource(R.drawable.btn_heart_press);
+            heart3.setSelected(true);
+        }else {
+            heart3.setImageResource(R.drawable.btn_heart_unpress);
+            heart3.setSelected(false);
+        }
+
+        Glide.with(LKApplication.getLKApplication()).load(shops.get(3).image).into(mShopMainImage4);
+        mShopMainImage4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ShopDetailActivity.class);
+                intent.putExtra("shopId", shops.get(3).id); // shopInfo.shopId
+                owner.startActivity(intent);
+            }
+        });
+        Glide.with(LKApplication.getLKApplication()).load(shops.get(3).logoImage)
+                .into(mShopCircleImage4);
+        dim4.setAlpha(0.9f);
+        mShopName4.setText(shops.get(3).shopName);
+        //mShopLocation.setText();
+        mShopRating4.setText(Double.toString(shops.get(3).score));
+
+        if(shops.get(3).likes){
+            heart4.setImageResource(R.drawable.btn_heart_press);
+            heart4.setSelected(true);
+        }else {
+            heart4.setImageResource(R.drawable.btn_heart_unpress);
+            heart4.setSelected(false);
+        }
+
+        Glide.with(LKApplication.getLKApplication()).load(shops.get(4).image).into(mShopMainImage5);
+        mShopMainImage5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ShopDetailActivity.class);
+                intent.putExtra("shopId", shops.get(4).id); // shopInfo.shopId
+                owner.startActivity(intent);
+            }
+        });
+        Glide.with(LKApplication.getLKApplication()).load(shops.get(4).logoImage)
+                .into(mShopCircleImage5);
+        dim5.setAlpha(0.9f);
+        mShopName5.setText(shops.get(4).shopName);
+        //mShopLocation.setText();
+        mShopRating5.setText(Double.toString(shops.get(4).score));
+
+        if(shops.get(4).likes){
+            heart5.setImageResource(R.drawable.btn_heart_press);
+            heart5.setSelected(true);
+        }else {
+            heart5.setImageResource(R.drawable.btn_heart_unpress);
+            heart5.setSelected(false);
+        }
+
 
     }
 
