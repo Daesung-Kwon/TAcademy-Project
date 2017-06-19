@@ -6,22 +6,24 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.leisurekr.leisuresportskorea.FavorObject;
 import com.leisurekr.leisuresportskorea.LKApplication;
 import com.leisurekr.leisuresportskorea.MainActivity;
 import com.leisurekr.leisuresportskorea.R;
+import com.leisurekr.leisuresportskorea.home.TabFragment1;
 import com.leisurekr.leisuresportskorea.interfaces.ShopListSetListener;
 import com.leisurekr.leisuresportskorea.okhttp.OkHttpAPIHelperHandler;
 import com.leisurekr.leisuresportskorea.shop_detail.LKShopListObject;
@@ -34,17 +36,18 @@ import java.util.ArrayList;
  */
 
 public class TabFragment2 extends android.support.v4.app.Fragment {
-    private static ShopListSetListener shopListSetListener;
+    public static TabFragment2 tabFragment2;
+    private ShopListSetListener shopListSetListener;
 
     static MainActivity owner;
     RecyclerView rv;
-    static TabFragment2RVAdapter rvAdapter;
-    static TextView resultsCountTextView;
-    static TextView filterTag1;
-    static TextView filterTag2;
-    static TextView filterTag3;
-    static TextView filterTag4;
-    static ArrayList<String> tagList = null;
+    TabFragment2RVAdapter rvAdapter;
+    TextView resultsCountTextView;
+    TextView filterTag1;
+    TextView filterTag2;
+    TextView filterTag3;
+    TextView filterTag4;
+    ArrayList<String> tagList = null;
 
     @Override
     public void onAttach(Context context) {
@@ -60,6 +63,8 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tab_fragment_2, container, false);
+        Log.e("TabFragment2","onCreateView()");
+        tabFragment2 = this;
         owner = (MainActivity)getActivity();
 
         resultsCountTextView = (TextView) view.findViewById(R.id.result_count_text_tab2);
@@ -88,7 +93,7 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
         shopListSetListener = null;
     }
 
-    public static class TabFragment2RVAdapter
+    public class TabFragment2RVAdapter
             extends RecyclerView.Adapter<TabFragment2RVAdapter.ViewHolder> {
 
         private ArrayList<LKShopListObject> mResult;
@@ -96,7 +101,7 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
         public TabFragment2RVAdapter(ArrayList<LKShopListObject> resources) {
             mResult = resources;
         }
-        public static class ViewHolder extends RecyclerView.ViewHolder {
+        public class ViewHolder extends RecyclerView.ViewHolder {
             public final View mView;
             public final LinearLayout dim;
 
@@ -122,6 +127,7 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
                 mShopRating = (TextView) view.findViewById(R.id.shop_rating_text);
                 mShopPrice = (TextView) view.findViewById(R.id.shop_price_text);
                 mLikes = (ImageView) view.findViewById(R.id.favorite_item_icon_in_shop);
+
             }
         }
         @Override
@@ -160,9 +166,48 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .override(40, 40)
                     .into(holder.mShopCircleImage);
+            Log.e("test", ""+shopInfo.likes);
             if (shopInfo.likes) {
                 holder.mLikes.setImageResource(R.drawable.btn_heart_press);
+                holder.mLikes.setSelected(true);
+            }else{
+                holder.mLikes.setImageResource(R.drawable.btn_heart_unpress);
+                holder.mLikes.setSelected(false);
             }
+            holder.mLikes.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.e("heart in home","click");
+                    final FavorObject favorObject = new FavorObject();
+                    favorObject.setShopId(shopInfo.shopId);
+                    favorObject.setUserId(1);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            final String result = OkHttpAPIHelperHandler.favorJSONInsert(favorObject);
+                            owner.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Log.e("heart",result);
+                                    if(result.equals("success")) {
+                                        if(holder.mLikes.isSelected()) {
+                                            holder.mLikes.setImageResource(R.drawable.btn_heart_unpress);
+                                            holder.mLikes.setSelected(false);
+                                        }else{
+                                            holder.mLikes.setImageResource(R.drawable.btn_heart_press);
+                                            holder.mLikes.setSelected(true);
+                                        }
+                                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                        ft.detach(TabFragment1.tabFragment1)
+                                                .attach(TabFragment1.tabFragment1).commit();
+                                    }
+                                }
+                            });
+                        }
+                    }).start();
+
+                }
+            });
         }
 
         @Override
@@ -175,7 +220,7 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
         }
     }
 
-    public static class AsyncShopInfoJSONList
+    public class AsyncShopInfoJSONList
             extends AsyncTask<String, Integer, ArrayList<LKShopListObject>> {
 
         ProgressDialog dialog;
@@ -183,7 +228,7 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dialog = ProgressDialog.show(owner, "", "Loading...", true);
+            //dialog = ProgressDialog.show(owner, "", "Loading...", true);
         }
 
         @Override
@@ -192,7 +237,7 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
         }
         @Override
         protected void onPostExecute(ArrayList<LKShopListObject> result) {
-            dialog.dismiss();
+            //dialog.dismiss();
             if (result != null && result.size() > 0) {
                 // MainActivity.class로 Object 전달
                 shopListSetListener.shopListSetData(result);
@@ -232,19 +277,19 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
         }
     }
 
-    public static void setResultTagOne(ArrayList<String> tagResult) {
+    public void setResultTagOne(ArrayList<String> tagResult) {
         filterTag1.setText("#"+tagResult.get(0));
     }
-    public static void setResultTagTwo(ArrayList<String> tagResult) {
+    public void setResultTagTwo(ArrayList<String> tagResult) {
         filterTag1.setText("#"+tagResult.get(0));
         filterTag2.setText("#"+tagResult.get(1));
     }
-    public static void setResultTagThree(ArrayList<String> tagResult) {
+    public void setResultTagThree(ArrayList<String> tagResult) {
         filterTag1.setText("#"+tagResult.get(0));
         filterTag2.setText("#"+tagResult.get(1));
         filterTag3.setText("#"+tagResult.get(2));
     }
-    public static void setResultTagFour(ArrayList<String> tagResult) {
+    public void setResultTagFour(ArrayList<String> tagResult) {
         filterTag1.setText("#"+tagResult.get(0));
         filterTag2.setText("#"+tagResult.get(1));
         filterTag3.setText("#"+tagResult.get(2));

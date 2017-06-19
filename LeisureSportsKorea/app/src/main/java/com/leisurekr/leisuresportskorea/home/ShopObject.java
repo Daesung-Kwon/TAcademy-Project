@@ -18,6 +18,9 @@ public class ShopObject {
     String image;
     double score;
     Boolean likes;
+    String address1;
+    String address2;
+
 
     public void setDate(JSONObject object){
         try {
@@ -30,6 +33,8 @@ public class ShopObject {
             image = ob.getString("image");
             score = object.getDouble("score");
             likes = object.getBoolean("likes");
+            address1 = object.getString("address1");
+            address2 = object.getString("address2");
 
 
             Log.e("파싱 성공", "shop 파싱 성공");

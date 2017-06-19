@@ -17,15 +17,26 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/filtered_text_in_shop"
+        android:id="@+id/filtered_text_in_shop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="12dp"
+        android:elevation="10dp"
+        android:textColor="@color/colorWhite"
+        android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/filtered_text_in_shop1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_margin="12dp"
+            android:layout_marginLeft="12dp"
             android:elevation="10dp"
-            android:text="#WATER SKI"
             android:textColor="@color/colorWhite"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:layout_below="@id/filtered_text_in_shop"/>
 
         <ImageView
             android:id="@+id/favorite_item_icon_in_shop"
@@ -167,7 +178,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center_horizontal"
-                            android:text="$33"
                             android:textColor="@color/colorWhite"
                             android:textSize="33sp" />
 

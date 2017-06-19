@@ -68,7 +68,7 @@ public class ProfileCartActivity extends AppCompatActivity {
         arrayList = new ArrayList<>();
 
         CartObject object = new CartObject();
-        object.setData(R.drawable.activityimagelight, "River City"
+        object.setData(R.drawable.pic_waterski1, "River City"
                 , "Water Ski Beginner", "Lesson Package"
                 , "May 22, 2017", "14:00"
                 , 1, 50, 0, 1, 50, 0);

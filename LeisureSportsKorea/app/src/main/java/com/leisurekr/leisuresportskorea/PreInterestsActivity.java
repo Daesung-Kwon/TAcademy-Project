@@ -1,31 +1,22 @@
 package com.leisurekr.leisuresportskorea;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Display;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.leisurekr.leisuresportskorea.okhttp.OkHttpAPIHelperHandler;
 import com.leisurekr.leisuresportskorea.sharedPreferences.LKSharedPreferencesManager;
 import com.leisurekr.leisuresportskorea.shop.FilterImageAdapter;
-import com.leisurekr.leisuresportskorea.shop_detail.ParentData;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -44,16 +35,27 @@ public class PreInterestsActivity extends AppCompatActivity implements View.OnCl
     private TextView saveBtn;
     private TextView skipBtn;
 
-    static Integer[] interestsValues = new Integer[] {
+    static int[] interestsValues = new int[] {
             0, 0, 0, 0,
             0, 0, 0, 0,
             0, 0, 0, 1
     };
 
+    boolean isResult = false;
+    Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pre_select_interests);
+
+        intent = getIntent();
+        if(intent.getIntArrayExtra("init")!=null) {
+            interestsValues = intent.getIntArrayExtra("init");
+            isResult=true;
+        }else
+            isResult=false;
+
 
         mPrefs = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         mEditor = mPrefs.edit();
@@ -80,12 +82,27 @@ public class PreInterestsActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.skip_btn_on_popup_activity:
-                onBackPressed();
+                if(isResult==true){
+                    setResult(1);
+                    finish();
+                }
+                else{
+                    onBackPressed();
+                }
                 break;
             case R.id.save_button_on_popup_activity:
-                // 최초 세팅 Interests 값 저장.
-                setChoiceInterestsPref(true);
-                new AsyncInterestsInsert().execute();
+                if(isResult==true){
+                    new AsyncInterestsInsert().execute();
+                    intent.putExtra("result",interestsValues);
+                    setResult(0,intent);
+                    finish();
+                }
+                else{
+                    // 최초 세팅 Interests 값 저장.
+                    setChoiceInterestsPref(true);
+                    new AsyncInterestsInsert().execute();
+                    finish();
+                }
                 break;
         }
     }

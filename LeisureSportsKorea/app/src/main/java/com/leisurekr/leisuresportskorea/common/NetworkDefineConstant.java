@@ -19,9 +19,9 @@ public class NetworkDefineConstant {
     public static String SERVER_URL_CART_INFO_ALL_SELECT;
     public static String SERVER_URL_SHOP_DETAIL_INFO_ALL_SELECT;
     public static String SERVER_URL_SHOP_DETAIL_PROGRAM_ALL_SELECT;
-
     public static String SERVER_URL_BOOK_INSERT;
     public static String SERVER_URL_INTERESTS_INSERT;
+    public static String SERVER_URL_LIKE_ALL_SELECT;
     public static String SERVER_URL_EDIT_INSERT;
     public static String SERVER_URL_CHECKOUT_INSERT;
     public static String SERVER_URL_RESERVATION_DELEDTE;
@@ -60,7 +60,7 @@ public class NetworkDefineConstant {
         SERVER_URL_RESERVATION_DELEDTE=
                 HOST_URL + "/books";
         SERVER_URL_SEARCH_INSERT =
-                HOST_URL + "/searchs?";
+                HOST_URL + "/shops?";
         SERVER_URL_PROFILE_ALL_SELECT =
                 HOST_URL + "/users";
         SERVER_URL_EDIT_INSERT=
@@ -68,6 +68,8 @@ public class NetworkDefineConstant {
         SERVER_URL_INTERESTS_INSERT =
                 HOST_URL + "/interests";
         SERVER_URL_FAVOR_POST=
+                HOST_URL + "/likes";
+        SERVER_URL_LIKE_ALL_SELECT=
                 HOST_URL + "/likes";
         SERVER_URL_FACEBOOK_USER_INFO_INSERT=
                 HOST_URL + "/login";

@@ -59,6 +59,7 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
     SearchAdapter searchAdapter;
     TextView resultsCountTextView;
     FloatingActionButton filter;
+    FloatingActionButton searchBtn;
 
     static TextView filterTag1;
     static TextView filterTag2;
@@ -87,7 +88,7 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
         toolbar.setTitle(toolbardate);
         toolbar.setSubtitle(toolbarguest + ", " + toolbarlocation);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         searchView = findViewById(R.id.search_result_search);
         datelayout = (LinearLayout) searchView.findViewById(R.id.search_datelayout);
@@ -174,16 +175,18 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
             slideInAnimation = AnimationUtils.loadAnimation(SearchResultActivity.this, android.R.anim.slide_in_left);
         }
         public class ViewHolder extends RecyclerView.ViewHolder {
-            public final View mView;
-            public final LinearLayout dim;
+            public View mView;
+            public LinearLayout dim;
 
-            public final ImageView mShopMainImage;
-            public final TextView mFilterTag;
-            public final ImageView mShopCircleImage;
-            public final TextView mShopName;
-            public final TextView mShopLocation;
-            public final TextView mShopRating;
-            public final TextView mShopPrice;
+            public ImageView mShopMainImage;
+            public TextView mFilterTag;
+            public ImageView mShopCircleImage;
+            public TextView mShopName;
+            public TextView mShopLocation;
+            public TextView mShopRating;
+            public TextView mShopPrice;
+            public ImageView mLikes;
+
 
             public ViewHolder(View view) {
                 super(view);
@@ -197,6 +200,8 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
                 mShopLocation = (TextView) view.findViewById(R.id.result_location_text);
                 mShopRating = (TextView) view.findViewById(R.id.result_rating_text);
                 mShopPrice = (TextView) view.findViewById(R.id.result_price_text);
+                mLikes = (ImageView) view.findViewById(R.id.favorite_item_icon_in_result);
+
             }
         }
         @Override
@@ -210,7 +215,7 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
             int p = position;
             holder.dim.setAlpha(0.9f);
 
-            LKShopListObject shopInfo = mResult.get(p);
+            final LKShopListObject shopInfo = mResult.get(p);
             holder.mFilterTag.setText("#" + shopInfo.activityName);
             holder.mShopName.setText(shopInfo.shopName);
             holder.mShopLocation.setText(shopInfo.shopAddress2 + " " + shopInfo.shopAddress1);
@@ -237,6 +242,45 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
                     .animate(android.R.anim.slide_in_left)
                     .override(40, 40)
                     .into(holder.mShopCircleImage);
+
+            if (shopInfo.likes) {
+                holder.mLikes.setImageResource(R.drawable.btn_heart_press);
+                holder.mLikes.setSelected(true);
+            }else{
+                holder.mLikes.setImageResource(R.drawable.btn_heart_unpress);
+                holder.mLikes.setSelected(false);
+            }
+            holder.mLikes.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.e("heart in home","click");
+                    final FavorObject favorObject = new FavorObject();
+                    favorObject.setShopId(shopInfo.shopId);
+                    favorObject.setUserId(1);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            final String result = OkHttpAPIHelperHandler.favorJSONInsert(favorObject);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Log.e("heart",result);
+                                    if(result.equals("success")) {
+                                        if(holder.mLikes.isSelected()) {
+                                            holder.mLikes.setImageResource(R.drawable.btn_heart_unpress);
+                                            holder.mLikes.setSelected(false);
+                                        }else{
+                                            holder.mLikes.setImageResource(R.drawable.btn_heart_press);
+                                            holder.mLikes.setSelected(true);
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    }).start();
+
+                }
+            });
         }
 
         @Override
@@ -323,8 +367,6 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
     TextView date;
     TextView guest;
     TextView location;
-
-    FloatingActionButton searchBtn;
 
     DatePicker datePicker;
 
@@ -486,7 +528,6 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
                     }
                     break;
             }
-
         }
     }
 

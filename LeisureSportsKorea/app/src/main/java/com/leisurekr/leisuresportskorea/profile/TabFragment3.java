@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.ViewTarget;
 import com.leisurekr.leisuresportskorea.R;
 import com.leisurekr.leisuresportskorea.okhttp.OkHttpAPIHelperHandler;
+import com.leisurekr.leisuresportskorea.shop.TabFragment2;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -31,6 +33,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class TabFragment3 extends android.support.v4.app.Fragment implements View.OnClickListener {
 
+    public static TabFragment3 tabFragment3;
+
     View view;
     View myProfile;
 
@@ -43,7 +47,6 @@ public class TabFragment3 extends android.support.v4.app.Fragment implements Vie
     LinearLayout terms;
     LinearLayout customerSupport;
 
-    //ImageView backImage;
     LinearLayout backImage;
     CircleImageView profileImage;
     ImageView settingBtn;
@@ -53,6 +56,8 @@ public class TabFragment3 extends android.support.v4.app.Fragment implements Vie
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+
+        tabFragment3 = this;
 
         view = inflater.inflate(R.layout.profile_fragment,container,false);
 
@@ -143,13 +148,25 @@ public class TabFragment3 extends android.support.v4.app.Fragment implements Vie
         while(iterator.hasNext()){
             String s = iterator.next();
             if(tags.get(s)){
-                interests = interests +"# "+ s+" ";
+                    interests = interests +"# "+ s+" ";
             }
         }
         tag.setText(interests);
     }
 
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode){
+            case 0:
+                if(requestCode == 0) {
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    ft.detach(TabFragment2.tabFragment2)
+                            .attach(TabFragment2.tabFragment2).commit();
+                }
+                break;
+        }
+    }
 
     @Override
     public void onClick(View v) {
@@ -158,7 +175,7 @@ public class TabFragment3 extends android.support.v4.app.Fragment implements Vie
             case R.id.profile_editbtn_profile:
                 intent = new Intent(getContext(),ProfileEditActivity.class);
                 intent.putExtra("profileObject",profileObject);
-                startActivity(intent);
+                startActivityForResult(intent,0);
                 break;
             case R.id.profile_reservationlayout:
                 intent = new Intent(getContext(),ProfileReservationActivity.class);

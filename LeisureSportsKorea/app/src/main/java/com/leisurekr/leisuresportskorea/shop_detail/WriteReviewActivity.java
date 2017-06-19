@@ -109,6 +109,7 @@ public class WriteReviewActivity extends AppCompatActivity {
                 returedImgURI = data.getData();
                 if (returedImgURI != null) {//가끔 단말기의 경우 uri로 리턴하지 않을때가 있다. else문 실행
                     showImage.setImageURI(returedImgURI);
+                    Log.e("image경로",returedImgURI.getEncodedPath().toString());
 
                     //업로드 할 수 있도록 절대 주소를 알아낸다.
                     if (findImageFileNameFromUri(returedImgURI)) {

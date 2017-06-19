@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.leisurekr.leisuresportskorea.home.HomeObject;
 import com.leisurekr.leisuresportskorea.profile.CartObject;
+import com.leisurekr.leisuresportskorea.profile.FavoritesObject;
 import com.leisurekr.leisuresportskorea.profile.ProfileObject;
 import com.leisurekr.leisuresportskorea.profile.ReservationObject;
 import com.leisurekr.leisuresportskorea.shop_detail.ChildData;
@@ -145,8 +146,37 @@ public class OkHttpJSONDataParseHandler {
         return object;
     }
 
-    public static ArrayList<ParentData> getJSONShopProgram(JSONObject buf) {
+    public static ArrayList<FavoritesObject> getJSONFavor(
+            JSONArray buf) {
+        ArrayList<FavoritesObject> likes = new ArrayList<>();
+        FavoritesObject object = null;
+        JSONArray jsonArray = null;
 
+
+        if (buf != null) {
+            try {
+                jsonArray = buf;
+                int arrayLength = jsonArray.length();
+                for(int i=0;i<arrayLength;i++){
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                    object = new FavoritesObject();
+                    object.setData(jsonObject);
+                    likes.add(object);
+                }
+
+            } catch (JSONException je) {
+                Log.e("RequestAllList", "profile JSON파싱 중 에러발생", je);
+            }
+        }
+        if(object == null){
+            Log.e("getJSONProfile", "profile object = null");
+        }
+        return likes;
+    }
+
+    public static ArrayList<ParentData> getJSONShopProgram(
+            JSONObject buf) {
         ArrayList<ParentData> jsonAllList = null;
         ParentData entity = null;
         JSONObject jsonObject0 = null;

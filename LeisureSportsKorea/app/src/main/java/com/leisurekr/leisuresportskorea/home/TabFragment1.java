@@ -2,9 +2,12 @@ package com.leisurekr.leisuresportskorea.home;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -23,9 +26,11 @@ import com.leisurekr.leisuresportskorea.LKApplication;
 import com.leisurekr.leisuresportskorea.MainActivity;
 import com.leisurekr.leisuresportskorea.R;
 import com.leisurekr.leisuresportskorea.okhttp.OkHttpAPIHelperHandler;
+import com.leisurekr.leisuresportskorea.shop.TabFragment2;
 import com.leisurekr.leisuresportskorea.shop_detail.ShopDetailActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mobile on 2017. 5. 11..
@@ -33,6 +38,8 @@ import java.util.ArrayList;
 
 public class TabFragment1 extends android.support.v4.app.Fragment implements View.OnClickListener{
 
+    public static FragmentTransaction ft;
+    public static TabFragment1 tabFragment1;
     static MainActivity owner;
     CircleAnimIndicator circleAnimIndicator;
 
@@ -121,6 +128,9 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.home_fragment, container, false);
 
+        tabFragment1 = this;
+        ft = getFragmentManager().beginTransaction();
+
         owner = (MainActivity)getActivity();
         count=0;
         count2=0;
@@ -153,7 +163,7 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
                     ++count2;
 
                 if(count2<=8&&count2%2==0) {
-//                    if (flag) {
+
                         count++; //레이아웃이 변하면 카운트를 증가시키고
                         Log.e("viewFliper", "change" + count);
                         if (count > 4)  //4보다 커지면 다시 첫번째를 의미하므로 1로 변경
@@ -162,9 +172,6 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
                             count = 4;
                         circleAnimIndicator.selectDot(count - 1); //인디케이터는 배열 인덱스 방식이므로 -1을 한다.
                         flag = false;
-//                    } else {
-//                        flag = true;
-//                    }
                 }else if(count2>8){
                     count++; //레이아웃이 변하면 카운트를 증가시키고
                     Log.e("viewFliper", "change" + count);
@@ -264,6 +271,9 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
                                         heart1.setSelected(true);
                                     }
                                 }
+                                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                ft.detach(TabFragment2.tabFragment2)
+                                        .attach(TabFragment2.tabFragment2).commit();
                             }
                         });
                     }
@@ -303,6 +313,9 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
                                         heart2.setSelected(true);
                                     }
                                 }
+                                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                ft.detach(TabFragment2.tabFragment2)
+                                        .attach(TabFragment2.tabFragment2).commit();
                             }
                         });
                     }
@@ -342,6 +355,9 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
                                         heart3.setSelected(true);
                                     }
                                 }
+                                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                ft.detach(TabFragment2.tabFragment2)
+                                        .attach(TabFragment2.tabFragment2).commit();
                             }
                         });
                     }
@@ -381,6 +397,9 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
                                         heart4.setSelected(true);
                                     }
                                 }
+                                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                ft.detach(TabFragment2.tabFragment2)
+                                        .attach(TabFragment2.tabFragment2).commit();
                             }
                         });
                     }
@@ -420,6 +439,9 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
                                         heart5.setSelected(true);
                                     }
                                 }
+                                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                ft.detach(TabFragment2.tabFragment2)
+                                        .attach(TabFragment2.tabFragment2).commit();
                             }
                         });
                     }
@@ -506,7 +528,7 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dialog = ProgressDialog.show(getContext(), "", "Data Loading...", true);
+            //dialog = ProgressDialog.show(getContext(), "", "Data Loading...", true);
         }
 
         @Override
@@ -516,7 +538,7 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
 
         @Override
         protected void onPostExecute(HomeObject result) {
-            dialog.dismiss();
+            //dialog.dismiss();
             homeObject = result;
             setData();
         }
@@ -532,140 +554,147 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
         activities = homeObject.activities;
         shops = homeObject.shops;
 
-        //Log.e("banner image",bannerTest.banners.get(0).image);
-        Glide.with(this).load(banners.get(0).image).into(adverticeImage1);
-        Glide.with(this).load(banners.get(1).image).into(adverticeImage2);
-        Glide.with(this).load(banners.get(2).image).into(adverticeImage3);
-        Glide.with(this).load(banners.get(3).image).into(adverticeImage4);
+        if(banners.size()==4&&activities.size()==5&shops.size()==5) {
 
-        activityImage1.setData(activities.get(0));
-        activityImage2.setData(activities.get(1));
-        activityImage3.setData(activities.get(2));
-        activityImage4.setData(activities.get(3));
-        activityImage5.setData(activities.get(4));
+            //Log.e("banner image",bannerTest.banners.get(0).image);
+            Glide.with(this).load(banners.get(0).image).into(adverticeImage1);
+            Glide.with(this).load(banners.get(1).image).into(adverticeImage2);
+            Glide.with(this).load(banners.get(2).image).into(adverticeImage3);
+            Glide.with(this).load(banners.get(3).image).into(adverticeImage4);
 
+            activityImage1.setData(activities.get(0));
+            activityImage2.setData(activities.get(1));
+            activityImage3.setData(activities.get(2));
+            activityImage4.setData(activities.get(3));
+            activityImage5.setData(activities.get(4));
 
-        Glide.with(LKApplication.getLKApplication()).load(shops.get(0).image).into(mShopMainImage1);
-        mShopMainImage1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ShopDetailActivity.class);
-                intent.putExtra("shopId", shops.get(0).id); // shopInfo.shopId
-                owner.startActivity(intent);
+            Glide.with(LKApplication.getLKApplication()).load(shops.get(0).image).into(mShopMainImage1);
+            mShopMainImage1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), ShopDetailActivity.class);
+                    intent.putExtra("shopId", shops.get(0).id); // shopInfo.shopId
+                    owner.startActivity(intent);
+                }
+            });
+            Glide.with(LKApplication.getLKApplication()).load(shops.get(0).logoImage)
+                    .into(mShopCircleImage1);
+            share1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    sendShare();
+                }
+            });
+            dim1.setAlpha(0.9f);
+            mShopName1.setText(shops.get(0).shopName);
+            mShopLocation1.setText(shops.get(0).address2 + ", " + shops.get(0).address1);
+            mShopRating1.setText(Double.toString(shops.get(0).score));
+
+            if (shops.get(0).likes) {
+                heart1.setImageResource(R.drawable.btn_heart_press);
+                heart1.setSelected(true);
+            } else {
+                heart1.setImageResource(R.drawable.btn_heart_unpress);
+                heart1.setSelected(false);
             }
-        });
-        Glide.with(LKApplication.getLKApplication()).load(shops.get(0).logoImage)
-                .into(mShopCircleImage1);
-        dim1.setAlpha(0.9f);
-        mShopName1.setText(shops.get(0).shopName);
-        //mShopLocation.setText();
-        mShopRating1.setText(Double.toString(shops.get(0).score));
 
-        if(shops.get(0).likes){
-            heart1.setImageResource(R.drawable.btn_heart_press);
-            heart1.setSelected(true);
-        }else {
-            heart1.setImageResource(R.drawable.btn_heart_unpress);
-            heart1.setSelected(false);
-        }
+            Glide.with(LKApplication.getLKApplication()).load(shops.get(1).image).into(mShopMainImage2);
+            mShopMainImage2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), ShopDetailActivity.class);
+                    intent.putExtra("shopId", shops.get(1).id); // shopInfo.shopId
+                    owner.startActivity(intent);
+                }
+            });
+            Glide.with(LKApplication.getLKApplication()).load(shops.get(1).logoImage)
+                    .into(mShopCircleImage2);
+            dim2.setAlpha(0.9f);
+            mShopName2.setText(shops.get(1).shopName);
+            mShopLocation2.setText(shops.get(1).address2 + ", " + shops.get(1).address1);
+            mShopRating2.setText(Double.toString(shops.get(1).score));
 
-        Glide.with(LKApplication.getLKApplication()).load(shops.get(1).image).into(mShopMainImage2);
-        mShopMainImage2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ShopDetailActivity.class);
-                intent.putExtra("shopId", shops.get(1).id); // shopInfo.shopId
-                owner.startActivity(intent);
+            if (shops.get(1).likes) {
+                heart2.setImageResource(R.drawable.btn_heart_press);
+                heart2.setSelected(true);
+            } else {
+                heart2.setImageResource(R.drawable.btn_heart_unpress);
+                heart2.setSelected(false);
             }
-        });
-        Glide.with(LKApplication.getLKApplication()).load(shops.get(1).logoImage)
-                .into(mShopCircleImage2);
-        dim2.setAlpha(0.9f);
-        mShopName2.setText(shops.get(1).shopName);
-        //mShopLocation.setText();
-        mShopRating2.setText(Double.toString(shops.get(1).score));
 
-        if(shops.get(1).likes){
-            heart2.setImageResource(R.drawable.btn_heart_press);
-            heart2.setSelected(true);
-        }else {
-            heart2.setImageResource(R.drawable.btn_heart_unpress);
-            heart2.setSelected(false);
-        }
+            Glide.with(LKApplication.getLKApplication()).load(shops.get(2).image).into(mShopMainImage3);
+            mShopMainImage3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), ShopDetailActivity.class);
+                    intent.putExtra("shopId", shops.get(2).id); // shopInfo.shopId
+                    owner.startActivity(intent);
+                }
+            });
+            Glide.with(LKApplication.getLKApplication()).load(shops.get(0).logoImage)
+                    .into(mShopCircleImage3);
+            dim3.setAlpha(0.9f);
+            mShopName3.setText(shops.get(2).shopName);
+            mShopLocation3.setText(shops.get(2).address2 + ", " + shops.get(2).address1);
+            mShopRating3.setText(Double.toString(shops.get(2).score));
 
-        Glide.with(LKApplication.getLKApplication()).load(shops.get(2).image).into(mShopMainImage3);
-        mShopMainImage3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ShopDetailActivity.class);
-                intent.putExtra("shopId", shops.get(2).id); // shopInfo.shopId
-                owner.startActivity(intent);
+            if (shops.get(2).likes) {
+                heart3.setImageResource(R.drawable.btn_heart_press);
+                heart3.setSelected(true);
+            } else {
+                heart3.setImageResource(R.drawable.btn_heart_unpress);
+                heart3.setSelected(false);
             }
-        });
-        Glide.with(LKApplication.getLKApplication()).load(shops.get(0).logoImage)
-                .into(mShopCircleImage3);
-        dim3.setAlpha(0.9f);
-        mShopName3.setText(shops.get(2).shopName);
-        //mShopLocation.setText();
-        mShopRating3.setText(Double.toString(shops.get(2).score));
 
-        if(shops.get(2).likes){
-            heart3.setImageResource(R.drawable.btn_heart_press);
-            heart3.setSelected(true);
-        }else {
-            heart3.setImageResource(R.drawable.btn_heart_unpress);
-            heart3.setSelected(false);
-        }
+            Glide.with(LKApplication.getLKApplication()).load(shops.get(3).image).into(mShopMainImage4);
+            mShopMainImage4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), ShopDetailActivity.class);
+                    intent.putExtra("shopId", shops.get(3).id); // shopInfo.shopId
+                    owner.startActivity(intent);
+                }
+            });
+            Glide.with(LKApplication.getLKApplication()).load(shops.get(3).logoImage)
+                    .into(mShopCircleImage4);
+            dim4.setAlpha(0.9f);
+            mShopName4.setText(shops.get(3).shopName);
+            mShopLocation4.setText(shops.get(3).address2 + ", " + shops.get(3).address1);
+            mShopRating4.setText(Double.toString(shops.get(3).score));
 
-        Glide.with(LKApplication.getLKApplication()).load(shops.get(3).image).into(mShopMainImage4);
-        mShopMainImage4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ShopDetailActivity.class);
-                intent.putExtra("shopId", shops.get(3).id); // shopInfo.shopId
-                owner.startActivity(intent);
+            if (shops.get(3).likes) {
+                heart4.setImageResource(R.drawable.btn_heart_press);
+                heart4.setSelected(true);
+            } else {
+                heart4.setImageResource(R.drawable.btn_heart_unpress);
+                heart4.setSelected(false);
             }
-        });
-        Glide.with(LKApplication.getLKApplication()).load(shops.get(3).logoImage)
-                .into(mShopCircleImage4);
-        dim4.setAlpha(0.9f);
-        mShopName4.setText(shops.get(3).shopName);
-        //mShopLocation.setText();
-        mShopRating4.setText(Double.toString(shops.get(3).score));
 
-        if(shops.get(3).likes){
-            heart4.setImageResource(R.drawable.btn_heart_press);
-            heart4.setSelected(true);
-        }else {
-            heart4.setImageResource(R.drawable.btn_heart_unpress);
-            heart4.setSelected(false);
-        }
+            Glide.with(LKApplication.getLKApplication()).load(shops.get(4).image).into(mShopMainImage5);
+            mShopMainImage5.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), ShopDetailActivity.class);
+                    intent.putExtra("shopId", shops.get(4).id); // shopInfo.shopId
+                    owner.startActivity(intent);
+                }
+            });
+            Glide.with(LKApplication.getLKApplication()).load(shops.get(4).logoImage)
+                    .into(mShopCircleImage5);
+            dim5.setAlpha(0.9f);
+            mShopName5.setText(shops.get(4).shopName);
+            mShopLocation5.setText(shops.get(4).address2 + ", " + shops.get(4).address1);
+            mShopRating5.setText(Double.toString(shops.get(4).score));
 
-        Glide.with(LKApplication.getLKApplication()).load(shops.get(4).image).into(mShopMainImage5);
-        mShopMainImage5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ShopDetailActivity.class);
-                intent.putExtra("shopId", shops.get(4).id); // shopInfo.shopId
-                owner.startActivity(intent);
+            if (shops.get(4).likes) {
+                heart5.setImageResource(R.drawable.btn_heart_press);
+                heart5.setSelected(true);
+            } else {
+                heart5.setImageResource(R.drawable.btn_heart_unpress);
+                heart5.setSelected(false);
             }
-        });
-        Glide.with(LKApplication.getLKApplication()).load(shops.get(4).logoImage)
-                .into(mShopCircleImage5);
-        dim5.setAlpha(0.9f);
-        mShopName5.setText(shops.get(4).shopName);
-        //mShopLocation.setText();
-        mShopRating5.setText(Double.toString(shops.get(4).score));
-
-        if(shops.get(4).likes){
-            heart5.setImageResource(R.drawable.btn_heart_press);
-            heart5.setSelected(true);
-        }else {
-            heart5.setImageResource(R.drawable.btn_heart_unpress);
-            heart5.setSelected(false);
         }
-
-
     }
 
     private void initIndicaotor() {
@@ -678,5 +707,50 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
         circleAnimIndicator.setSavePosition(0);
         circleAnimIndicator.createDotPanel(4
                 , R.drawable.icon_navi_unpress, R.drawable.icon_navi_press);
+    }
+
+    private void sendShare() {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("image/*");
+
+        List<ResolveInfo> resInfo = owner.getPackageManager().queryIntentActivities(intent, 0);
+        if (resInfo.isEmpty()) {
+            return;
+        }
+
+        List<Intent> shareIntentList = new ArrayList<Intent>();
+
+        for (ResolveInfo info : resInfo) {
+            Intent shareIntent = (Intent) intent.clone();
+
+            if (info.activityInfo.packageName.toLowerCase().equals("com.facebook.katana")) {
+//facebook
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "http://www.google.com");
+// shareIntent.setType("image/jpg");
+// shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///"+mImagePath));
+            } else if(info.activityInfo.packageName.toLowerCase().equals("com.kakao.talk")) {
+                /*shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "http://www.google.com");*/
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "제목123");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "구글 http://www.google.com #");
+                //shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///"+mImagePath));
+
+                /*File dirName = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + "/Camera");  //디렉토리를 지정합니다.
+                String fileName = "20170527_102814.jpg"; //공유할 이미지 파일 명
+                File file = new File(dirName, fileName); //image 파일의 경로를 설정합니다.
+                Uri mSaveImageUri = Uri.fromFile(file); //file의 경로를 uri로 변경합니다.*/
+                //shareIntent.putExtra(Intent.EXTRA_STREAM, mSaveImageUri);
+
+            }
+            shareIntent.setPackage(info.activityInfo.packageName);
+            //shareIntent.setPackage(info.activityInfo.packageName);
+            shareIntentList.add(shareIntent);
+        }
+
+        Intent chooserIntent = Intent.createChooser(shareIntentList.remove(0), "select");
+        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, shareIntentList.toArray(new Parcelable[]{}));
+        startActivity(chooserIntent);
     }
 }

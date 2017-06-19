@@ -119,43 +119,8 @@ public class TicketItemFragment extends Fragment {
         }else{
             Log.e("ticket","ticket.programObject==null");
         }
-
-        //backImage.setImageResource(reservation.getBackImage());
-        //backImage.setBackgroundResource(ticket.getBackImage());
         dimLayout.setBackgroundColor(Color.BLACK);
         dimLayout.setAlpha(0.3f);
-
-//        text1.setText(ticket.getText1()+"'s");
-//        text2.setText(ticket.getText2());
-//        text3.setText(ticket.getText3());
-//        switch (ticket.getMain()){
-//            case "Water Ski":
-//                activityIamge.setImageResource(R.drawable.ic_waterski);
-//                break;
-//            case "Fun Boat":
-//                activityIamge.setImageResource(R.drawable.ic_funboat);
-//                break;
-//        }
-//
-//        date.setText(ticket.getDate());
-//        time.setText(ticket.getTime());
-//        price.setText("$"+Integer.toString(ticket.getPrice()));
-//
-//        String s=" ";
-//        int adult = ticket.getAdult();
-//        int children = ticket.getChildren();
-//        if (adult != 0 && children != 0) {
-//            s = "Adult " + Integer.toString(adult
-//            ) + ",  Children " + Integer.toString(children);
-//        } else if (adult == 0 && children != 0) {
-//            s = "Children " + Integer.toString(children);
-//        } else if (children == 0 && adult != 0) {
-//            s = "Adult " + Integer.toString(adult);
-//        }
-//        people.setText(s);
-//
-//        location1.setText(ticket.getLocation3()+", "+ticket.getLocation1()+",");
-//        location2.setText(ticket.getLocation2());
 
         return view;
     }
