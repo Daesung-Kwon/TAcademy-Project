@@ -324,15 +324,19 @@ public class OkHttpJSONDataParseHandler {
             }
 
             jsonArray2 = jsonObject1.getJSONArray("rows");
-            jsonObject4 = jsonArray2.getJSONObject(0);
             entity.reviewsObject                = new LKShopReviewsObject();
             entity.reviewsObject.count          = jsonObject1.getInt("count");
-            entity.reviewsObject.review         = jsonObject4.getString("review");
-            entity.reviewsObject.rating         = jsonObject4.getDouble("star");
-            entity.reviewsObject.attachedImage  = jsonObject4.getString("image");
-            entity.reviewsObject.userName       = jsonObject4.getJSONObject("user").getString("username");
-            entity.reviewsObject.sex            = jsonObject4.getJSONObject("user").getString("sex");
-            entity.reviewsObject.date           = jsonObject4.getString("date");
+            if (entity.reviewsObject.count > 0) {
+                jsonObject4 = jsonArray2.getJSONObject(0);
+                entity.reviewsObject.review         = jsonObject4.getString("review");
+                entity.reviewsObject.rating         = jsonObject4.getDouble("star");
+                entity.reviewsObject.attachedImage  = jsonObject4.getString("image");
+                entity.reviewsObject.userName       = jsonObject4.getJSONObject("user").getString("username");
+                entity.reviewsObject.sex            = jsonObject4.getJSONObject("user").getString("sex");
+                entity.reviewsObject.date           = jsonObject4.getString("date");
+            }else {
+
+            }
 
         } catch (JSONException je) {
             Log.e("getJSONShopInfo", "JSON파싱 중 에러발생", je);
