@@ -102,6 +102,7 @@ public class PreInterestsActivity extends AppCompatActivity implements View.OnCl
                     // 최초 세팅 Interests 값 저장.
                     setChoiceInterestsPref(true);
                     new AsyncInterestsInsert().execute();
+
                     Intent intent = new Intent(PreInterestsActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();

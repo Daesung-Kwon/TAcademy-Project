@@ -12,10 +12,11 @@ public class LKShopReviewsObject {
     public String userName;
     public String date;
     public int count;
+    public String score;
 
     public LKShopReviewsObject() {}
     public LKShopReviewsObject(String sex, String review, Double rating, String attachedImage,
-                               String userName, String date, int count) {
+                               String userName, String date, int count, String score) {
         this.sex = sex;
         this.review = review;
         this.rating = rating;
@@ -23,5 +24,6 @@ public class LKShopReviewsObject {
         this.userName = userName;
         this.date = date;
         this.count = count;
+        this.score = score;
     }
 }

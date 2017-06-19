@@ -485,4 +485,54 @@ public class OkHttpJSONDataParseHandler {
         }
         return token;
     }
+
+    /**
+     * 선택된 샵의 상세 정보 불러오기.
+     * @param buf
+     * @return
+     */
+    public static ArrayList<LKShopReviewsObject> getJSONShopReviews(JSONObject buf) {
+
+        ArrayList<LKShopReviewsObject> jsonAllList = null;
+        LKShopReviewsObject entity = null;
+        JSONObject jsonObject0  = null;
+        JSONArray jsonArray0    = null;
+        try {
+            jsonAllList = new ArrayList<LKShopReviewsObject>();
+            jsonObject0 = buf.getJSONObject("data");
+            jsonArray0 = jsonObject0.getJSONArray("rows");
+
+            int count = jsonObject0.getInt("count");
+            Log.i("test", "count "+count);
+            for (int i = 0; i < count; i++) {
+                if (count > 0) {
+                    entity = new LKShopReviewsObject();
+                    entity.review         = jsonArray0.getJSONObject(i).getString("review");
+                    entity.rating         = jsonArray0.getJSONObject(i).getDouble("star");
+                    entity.attachedImage  = jsonArray0.getJSONObject(i).getString("image");
+                    entity.userName       = jsonArray0.getJSONObject(i).getJSONObject("user").getString("username");
+                    entity.sex            = jsonArray0.getJSONObject(i).getJSONObject("user").getString("sex");
+                    entity.date           = jsonArray0.getJSONObject(i).getString("date");
+                    entity.score          = jsonObject0.getString("score");
+
+                    Log.i("test", "review"+entity.review);
+                    Log.i("test", "rating"+entity.review);
+                    Log.i("test", "attachedImage"+entity.review);
+                    Log.i("test", "userName"+entity.review);
+                    Log.i("test", "sex"+entity.review);
+                    Log.i("test", "date"+entity.review);
+                    Log.i("test", "score"+entity.review);
+
+                    jsonAllList.add(entity);
+                }else {
+
+                }
+            }
+            Log.i("test", "data: "+jsonAllList.get(0).sex);
+
+        } catch (JSONException je) {
+            Log.e("getJSONShopInfo", "JSON파싱 중 에러발생", je);
+        }
+        return jsonAllList;
+    }
 }
