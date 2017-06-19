@@ -315,7 +315,6 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback, Vi
             //Log.e("test","!3 ");
             if (result != null) {
                 shopInfoObject = result;
-                mapView.getMapAsync(ShopInfoFragment.this);
 
                 shopImagesSize = shopInfoObject.shopImages.size();
                 initVariableIndicator(shopImagesSize);
@@ -327,6 +326,7 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback, Vi
                 setShopInfoText();
                 setContentsText();
                 setReviewerInfo(shopInfoObject.reviewsObject.count);
+                Log.i("review count", ""+shopInfoObject.reviewsObject.count);
 
                 interestGridView.setAdapter(new CategoryGridAdapter(getContext(), shopActivityTags));
                 serviceGridView.setAdapter(new ServiceGridAdapter(getContext(), serviceValues));
@@ -337,6 +337,7 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback, Vi
 
                 transportIcon.setImageResource(TransportList.getSubwayResource().get(3));
 
+                mapView.getMapAsync(ShopInfoFragment.this);
             }
             else
                 Log.e("test","result = null ");
