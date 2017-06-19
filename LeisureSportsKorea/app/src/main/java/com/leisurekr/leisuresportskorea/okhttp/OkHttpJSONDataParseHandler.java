@@ -503,8 +503,9 @@ public class OkHttpJSONDataParseHandler {
             jsonArray0 = jsonObject0.getJSONArray("rows");
 
             int count = jsonObject0.getInt("count");
+            Log.i("test", "count "+count);
             for (int i = 0; i < count; i++) {
-                if (entity.count > 0) {
+                if (count > 0) {
                     entity = new LKShopReviewsObject();
                     entity.review         = jsonArray0.getJSONObject(i).getString("review");
                     entity.rating         = jsonArray0.getJSONObject(i).getDouble("star");
@@ -512,12 +513,22 @@ public class OkHttpJSONDataParseHandler {
                     entity.userName       = jsonArray0.getJSONObject(i).getJSONObject("user").getString("username");
                     entity.sex            = jsonArray0.getJSONObject(i).getJSONObject("user").getString("sex");
                     entity.date           = jsonArray0.getJSONObject(i).getString("date");
+                    entity.score          = jsonObject0.getString("score");
+
+                    Log.i("test", "review"+entity.review);
+                    Log.i("test", "rating"+entity.review);
+                    Log.i("test", "attachedImage"+entity.review);
+                    Log.i("test", "userName"+entity.review);
+                    Log.i("test", "sex"+entity.review);
+                    Log.i("test", "date"+entity.review);
+                    Log.i("test", "score"+entity.review);
 
                     jsonAllList.add(entity);
                 }else {
 
                 }
             }
+            Log.i("test", "data: "+jsonAllList.get(0).sex);
 
         } catch (JSONException je) {
             Log.e("getJSONShopInfo", "JSON파싱 중 에러발생", je);

@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,6 +26,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.leisurekr.leisuresportskorea.LKApplication;
 import com.leisurekr.leisuresportskorea.R;
 import com.leisurekr.leisuresportskorea.okhttp.OkHttpAPIHelperHandler;
+import com.leisurekr.leisuresportskorea.shop.TabFragment2;
 
 import java.util.ArrayList;
 
@@ -53,8 +55,9 @@ public class ReviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_review);
 
         owner = this;
-        Intent intent = new Intent();
+        Intent intent = getIntent();
         shopId = intent.getIntExtra("shopId", -1);
+        Log.i("test", "intent "+shopId);
 
         if (shopId != -1) {
             // Toolbar
@@ -75,6 +78,8 @@ public class ReviewActivity extends AppCompatActivity {
 
             totalRatingValue = 0.0; // 초기화
             ratingBar.setRating((float)totalRatingValue);
+
+            new AsyncShopReviewJSONList().execute();
         }
     }
 
@@ -165,25 +170,30 @@ public class ReviewActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            Log.i("test", "onPreExecute started");
             //dialog = ProgressDialog.show(owner, "", "Loading...", true);
         }
 
         @Override
         protected ArrayList<LKShopReviewsObject> doInBackground(String... params) {
+            Log.i("test", "doInBackground started");
             return OkHttpAPIHelperHandler.shopReviewJSONAllSelect(shopId);
         }
         @Override
         protected void onPostExecute(ArrayList<LKShopReviewsObject> result) {
             //dialog.dismiss();
-            if (result != null && result.size() > 0) {
+            Log.i("test", "onPostExecute started");
+            reviewsObjects = result;
+            Log.i("test", ""+reviewsObjects.get(0).sex);
+            if (result != null && reviewsObjects.size() > 0) {
                 reviewsObjects = result;
                 // MainActivity.class로 Object 전달
                 // Adapter result 값 Add
                 rvAdapter.addAll(reviewsObjects);
                 rvAdapter.notifyDataSetChanged();
 
-                ratingBar.setRating((float)reviewsObjects.get(0).score);
-                ratingTotalCount.setText(reviewsObjects.get(0).count);
+                ratingBar.setRating(Float.parseFloat(reviewsObjects.get(0).score));
+                ratingTotalCount.setText(""+reviewsObjects.get(0).count);
 
             }else {
                 ratingTotalCount.setText("0");

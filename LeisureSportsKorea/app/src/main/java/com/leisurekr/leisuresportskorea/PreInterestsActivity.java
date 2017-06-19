@@ -1,6 +1,5 @@
 package com.leisurekr.leisuresportskorea;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -87,7 +86,9 @@ public class PreInterestsActivity extends AppCompatActivity implements View.OnCl
                     finish();
                 }
                 else{
-                    onBackPressed();
+                    Intent intent = new Intent(PreInterestsActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
                 break;
             case R.id.save_button_on_popup_activity:
@@ -146,6 +147,21 @@ public class PreInterestsActivity extends AppCompatActivity implements View.OnCl
             }else {
                 Log.i("Interests Insert", "FAIL");
             }
+
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        if(isResult==true){
+            setResult(1);
+            finish();
+        }
+        else{
+            Intent intent = new Intent(PreInterestsActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 }

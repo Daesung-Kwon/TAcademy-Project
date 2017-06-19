@@ -51,6 +51,7 @@ public class OkHttpAPIHelperHandler {
 
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_HOME_INFO_ALL_SELECT)
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
                     .build();
 
             response = toServer.newCall(request).execute();
@@ -110,6 +111,7 @@ public class OkHttpAPIHelperHandler {
 
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_RESERVATION_INFO_ALL_SELECT)
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
                     .build();
 
             response = toServer.newCall(request).execute();
@@ -169,6 +171,7 @@ public class OkHttpAPIHelperHandler {
 
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_TICKET_INFO_ALL_SELECT)
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
                     .build();
 
             response = toServer.newCall(request).execute();
@@ -216,45 +219,6 @@ public class OkHttpAPIHelperHandler {
         return objects;
     }
 
-    /*public static String reviewJSONAllInsert(){
-        String resultValue = "";
-        File upLoadfile = new File(upLoadFilePath[0]);
-        Response response = null;
-        try {
-            //업로드는 타임 및 리드타임을 넉넉히 준다.
-            OkHttpClient toServer = new OkHttpClient.Builder()
-                    .connectTimeout(20, TimeUnit.SECONDS)
-                    .readTimeout(20, TimeUnit.SECONDS)
-                    .writeTimeout(20, TimeUnit.SECONDS)
-                    .build();
-
-            RequestBody fileUploadBody = new MultipartBody.Builder()
-                    .setType(MultipartBody.FORM) //파일 업로드시 반드시 설정
-                    .addFormDataPart("queryName1", formMemberValue) //기본 쿼리
-                    .addFormDataPart("uploadfile", upLoadfile.getName(), RequestBody.create(IMAGE_MIME_TYPE, upLoadfile))
-                    .build();
-            //요청 세팅
-            Request request = new Request.Builder()
-                    .url("http://192.168.0.19:5678/androidNetwork/fileUpload.pyo")
-                    .post(fileUploadBody) //반드시 post로
-                    .build();
-
-            //동기 방식
-            response = toServer.newCall(request).execute();
-            if (response.isSuccessful()) {
-                resultValue = response.body().string();
-            }
-        } catch (Exception e) {
-            Log.e("UploadError", e.toString());
-        } finally {
-            if (response != null) {
-                response.close();
-            }
-        }
-        return resultValue;
-    }*/
-
-
     public static ProfileObject profileJSONAllSelect() {
         OkHttpClient toServer = null;
         ProfileObject objects = null;
@@ -266,6 +230,7 @@ public class OkHttpAPIHelperHandler {
 
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_PROFILE_ALL_SELECT)
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
                     .build();
             response = toServer.newCall(request).execute();
             flag = response.isSuccessful();
@@ -322,6 +287,7 @@ public class OkHttpAPIHelperHandler {
 
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_CART_INFO_ALL_SELECT)
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
                     .build();
 
             response = toServer.newCall(request).execute();
@@ -395,6 +361,7 @@ public class OkHttpAPIHelperHandler {
             //요청 세팅(form(Query String) 방식의 포스트)
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_BOOK_INSERT)
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
                     .post(postBody)
                     .build();
             //동기 방식 실제 연결이 되고 요청이 이루어지는 부분
@@ -450,7 +417,8 @@ public class OkHttpAPIHelperHandler {
                     .build();
             //요청 세팅(form(Query String) 방식의 포스트)
             Request request = new Request.Builder()
-                    .url(NetworkDefineConstant.SERVER_URL_EDIT_INSERT+"/"+reqParams.getId())
+                    .url(NetworkDefineConstant.SERVER_URL_EDIT_INSERT)
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
                     .put(postBody)
                     .build();
             //동기 방식 실제 연결이 되고 요청이 이루어지는 부분
@@ -504,6 +472,7 @@ public class OkHttpAPIHelperHandler {
             //요청 세팅(form(Query String) 방식의 포스트)
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_FAVOR_POST)
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
                     .post(postBody)
                     .build();
             //동기 방식 실제 연결이 되고 요청이 이루어지는 부분
@@ -570,6 +539,7 @@ public class OkHttpAPIHelperHandler {
                         .build();
                     request = new Request.Builder()
                             .url(NetworkDefineConstant.SERVER_URL_RESERVATION_DELEDTE)
+                            .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
                             .post(postBody)
                             .build();
 
@@ -584,6 +554,7 @@ public class OkHttpAPIHelperHandler {
                             .build();
                     request = new Request.Builder()
                             .url(NetworkDefineConstant.SERVER_URL_RESERVATION_DELEDTE+"/"+reqParams.getBookid())
+                            .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
                             .put(postBody)
                             .build();
                     break;
@@ -639,6 +610,7 @@ public class OkHttpAPIHelperHandler {
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_CART_DELETE
                             + reqParams.getId())
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
                     .delete()
                     .build();
             //동기 방식 실제 연결이 되고 요청이 이루어지는 부분
@@ -693,6 +665,7 @@ public class OkHttpAPIHelperHandler {
                     .url(NetworkDefineConstant.SERVER_URL_SEARCH_INSERT
                             + "date=" + reqParams.getDate() +"&loc=강원도" + "&adult=" + reqParams.getAdult()
                             + "&child=" + reqParams.getChildren())
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
                     .build();
             //동기 방식 실제 연결이 되고 요청이 이루어지는 부분
             response = toServer.newCall(request).execute();
@@ -751,6 +724,7 @@ public class OkHttpAPIHelperHandler {
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_SHOP_DETAIL_INFO_ALL_SELECT
                             + "/" + String.valueOf(shopId))
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
                     .build();
 
             response = toServer.newCall(request).execute();
@@ -813,6 +787,7 @@ public class OkHttpAPIHelperHandler {
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_SHOP_ALL_SELECT
                             + "/" + String.valueOf(shopId))
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
                     .build();
 
             response = toServer.newCall(request).execute();
@@ -868,6 +843,7 @@ public class OkHttpAPIHelperHandler {
 
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_LIKE_ALL_SELECT)
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
                     .build();
 
             response = toServer.newCall(request).execute();
@@ -926,6 +902,7 @@ public class OkHttpAPIHelperHandler {
 
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_SHOP_ALL_SELECT)
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
                     .build();
 
             response = toServer.newCall(request).execute();
@@ -986,6 +963,7 @@ public class OkHttpAPIHelperHandler {
             //요청 세팅(form(Query String) 방식의 포스트)
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_INTERESTS_INSERT)
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
                     .post(postBody)
                     .build();
             //동기 방식
@@ -1101,6 +1079,7 @@ public class OkHttpAPIHelperHandler {
             //요청 세팅(form(Query String) 방식의 포스트)
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_FACEBOOK_USER_INFO_INSERT)
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
                     .post(postBody)
                     .build();
             //동기 방식
@@ -1159,6 +1138,7 @@ public class OkHttpAPIHelperHandler {
 
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_SHOP_REVIEW_ALL_SELECT + mShopIDURL)
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
                     .build();
 
             response = toServer.newCall(request).execute();

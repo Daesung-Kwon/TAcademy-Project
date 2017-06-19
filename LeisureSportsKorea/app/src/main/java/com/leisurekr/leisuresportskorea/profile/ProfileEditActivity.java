@@ -132,7 +132,9 @@ public class ProfileEditActivity extends AppCompatActivity {
         erase = (ImageView) findViewById(R.id.profile_edit_erase);
         age = (TextInputEditText) findViewById(R.id.profile_edit_age);
         nationality = (Spinner) findViewById(R.id.profile_edit_nationality);
+        nationality.setFocusableInTouchMode(true);
         sex = (Spinner) findViewById(R.id.profile_edit_sex);
+        sex.setFocusableInTouchMode(true);
         interests = (RelativeLayout) findViewById(R.id.profile_edit_interests);
         intereststext = (TextView) findViewById(R.id.profile_edit_interststext);
         sns = (TextView) findViewById(R.id.profile_edit_sns);
@@ -306,17 +308,21 @@ public class ProfileEditActivity extends AppCompatActivity {
                 break;
             case R.id.save_action:
                 if (name.getText().toString().equals("") || name.getText().toString() == null) {
+                    name.requestFocus();
                     Toast.makeText(ProfileEditActivity.this,
                             "Please type your name", Toast.LENGTH_SHORT).show();
                 } else if (((String) sex.getSelectedItem()).equals("Select") ||
                         (String) sex.getSelectedItem() == null) {
+                    sex.requestFocus();
                     Toast.makeText(ProfileEditActivity.this,
                             "Please select your sex", Toast.LENGTH_SHORT).show();
                 } else if (age.getText().toString().equals("") || age.getText().toString() == null) {
+                    age.requestFocus();
                     Toast.makeText(ProfileEditActivity.this,
                             "Please type your age", Toast.LENGTH_SHORT).show();
                 } else if (((String) nationality.getSelectedItem()).equals("Select") ||
-                        (String) sex.getSelectedItem() == null) {
+                        (String) nationality.getSelectedItem() == null) {
+                    nationality.requestFocus();
                     Toast.makeText(ProfileEditActivity.this,
                             "Please select your nationality", Toast.LENGTH_SHORT).show();
                 } else {

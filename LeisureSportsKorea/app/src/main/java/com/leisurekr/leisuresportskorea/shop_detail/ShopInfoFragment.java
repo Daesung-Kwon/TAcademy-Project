@@ -21,6 +21,7 @@ import android.widget.ViewFlipper;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -286,6 +287,7 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback, Vi
                 if (shopInfoObject.reviewsObject.count > 0) {
                     intent = new Intent(getActivity(), ReviewActivity.class);
                     intent.putExtra("shopId", mShopId);
+                    Log.i("test", "before sending "+mShopId);
                     startActivity(intent);
                 }
                 break;
@@ -336,7 +338,8 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback, Vi
                 emailContactBtn.setImageResource(R.drawable.ic_email);
                 callingBtn.setImageResource(R.drawable.ic_call);
 
-                transportIcon.setImageResource(TransportList.getSubwayResource().get(3));
+                transportIcon.setImageResource(R.drawable.ic_publictransport);
+                //transportIcon.setImageResource(TransportList.getSubwayResource().get(3));
 
                 mapView.getMapAsync(ShopInfoFragment.this);
             }
@@ -349,18 +352,23 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback, Vi
     public void onMapReady(GoogleMap googleMap) {
         gMap = googleMap;
 
-        shopLatLng = new LatLng(shopInfoObject.latitude, shopInfoObject.longitude);
-
+        LatLng shopLatLng = new LatLng(shopInfoObject.latitude,
+                shopInfoObject.longitude);
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(shopLatLng);
+        //markerOptions.anchor(0.5f, 1);
         markerOptions.title(shopInfoObject.address2 + ", " + shopInfoObject.address1);
         markerOptions.snippet(shopInfoObject.address3);
 
-        Marker marker = gMap.addMarker(markerOptions);
-        marker.showInfoWindow();
+        final Marker marker = gMap.addMarker(markerOptions);
 
-        int zoom = (int) gMap.getCameraPosition().zoom;
-        gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(shopLatLng, zoom), 2000, null);
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(shopLatLng, 8);
+        gMap.animateCamera(cameraUpdate, new GoogleMap.CancelableCallback() {
+            @Override
+            public void onFinish() { marker.showInfoWindow(); }
+            @Override
+            public void onCancel() { }
+        });
     }
 
     public void setShopImages() {
