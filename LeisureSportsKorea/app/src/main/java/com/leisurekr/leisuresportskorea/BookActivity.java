@@ -268,9 +268,11 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
                 programObject.setId(programId);
                 Log.e("programId", " "+programId);
                 if(date.getText()==null||date.getText().toString().equals("Select date of use")){
+                    date.requestFocus();
                     Toast.makeText(BookActivity.this, "Please select date of use"
                             , Toast.LENGTH_SHORT).show();
                 }else if(time.getText()==null||time.getText().toString().equals("Select time of use")) {
+                    time.requestFocus();
                     Toast.makeText(BookActivity.this, "Please select time of use"
                             , Toast.LENGTH_SHORT).show();
                 }else if(adult == 0 && children == 0){

@@ -289,6 +289,8 @@ public class OkHttpAPIHelperHandler {
                     .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
                     .build();
 
+            Log.e("test token id",NetworkDefineConstant.AUTH_TOKEN);
+
             response = toServer.newCall(request).execute();
 
             flag = response.isSuccessful();
@@ -352,7 +354,6 @@ public class OkHttpAPIHelperHandler {
                     .add("adult", Integer.toString(reqParams.getAdult()))
                     .add("child", Integer.toString(reqParams.getChildren()))
                     .add("status", Integer.toString(1))
-                    .add("userId", Integer.toString(1))
                     .add("programId", Integer.toString(reqParams.getProgramObject().getId()))
                     .add("date", reqParams.getDate())
                     .add("time", reqParams.getTime())

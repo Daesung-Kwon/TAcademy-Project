@@ -5,12 +5,13 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -55,6 +56,8 @@ public class TabFragment3 extends android.support.v4.app.Fragment implements Vie
 
     ProfileObject profileObject;
 
+    Switch push;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
@@ -78,6 +81,16 @@ public class TabFragment3 extends android.support.v4.app.Fragment implements Vie
         nickname = (TextView)myProfile.findViewById(R.id.profile_nickname);
         email = (TextView)myProfile.findViewById(R.id.profile_email);
         tag = (TextView)myProfile.findViewById(R.id.profile_tag);
+        push = (Switch)myProfile.findViewById(R.id.profile_push);
+
+        push.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    
+                }
+            }
+        });
 
         reservationlist.setOnClickListener(this);
         favorites.setOnClickListener(this);

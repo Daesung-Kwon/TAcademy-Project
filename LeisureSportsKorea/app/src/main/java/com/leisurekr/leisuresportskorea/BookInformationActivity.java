@@ -74,30 +74,36 @@ public class BookInformationActivity extends AppCompatActivity {
         paypal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CheckoutObject checkoutObject = new CheckoutObject();
-                checkoutObject.setName(nameEdit.getText().toString());
-                checkoutObject.setPhoneNum(phoneEdit.getText().toString());
-                checkoutObject.setEmail(emailEdit.getText().toString());
-                checkoutObject.setDate(arrayList.get(0).getDate());
-                checkoutObject.setTime(arrayList.get(0).getTime());
-                checkoutObject.setAdult(arrayList.get(0).getAdult());
-                checkoutObject.setChild(arrayList.get(0).getChildren());
-                checkoutObject.setStatus(2);
-                checkoutObject.setPicked(arrayList.get(0).isPicked());
-                checkoutObject.setProgramId(arrayList.get(0).getProgramObject().getId());
+                CheckoutObject [] checkoutObjects = new CheckoutObject[arrayList.size()];
+                CheckoutObject checkoutObject;
+                for(int i=0; i< arrayList.size();i++) {
+                    checkoutObject = new CheckoutObject();
+                    checkoutObject.setName(nameEdit.getText().toString());
+                    checkoutObject.setPhoneNum(phoneEdit.getText().toString());
+                    checkoutObject.setEmail(emailEdit.getText().toString());
+                    checkoutObject.setDate(arrayList.get(i).getDate());
+                    checkoutObject.setTime(arrayList.get(i).getTime());
+                    checkoutObject.setAdult(arrayList.get(i).getAdult());
+                    checkoutObject.setChild(arrayList.get(i).getChildren());
+                    checkoutObject.setStatus(2);
+                    checkoutObject.setPicked(arrayList.get(i).isPicked());
+                    checkoutObject.setProgramId(arrayList.get(i).getProgramObject().getId());
 
-                if(checkoutObject.getName()==""||checkoutObject.getName()==null){
+                    checkoutObjects[i] = checkoutObject;
+                }
+
+                if(nameEdit.getText().toString().equals("")|| nameEdit.getText()==null){
                     Toast.makeText(BookInformationActivity.this,
                             "Please Input your name",Toast.LENGTH_SHORT).show();
-                }else if(checkoutObject.getPhoneNum()==""||checkoutObject.getPhoneNum()==null){
+                }else if(phoneEdit.getText().toString().equals("")||phoneEdit.getText()==null){
                     Toast.makeText(BookInformationActivity.this,
                             "Please Input your phoneNumber",Toast.LENGTH_SHORT).show();
-                }else if(checkoutObject.getEmail()==""||checkoutObject.getEmail()==null
+                }else if(emailEdit.getText().toString().equals("") || emailEdit.getText()==null
                         ||emailEdit.isInEditMode()){
                     Toast.makeText(BookInformationActivity.this,
                             "Please Input your phoneNumber",Toast.LENGTH_SHORT).show();
                 }else {
-                    new AsyncCheckoutInsert(BookInformationActivity.this, 2).execute(checkoutObject);
+                    new AsyncCheckoutInsert(BookInformationActivity.this, 2).execute(checkoutObjects);
                 }
             }
         });

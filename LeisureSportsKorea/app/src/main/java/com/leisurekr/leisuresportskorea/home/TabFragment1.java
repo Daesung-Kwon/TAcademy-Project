@@ -550,11 +550,13 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
 
     public void setData() {
 
-        banners = homeObject.banners;
-        activities = homeObject.activities;
-        shops = homeObject.shops;
+        if(homeObject!=null) {
+            banners = homeObject.banners;
+            activities = homeObject.activities;
+            shops = homeObject.shops;
+        }
 
-        if(banners.size()==4&&activities.size()==5&shops.size()==5) {
+        if(banners.size()==4) {
 
             //Log.e("banner image",bannerTest.banners.get(0).image);
             Glide.with(this).load(banners.get(0).image).into(adverticeImage1);
@@ -562,12 +564,17 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
             Glide.with(this).load(banners.get(2).image).into(adverticeImage3);
             Glide.with(this).load(banners.get(3).image).into(adverticeImage4);
 
+        }
+
+        if(activities.size()==5) {
             activityImage1.setData(activities.get(0));
             activityImage2.setData(activities.get(1));
             activityImage3.setData(activities.get(2));
             activityImage4.setData(activities.get(3));
             activityImage5.setData(activities.get(4));
+        }
 
+        if(shops.size()==5) {
             Glide.with(LKApplication.getLKApplication()).load(shops.get(0).image).into(mShopMainImage1);
             mShopMainImage1.setOnClickListener(new View.OnClickListener() {
                 @Override

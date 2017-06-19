@@ -112,7 +112,7 @@ public class ProfileCartActivity extends AppCompatActivity {
             checkedArray = new ArrayList<>();
             CartObject cartObject;
             ProgramObject programObject;
-            if(arrayList.get(0).programObject!=null) {
+            if(arrayList!=null&&arrayList.get(0).programObject!=null) {
                 for (int j = 0; j < arrayList.size(); j++) {
                     cartObject = arrayList.get(j);
                     programObject = cartObject.programObject;
@@ -389,15 +389,15 @@ public class ProfileCartActivity extends AppCompatActivity {
                         }).show();
                     }
                 });
-
-
-
             }
         }
 
         @Override
         public int getItemCount() {
-            return arrayList.size();
+            if(arrayList!=null)
+                return arrayList.size();
+            else
+                return 0;
         }
 
 
