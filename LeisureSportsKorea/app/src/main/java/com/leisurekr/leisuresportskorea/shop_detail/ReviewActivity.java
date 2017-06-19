@@ -1,5 +1,8 @@
 package com.leisurekr.leisuresportskorea.shop_detail;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
@@ -17,7 +20,11 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.leisurekr.leisuresportskorea.LKApplication;
 import com.leisurekr.leisuresportskorea.R;
+import com.leisurekr.leisuresportskorea.okhttp.OkHttpAPIHelperHandler;
 
 import java.util.ArrayList;
 
@@ -27,12 +34,18 @@ import java.util.ArrayList;
 
 public class ReviewActivity extends AppCompatActivity {
     Toolbar toolbar;
+    RecyclerView rv;
+    ReviewRVAdapter rvAdapter;
 
     static ReviewActivity owner;
     private RatingBar ratingBar;
     private TextView ratingTotalCount;
 
-    Float totalRatingValue;
+    double totalRatingValue;
+
+    ArrayList<LKShopReviewsObject> reviewsObjects = null;
+
+    int shopId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,46 +53,37 @@ public class ReviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_review);
 
         owner = this;
+        Intent intent = new Intent();
+        shopId = intent.getIntExtra("shopId", -1);
 
-        // Toolbar
-        toolbar = (Toolbar) findViewById(R.id.review_toolbar);
-        toolbar.setTitle("Review List");
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (shopId != -1) {
+            // Toolbar
+            toolbar             = (Toolbar) findViewById(R.id.review_toolbar);
+            ratingTotalCount    = (TextView) findViewById(R.id.rating_total_count);
+            ratingBar           = (RatingBar) findViewById(R.id.review_rating_bar);
+            rv                  = (RecyclerView) findViewById(R.id.review_recyclerview);
 
-        ArrayList<ReviewData> reviewDatas = new ArrayList<>();
-        /* 테스트 데이터 */
-        ReviewData rData = new ReviewData(R.drawable.girls_generation_tifany,
-                R.drawable.girls_generation_all,
-                "Daesung Kwon",
-                "It's so cool! was really nice and fun. so I'll go and see Girls Generation again",
-                "17-05-05");
-        reviewDatas.add(rData);
-        ReviewData rData2 = new ReviewData(R.drawable.girls_generation_tifany,
-                null,
-                "Daesung Kwon",
-                "not satisfied... want more trial I did",
-                "17-05-05");
-        reviewDatas.add(rData2);
-        reviewDatas.add(rData);
+            toolbar.setTitle("Review List");
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        RecyclerView rv = (RecyclerView) findViewById(R.id.review_recyclerview);
-        rv.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        rv.setAdapter(new ReviewRVAdapter(reviewDatas));
+            ArrayList<LKShopReviewsObject> reviewsData = new ArrayList<>();
 
-        ratingBar = (RatingBar) findViewById(R.id.review_rating_bar);
-        totalRatingValue = (float)3.5;
-        ratingBar.setRating(totalRatingValue);
+            rv.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            rvAdapter = new ReviewRVAdapter(reviewsData);
+            rv.setAdapter(rvAdapter);
+
+            totalRatingValue = 0.0; // 초기화
+            ratingBar.setRating((float)totalRatingValue);
+        }
     }
 
     public static class ReviewRVAdapter
             extends RecyclerView.Adapter<ReviewRVAdapter.ViewHolder> {
-        private ArrayList<ReviewData> mReviewDatas;
-        private Animation slideInAnimation;
+        private ArrayList<LKShopReviewsObject> mReviewsData;
 
-        public ReviewRVAdapter(ArrayList<ReviewData> reviewDatas) {
-            mReviewDatas = reviewDatas;
-            slideInAnimation = AnimationUtils.loadAnimation(owner, android.R.anim.slide_in_left);
+        public ReviewRVAdapter(ArrayList<LKShopReviewsObject> reviewsData) {
+            mReviewsData = reviewsData;
         }
 
         public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -88,7 +92,7 @@ public class ReviewActivity extends AppCompatActivity {
             public final ImageView mAttachedReviewImage;
             public final TextView mReviewerName;
             public final TextView mReviewText;
-            public final TextView mReviewData;
+            public final TextView mReviewDate;
 
             public ViewHolder(View view) {
                 super(view);
@@ -97,7 +101,7 @@ public class ReviewActivity extends AppCompatActivity {
                 mAttachedReviewImage = (ImageView) view.findViewById(R.id.review_attached_image);
                 mReviewerName = (TextView) view.findViewById(R.id.individual_reviewer_name);
                 mReviewText = (TextView) view.findViewById(R.id.individual_review_text);
-                mReviewData = (TextView) view.findViewById(R.id.individaul_review_date_text);
+                mReviewDate = (TextView) view.findViewById(R.id.individaul_review_date_text);
             }
         }
         @Override
@@ -108,26 +112,38 @@ public class ReviewActivity extends AppCompatActivity {
         }
         @Override
         public void onBindViewHolder(ReviewRVAdapter.ViewHolder holder, int position) {
-            Integer reviewerImage = mReviewDatas.get(position).getReviewerImage(); // circle image;
-            Integer attachedReviewImage = mReviewDatas.get(position).getAttachedReviewImage();
-            String reviewerName = mReviewDatas.get(position).getReviewerName();
-            String reviewText = mReviewDatas.get(position).getReviewText();
-            String reviewDate = mReviewDatas.get(position).getReviewDate();
 
-            holder.mReviewData.setText(reviewDate);
-            holder.mReviewText.setText(reviewText);
-            holder.mReviewerName.setText(reviewerName);
+            holder.mReviewDate.setText(mReviewsData.get(position).date);
+            holder.mReviewText.setText(mReviewsData.get(position).review);
+            holder.mReviewerName.setText(mReviewsData.get(position).userName);
 
-            if (attachedReviewImage != null) {
-                holder.mAttachedReviewImage.setImageResource(attachedReviewImage);
+            switch (mReviewsData.get(position).sex) {
+                case "Male":
+                    holder.mReviewerImage.setImageResource(R.drawable.ic_ma);
+                    break;
+                case "Female":
+                    holder.mReviewerImage.setImageResource(R.drawable.ic_fe);
+                    break;
+                default:
+                    holder.mReviewerImage.setImageResource(R.drawable.ic_ne);
+                    break;
             }
-            holder.mReviewerImage.setImageResource(reviewerImage);
-            holder.mReviewerImage.startAnimation(slideInAnimation);
+            if (mReviewsData.get(position).attachedImage != null) {
+                Glide.with(LKApplication.getLKApplication())
+                        .load(mReviewsData.get(position).attachedImage)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        //.override(360, 280)
+                        .into(holder.mAttachedReviewImage);
+            }
         }
 
         @Override
         public int getItemCount() {
-            return mReviewDatas.size();
+            return mReviewsData.size();
+        }
+
+        public void addAll(ArrayList<LKShopReviewsObject> data) {
+            mReviewsData.addAll(data);
         }
     }
 
@@ -139,5 +155,40 @@ public class ReviewActivity extends AppCompatActivity {
                 finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public class AsyncShopReviewJSONList
+            extends AsyncTask<String, Integer, ArrayList<LKShopReviewsObject>> {
+
+        ProgressDialog dialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //dialog = ProgressDialog.show(owner, "", "Loading...", true);
+        }
+
+        @Override
+        protected ArrayList<LKShopReviewsObject> doInBackground(String... params) {
+            return OkHttpAPIHelperHandler.shopReviewJSONAllSelect(shopId);
+        }
+        @Override
+        protected void onPostExecute(ArrayList<LKShopReviewsObject> result) {
+            //dialog.dismiss();
+            if (result != null && result.size() > 0) {
+                reviewsObjects = result;
+                // MainActivity.class로 Object 전달
+                // Adapter result 값 Add
+                rvAdapter.addAll(reviewsObjects);
+                rvAdapter.notifyDataSetChanged();
+
+                ratingBar.setRating((float)reviewsObjects.get(0).score);
+                ratingTotalCount.setText(reviewsObjects.get(0).count);
+
+            }else {
+                ratingTotalCount.setText("0");
+                Log.i("Test", "reviews result is NULL");
+            }
+        }
     }
 }

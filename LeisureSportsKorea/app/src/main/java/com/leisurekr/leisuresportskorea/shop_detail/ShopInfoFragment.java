@@ -285,6 +285,7 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback, Vi
             case R.id.review_more_btn:
                 if (shopInfoObject.reviewsObject.count > 0) {
                     intent = new Intent(getActivity(), ReviewActivity.class);
+                    intent.putExtra("shopId", mShopId);
                     startActivity(intent);
                 }
                 break;

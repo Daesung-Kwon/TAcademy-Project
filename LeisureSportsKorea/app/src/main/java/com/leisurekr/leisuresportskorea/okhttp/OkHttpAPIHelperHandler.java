@@ -13,6 +13,7 @@ import com.leisurekr.leisuresportskorea.profile.ProfileObject;
 import com.leisurekr.leisuresportskorea.profile.ReservationObject;
 import com.leisurekr.leisuresportskorea.shop_detail.LKShopInfoObject;
 import com.leisurekr.leisuresportskorea.shop_detail.LKShopListObject;
+import com.leisurekr.leisuresportskorea.shop_detail.LKShopReviewsObject;
 import com.leisurekr.leisuresportskorea.shop_detail.ParentData;
 import com.leisurekr.leisuresportskorea.ticket.TicketObject;
 
@@ -1139,5 +1140,63 @@ public class OkHttpAPIHelperHandler {
             }
         }
         return userLoginToken;
+    }
+
+    /**
+     * 샵 리스트
+     *
+     * @return
+     */
+    public static ArrayList<LKShopReviewsObject> shopReviewJSONAllSelect(int shopId) {
+        OkHttpClient toServer = null;
+        ArrayList<LKShopReviewsObject> shopReviewEntityObjects = null;
+        boolean flag;
+        Response response = null;
+        String mShopIDURL = "/" + String.valueOf(shopId);
+
+        try {
+            toServer = OkHttpInitSingletonManager.getOkHttpClient();
+
+            Request request = new Request.Builder()
+                    .url(NetworkDefineConstant.SERVER_URL_SHOP_REVIEW_ALL_SELECT + mShopIDURL)
+                    .build();
+
+            response = toServer.newCall(request).execute();
+
+            flag = response.isSuccessful();
+
+            String returnedJSON;
+            JSONObject jsonObject = null;
+
+            if (flag) { //성공했다면
+                returnedJSON = response.body().string();
+                //Log.e("resultJSON", returnedJSON);
+
+                try {
+                    jsonObject = new JSONObject(returnedJSON);
+
+                } catch (JSONException jsonE) {
+                    Log.e("json에러", jsonE.toString());
+                }
+                // Parser가 들어간다.
+                shopReviewEntityObjects = OkHttpJSONDataParseHandler.getJSONShopReviews(jsonObject);
+                Log.e("Handler 성공", "getJSONShopList Handler 성공");
+
+            } else {
+                //요청에러 발생시(http 에러)
+            }
+
+        } catch (UnknownHostException une) {
+            e("une", une.toString());
+        } catch (UnsupportedEncodingException uee) {
+            e("uee", uee.toString());
+        } catch (Exception e) {
+            e("e", e.toString());
+        } finally { /** TODO : Very Important!!! **/
+            if (response != null) {
+                response.close(); //3.* 이상에서는 반드시 닫아 준다.
+            }
+        }
+        return shopReviewEntityObjects;
     }
 }
