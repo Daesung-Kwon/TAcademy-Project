@@ -145,8 +145,7 @@ public class OkHttpJSONDataParseHandler {
         return object;
     }
 
-    public static ArrayList<ParentData> getJSONShopProgram(
-            JSONObject buf) {
+    public static ArrayList<ParentData> getJSONShopProgram(JSONObject buf) {
 
         ArrayList<ParentData> jsonAllList = null;
         ParentData entity = null;
@@ -253,19 +252,20 @@ public class OkHttpJSONDataParseHandler {
      * @param buf
      * @return
      */
-    public static LKShopInfoObject getJSONShopInfo(
-            JSONObject buf) {
+    public static LKShopInfoObject getJSONShopInfo(JSONObject buf) {
 
         LKShopInfoObject entity = null;
         JSONObject jsonObject0  = null;
         JSONObject jsonObject1  = null;
         JSONObject jsonObject2  = null;
         JSONObject jsonObject3  = null;
+        JSONObject jsonObject4  = null;
         JSONArray jsonArray0    = null;
         JSONArray jsonArray1    = null;
+        JSONArray jsonArray2    = null;
         try {
             jsonObject0 = buf.getJSONObject("data");
-            jsonObject1 = jsonObject0.getJSONObject("review");
+            jsonObject1 = jsonObject0.getJSONObject("allReview");
 
             jsonArray0 = jsonObject0.getJSONArray("shopDetail");
             jsonObject2 = jsonArray0.getJSONObject(0);
@@ -276,7 +276,8 @@ public class OkHttpJSONDataParseHandler {
             entity.name              = jsonObject2.getString("name");
             entity.image             = jsonObject2.getString("logoImage");
             entity.about             = jsonObject2.getString("about");
-            entity.howTo             = jsonObject2.getString("howto");
+            entity.howTo1             = jsonObject2.getString("howto1");
+            entity.howTo2             = jsonObject2.getString("howto2");
             entity.latitude          = jsonObject2.getDouble("latitude");
             entity.longitude         = jsonObject2.getDouble("longitude");
             entity.address1          = jsonObject2.getString("address1");
@@ -296,6 +297,9 @@ public class OkHttpJSONDataParseHandler {
             entity.isWashingKit      = jsonObject2.getBoolean("washingKit");
             entity.createdAt         = jsonObject2.getString("createdAt");
             entity.updatedAt         = jsonObject2.getString("updatedAt");
+            entity.score             = jsonObject2.getDouble("score");
+            entity.likes             = jsonObject2.getBoolean("likes");
+            entity.refundPoliy       = jsonObject2.getString("refund");
 
             jsonObject3 = jsonObject2.getJSONObject("tags");
             entity.shopActivityTag = new ArrayList<>();
@@ -318,12 +322,17 @@ public class OkHttpJSONDataParseHandler {
             for (int i = 0; i < cnt; i++) {
                 entity.shopImages.add(jsonArray1.getJSONObject(i).getString("image"));
             }
+
+            jsonArray2 = jsonObject1.getJSONArray("rows");
+            jsonObject4 = jsonArray2.getJSONObject(0);
             entity.reviewsObject                = new LKShopReviewsObject();
-            entity.reviewsObject.review         = jsonObject1.getString("review");
-            entity.reviewsObject.rating         = jsonObject1.getDouble("star");
-            entity.reviewsObject.attachedImage  = jsonObject1.getString("image");
-            entity.reviewsObject.userName       = jsonObject1.getJSONObject("user").getString("username");
-            entity.reviewsObject.data           = jsonObject1.getString("date");
+            entity.reviewsObject.count          = jsonObject1.getInt("count");
+            entity.reviewsObject.review         = jsonObject4.getString("review");
+            entity.reviewsObject.rating         = jsonObject4.getDouble("star");
+            entity.reviewsObject.attachedImage  = jsonObject4.getString("image");
+            entity.reviewsObject.userName       = jsonObject4.getJSONObject("user").getString("username");
+            entity.reviewsObject.sex            = jsonObject4.getJSONObject("user").getString("sex");
+            entity.reviewsObject.date           = jsonObject4.getString("date");
 
         } catch (JSONException je) {
             Log.e("getJSONShopInfo", "JSON파싱 중 에러발생", je);
@@ -336,8 +345,7 @@ public class OkHttpJSONDataParseHandler {
      * @param buf
      * @return
      */
-    public static ArrayList<LKShopListObject> getJSONShopList(
-            JSONObject buf) {
+    public static ArrayList<LKShopListObject> getJSONShopList(JSONObject buf) {
 
         ArrayList<LKShopListObject> jsonAllList = null;
         JSONObject jsonObject0 = null;
@@ -383,5 +391,64 @@ public class OkHttpJSONDataParseHandler {
             Log.e("getJSONShopList", "JSON파싱 중 에러발생", je);
         }
         return jsonAllList;
+    }
+
+    /**
+     * Facebook Login User 정보
+     * @param buf
+     * @return
+     */
+    public static ArrayList<String> getJSONFacebookLogin(JSONObject buf) {
+
+        JSONObject jsonObject = null;
+        ArrayList<String> jsonAllList = null;
+
+        try {
+            jsonAllList = new ArrayList<String>();
+            jsonObject = new JSONObject();
+            jsonObject = buf.getJSONObject("age_range");
+
+            String tmpString = buf.getString("id");
+            jsonAllList.add(tmpString);
+            Log.i("[socialId]", tmpString);
+
+            tmpString = buf.getString("email");
+            jsonAllList.add(tmpString);
+            Log.i("[email]", tmpString);
+
+            tmpString = buf.getString("name");
+            jsonAllList.add(tmpString);
+            Log.i("[name]", tmpString);
+
+            tmpString = buf.getString("locale");
+            jsonAllList.add(tmpString);
+            Log.i("[locale]", tmpString);
+
+            tmpString = buf.getString("gender");
+            jsonAllList.add(tmpString);
+            Log.i("[gender]", tmpString);
+
+            int ageRangeMin = jsonObject.getInt("min");
+            tmpString = String.valueOf(ageRangeMin);
+            jsonAllList.add(tmpString);
+            Log.i("[ageRangeMin]", tmpString);
+
+        } catch (JSONException je) {
+            Log.e("getJSONFacebookLogin", "JSON파싱 중 에러발생", je);
+        }
+        return jsonAllList;
+    }
+
+    public static String getUserLoginToken(JSONObject buf) {
+
+        String token = "";
+
+        try {
+            token = buf.getString("token");
+
+        } catch (JSONException je) {
+            Log.e("getJSONShopList", "JSON파싱 중 에러발생", je);
+        }
+        return token;
     }
 }

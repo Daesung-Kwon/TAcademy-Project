@@ -544,6 +544,7 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
         activityImage4.setData(activities.get(3));
         activityImage5.setData(activities.get(4));
 
+
         Glide.with(LKApplication.getLKApplication()).load(shops.get(0).image).into(mShopMainImage1);
         mShopMainImage1.setOnClickListener(new View.OnClickListener() {
             @Override

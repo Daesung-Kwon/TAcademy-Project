@@ -31,18 +31,31 @@ public class LKSharedPreferencesManager {
 
     public static final String KEY_ID = "id";
     public static final String KEY_INIT_INTERESTS = "interests";
+    public static final String KEY_TOKEN = "token";
 
     public void setId(String id) {
         mEditor.putString(KEY_ID, id);
         mEditor.commit();
     }
     public String getId() {
-        return mPrefs.getString(KEY_ID,"");
+        return mPrefs.getString(KEY_ID, "");
+    }
+
+    public void setKeyToken(String token) {
+        mEditor.putString(KEY_TOKEN, token);
+        mEditor.commit();
+    }
+    public String getKeyToken() {
+        return mPrefs.getString(KEY_TOKEN, "");
     }
 
     public void setInterests(boolean trueOrFalse) {
         mEditor.putBoolean(KEY_INIT_INTERESTS, trueOrFalse);
         mEditor.commit();
+    }
+
+    public String getInterests() {
+        return mPrefs.getString(KEY_INIT_INTERESTS, "");
     }
 
     public void setInterestsSet(Set<String> interests) {

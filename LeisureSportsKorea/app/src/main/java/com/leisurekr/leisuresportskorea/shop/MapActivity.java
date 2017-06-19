@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -19,6 +21,8 @@ import com.leisurekr.leisuresportskorea.R;
 import com.leisurekr.leisuresportskorea.shop_detail.LKShopListObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by mobile on 2017. 6. 12..
@@ -30,6 +34,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private ViewPager viewPager;
     MapView mapView;
     GoogleMap gMap;
+    Marker currentMarker;
+    CameraUpdate cameraUpdate;
     ImageView cancelBtn;
     int viewPagerSize;
 
@@ -43,16 +49,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         shopListObjects = intent.getParcelableArrayListExtra("shopInfoList");
 
         MapsInitializer.initialize(this);
-
-        /*mMapFragment = MapFragment.newInstance();
-        FragmentTransaction fragmentTransaction =
-                getFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.map2, mMapFragment);
-        fragmentTransaction.commit();
-
-        MapFragment mapFragment = (MapFragment) getFragmentManager()
-                .findFragmentById(R.id.map2);
-        mapFragment.getMapAsync(this);*/
 
         mapView = (MapView) findViewById(R.id.map2);
         viewPager = (ViewPager) findViewById(R.id.map_viewpager2);
@@ -104,27 +100,50 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mapView.onResume();
     }
 
+    Map<Integer, Marker> markersMap = new HashMap<>();
+    Map<Marker, Integer> viewPagerMap = new HashMap<>();
     @Override
     public void onMapReady(GoogleMap googleMap) {
         gMap = googleMap;
 
         for (int i = 0; i < viewPagerSize; i++) {
-            LatLng shopLatLng = new LatLng(shopListObjects.get(i).latitude, shopListObjects.get(i).longitude);
+            LatLng shopLatLng = new LatLng(shopListObjects.get(i).latitude,
+                                           shopListObjects.get(i).longitude);
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(shopLatLng);
+            //markerOptions.anchor(0.5f, 1);
             markerOptions.title(shopListObjects.get(i).shopAddress1);
             markerOptions.snippet(shopListObjects.get(i).shopAddress2);
 
-            gMap.addMarker(markerOptions);
+            currentMarker = gMap.addMarker(markerOptions);
+            markersMap.put(i, currentMarker);
+            viewPagerMap.put(currentMarker, i);
 
-            if (i == 0) { gMap.moveCamera(CameraUpdateFactory.newLatLng(shopLatLng)); }
-            gMap.animateCamera(CameraUpdateFactory.zoomTo(10));
+            cameraUpdate = CameraUpdateFactory.newLatLngZoom(shopLatLng, 8);
+            if (i == 0) {
+                gMap.animateCamera(cameraUpdate, new GoogleMap.CancelableCallback() {
+                    @Override
+                    public void onFinish() { currentMarker.showInfoWindow(); }
+                    @Override
+                    public void onCancel() { }
+                });
+            }
+
+            gMap.setOnMarkerClickListener(this);
         }
     }
 
     @Override
-    public boolean onMarkerClick(Marker marker) {
-        return false;
+    public boolean onMarkerClick(final Marker marker) {
+        final Marker mMarker = marker;
+
+        viewPager.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                viewPager.setCurrentItem(viewPagerMap.get(mMarker), true);
+            }
+        }, 2000);
+        return true;
     }
 
     @Override
@@ -134,7 +153,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     public void onPageSelected(int position) {
-
+        currentMarker = markersMap.get(position);
+        cameraUpdate = CameraUpdateFactory.newLatLngZoom(currentMarker.getPosition(), 15);
+        gMap.animateCamera(cameraUpdate, new GoogleMap.CancelableCallback() {
+            @Override
+            public void onFinish() { currentMarker.showInfoWindow(); }
+            @Override
+            public void onCancel() { }
+        });
     }
 
     @Override

@@ -94,7 +94,7 @@ public class TabFragment3 extends android.support.v4.app.Fragment implements Vie
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dialog = ProgressDialog.show(getContext(), "", "Data Loading...", true);
+            //dialog = ProgressDialog.show(getContext(), "", "Data Loading...", true);
         }
 
         @Override
@@ -104,7 +104,7 @@ public class TabFragment3 extends android.support.v4.app.Fragment implements Vie
 
         @Override
         protected void onPostExecute(ProfileObject result) {
-            dialog.dismiss();
+            //dialog.dismiss();
             refresh(result);
 
         }

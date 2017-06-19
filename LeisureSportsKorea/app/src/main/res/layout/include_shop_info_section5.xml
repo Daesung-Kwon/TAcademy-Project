@@ -75,7 +75,7 @@
             android:textStyle="bold"
             android:textColor="@color/colorBlack"/>
         <TextView
-            android:id="@+id/description_about_shop"
+            android:id="@+id/refund_policy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"

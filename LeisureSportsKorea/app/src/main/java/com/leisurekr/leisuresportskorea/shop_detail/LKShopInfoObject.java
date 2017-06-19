@@ -11,7 +11,8 @@ public class LKShopInfoObject {
     public String name;
     public String image;
     public String about;
-    public String howTo;
+    public String howTo1;
+    public String howTo2;
     public double latitude;
     public double longitude;
     public String address1;
@@ -31,25 +32,30 @@ public class LKShopInfoObject {
     public boolean isWashingKit;
     public String createdAt;
     public String updatedAt;
+    public double score;
+    public boolean likes;
+    public String refundPoliy;
     public ArrayList<String> shopImages;
     public ArrayList<Boolean> shopActivityTag;
     public LKShopReviewsObject reviewsObject;
 
     public LKShopInfoObject(){}
 
-    public LKShopInfoObject(int id, String name, String image, String about, String howTo,
+    public LKShopInfoObject(int id, String name, String image, String about, String howTo1, String howTo2,
                             double latitude, double longitude, String address1, String address2,
                             String address3, String pNumber, String email, boolean isPickUp,
                             boolean isBasicEnglish, boolean isBasicChinese, boolean isLockerRoom,
                             boolean isShowerRoom, boolean isParkingLot, boolean isClothsForChange,
                             boolean isTowels, boolean isSunBlock, boolean isWashingKit,
-                            String createdAt, String updatedAt, ArrayList<String> shopImages,
-                            ArrayList<Boolean> shopActivityTag, LKShopReviewsObject reviewsObject) {
+                            String createdAt, String updatedAt, double score, boolean likes, String refundPoliy,
+                            ArrayList<String> shopImages, ArrayList<Boolean> shopActivityTag,
+                            LKShopReviewsObject reviewsObject) {
         this.id = id;
         this.name = name;
         this.image = image;
         this.about = about;
-        this.howTo = howTo;
+        this.howTo1 = howTo1;
+        this.howTo2 = howTo2;
         this.latitude = latitude;
         this.longitude = longitude;
         this.address1 = address1;
@@ -69,6 +75,9 @@ public class LKShopInfoObject {
         this.isWashingKit = isWashingKit;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.score = score;
+        this.likes = likes;
+        this.refundPoliy = refundPoliy;
         this.shopImages = shopImages;
         this.shopActivityTag = shopActivityTag;
         this.reviewsObject = reviewsObject;

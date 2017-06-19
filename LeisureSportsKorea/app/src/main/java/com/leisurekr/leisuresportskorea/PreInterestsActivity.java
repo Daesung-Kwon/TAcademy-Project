@@ -3,6 +3,7 @@ package com.leisurekr.leisuresportskorea;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -57,9 +58,6 @@ public class PreInterestsActivity extends AppCompatActivity implements View.OnCl
         mPrefs = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         mEditor = mPrefs.edit();
 
-        /*display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-        setupActivityDisplaySize(0.9, 0.8);*/
-
         gridView = (GridView) findViewById(R.id.filter_grid_view_on_popup_activity);
         skipBtn  = (TextView) findViewById(R.id.skip_btn_on_popup_activity);
         saveBtn  = (TextView) findViewById(R.id.save_button_on_popup_activity);
@@ -78,13 +76,6 @@ public class PreInterestsActivity extends AppCompatActivity implements View.OnCl
         saveBtn.setOnClickListener(this);
     }
 
-    /*public void setupActivityDisplaySize(double resizeWidth, double resizeHeight) {
-        int width = (int)(display.getWidth() * resizeWidth);
-        int height = (int)(display.getHeight() * resizeHeight);
-        getWindow().getAttributes().width = width;
-        getWindow().getAttributes().height = height;
-    }*/
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -95,7 +86,6 @@ public class PreInterestsActivity extends AppCompatActivity implements View.OnCl
                 // 최초 세팅 Interests 값 저장.
                 setChoiceInterestsPref(true);
                 new AsyncInterestsInsert().execute();
-                finish();
                 break;
         }
     }
@@ -113,15 +103,15 @@ public class PreInterestsActivity extends AppCompatActivity implements View.OnCl
         LKSharedPreferencesManager.getInstance().setInterestsSet(storeInterestsHash);
     }
 
-    public static class AsyncInterestsInsert
+    public class AsyncInterestsInsert
             extends AsyncTask<String, Integer, String> {
 
-        ProgressDialog dialog;
+        //ProgressDialog dialog;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dialog = ProgressDialog.show(LKApplication.getLKApplication(), "", "Loading...", true);
+            //dialog = ProgressDialog.show(LKApplication.getLKApplication(), "", "Loading...", true);
         }
 
         @Override
@@ -130,12 +120,15 @@ public class PreInterestsActivity extends AppCompatActivity implements View.OnCl
         }
         @Override
         protected void onPostExecute(String result) {
-            dialog.dismiss();
+            //dialog.dismiss();
             if (result.equals("success")) {
                 Log.i("Interests Insert", "OK");
             }else {
                 Log.i("Interests Insert", "FAIL");
             }
+            Intent intent = new Intent(PreInterestsActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 }
