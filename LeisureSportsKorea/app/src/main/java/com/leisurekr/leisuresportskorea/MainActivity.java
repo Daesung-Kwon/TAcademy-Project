@@ -340,16 +340,7 @@ public class MainActivity extends AppCompatActivity
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             Transition exitTrans = new Explode(); // Fade(), Slide()
-
             Transition reenterTrans = new Explode(); // Fade(), Slide()
-
-
-        }
-
-        if (callPopupActivityCount == 0) {
-            Intent intent = new Intent(getApplicationContext(), PreInterestsActivity.class);
-            startActivity(intent);
-            callPopupActivityCount++;
         }
     }
 
@@ -613,7 +604,6 @@ public class MainActivity extends AppCompatActivity
                     }
                     break;
             }
-
         }
     }
 

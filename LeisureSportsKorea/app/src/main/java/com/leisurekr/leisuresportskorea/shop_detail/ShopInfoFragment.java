@@ -19,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -27,6 +29,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.leisurekr.leisuresportskorea.LKApplication;
 import com.leisurekr.leisuresportskorea.R;
 import com.leisurekr.leisuresportskorea.home.CircleAnimIndicator;
 import com.leisurekr.leisuresportskorea.okhttp.OkHttpAPIHelperHandler;
@@ -41,7 +44,7 @@ import java.util.ArrayList;
 public class ShopInfoFragment extends Fragment implements OnMapReadyCallback, View.OnClickListener {
 
     static ShopDetailActivity owner;
-    static LKShopInfoObject shopInfoObject;
+    LKShopInfoObject shopInfoObject;
     View view;
     Intent intent;
 
@@ -53,8 +56,7 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback, Vi
     ImageView shopImage2;
     ImageView shopImage3;
     ImageView shopImage4;
-    ImageView shopCircleImage;
-    ImageView reviewerCircleImage;
+    ImageView shopLogoImage;
 
     ImageView shareImageBtn;
     ImageView myFavoriteBtn;
@@ -71,36 +73,38 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback, Vi
     MapView mapView;
     GoogleMap gMap;
 
-    String shopName;
-    Float shopTotalRating;
-    String shopLocation;
+    TextView shopName;
+    TextView shopTotalRating;
+    TextView shopLocation;
     LatLng shopLatLng;
-    String aboutShop;
-    Boolean FAVORITE_TAG;
 
     int currentPage = 1;
-    static int indicatorCount = 0;
+    static int shopImagesSize = 0;
     static int mShopId = -1;
 
     static final String[] shopActivityTags = new String[] {
-            "1", "0", "0", "0",
-            "1", "0", "1", "0",
-            "1", "0", "0", "0"
+            "0", "0", "0", "0",
+            "0", "0", "0", "0",
+            "0", "0", "0", "0"
     };
     static final String[] serviceValues = new String[] {
-            "0", "1", "0",
+            "0", "0", "0",
             "0", "0", "0"
     };
     static final String[] prepareValues = new String[] {
-            "0", "0", "1", "0",
+            "0", "0", "0", "0",
     };
 
     //private Animation slideInAnimation;
+    static final String MALE = "Male";
+    static final String FEMALE = "Female";
+
 
     public ShopInfoFragment() {}
     public static ShopInfoFragment newInstance(int shopId) {
         ShopInfoFragment shopInfoFragment = new ShopInfoFragment();
         mShopId = shopId;
+        Log.i("shopId", ""+mShopId);
 
         return shopInfoFragment;
     }
@@ -114,10 +118,15 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback, Vi
         mapView             = (MapView) view.findViewById(R.id.map_on_shop_info);
 
         viewFlipper         = (ViewFlipper) view.findViewById(R.id.shop_info_image_flipper);
+        shopName            = (TextView) view.findViewById(R.id.shop_name_text1);
+        shopLocation        = (TextView) view.findViewById(R.id.shop_location_text);
+        shopTotalRating     = (TextView) view.findViewById(R.id.shop_rating_text);
+        shareImageBtn       = (ImageView) view.findViewById(R.id.share_item_icon);
+        myFavoriteBtn       = (ImageView) view.findViewById(R.id.favorite_item_icon);
         interestGridView    = (GridView) view.findViewById(R.id.shop_info_grid_view1);
         serviceGridView     = (GridView) view.findViewById(R.id.shop_info_grid_view2);
         prepareGridView     = (GridView) view.findViewById(R.id.shop_info_grid_view3);
-        shopCircleImage     = (ImageView) view.findViewById(R.id.shop_detail_circle_image);
+        shopLogoImage       = (ImageView) view.findViewById(R.id.shop_detail_circle_image);
         shopImage1          = (ImageView) view.findViewById(R.id.shop_image_flipper1);
         shopImage2          = (ImageView) view.findViewById(R.id.shop_image_flipper2);
         shopImage3          = (ImageView) view.findViewById(R.id.shop_image_flipper3);
@@ -128,28 +137,16 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback, Vi
         transportIcon       = (ImageView) view.findViewById(R.id.transport_icon);
         callingBtn          = (ImageView) view.findViewById(R.id.call_btn);
         emailContactBtn     = (ImageView) view.findViewById(R.id.email_btn);
+        aboutShop           = (TextView) view.findViewById(R.id.description_about_shop);
+        getThere1           = (TextView) view.findViewById(R.id.get_there_text1);
+        getThere2           = (TextView) view.findViewById(R.id.get_there_text2);
         reviewerCircleImage = (ImageView) view.findViewById(R.id.reviewer_circle_image);
+        reviewer_name       = (TextView) view.findViewById(R.id.reviewer_name);
+        review_date         = (TextView) view.findViewById(R.id.review_date);
+        review_text         = (TextView) view.findViewById(R.id.review_text);
+        refundPolicy        = (TextView) view.findViewById(R.id.refund_policy);
 
         mapView.onCreate(savedInstanceState);
-
-
-        interestGridView.setAdapter(new CategoryGridAdapter(getContext(), shopActivityTags));
-        serviceGridView.setAdapter(new ServiceGridAdapter(getContext(), serviceValues));
-        prepareGridView.setAdapter(new PrepareGridAdapter(getContext(), prepareValues));
-
-        shopImage1.setImageResource(R.drawable.girls_generation_all);
-        shopImage2.setImageResource(R.drawable.girls_generation_tifany);
-        shopImage3.setImageResource(R.drawable.girls_generation_all);
-        shopImage4.setImageResource(R.drawable.girls_generation_tifany);
-        shopCircleImage.setImageResource(R.drawable.girls_generation_tifany);
-        reviewerCircleImage.setImageResource(R.drawable.girls_generation_tifany);
-        emailContactBtn.setImageResource(R.drawable.ic_email);
-        callingBtn.setImageResource(R.drawable.ic_call);
-        transportIcon.setImageResource(TransportList.getSubwayResource().get(3));
-
-        //slideInAnimation = AnimationUtils.loadAnimation(getContext(), android.R.anim.slide_in_left);
-        //shopCircleImage.startAnimation(slideInAnimation);
-        //reviewerCircleImage.startAnimation(slideInAnimation);
 
         return view;
     }
@@ -159,14 +156,62 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback, Vi
         super.onViewCreated(view, savedInstanceState);
 
         new AsyncShopInfoJSONList().execute();
-        initVariableIndicator(indicatorCount);
-        mapView.getMapAsync(this);
 
-        callingBtn.setOnClickListener(this);
-        emailContactBtn.setOnClickListener(this);
         previousImageBtn.setOnClickListener(this);
         nextImageBtn.setOnClickListener(this);
+        callingBtn.setOnClickListener(this);
+        emailContactBtn.setOnClickListener(this);
         reviewMoreBtn.setOnClickListener(this);
+    }
+
+    TextView aboutShop;
+    TextView getThere1;
+    TextView getThere2;
+    TextView refundPolicy;
+    public void setContentsText() {
+        aboutShop.setText(shopInfoObject.about);
+        getThere1.setText(shopInfoObject.howTo1);
+        getThere2.setText(shopInfoObject.howTo2);
+        refundPolicy.setText(shopInfoObject.refundPoliy);
+    }
+
+    public void setShopInfoText() {
+        shopName.setText(shopInfoObject.name);
+        shopLocation.setText(shopInfoObject.address1);
+        shopTotalRating.setText(String.valueOf(shopInfoObject.score));
+    }
+
+    ImageView reviewerCircleImage;
+    TextView reviewer_name;
+    TextView review_date;
+    TextView review_text;
+
+    public void setReviewerInfo(int count) {
+        //int count = shopInfoObject.reviewsObject.count;
+        if (count > 0) {
+            switch (shopInfoObject.reviewsObject.sex) {
+                case "Male":
+                    reviewerCircleImage.setImageResource(R.drawable.ic_ma);
+                    break;
+                case "Female":
+                    reviewerCircleImage.setImageResource(R.drawable.ic_fe);
+                    break;
+                default:
+                    reviewerCircleImage.setImageResource(R.drawable.ic_ne);
+                    break;
+            }
+            reviewer_name.setText(shopInfoObject.reviewsObject.userName);
+            review_date.setText(shopInfoObject.reviewsObject.date);
+            review_text.setText(shopInfoObject.reviewsObject.review);
+            reviewMoreBtn.setText("View other " + shopInfoObject.reviewsObject.count + " review >");
+        }else {
+            reviewerCircleImage.setImageResource(R.drawable.ic_ne);
+            reviewer_name.setText("N/A");
+            review_date.setText("00-00-00");
+            review_text.setText("N/A");
+            reviewMoreBtn.setText("No other review ...");
+        }
+
     }
 
     @Override
@@ -238,13 +283,15 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback, Vi
                 }
                 break;
             case R.id.review_more_btn:
-                intent = new Intent(getActivity(), ReviewActivity.class);
-                startActivity(intent);
+                if (shopInfoObject.reviewsObject.count > 0) {
+                    intent = new Intent(getActivity(), ReviewActivity.class);
+                    startActivity(intent);
+                }
                 break;
         }
     }
 
-    public static class AsyncShopInfoJSONList
+    public class AsyncShopInfoJSONList
             extends AsyncTask<String, Integer, LKShopInfoObject> {
 
         ProgressDialog dialog;
@@ -252,22 +299,47 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback, Vi
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            //Log.e("test","!1 ");
             dialog = ProgressDialog.show(owner, "", "Loading...", true);
         }
 
         @Override
         protected LKShopInfoObject doInBackground(String... params) {
+            //Log.e("test","!2 ");
             return OkHttpAPIHelperHandler.shopInfoJSONALLSelect(mShopId);
         }
         @Override
         protected void onPostExecute(LKShopInfoObject result) {
+            //Log.e("test","!3 ");
             dialog.dismiss();
+            //Log.e("test","!3 ");
             if (result != null) {
-                shopInfoObject = new LKShopInfoObject();
                 shopInfoObject = result;
-                Log.i("shopInfoObject1", ""+shopInfoObject.shopImages.size());
-                indicatorCount = shopInfoObject.shopImages.size();
+                mapView.getMapAsync(ShopInfoFragment.this);
+
+                shopImagesSize = shopInfoObject.shopImages.size();
+                initVariableIndicator(shopImagesSize);
+                setShopImages();
+                setShopActivities();
+                setShopServies();
+                setShopPrepareThings();
+
+                setShopInfoText();
+                setContentsText();
+                setReviewerInfo(shopInfoObject.reviewsObject.count);
+
+                interestGridView.setAdapter(new CategoryGridAdapter(getContext(), shopActivityTags));
+                serviceGridView.setAdapter(new ServiceGridAdapter(getContext(), serviceValues));
+                prepareGridView.setAdapter(new PrepareGridAdapter(getContext(), prepareValues));
+
+                emailContactBtn.setImageResource(R.drawable.ic_email);
+                callingBtn.setImageResource(R.drawable.ic_call);
+
+                transportIcon.setImageResource(TransportList.getSubwayResource().get(3));
+
             }
+            else
+                Log.e("test","result = null ");
         }
     }
 
@@ -275,7 +347,7 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback, Vi
     public void onMapReady(GoogleMap googleMap) {
         gMap = googleMap;
 
-        /*shopLatLng = new LatLng(shopInfoObject.latitude, shopInfoObject.longitude);
+        shopLatLng = new LatLng(shopInfoObject.latitude, shopInfoObject.longitude);
 
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(shopLatLng);
@@ -286,6 +358,113 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback, Vi
         marker.showInfoWindow();
 
         int zoom = (int) gMap.getCameraPosition().zoom;
-        gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(shopLatLng, zoom), 2000, null);*/
+        gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(shopLatLng, zoom), 2000, null);
+    }
+
+    public void setShopImages() {
+        int count = shopImagesSize;
+        // 업체 샵 대표이미지
+        switch (count) {
+            case 1:
+                Glide.with(LKApplication.getLKApplication())
+                        .load(shopInfoObject.shopImages.get(0))
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(shopImage1);
+                break;
+
+            case 2:
+                Glide.with(LKApplication.getLKApplication())
+                        .load(shopInfoObject.shopImages.get(0))
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(shopImage1);
+                Glide.with(LKApplication.getLKApplication())
+                        .load(shopInfoObject.shopImages.get(1))
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(shopImage2);
+                break;
+            case 3:
+                Glide.with(LKApplication.getLKApplication())
+                        .load(shopInfoObject.shopImages.get(0))
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(shopImage1);
+                Glide.with(LKApplication.getLKApplication())
+                        .load(shopInfoObject.shopImages.get(1))
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(shopImage2);
+                Glide.with(LKApplication.getLKApplication())
+                        .load(shopInfoObject.shopImages.get(2))
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(shopImage3);
+                break;
+            case 4:
+                Glide.with(LKApplication.getLKApplication())
+                        .load(shopInfoObject.shopImages.get(0))
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(shopImage1);
+                Glide.with(LKApplication.getLKApplication())
+                        .load(shopInfoObject.shopImages.get(1))
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(shopImage2);
+                Glide.with(LKApplication.getLKApplication())
+                        .load(shopInfoObject.shopImages.get(2))
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(shopImage3);
+                Glide.with(LKApplication.getLKApplication())
+                        .load(shopInfoObject.shopImages.get(3))
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(shopImage4);
+                break;
+        }
+
+        // 업체 로고 이미지
+        Glide.with(LKApplication.getLKApplication())
+                .load(shopInfoObject.image) // image URL
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(shopLogoImage);
+    }
+
+    public void setShopActivities() {
+        Log.e("test",""+shopInfoObject.shopActivityTag.size());
+        for (int i = 0; i < shopInfoObject.shopActivityTag.size(); i++) {
+            if (shopInfoObject.shopActivityTag.get(i) == true) {
+                shopActivityTags[i] = "1";
+            }
+        }
+    }
+
+    public void setShopServies() {
+        if (shopInfoObject.isPickUp == true) {
+            serviceValues[0] = "1";
+        }
+        if (shopInfoObject.isBasicEnglish == true) {
+            serviceValues[1] = "1";
+        }
+        if (shopInfoObject.isBasicChinese == true) {
+            serviceValues[2] = "1";
+        }
+        if (shopInfoObject.isLockerRoom == true) {
+            serviceValues[3] = "1";
+        }
+        if (shopInfoObject.isShowerRoom == true) {
+            serviceValues[4] = "1";
+        }
+        if (shopInfoObject.isParkingLot == true) {
+            serviceValues[5] = "1";
+        }
+    }
+
+    public void setShopPrepareThings() {
+        if (shopInfoObject.isClothsForChange == true) {
+            prepareValues[0] = "1";
+        }
+        if (shopInfoObject.isTowels == true) {
+            prepareValues[1] = "1";
+        }
+        if (shopInfoObject.isSunBlock == true) {
+            prepareValues[2] = "1";
+        }
+        if (shopInfoObject.isWashingKit == true) {
+            prepareValues[3] = "1";
+        }
     }
 }

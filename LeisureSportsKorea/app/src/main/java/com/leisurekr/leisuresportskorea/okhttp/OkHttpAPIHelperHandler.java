@@ -837,6 +837,8 @@ public class OkHttpAPIHelperHandler {
 
             } else {
                 //요청에러 발생시(http 에러)
+                Log.e("Handler 오류", "Flag is NULL");
+
             }
 
         } catch (UnknownHostException une) {
@@ -1070,5 +1072,72 @@ public class OkHttpAPIHelperHandler {
             }
         }
         return parsed;
+    }
+
+    /**
+     * 샵 리스트
+     *
+     * @return
+     */
+    public static String facebookUserInfoJSONInsert(ArrayList<String> arrayData) {
+        OkHttpClient toServer = null;
+        String userLoginToken = null;
+        boolean flag;
+        Response response = null;
+
+        try {
+            toServer = OkHttpInitSingletonManager.getOkHttpClient();
+
+            //요청 Body Form 세팅
+            RequestBody postBody = new FormBody.Builder()
+                    .add("socialId", arrayData.get(0))
+                    .add("email", arrayData.get(1))
+                    .add("username", arrayData.get(2))
+                    .add("nationality", arrayData.get(3))
+                    .add("sex", arrayData.get(4))
+                    .add("age", arrayData.get(5))
+                    .build();
+            //요청 세팅(form(Query String) 방식의 포스트)
+            Request request = new Request.Builder()
+                    .url(NetworkDefineConstant.SERVER_URL_FACEBOOK_USER_INFO_INSERT)
+                    .post(postBody)
+                    .build();
+            //동기 방식
+            response = toServer.newCall(request).execute();
+
+            flag = response.isSuccessful();
+
+            String returnedJSON;
+            JSONObject jsonObject = null;
+
+            if (flag) { //성공했다면
+                returnedJSON = response.body().string();
+                Log.e("resultJSON for Token", returnedJSON);
+
+                try {
+                    jsonObject = new JSONObject(returnedJSON);
+
+                } catch (JSONException jsonE) {
+                    Log.e("json에러", jsonE.toString());
+                }
+                userLoginToken = OkHttpJSONDataParseHandler.getUserLoginToken(jsonObject);
+                Log.e("Handler 성공", "facebookUserInfoJSONInsert Handler 성공");
+
+            } else {
+                //요청에러 발생시(http 에러)
+            }
+
+        } catch (UnknownHostException une) {
+            e("une", une.toString());
+        } catch (UnsupportedEncodingException uee) {
+            e("uee", uee.toString());
+        } catch (Exception e) {
+            e("e", e.toString());
+        } finally { /** TODO : Very Important!!! **/
+            if (response != null) {
+                response.close(); //3.* 이상에서는 반드시 닫아 준다.
+            }
+        }
+        return userLoginToken;
     }
 }

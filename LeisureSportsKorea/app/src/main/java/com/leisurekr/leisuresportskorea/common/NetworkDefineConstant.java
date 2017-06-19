@@ -30,6 +30,7 @@ public class NetworkDefineConstant {
     public static String SERVER_URL_PROFILE_ALL_SELECT;
     public static String SERVER_URL_REVIEW_INSERT;
     public static String SERVER_URL_FAVOR_POST;
+    public static String SERVER_URL_FACEBOOK_USER_INFO_INSERT;
 
     static {
         SERVER_URL_SHOP_ALL_SELECT =
@@ -70,6 +71,8 @@ public class NetworkDefineConstant {
                 HOST_URL + "/likes";
         SERVER_URL_LIKE_ALL_SELECT=
                 HOST_URL + "/likes";
+        SERVER_URL_FACEBOOK_USER_INFO_INSERT=
+                HOST_URL + "/login";
     }
 
     //다이얼로그 요청값
