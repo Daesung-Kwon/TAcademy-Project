@@ -19,7 +19,7 @@ import java.util.HashMap;
 public class FilterImageAdapter extends BaseAdapter {
     private Context context;
     private HashMap<Integer, Integer> interestMap;
-    public Integer[] tag;
+    public int[] tag;
     ImageView iconImage;
     TextView iconName;
     LayoutInflater inflater;
@@ -27,7 +27,7 @@ public class FilterImageAdapter extends BaseAdapter {
     int MAX_SELECTED_COUNT = 4;
     int currentSelectedCount;
 
-    public FilterImageAdapter(Context context, Integer[] values) {
+    public FilterImageAdapter(Context context, int[] values) {
         this.context = context;
         tag = values;
         currentSelectedCount = getCurrentSelectedCount(tag);
@@ -108,7 +108,7 @@ public class FilterImageAdapter extends BaseAdapter {
         }
     }
 
-    public int getCurrentSelectedCount(Integer[] list) {
+    public int getCurrentSelectedCount(int[] list) {
         int cnt = 0;
         for (int i = 0; i < list.length; i++) {
             if (list[i] == 1) {

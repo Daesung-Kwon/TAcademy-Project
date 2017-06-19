@@ -8,6 +8,7 @@ import com.leisurekr.leisuresportskorea.SearchObject;
 import com.leisurekr.leisuresportskorea.common.NetworkDefineConstant;
 import com.leisurekr.leisuresportskorea.home.HomeObject;
 import com.leisurekr.leisuresportskorea.profile.CartObject;
+import com.leisurekr.leisuresportskorea.profile.FavoritesObject;
 import com.leisurekr.leisuresportskorea.profile.ProfileObject;
 import com.leisurekr.leisuresportskorea.profile.ReservationObject;
 import com.leisurekr.leisuresportskorea.shop_detail.LKShopInfoObject;
@@ -22,8 +23,6 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Set;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -691,7 +690,7 @@ public class OkHttpAPIHelperHandler {
             //요청 세팅(form(Query String) 방식의 포스트)
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_SEARCH_INSERT
-                            + "date=" + reqParams.getDate() + "&adult=" + reqParams.getAdult()
+                            + "date=" + reqParams.getDate() +"&loc=강원도" + "&adult=" + reqParams.getAdult()
                             + "&child=" + reqParams.getChildren())
                     .build();
             //동기 방식 실제 연결이 되고 요청이 이루어지는 부분
@@ -855,6 +854,59 @@ public class OkHttpAPIHelperHandler {
         return lkTestEntityObjects;
     }
 
+    public static ArrayList<FavoritesObject> favorListJSONAllSelect() {
+        OkHttpClient toServer = null;
+        ArrayList<FavoritesObject> shopListEntityObjects = null;
+        boolean flag;
+        Response response = null;
+
+        try {
+            toServer = OkHttpInitSingletonManager.getOkHttpClient();
+
+            Request request = new Request.Builder()
+                    .url(NetworkDefineConstant.SERVER_URL_LIKE_ALL_SELECT)
+                    .build();
+
+            response = toServer.newCall(request).execute();
+
+            flag = response.isSuccessful();
+
+            String returnedJSON;
+            JSONObject jsonObject = null;
+
+            if (flag) { //성공했다면
+                returnedJSON = response.body().string();
+                //Log.e("resultJSON", returnedJSON);
+
+                try {
+                    jsonObject = new JSONObject(returnedJSON);
+
+                } catch (JSONException jsonE) {
+                    Log.e("json에러", jsonE.toString());
+                }
+                // Parser가 들어간다.
+                JSONArray jsonArray = jsonObject.getJSONArray("data");
+                shopListEntityObjects = OkHttpJSONDataParseHandler.getJSONFavor(jsonArray);
+                Log.e("Handler 성공", "getJSONShopList Handler 성공");
+
+            } else {
+                //요청에러 발생시(http 에러)
+            }
+
+        } catch (UnknownHostException une) {
+            e("une", une.toString());
+        } catch (UnsupportedEncodingException uee) {
+            e("uee", uee.toString());
+        } catch (Exception e) {
+            e("e", e.toString());
+        } finally { /** TODO : Very Important!!! **/
+            if (response != null) {
+                response.close(); //3.* 이상에서는 반드시 닫아 준다.
+            }
+        }
+        return shopListEntityObjects;
+    }
+
     /**
      * 샵 리스트
      *
@@ -916,10 +968,10 @@ public class OkHttpAPIHelperHandler {
      * 관심사 서버 저장
      * @return
      */
-    public static String interestsJSONAllInsert(Integer[] data) {
+    public static String interestsJSONAllInsert(int[] data) {
         boolean flag;
         String insertResultValue = "";
-        Integer[] reqParams = data;
+        int[] reqParams = data;
         Log.e("reqParams", String.valueOf(reqParams.length));
         Response response = null;
         OkHttpClient toServer;
@@ -967,11 +1019,11 @@ public class OkHttpAPIHelperHandler {
         return insertResultValue;
     }
 
-    public static RequestBody requestBodyParseData(Integer[] data) {
-        Integer[] parsedData = getParsingData(data);
+    public static RequestBody requestBodyParseData(int[] data) {
+        int[] parsedData = getParsingData(data);
         int length = 0;
         for(int i=0;i<parsedData.length;i++){
-            if(!parsedData[i].equals(new Integer(0))){
+            if(parsedData[i]!=0){
                 length++;
             }
         }
@@ -1007,8 +1059,8 @@ public class OkHttpAPIHelperHandler {
         return null;
     }
 
-    public static Integer[] getParsingData(Integer[] rawData) {
-        Integer[] parsed = {0,0,0,0,0,0,0,0,0,0,0,0};
+    public static int[] getParsingData(int[] rawData) {
+        int[] parsed = {0,0,0,0,0,0,0,0,0,0,0,0};
 
         int index = 0;
         for (int i = 0; i < rawData.length; i++) {

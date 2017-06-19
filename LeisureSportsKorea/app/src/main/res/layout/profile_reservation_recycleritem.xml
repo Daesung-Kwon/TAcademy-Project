@@ -98,7 +98,6 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/profile_reservation_rightImageHeight"
         android:layout_weight="4"
-        android:background="@drawable/approved"
         android:elevation="10dp"
         android:orientation="vertical"
         android:padding="10dp">

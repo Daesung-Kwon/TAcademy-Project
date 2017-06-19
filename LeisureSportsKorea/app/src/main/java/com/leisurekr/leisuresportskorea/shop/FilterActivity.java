@@ -3,7 +3,6 @@ package com.leisurekr.leisuresportskorea.shop;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -28,7 +27,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
     int colorToggleOn = Color.parseColor("#d32f2f");
     int colorToggleOff = Color.parseColor("#838383");
 
-    static Integer[] interestsValues = new Integer[] {
+    static int[] interestsValues = new int[] {
             1, 1, 1, 1,
             0, 0, 0, 0,
             0, 0, 0, 0

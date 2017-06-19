@@ -133,13 +133,13 @@ public class ProfileReservationActivity extends AppCompatActivity {
                 holder.dim.setAlpha(0.3f);
                 switch (object.getProgress()) {
                     case "Approved":
-                        holder.rightBackImage.setBackgroundResource(R.drawable.approved);
+                        holder.rightBackImage.setBackgroundResource(R.drawable.pic_box_re_li_ap);
                         break;
                     case "Finished":
-                        holder.rightBackImage.setBackgroundResource(R.drawable.finished1);
+                        holder.rightBackImage.setBackgroundResource(R.drawable.pic_box_re_li_fi);
                         break;
                     case "Canceled":
-                        holder.rightBackImage.setBackgroundResource(R.drawable.canceled);
+                        holder.rightBackImage.setBackgroundResource(R.drawable.pic_box_re_li_ca);
                         break;
                 }
 

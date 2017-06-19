@@ -35,7 +35,7 @@ public class ActivityImageObject {
         activityDescrpption2 = (TextView) view.findViewById(R.id.activity_description2);
         activityDescrpption3 = (TextView) view.findViewById(R.id.activity_description3);
         activityPrice = (TextView) view.findViewById(R.id.activity_price);
-    }
+}
     public void setData(int resid, String name, String description1
             , String description2, int price){
         view.setBackgroundResource(resid);

@@ -32,6 +32,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.leisurekr.leisuresportskorea.interfaces.ShopListSetListener;
 import com.leisurekr.leisuresportskorea.shop.FilterActivity;
 import com.leisurekr.leisuresportskorea.shop.MapActivity;
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity
     ArrayList<LKShopListObject> objectsFromShopList;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    TabPagerAdapter pagerAdapter;
     Toolbar toolbar;
 
     private View searchView;
@@ -140,6 +143,9 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        FirebaseMessaging.getInstance();
+        FirebaseInstanceId.getInstance().getToken();
+
         searchView = findViewById(R.id.search_view);
         datelayout = (LinearLayout) searchView.findViewById(R.id.search_datelayout);
         guestlayout = (LinearLayout) searchView.findViewById(R.id.search_guestlayout);
@@ -226,7 +232,7 @@ public class MainActivity extends AppCompatActivity
         viewPager = (ViewPager) findViewById(R.id.viewpager);
 
         // Adapter For View Pager
-        TabPagerAdapter pagerAdapter = new TabPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        pagerAdapter = new TabPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 

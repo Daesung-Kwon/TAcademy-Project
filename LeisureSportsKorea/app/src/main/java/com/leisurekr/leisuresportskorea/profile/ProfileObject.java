@@ -44,6 +44,7 @@ public class ProfileObject implements Serializable{
             this.name = jsonObject1.getString("username");
             this.email = jsonObject1.getString("email");
             this.sex = jsonObject1.getString("sex");
+            this.age = jsonObject1.getInt("age");
             this.nationality = jsonObject1.getString("nationality");
 
             JSONObject jsonObject2 = jsonObject1.getJSONObject("tags");
