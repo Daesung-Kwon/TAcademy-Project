@@ -73,6 +73,7 @@ public class TabFragment3 extends android.support.v4.app.Fragment implements Vie
         aboutUs = (LinearLayout) view.findViewById(R.id.profile_aboutuslayout);
         terms = (LinearLayout) view.findViewById(R.id.profile_termslayout);
         customerSupport = (LinearLayout) view.findViewById(R.id.profile_customerlayout);
+        push = (Switch)view.findViewById(R.id.profile_push);
 
         myProfile = view.findViewById(R.id.profile_myprofile);
         backImage = (LinearLayout)myProfile.findViewById(R.id.profile_backimage);
@@ -81,13 +82,13 @@ public class TabFragment3 extends android.support.v4.app.Fragment implements Vie
         nickname = (TextView)myProfile.findViewById(R.id.profile_nickname);
         email = (TextView)myProfile.findViewById(R.id.profile_email);
         tag = (TextView)myProfile.findViewById(R.id.profile_tag);
-        push = (Switch)myProfile.findViewById(R.id.profile_push);
+
 
         push.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    
+
                 }
             }
         });
