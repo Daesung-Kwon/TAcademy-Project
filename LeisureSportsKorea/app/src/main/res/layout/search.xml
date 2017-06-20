@@ -89,7 +89,7 @@
         android:layout_width="@dimen/search_floatWidth"
         android:layout_height="@dimen/search_floatHeight"
         android:layout_marginRight="10dp"
-        android:src="@android:drawable/ic_dialog_map"
+        android:src="@drawable/ic_search_2"
         app:backgroundTint="@color/floatingBlue"
         app:layout_anchor="@id/linear1111"
         app:layout_anchorGravity="right|bottom"

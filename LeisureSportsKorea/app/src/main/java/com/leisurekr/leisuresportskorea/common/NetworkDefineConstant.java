@@ -33,9 +33,10 @@ public class NetworkDefineConstant {
     public static String SERVER_URL_REVIEW_INSERT;
     public static String SERVER_URL_FAVOR_POST;
     public static String SERVER_URL_FACEBOOK_USER_INFO_INSERT;
+    public static String AUTH_TOKEN ;
     public static String SERVER_URL_PAYPAL_CHECKOUT_INFO;
-    public static String AUTH_TOKEN = LKSharedPreferencesManager.getInstance().getKeyToken();
     public static String AUTHORIZATION = "authorization";
+
 
     static {
         SERVER_URL_SHOP_ALL_SELECT =
@@ -78,49 +79,10 @@ public class NetworkDefineConstant {
                 HOST_URL + "/likes";
         SERVER_URL_FACEBOOK_USER_INFO_INSERT=
                 HOST_URL + "/login";
+        AUTH_TOKEN = LKSharedPreferencesManager.getInstance().getKeyToken();
         SERVER_URL_PAYPAL_CHECKOUT_INFO=
                 HOST_URL + "/paypal";
-
-        /*SERVER_URL_SHOP_ALL_SELECT =
-                HOST_URL + "/shops/"+AUTH_TOKEN;
-        SERVER_URL_SHOP_REVIEW_ALL_SELECT =
-                HOST_URL + "/reviews/"+AUTH_TOKEN;
-        SERVER_URL_REVIEW_INSERT =
-                HOST_URL + "/reviews";
-        SERVER_URL_HOME_INFO_ALL_SELECT =
-                HOST_URL + "/programs/"+AUTH_TOKEN;
-        SERVER_URL_RESERVATION_INFO_ALL_SELECT =
-                HOST_URL + "/books?status=reservation/"+AUTH_TOKEN;
-        SERVER_URL_TICKET_INFO_ALL_SELECT =
-                HOST_URL + "/books?status=ticket/"+AUTH_TOKEN;
-        SERVER_URL_CART_INFO_ALL_SELECT =
-                HOST_URL + "/books?status=cart/"+AUTH_TOKEN;
-        SERVER_URL_CART_DELETE =
-                HOST_URL + "/books/"+AUTH_TOKEN+"/";
-        SERVER_URL_SHOP_DETAIL_INFO_ALL_SELECT =
-                HOST_URL + "/programs/"+AUTH_TOKEN;
-        SERVER_URL_SHOP_DETAIL_PROGRAM_ALL_SELECT =
-                HOST_URL + "/"+AUTH_TOKEN;
-        SERVER_URL_BOOK_INSERT =
-                HOST_URL + "/books/"+AUTH_TOKEN;
-        SERVER_URL_CHECKOUT_INSERT =
-                HOST_URL + "/books/"+AUTH_TOKEN;
-        SERVER_URL_RESERVATION_DELEDTE=
-                HOST_URL + "/books/"+AUTH_TOKEN;
-        SERVER_URL_SEARCH_INSERT =
-                HOST_URL + "/shops/"+AUTH_TOKEN+"?";
-        SERVER_URL_PROFILE_ALL_SELECT =
-                HOST_URL + "/users/"+AUTH_TOKEN;
-        SERVER_URL_EDIT_INSERT=
-                HOST_URL + "/users/"+AUTH_TOKEN;
-        SERVER_URL_INTERESTS_INSERT =
-                HOST_URL + "/interests/"+AUTH_TOKEN;
-        SERVER_URL_FAVOR_POST=
-                HOST_URL + "/likes/"+AUTH_TOKEN;
-        SERVER_URL_LIKE_ALL_SELECT=
-                HOST_URL + "/likes/"+AUTH_TOKEN;
-        SERVER_URL_FACEBOOK_USER_INFO_INSERT=
-                HOST_URL + "/login/"+AUTH_TOKEN;*/
+        
     }
 
     //다이얼로그 요청값

@@ -539,8 +539,12 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
         @Override
         protected void onPostExecute(HomeObject result) {
             //dialog.dismiss();
-            homeObject = result;
-            setData();
+            if (result == null) {
+                Log.i("TabFramgent1","result is null");
+            }else {
+                homeObject = result;
+                setData();
+            }
         }
     }
 
@@ -556,7 +560,7 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
             shops = homeObject.shops;
         }
 
-        if(banners.size()==4) {
+        if(banners!=null||banners.size()==4) {
 
             //Log.e("banner image",bannerTest.banners.get(0).image);
             Glide.with(this).load(banners.get(0).image).into(adverticeImage1);
@@ -566,7 +570,7 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
 
         }
 
-        if(activities.size()==5) {
+        if(activities!=null||activities.size()==5) {
             activityImage1.setData(activities.get(0));
             activityImage2.setData(activities.get(1));
             activityImage3.setData(activities.get(2));
@@ -574,7 +578,7 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
             activityImage5.setData(activities.get(4));
         }
 
-        if(shops.size()==5) {
+        if(activities!=null||shops.size()==5) {
             Glide.with(LKApplication.getLKApplication()).load(shops.get(0).image).into(mShopMainImage1);
             mShopMainImage1.setOnClickListener(new View.OnClickListener() {
                 @Override

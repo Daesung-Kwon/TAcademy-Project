@@ -326,6 +326,7 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
                     arrayList.add(cartObject);
                     intent.putExtra("check out", arrayList);
                     startActivity(intent);
+                    finish();
                 }
 
                 break;

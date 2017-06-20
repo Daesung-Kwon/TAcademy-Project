@@ -25,6 +25,7 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.ViewTarget;
 import com.leisurekr.leisuresportskorea.profile.CartObject;
+import com.leisurekr.leisuresportskorea.profile.ProfileReservationActivity;
 import com.leisurekr.leisuresportskorea.profile.ProgramObject;
 import com.leisurekr.leisuresportskorea.profile.ShopObject;
 
@@ -104,6 +105,10 @@ public class BookInformationActivity extends AppCompatActivity {
                             "Please Input your phoneNumber",Toast.LENGTH_SHORT).show();
                 }else {
                     new AsyncCheckoutInsert(BookInformationActivity.this, 2).execute(checkoutObjects);
+                    Intent intent1 = new Intent(BookInformationActivity.this
+                            , ProfileReservationActivity.class);
+                    startActivity(intent1);
+                    finish();
                 }
             }
         });

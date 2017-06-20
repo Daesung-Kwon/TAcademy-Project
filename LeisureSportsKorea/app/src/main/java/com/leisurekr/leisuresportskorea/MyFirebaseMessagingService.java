@@ -14,6 +14,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.google.firebase.messaging.RemoteMessage;
+import com.leisurekr.leisuresportskorea.sharedPreferences.LKSharedPreferencesManager;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -27,6 +28,10 @@ public class MyFirebaseMessagingService extends com.google.firebase.messaging.Fi
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         Log.d(TAG, "onMessageReceived: "+remoteMessage.getData().get("title"));
+        LKApplication i = new LKApplication();
+        if(!LKSharedPreferencesManager.getInstance().getIsPushed()){
+            return;
+        }
         //추가한것
         Map<String, String> data =  remoteMessage.getData();
         Set<String> keys = data.keySet();

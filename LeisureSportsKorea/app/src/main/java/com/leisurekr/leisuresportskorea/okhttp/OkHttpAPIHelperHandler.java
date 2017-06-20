@@ -11,6 +11,7 @@ import com.leisurekr.leisuresportskorea.profile.CartObject;
 import com.leisurekr.leisuresportskorea.profile.FavoritesObject;
 import com.leisurekr.leisuresportskorea.profile.ProfileObject;
 import com.leisurekr.leisuresportskorea.profile.ReservationObject;
+import com.leisurekr.leisuresportskorea.sharedPreferences.LKSharedPreferencesManager;
 import com.leisurekr.leisuresportskorea.shop_detail.LKShopInfoObject;
 import com.leisurekr.leisuresportskorea.shop_detail.LKShopListObject;
 import com.leisurekr.leisuresportskorea.shop_detail.LKShopReviewsObject;
@@ -51,9 +52,8 @@ public class OkHttpAPIHelperHandler {
 
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_HOME_INFO_ALL_SELECT)
-                    .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION, LKSharedPreferencesManager.getInstance().getKeyToken())
                     .build();
-
             response = toServer.newCall(request).execute();
 
             flag = response.isSuccessful();
@@ -111,7 +111,7 @@ public class OkHttpAPIHelperHandler {
 
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_RESERVATION_INFO_ALL_SELECT)
-                    .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
                     .build();
 
             response = toServer.newCall(request).execute();
@@ -171,7 +171,7 @@ public class OkHttpAPIHelperHandler {
 
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_TICKET_INFO_ALL_SELECT)
-                    .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
                     .build();
 
             response = toServer.newCall(request).execute();
@@ -230,7 +230,7 @@ public class OkHttpAPIHelperHandler {
 
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_PROFILE_ALL_SELECT)
-                    .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
                     .build();
             response = toServer.newCall(request).execute();
             flag = response.isSuccessful();
@@ -287,10 +287,8 @@ public class OkHttpAPIHelperHandler {
 
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_CART_INFO_ALL_SELECT)
-                    .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
                     .build();
-
-            Log.e("test token id",NetworkDefineConstant.AUTH_TOKEN);
 
             response = toServer.newCall(request).execute();
 
@@ -362,7 +360,7 @@ public class OkHttpAPIHelperHandler {
             //요청 세팅(form(Query String) 방식의 포스트)
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_BOOK_INSERT)
-                    .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
                     .post(postBody)
                     .build();
             //동기 방식 실제 연결이 되고 요청이 이루어지는 부분
@@ -419,7 +417,7 @@ public class OkHttpAPIHelperHandler {
             //요청 세팅(form(Query String) 방식의 포스트)
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_EDIT_INSERT)
-                    .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
                     .put(postBody)
                     .build();
             //동기 방식 실제 연결이 되고 요청이 이루어지는 부분
@@ -473,7 +471,7 @@ public class OkHttpAPIHelperHandler {
             //요청 세팅(form(Query String) 방식의 포스트)
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_FAVOR_POST)
-                    .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
                     .post(postBody)
                     .build();
             //동기 방식 실제 연결이 되고 요청이 이루어지는 부분
@@ -513,8 +511,8 @@ public class OkHttpAPIHelperHandler {
 
         boolean flag;
         String checkoutInsertResultValue = "";
-        CheckoutObject reqParams = checkoutObjects[0];
-        Log.e("checkoutJSONinsert", Integer.toString(reqParams.getBookid()));
+        CheckoutObject[] reqParams = checkoutObjects;
+        //Log.e("checkoutJSONinsert", Integer.toString(reqParams[0].getBookid()));
         Response response = null;
         OkHttpClient toServer;
 
@@ -526,36 +524,38 @@ public class OkHttpAPIHelperHandler {
             Request request = null;
             switch (status) {
                 case 2:
-                postBody = new FormBody.Builder()
-                        .add("name", reqParams.getName())
-                        .add("pNum", reqParams.getPhoneNum())
-                        .add("email", reqParams.getEmail())
-                        .add("date", reqParams.getDate())
-                        .add("time", reqParams.getTime())
-                        .add("adult", Integer.toString(reqParams.getAdult()))
-                        .add("child", Integer.toString(reqParams.getChild()))
-                        .add("status", Integer.toString(status))
-                        .add("userId", Integer.toString(1))
-                        .add("programId", Integer.toString(reqParams.getProgramId()))
-                        .build();
-                    request = new Request.Builder()
-                            .url(NetworkDefineConstant.SERVER_URL_RESERVATION_DELEDTE)
-                            .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
-                            .post(postBody)
-                            .build();
+                    for(int i=0;i<reqParams.length;i++) {
+                        postBody = new FormBody.Builder()
+                                .add("name", reqParams[i].getName())
+                                .add("pNum", reqParams[i].getPhoneNum())
+                                .add("email", reqParams[i].getEmail())
+                                .add("date", reqParams[i].getDate())
+                                .add("time", reqParams[i].getTime())
+                                .add("adult", Integer.toString(reqParams[i].getAdult()))
+                                .add("child", Integer.toString(reqParams[i].getChild()))
+                                .add("status", Integer.toString(status))
+                                .add("programId", Integer.toString(reqParams[i].getProgramId()))
+                                .add("isPick", Boolean.toString(reqParams[i].getPicked()))
+                                .build();
+                        request = new Request.Builder()
+                                .url(NetworkDefineConstant.SERVER_URL_CHECKOUT_INSERT)
+                                .addHeader(NetworkDefineConstant.AUTHORIZATION, LKSharedPreferencesManager.getInstance().getKeyToken())
+                                .post(postBody)
+                                .build();
+                    }
 
                     break;
                 case 4:
                     postBody = new FormBody.Builder()
-                            .add("date", reqParams.getDate())
-                            .add("time", reqParams.getTime())
-                            .add("adult", Integer.toString(reqParams.getAdult()))
-                            .add("child", Integer.toString(reqParams.getChild()))
+                            .add("date", reqParams[0].getDate())
+                            .add("time", reqParams[0].getTime())
+                            .add("adult", Integer.toString(reqParams[0].getAdult()))
+                            .add("child", Integer.toString(reqParams[0].getChild()))
                             .add("status", Integer.toString(status))
                             .build();
                     request = new Request.Builder()
-                            .url(NetworkDefineConstant.SERVER_URL_RESERVATION_DELEDTE+"/"+reqParams.getBookid())
-                            .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
+                            .url(NetworkDefineConstant.SERVER_URL_RESERVATION_DELEDTE+"/"+reqParams[0].getBookid())
+                            .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
                             .put(postBody)
                             .build();
                     break;
@@ -611,7 +611,7 @@ public class OkHttpAPIHelperHandler {
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_CART_DELETE
                             + reqParams.getId())
-                    .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
                     .delete()
                     .build();
             //동기 방식 실제 연결이 되고 요청이 이루어지는 부분
@@ -666,7 +666,7 @@ public class OkHttpAPIHelperHandler {
                     .url(NetworkDefineConstant.SERVER_URL_SEARCH_INSERT
                             + "date=" + reqParams.getDate() +"&loc=강원도" + "&adult=" + reqParams.getAdult()
                             + "&child=" + reqParams.getChildren())
-                    .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
                     .build();
             //동기 방식 실제 연결이 되고 요청이 이루어지는 부분
             response = toServer.newCall(request).execute();
@@ -725,7 +725,7 @@ public class OkHttpAPIHelperHandler {
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_SHOP_DETAIL_INFO_ALL_SELECT
                             + "/" + String.valueOf(shopId))
-                    .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
                     .build();
 
             response = toServer.newCall(request).execute();
@@ -788,7 +788,7 @@ public class OkHttpAPIHelperHandler {
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_SHOP_ALL_SELECT
                             + "/" + String.valueOf(shopId))
-                    .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
                     .build();
 
             response = toServer.newCall(request).execute();
@@ -844,7 +844,7 @@ public class OkHttpAPIHelperHandler {
 
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_LIKE_ALL_SELECT)
-                    .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
                     .build();
 
             response = toServer.newCall(request).execute();
@@ -903,7 +903,7 @@ public class OkHttpAPIHelperHandler {
 
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_SHOP_ALL_SELECT)
-                    .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
                     .build();
 
             response = toServer.newCall(request).execute();
@@ -953,7 +953,7 @@ public class OkHttpAPIHelperHandler {
         boolean flag;
         String insertResultValue = "";
         int[] reqParams = data;
-        Log.e("reqParams", String.valueOf(reqParams.length));
+        Log.e("get", String.valueOf(reqParams.length));
         Response response = null;
         OkHttpClient toServer;
 
@@ -964,7 +964,7 @@ public class OkHttpAPIHelperHandler {
             //요청 세팅(form(Query String) 방식의 포스트)
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_INTERESTS_INSERT)
-                    .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
                     .post(postBody)
                     .build();
             //동기 방식
@@ -1080,7 +1080,7 @@ public class OkHttpAPIHelperHandler {
             //요청 세팅(form(Query String) 방식의 포스트)
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_FACEBOOK_USER_INFO_INSERT)
-                    .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
                     .post(postBody)
                     .build();
             //동기 방식
@@ -1139,7 +1139,7 @@ public class OkHttpAPIHelperHandler {
 
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_SHOP_REVIEW_ALL_SELECT + mShopIDURL)
-                    .addHeader(NetworkDefineConstant.AUTHORIZATION,NetworkDefineConstant.AUTH_TOKEN)
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
                     .build();
 
             response = toServer.newCall(request).execute();

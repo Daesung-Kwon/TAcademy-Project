@@ -21,6 +21,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.ViewTarget;
 import com.leisurekr.leisuresportskorea.R;
 import com.leisurekr.leisuresportskorea.okhttp.OkHttpAPIHelperHandler;
+import com.leisurekr.leisuresportskorea.sharedPreferences.LKSharedPreferencesManager;
 import com.leisurekr.leisuresportskorea.shop.TabFragment2;
 
 import java.util.HashMap;
@@ -88,7 +89,9 @@ public class TabFragment3 extends android.support.v4.app.Fragment implements Vie
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-
+                    LKSharedPreferencesManager.getInstance().setIsPushed(true);
+                }else{
+                    LKSharedPreferencesManager.getInstance().setIsPushed(false);
                 }
             }
         });
@@ -167,6 +170,12 @@ public class TabFragment3 extends android.support.v4.app.Fragment implements Vie
             }
         }
         tag.setText(interests);
+
+        if(LKSharedPreferencesManager.getInstance().getIsPushed()){
+            push.setChecked(true);
+        }else{
+            push.setChecked(false);
+        }
     }
 
 
