@@ -2,11 +2,14 @@ package com.leisurekr.leisuresportskorea.shop_detail;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,14 +33,17 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.leisurekr.leisuresportskorea.FavorObject;
 import com.leisurekr.leisuresportskorea.LKApplication;
 import com.leisurekr.leisuresportskorea.PaypalWebViewActivity;
 import com.leisurekr.leisuresportskorea.R;
 import com.leisurekr.leisuresportskorea.home.CircleAnimIndicator;
 import com.leisurekr.leisuresportskorea.okhttp.OkHttpAPIHelperHandler;
 import com.leisurekr.leisuresportskorea.shop.ShopInfoOnMapObject;
+import com.leisurekr.leisuresportskorea.shop.TabFragment2;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mobile on 2017. 5. 31..
@@ -159,6 +165,8 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback, Vi
 
         new AsyncShopInfoJSONList().execute();
 
+        myFavoriteBtn.setOnClickListener(this);
+        shareImageBtn.setOnClickListener(this);
         previousImageBtn.setOnClickListener(this);
         nextImageBtn.setOnClickListener(this);
         callingBtn.setOnClickListener(this);
@@ -267,13 +275,7 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback, Vi
                 startActivity(intent1);
                 break;
             case R.id.email_btn:
-                String uriText = "mailto:kownds.ken@gmail.com" +
-                                 "?subject=" + Uri.encode("Hello, Leisure Korea...") +
-                                 "&body=" + Uri.encode("to Leisure Korea,\n");
-                Uri uri = Uri.parse(uriText);
-                Intent intent2 = new Intent(Intent.ACTION_SENDTO);
-                intent2.setData(uri);
-                startActivity(Intent.createChooser(intent2, "Send email..."));
+                sendEmail();
                 break;
             case R.id.shop_info_prevbtn:
                 if(currentPage > 1 && currentPage < 5) {
@@ -293,11 +295,54 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback, Vi
                 if (shopInfoObject.reviewsObject.count > 0) {
                     intent = new Intent(getActivity(), ReviewActivity.class);
                     intent.putExtra("shopId", mShopId);
-                    Log.i("test", "before sending "+mShopId);
                     startActivity(intent);
                 }
                 break;
+            case R.id.share_item_icon:
+                sendShare();
+                break;
+            case R.id.favorite_item_icon:
+                changeFavorite();
+                break;
         }
+    }
+
+    public void sendEmail() {
+        String uriText = "mailto:kownds.ken@gmail.com" +
+                "?subject=" + Uri.encode("Hello, Leisure Korea...") +
+                "&body=" + Uri.encode("to Leisure Korea,\n");
+        Uri uri = Uri.parse(uriText);
+        Intent intent2 = new Intent(Intent.ACTION_SENDTO);
+        intent2.setData(uri);
+        startActivity(Intent.createChooser(intent2, "Send email..."));
+    }
+
+    public void changeFavorite() {
+        Log.e("heart in home","click");
+        final FavorObject favorObject = new FavorObject();
+        favorObject.setShopId(mShopId);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Log.e("heart","전");
+                final String result = OkHttpAPIHelperHandler.favorJSONInsert(favorObject);
+                Log.e("heart","후: "+result);
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(result.equals("success")) {
+                            if(myFavoriteBtn.isSelected()) {
+                                myFavoriteBtn.setImageResource(R.drawable.btn_heart_unpress);
+                                myFavoriteBtn.setSelected(false);
+                            }else{
+                                myFavoriteBtn.setImageResource(R.drawable.btn_heart_press);
+                                myFavoriteBtn.setSelected(true);
+                            }
+                        }
+                    }
+                });
+            }
+        }).start();
     }
 
     public class AsyncShopInfoJSONList
@@ -482,5 +527,42 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback, Vi
         if (shopInfoObject.isWashingKit == true) {
             prepareValues[3] = "1";
         }
+    }
+
+    private void sendShare() {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("image/*");
+
+        List<ResolveInfo> resInfo = owner.getPackageManager().queryIntentActivities(intent, 0);
+        if (resInfo.isEmpty()) {
+            return;
+        }
+
+        List<Intent> shareIntentList = new ArrayList<Intent>();
+
+        for (ResolveInfo info : resInfo) {
+            Intent shareIntent = (Intent) intent.clone();
+
+            if (info.activityInfo.packageName.toLowerCase().equals("com.facebook.katana")) {
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "http:/leisurekr.com");
+            } else if(info.activityInfo.packageName.toLowerCase().equals("com.kakao.talk")) {
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "http:/leisurekr.com");
+
+            }else{
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "http:/leisurekr.com");
+            }
+            shareIntent.setPackage(info.activityInfo.packageName);
+            //shareIntent.setPackage(info.activityInfo.packageName);
+            shareIntentList.add(shareIntent);
+        }
+
+        Intent chooserIntent = Intent.createChooser(shareIntentList.remove(0), "select");
+        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, shareIntentList.toArray(new Parcelable[]{}));
+        startActivity(chooserIntent);
     }
 }

@@ -480,7 +480,6 @@ public class OkHttpAPIHelperHandler {
             toServer = OkHttpInitSingletonManager.getOkHttpClient();
             //요청 바디부분을 Form세팅 url에 포함되지 않는 자료
             RequestBody postBody = new FormBody.Builder()
-                    .add("userId", Integer.toString(reqParams.getUserId()))
                     .add("shopId", Integer.toString(reqParams.getShopId()))
                     .build();
             //요청 세팅(form(Query String) 방식의 포스트)
@@ -990,40 +989,9 @@ public class OkHttpAPIHelperHandler {
         try {
             toServer = OkHttpInitSingletonManager.getOkHttpClient();
 
-            String queryString = "";
-            int cnt = 1;
-            for (int i = 0; i < param.size()-1; i++) {
-                if (param.get(i) == 1) {
-                    cnt++;
-                }
-            }
-
-            int cnt2 = 0;
-            for (int i = 0; i < param.size(); i++) {
-                if (i == 12) {
-                    switch (param.get(12)) {
-                        case 0:
-                            queryString += "alignment=Popularity";
-                            break;
-                        case 1:
-                            queryString += "alignment=Ratings";
-                            break;
-                        case 2:
-                            queryString += "alignment=Latest";
-                            break;
-                    }
-                }else {
-                    if (param.get(i) == 1) {
-                        queryString += "interest=";
-                        queryString += String.valueOf(i+1);
-                        cnt2++;
-                        if (cnt != cnt2) {
-                            queryString += "&";
-                        }
-                    }
-                }
-            }
+            String queryString = getAfterSetupQeury(param);
             Log.i("test", queryString);
+
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_SHOP_FILTERED_SELECT + queryString)
                     .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
@@ -1068,6 +1036,42 @@ public class OkHttpAPIHelperHandler {
             }
         }
         return shopListEntityObjects;
+    }
+    public static String getAfterSetupQeury(ArrayList<Integer> param) {
+        String queryString = "";
+        int cnt = 1;
+        for (int i = 0; i < param.size()-1; i++) {
+            if (param.get(i) == 1) {
+                cnt++;
+            }
+        }
+
+        int cnt2 = 0;
+        for (int i = 0; i < param.size(); i++) {
+            if (i == 12) {
+                switch (param.get(12)) {
+                    case 0:
+                        queryString += "alignment=Popularity";
+                        break;
+                    case 1:
+                        queryString += "alignment=Ratings";
+                        break;
+                    case 2:
+                        queryString += "alignment=Latest";
+                        break;
+                }
+            }else {
+                if (param.get(i) == 1) {
+                    queryString += "interest=";
+                    queryString += String.valueOf(i+1);
+                    cnt2++;
+                    if (cnt != cnt2) {
+                        queryString += "&";
+                    }
+                }
+            }
+        }
+        return queryString;
     }
 
     /**
