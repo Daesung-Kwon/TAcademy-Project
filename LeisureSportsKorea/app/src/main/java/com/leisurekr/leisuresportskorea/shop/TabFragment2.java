@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -41,7 +42,7 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
 
     static MainActivity owner;
     RecyclerView rv;
-    TabFragment2RVAdapter rvAdapter;
+    public static TabFragment2RVAdapter rvAdapter;
     TextView resultsCountTextView;
     TextView filterTag1;
     TextView filterTag2;
@@ -216,7 +217,39 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
         }
 
         public void addAll(ArrayList<LKShopListObject> objects) {
+            this.mResult.clear();
             this.mResult.addAll(objects);
+
+            resultsCountTextView.setText(mResult.size() + " Results");
+            tagList = new ArrayList<>();
+            tagList.clear();
+            for (int i = 0; i < mResult.size(); i++) {
+                String tagName = mResult.get(i).activityName;
+                if (tagList.isEmpty()) {
+                    tagList.add(tagName);
+                } else {
+                    if (!tagList.contains(tagName)) {
+                        tagList.add(tagName);
+                    }
+                }
+            }
+            switch (tagList.size()) {
+                case 1:
+                    setResultTagOne(tagList);
+                    break;
+                case 2:
+                    setResultTagTwo(tagList);
+                    break;
+                case 3:
+                    setResultTagThree(tagList);
+                    break;
+                case 4:
+                    setResultTagFour(tagList);
+                    break;
+            }
+            if (mResult.size() < 1) {
+                resultsCountTextView.setText("There is No Results");
+            }
         }
     }
 
@@ -245,49 +278,28 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
                 rvAdapter.addAll(result);
                 rvAdapter.notifyDataSetChanged();
 
-                resultsCountTextView.setText(result.size() + " Results");
-                tagList = new ArrayList<>(); tagList.clear();
-                for (int i = 0; i < result.size(); i++) {
-                    String tagName = result.get(i).activityName;
-                    if (tagList.isEmpty()) {
-                        tagList.add(tagName);
-                    } else {
-                        if (!tagList.contains(tagName)) {
-                            tagList.add(tagName);
-                        }
-                    }
-                }
-                switch (tagList.size()) {
-                    case 1:
-                        setResultTagOne(tagList);
-                        break;
-                    case 2:
-                        setResultTagTwo(tagList);
-                        break;
-                    case 3:
-                        setResultTagThree(tagList);
-                        break;
-                    case 4:
-                        setResultTagFour(tagList);
-                        break;
-                }
             }else {
-                resultsCountTextView.setText("There is No Results");
             }
         }
     }
 
     public void setResultTagOne(ArrayList<String> tagResult) {
         filterTag1.setText("#"+tagResult.get(0));
+        filterTag2.setText("");
+        filterTag3.setText("");
+        filterTag4.setText("");
     }
     public void setResultTagTwo(ArrayList<String> tagResult) {
         filterTag1.setText("#"+tagResult.get(0));
         filterTag2.setText("#"+tagResult.get(1));
+        filterTag3.setText("");
+        filterTag4.setText("");
     }
     public void setResultTagThree(ArrayList<String> tagResult) {
         filterTag1.setText("#"+tagResult.get(0));
         filterTag2.setText("#"+tagResult.get(1));
         filterTag3.setText("#"+tagResult.get(2));
+        filterTag4.setText("");
     }
     public void setResultTagFour(ArrayList<String> tagResult) {
         filterTag1.setText("#"+tagResult.get(0));

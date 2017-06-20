@@ -1,10 +1,12 @@
 package com.leisurekr.leisuresportskorea;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -35,15 +37,18 @@ import android.widget.Toast;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.leisurekr.leisuresportskorea.interfaces.ShopListSetListener;
+import com.leisurekr.leisuresportskorea.okhttp.OkHttpAPIHelperHandler;
 import com.leisurekr.leisuresportskorea.sharedPreferences.LKSharedPreferencesManager;
 import com.leisurekr.leisuresportskorea.shop.FilterActivity;
 import com.leisurekr.leisuresportskorea.shop.MapActivity;
+import com.leisurekr.leisuresportskorea.shop.TabFragment2;
 import com.leisurekr.leisuresportskorea.shop_detail.LKShopListObject;
 import com.leisurekr.leisuresportskorea.ticket.TicketActivity;
 
 import java.util.ArrayList;
 
 import static com.leisurekr.leisuresportskorea.R.id.action_search;
+import static com.leisurekr.leisuresportskorea.shop.TabFragment2.rvAdapter;
 
 
 public class MainActivity extends AppCompatActivity
@@ -137,7 +142,7 @@ public class MainActivity extends AppCompatActivity
     ImageView tabShop;
     ImageView tabMypage;
 
-    int callPopupActivityCount = 0;
+    ArrayList<Integer> query;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -263,7 +268,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 // TODO : HHere, insert New Activity for Filter
                 filterIntent = new Intent(MainActivity.this, FilterActivity.class);
-                startActivity(filterIntent);
+                startActivityForResult(filterIntent, FILTER_REQUEST);
                 animateFAB();
 
             }
@@ -618,6 +623,19 @@ public class MainActivity extends AppCompatActivity
     private long backPressedTime = 0;
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == FILTER_REQUEST && resultCode == RESULT_OK) {
+            query = data.getIntegerArrayListExtra("filteredValue");
+            /*for (int i = 0; i < query.size(); i++) {
+                Log.i("test", ""+query.get(i));
+            }*/
+            new AsyncShopInfoJSONFilterList().execute();
+        }
+    }
+
+    @Override
     public void onBackPressed() {
         long tempTime = System.currentTimeMillis();
         long intervalTime = tempTime - backPressedTime;
@@ -635,6 +653,35 @@ public class MainActivity extends AppCompatActivity
             } else {
                 backPressedTime = tempTime;
                 Toast.makeText(getApplicationContext(), "'뒤로'버튼을한번더누르시면종료됩니다.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    public class AsyncShopInfoJSONFilterList
+            extends AsyncTask<String, Integer, ArrayList<LKShopListObject>> {
+
+        ProgressDialog dialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //dialog = ProgressDialog.show(owner, "", "Loading...", true);
+        }
+
+        @Override
+        protected ArrayList<LKShopListObject> doInBackground(String... params) {
+            return OkHttpAPIHelperHandler.shopListJSONAllSelect(query);
+        }
+        @Override
+        protected void onPostExecute(ArrayList<LKShopListObject> result) {
+            //dialog.dismiss();
+            if (result != null && result.size() > 0) {
+                // MainActivity.class로 Object 전달
+                // Adapter result 값 Add
+                rvAdapter.addAll(result);
+                rvAdapter.notifyDataSetChanged();
+
+            }else {
             }
         }
     }

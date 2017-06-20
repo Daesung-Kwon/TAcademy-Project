@@ -14,6 +14,7 @@ public class NetworkDefineConstant {
 
     //요청 URL path
     public static String SERVER_URL_SHOP_ALL_SELECT;
+    public static String SERVER_URL_SHOP_FILTERED_SELECT;
     public static String SERVER_URL_SHOP_REVIEW_ALL_SELECT;
     public static String SERVER_URL_HOME_INFO_ALL_SELECT;
     public static String SERVER_URL_RESERVATION_INFO_ALL_SELECT;
@@ -41,6 +42,8 @@ public class NetworkDefineConstant {
     static {
         SERVER_URL_SHOP_ALL_SELECT =
                 HOST_URL + "/shops";
+        SERVER_URL_SHOP_FILTERED_SELECT =
+                HOST_URL + "/shops?";
         SERVER_URL_SHOP_REVIEW_ALL_SELECT =
                 HOST_URL + "/reviews";
         SERVER_URL_REVIEW_INSERT =
