@@ -3,8 +3,10 @@ package com.leisurekr.leisuresportskorea.shop;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,6 +32,7 @@ import com.leisurekr.leisuresportskorea.shop_detail.LKShopListObject;
 import com.leisurekr.leisuresportskorea.shop_detail.ShopDetailActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mobile on 2017. 5. 11..
@@ -41,7 +44,7 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
 
     static MainActivity owner;
     RecyclerView rv;
-    TabFragment2RVAdapter rvAdapter;
+    public static TabFragment2RVAdapter rvAdapter;
     TextView resultsCountTextView;
     TextView filterTag1;
     TextView filterTag2;
@@ -54,18 +57,18 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
         super.onAttach(context);
         if (context instanceof ShopListSetListener) {
             shopListSetListener = (ShopListSetListener) context;
-        }else {
+        } else {
             throw new RuntimeException(context.toString()
-            + " must implement ShopListSetListener");
+                    + " must implement ShopListSetListener");
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tab_fragment_2, container, false);
-        Log.e("TabFragment2","onCreateView()");
+        Log.e("TabFragment2", "onCreateView()");
         tabFragment2 = this;
-        owner = (MainActivity)getActivity();
+        owner = (MainActivity) getActivity();
 
         resultsCountTextView = (TextView) view.findViewById(R.id.result_count_text_tab2);
         filterTag1 = (TextView) view.findViewById(R.id.selected_filter_text1);
@@ -101,23 +104,25 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
         public TabFragment2RVAdapter(ArrayList<LKShopListObject> resources) {
             mResult = resources;
         }
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            public final View mView;
-            public final LinearLayout dim;
 
-            public final ImageView mShopMainImage;
-            public final TextView mFilterTag;
-            public final ImageView mShopCircleImage;
-            public final TextView mShopName;
-            public final TextView mShopLocation;
-            public final TextView mShopRating;
-            public final TextView mShopPrice;
-            public final ImageView mLikes;
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            public View mView;
+            public LinearLayout dim;
+
+            public ImageView mShopMainImage;
+            public TextView mFilterTag;
+            public ImageView mShopCircleImage;
+            public TextView mShopName;
+            public TextView mShopLocation;
+            public TextView mShopRating;
+            public TextView mShopPrice;
+            public ImageView mLikes;
+            public ImageView mShare;
 
             public ViewHolder(View view) {
                 super(view);
                 mView = view;
-                dim = (LinearLayout)view.findViewById(R.id.shop_dim);
+                dim = (LinearLayout) view.findViewById(R.id.shop_dim);
 
                 mFilterTag = (TextView) view.findViewById(R.id.filtered_text_in_shop);
                 mShopMainImage = (ImageView) view.findViewById(R.id.shop_main_image);
@@ -127,15 +132,18 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
                 mShopRating = (TextView) view.findViewById(R.id.shop_rating_text);
                 mShopPrice = (TextView) view.findViewById(R.id.shop_price_text);
                 mLikes = (ImageView) view.findViewById(R.id.favorite_item_icon_in_shop);
+                mShare = (ImageView) view.findViewById(R.id.share_item_icon_in_shop);
 
             }
         }
+
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(
                     R.layout.tab_fragment_2_item, parent, false);
             return new ViewHolder(view);
         }
+
         @Override
         public void onBindViewHolder(final TabFragment2RVAdapter.ViewHolder holder, int position) {
             int p = position;
@@ -166,18 +174,18 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .override(40, 40)
                     .into(holder.mShopCircleImage);
-            Log.e("test", ""+shopInfo.likes);
+            Log.e("test22", "" + shopInfo.likes);
             if (shopInfo.likes) {
                 holder.mLikes.setImageResource(R.drawable.btn_heart_press);
                 holder.mLikes.setSelected(true);
-            }else{
+            } else {
                 holder.mLikes.setImageResource(R.drawable.btn_heart_unpress);
                 holder.mLikes.setSelected(false);
             }
             holder.mLikes.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.e("heart in home","click");
+                    Log.e("heart in home", "click");
                     final FavorObject favorObject = new FavorObject();
                     favorObject.setShopId(shopInfo.shopId);
                     favorObject.setUserId(1);
@@ -188,12 +196,12 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
                             owner.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Log.e("heart",result);
-                                    if(result.equals("success")) {
-                                        if(holder.mLikes.isSelected()) {
+                                    Log.e("heart", result);
+                                    if (result.equals("success")) {
+                                        if (holder.mLikes.isSelected()) {
                                             holder.mLikes.setImageResource(R.drawable.btn_heart_unpress);
                                             holder.mLikes.setSelected(false);
-                                        }else{
+                                        } else {
                                             holder.mLikes.setImageResource(R.drawable.btn_heart_press);
                                             holder.mLikes.setSelected(true);
                                         }
@@ -208,6 +216,12 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
 
                 }
             });
+            holder.mShare.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    sendShare();
+                }
+            });
         }
 
         @Override
@@ -216,7 +230,39 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
         }
 
         public void addAll(ArrayList<LKShopListObject> objects) {
+            this.mResult.clear();
             this.mResult.addAll(objects);
+
+            resultsCountTextView.setText(mResult.size() + " Results");
+            tagList = new ArrayList<>();
+            tagList.clear();
+            for (int i = 0; i < mResult.size(); i++) {
+                String tagName = mResult.get(i).activityName;
+                if (tagList.isEmpty()) {
+                    tagList.add(tagName);
+                } else {
+                    if (!tagList.contains(tagName)) {
+                        tagList.add(tagName);
+                    }
+                }
+            }
+            switch (tagList.size()) {
+                case 1:
+                    setResultTagOne(tagList);
+                    break;
+                case 2:
+                    setResultTagTwo(tagList);
+                    break;
+                case 3:
+                    setResultTagThree(tagList);
+                    break;
+                case 4:
+                    setResultTagFour(tagList);
+                    break;
+            }
+            if (mResult.size() < 1) {
+                resultsCountTextView.setText("There is No Results");
+            }
         }
     }
 
@@ -235,6 +281,7 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
         protected ArrayList<LKShopListObject> doInBackground(String... params) {
             return OkHttpAPIHelperHandler.shopListJSONAllSelect();
         }
+
         @Override
         protected void onPostExecute(ArrayList<LKShopListObject> result) {
             //dialog.dismiss();
@@ -245,54 +292,85 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
                 rvAdapter.addAll(result);
                 rvAdapter.notifyDataSetChanged();
 
-                resultsCountTextView.setText(result.size() + " Results");
-                tagList = new ArrayList<>(); tagList.clear();
-                for (int i = 0; i < result.size(); i++) {
-                    String tagName = result.get(i).activityName;
-                    if (tagList.isEmpty()) {
-                        tagList.add(tagName);
-                    } else {
-                        if (!tagList.contains(tagName)) {
-                            tagList.add(tagName);
-                        }
-                    }
-                }
-                switch (tagList.size()) {
-                    case 1:
-                        setResultTagOne(tagList);
-                        break;
-                    case 2:
-                        setResultTagTwo(tagList);
-                        break;
-                    case 3:
-                        setResultTagThree(tagList);
-                        break;
-                    case 4:
-                        setResultTagFour(tagList);
-                        break;
-                }
-            }else {
-                resultsCountTextView.setText("There is No Results");
+            } else {
             }
         }
     }
 
     public void setResultTagOne(ArrayList<String> tagResult) {
-        filterTag1.setText("#"+tagResult.get(0));
+        filterTag1.setText("#" + tagResult.get(0));
+        filterTag2.setText("");
+        filterTag3.setText("");
+        filterTag4.setText("");
     }
+
     public void setResultTagTwo(ArrayList<String> tagResult) {
-        filterTag1.setText("#"+tagResult.get(0));
-        filterTag2.setText("#"+tagResult.get(1));
+        filterTag1.setText("#" + tagResult.get(0));
+        filterTag2.setText("#" + tagResult.get(1));
+        filterTag3.setText("");
+        filterTag4.setText("");
     }
+
     public void setResultTagThree(ArrayList<String> tagResult) {
-        filterTag1.setText("#"+tagResult.get(0));
-        filterTag2.setText("#"+tagResult.get(1));
-        filterTag3.setText("#"+tagResult.get(2));
+        filterTag1.setText("#" + tagResult.get(0));
+        filterTag2.setText("#" + tagResult.get(1));
+        filterTag3.setText("#" + tagResult.get(2));
+        filterTag4.setText("");
     }
+
     public void setResultTagFour(ArrayList<String> tagResult) {
-        filterTag1.setText("#"+tagResult.get(0));
-        filterTag2.setText("#"+tagResult.get(1));
-        filterTag3.setText("#"+tagResult.get(2));
-        filterTag4.setText("#"+tagResult.get(3));
+        filterTag1.setText("#" + tagResult.get(0));
+        filterTag2.setText("#" + tagResult.get(1));
+        filterTag3.setText("#" + tagResult.get(2));
+        filterTag4.setText("#" + tagResult.get(3));
+    }
+
+    private void sendShare() {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("image/*");
+
+        List<ResolveInfo> resInfo = owner.getPackageManager().queryIntentActivities(intent, 0);
+        if (resInfo.isEmpty()) {
+            return;
+        }
+
+        List<Intent> shareIntentList = new ArrayList<Intent>();
+
+        for (ResolveInfo info : resInfo) {
+            Intent shareIntent = (Intent) intent.clone();
+
+            if (info.activityInfo.packageName.toLowerCase().equals("com.facebook.katana")) {
+//facebook
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "http:/leisurekr.com");
+// shareIntent.setType("image/jpg");
+// shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///"+mImagePath));
+            } else if (info.activityInfo.packageName.toLowerCase().equals("com.kakao.talk")) {
+                /*shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "http://www.google.com");*/
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "http:/leisurekr.com");
+                //shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///"+mImagePath));
+
+                /*File dirName = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + "/Camera");  //디렉토리를 지정합니다.
+                String fileName = "20170527_102814.jpg"; //공유할 이미지 파일 명
+                File file = new File(dirName, fileName); //image 파일의 경로를 설정합니다.
+                Uri mSaveImageUri = Uri.fromFile(file); //file의 경로를 uri로 변경합니다.*/
+                //shareIntent.putExtra(Intent.EXTRA_STREAM, mSaveImageUri);
+
+            } else {
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "http:/leisurekr.com");
+            }
+            shareIntent.setPackage(info.activityInfo.packageName);
+            //shareIntent.setPackage(info.activityInfo.packageName);
+            shareIntentList.add(shareIntent);
+        }
+
+        Intent chooserIntent = Intent.createChooser(shareIntentList.remove(0), "select");
+        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, shareIntentList.toArray(new Parcelable[]{}));
+        startActivity(chooserIntent);
     }
 }

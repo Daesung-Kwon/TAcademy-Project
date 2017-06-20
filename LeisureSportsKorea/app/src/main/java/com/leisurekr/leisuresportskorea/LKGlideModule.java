@@ -14,9 +14,9 @@ import com.bumptech.glide.module.GlideModule;
  */
 public class LKGlideModule implements GlideModule {
 
-    private static final int DEFAULT_DISK_CACHE_SIZE = 200 * 1024 * 1024;
-    private static final int DEFAULT_MEMORY_CACHE_SIZE = 15 * 1024 * 1024;
-    private static final int DEFAULT_BITMAP_POOL_SIZE = 15 * 1024 * 1024;
+    private static final int DEFAULT_DISK_CACHE_SIZE = 150 * 1024 * 1024;
+    private static final int DEFAULT_MEMORY_CACHE_SIZE = 20 * 1024 * 1024;
+    private static final int DEFAULT_BITMAP_POOL_SIZE = 20 * 1024 * 1024;
     private static final String DEFAULT_DISK_CACHE_DIR = "com_haewonlee_sl_imagedir";
 
     @Override

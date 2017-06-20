@@ -30,6 +30,7 @@ import android.widget.Toast;
 
 import com.leisurekr.leisuresportskorea.R;
 import com.leisurekr.leisuresportskorea.common.NetworkDefineConstant;
+import com.leisurekr.leisuresportskorea.sharedPreferences.LKSharedPreferencesManager;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -355,6 +356,8 @@ public class WriteReviewActivity extends AppCompatActivity {
                 Request request = new Request.Builder()
                         .url(NetworkDefineConstant.SERVER_URL_REVIEW_INSERT)
                         .post(fileUploadBody) //반드시 post로
+                        .addHeader(NetworkDefineConstant.AUTHORIZATION,
+                                LKSharedPreferencesManager.getInstance().getKeyToken())
                         .build();
 
                 //동기 방식

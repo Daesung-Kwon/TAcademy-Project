@@ -593,7 +593,6 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
             share1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     sendShare();
                 }
             });
@@ -633,6 +632,13 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
                 heart2.setImageResource(R.drawable.btn_heart_unpress);
                 heart2.setSelected(false);
             }
+            share2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    sendShare();
+                }
+            });
+
 
             Glide.with(LKApplication.getLKApplication()).load(shops.get(2).image).into(mShopMainImage3);
             mShopMainImage3.setOnClickListener(new View.OnClickListener() {
@@ -657,6 +663,12 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
                 heart3.setImageResource(R.drawable.btn_heart_unpress);
                 heart3.setSelected(false);
             }
+            share3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    sendShare();
+                }
+            });
 
             Glide.with(LKApplication.getLKApplication()).load(shops.get(3).image).into(mShopMainImage4);
             mShopMainImage4.setOnClickListener(new View.OnClickListener() {
@@ -681,6 +693,12 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
                 heart4.setImageResource(R.drawable.btn_heart_unpress);
                 heart4.setSelected(false);
             }
+            share4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    sendShare();
+                }
+            });
 
             Glide.with(LKApplication.getLKApplication()).load(shops.get(4).image).into(mShopMainImage5);
             mShopMainImage5.setOnClickListener(new View.OnClickListener() {
@@ -705,6 +723,12 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
                 heart5.setImageResource(R.drawable.btn_heart_unpress);
                 heart5.setSelected(false);
             }
+            share5.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    sendShare();
+                }
+            });
         }
     }
 
@@ -737,15 +761,15 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
             if (info.activityInfo.packageName.toLowerCase().equals("com.facebook.katana")) {
 //facebook
                 shareIntent.setType("text/plain");
-                shareIntent.putExtra(Intent.EXTRA_TEXT, "http://www.google.com");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "http:/leisurekr.com");
 // shareIntent.setType("image/jpg");
 // shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///"+mImagePath));
             } else if(info.activityInfo.packageName.toLowerCase().equals("com.kakao.talk")) {
                 /*shareIntent.setType("text/plain");
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "http://www.google.com");*/
                 shareIntent.setType("text/plain");
-                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "제목123");
-                shareIntent.putExtra(Intent.EXTRA_TEXT, "구글 http://www.google.com #");
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "http:/leisurekr.com");
                 //shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///"+mImagePath));
 
                 /*File dirName = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + "/Camera");  //디렉토리를 지정합니다.
@@ -754,6 +778,10 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
                 Uri mSaveImageUri = Uri.fromFile(file); //file의 경로를 uri로 변경합니다.*/
                 //shareIntent.putExtra(Intent.EXTRA_STREAM, mSaveImageUri);
 
+            }else{
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "http:/leisurekr.com");
             }
             shareIntent.setPackage(info.activityInfo.packageName);
             //shareIntent.setPackage(info.activityInfo.packageName);

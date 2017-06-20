@@ -1,5 +1,6 @@
 package com.leisurekr.leisuresportskorea.shop;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.leisurekr.leisuresportskorea.R;
+
+import java.util.ArrayList;
 
 /**
  * Created by mobile on 2017. 5. 29..
@@ -28,7 +31,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
     int colorToggleOff = Color.parseColor("#838383");
 
     static int[] interestsValues = new int[] {
-            1, 1, 1, 1,
+            0, 0, 0, 0,
             0, 0, 0, 0,
             0, 0, 0, 0
     };
@@ -78,6 +81,21 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.save_button:
                 finish();
 
+                // TODO: 선택 값 서버 전송
+                Intent intent = new Intent();
+                ArrayList<Integer> param = new ArrayList<>();
+                for (int i = 0; i < gridAdapter.tag.length; i++) {
+                    param.add(i, gridAdapter.tag[i]);
+                    //Log.i("test", ""+param.get(i));
+                }
+                for (int i = 0; i < TOGGLE_MAX_COUNT; i++) {
+                    if (toggleValues[i].equals("1")) {
+                        param.add(i);
+                    }
+                }
+                intent.putExtra("filteredValue", param);
+                setResult(RESULT_OK, intent);
+                finish();
                 break;
             case R.id.popularity_in_filter:
                 popularityToggleBtn.setBackgroundColor(colorToggleOn);

@@ -3,9 +3,11 @@ package com.leisurekr.leisuresportskorea;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -38,6 +40,7 @@ import com.leisurekr.leisuresportskorea.shop_detail.ShopDetailActivity;
 import com.leisurekr.leisuresportskorea.ticket.TicketActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.leisurekr.leisuresportskorea.R.id.action_search;
 
@@ -186,6 +189,7 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
             public TextView mShopRating;
             public TextView mShopPrice;
             public ImageView mLikes;
+            public ImageView mShare;
 
 
             public ViewHolder(View view) {
@@ -201,7 +205,7 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
                 mShopRating = (TextView) view.findViewById(R.id.result_rating_text);
                 mShopPrice = (TextView) view.findViewById(R.id.result_price_text);
                 mLikes = (ImageView) view.findViewById(R.id.favorite_item_icon_in_result);
-
+                mShare = (ImageView) view.findViewById(R.id.share_item_icon_in_result);
             }
         }
         @Override
@@ -254,7 +258,7 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
                 @Override
                 public void onClick(View v) {
                     Log.e("heart in home","click");
-                    final FavorObject favorObject = new FavorObject();
+                    /*final FavorObject favorObject = new FavorObject();
                     favorObject.setShopId(shopInfo.shopId);
                     favorObject.setUserId(1);
                     new Thread(new Runnable() {
@@ -274,11 +278,19 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
                                             holder.mLikes.setSelected(true);
                                         }
                                     }
+                                    TabFragment1.ft.detach(TabFragment2.tabFragment2)
+                                            .attach(TabFragment2.tabFragment2).commit();
                                 }
                             });
                         }
-                    }).start();
+                    }).start();*/
 
+                }
+            });
+            holder.mShare.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    sendShare();
                 }
             });
         }
@@ -610,5 +622,40 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
         }else{
             super.onBackPressed();
         }
+    }
+
+    private void sendShare() {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("image/*");
+
+        List<ResolveInfo> resInfo = getPackageManager().queryIntentActivities(intent, 0);
+        if (resInfo.isEmpty()) {
+            return;
+        }
+
+        List<Intent> shareIntentList = new ArrayList<Intent>();
+
+        for (ResolveInfo info : resInfo) {
+            Intent shareIntent = (Intent) intent.clone();
+
+            if (info.activityInfo.packageName.toLowerCase().equals("com.facebook.katana")) {
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "http:/leisurekr.com");
+            } else if(info.activityInfo.packageName.toLowerCase().equals("com.kakao.talk")) {
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "http:/leisurekr.com");
+            }else{
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "http:/leisurekr.com");
+            }
+            shareIntent.setPackage(info.activityInfo.packageName);
+            shareIntentList.add(shareIntent);
+        }
+
+        Intent chooserIntent = Intent.createChooser(shareIntentList.remove(0), "select");
+        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, shareIntentList.toArray(new Parcelable[]{}));
+        startActivity(chooserIntent);
     }
 }

@@ -2,8 +2,10 @@ package com.leisurekr.leisuresportskorea.profile;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,6 +30,7 @@ import com.leisurekr.leisuresportskorea.shop_detail.ShopDetailActivity;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 public class ProfileFavoritesActivity extends AppCompatActivity {
@@ -75,6 +78,7 @@ public class ProfileFavoritesActivity extends AppCompatActivity {
             public final TextView mShopRating;
             public final TextView mShopPrice;
             public final ImageView mLikes;
+            public final ImageView mShare;
 
             public ViewHolder(View view) {
                 super(view);
@@ -90,7 +94,7 @@ public class ProfileFavoritesActivity extends AppCompatActivity {
                 mShopRating = (TextView) view.findViewById(R.id.shop_rating_text);
                 mShopPrice = (TextView) view.findViewById(R.id.shop_price_text);
                 mLikes = (ImageView) view.findViewById(R.id.favorite_item_icon_in_shop);
-
+                mShare = (ImageView) view.findViewById(R.id.share_item_icon_in_shop);
             }
         }
 
@@ -188,6 +192,13 @@ public class ProfileFavoritesActivity extends AppCompatActivity {
 
                 }
             });
+
+            holder.mShare.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    sendShare();
+                }
+            });
         }
 
         @Override
@@ -240,5 +251,54 @@ public class ProfileFavoritesActivity extends AppCompatActivity {
                 finish();
         }
         return true;
+    }
+
+    private void sendShare() {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("image/*");
+
+        List<ResolveInfo> resInfo = getPackageManager().queryIntentActivities(intent, 0);
+        if (resInfo.isEmpty()) {
+            return;
+        }
+
+        List<Intent> shareIntentList = new ArrayList<Intent>();
+
+        for (ResolveInfo info : resInfo) {
+            Intent shareIntent = (Intent) intent.clone();
+
+            if (info.activityInfo.packageName.toLowerCase().equals("com.facebook.katana")) {
+//facebook
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "http:/leisurekr.com");
+// shareIntent.setType("image/jpg");
+// shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///"+mImagePath));
+            } else if(info.activityInfo.packageName.toLowerCase().equals("com.kakao.talk")) {
+                /*shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "http://www.google.com");*/
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "http:/leisurekr.com");
+                //shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///"+mImagePath));
+
+                /*File dirName = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + "/Camera");  //디렉토리를 지정합니다.
+                String fileName = "20170527_102814.jpg"; //공유할 이미지 파일 명
+                File file = new File(dirName, fileName); //image 파일의 경로를 설정합니다.
+                Uri mSaveImageUri = Uri.fromFile(file); //file의 경로를 uri로 변경합니다.*/
+                //shareIntent.putExtra(Intent.EXTRA_STREAM, mSaveImageUri);
+
+            }else{
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "http:/leisurekr.com");
+            }
+            shareIntent.setPackage(info.activityInfo.packageName);
+            //shareIntent.setPackage(info.activityInfo.packageName);
+            shareIntentList.add(shareIntent);
+        }
+
+        Intent chooserIntent = Intent.createChooser(shareIntentList.remove(0), "select");
+        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, shareIntentList.toArray(new Parcelable[]{}));
+        startActivity(chooserIntent);
     }
 }

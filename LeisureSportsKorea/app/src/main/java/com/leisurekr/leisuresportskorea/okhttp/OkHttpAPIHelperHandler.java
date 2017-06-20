@@ -1,9 +1,11 @@
 package com.leisurekr.leisuresportskorea.okhttp;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.leisurekr.leisuresportskorea.CheckoutObject;
 import com.leisurekr.leisuresportskorea.FavorObject;
+import com.leisurekr.leisuresportskorea.LKApplication;
 import com.leisurekr.leisuresportskorea.SearchObject;
 import com.leisurekr.leisuresportskorea.common.NetworkDefineConstant;
 import com.leisurekr.leisuresportskorea.home.HomeObject;
@@ -82,6 +84,8 @@ public class OkHttpAPIHelperHandler {
 
             } else {
                 //요청에러 발생시(http 에러)
+                Toast.makeText(LKApplication.getLKApplication(),
+                        "Error in Loading\nPlease restart after few minutes", Toast.LENGTH_SHORT).show();
             }
 
         } catch (UnknownHostException une) {
@@ -142,6 +146,8 @@ public class OkHttpAPIHelperHandler {
 
             } else {
                 //요청에러 발생시(http 에러)
+                Toast.makeText(LKApplication.getLKApplication(),
+                        "Error in Loading\nPlease restart after few minutes", Toast.LENGTH_SHORT).show();
             }
 
         } catch (UnknownHostException une) {
@@ -202,6 +208,8 @@ public class OkHttpAPIHelperHandler {
 
             } else {
                 //요청에러 발생시(http 에러)
+                Toast.makeText(LKApplication.getLKApplication(),
+                        "Error in Loading\nPlease restart after few minutes", Toast.LENGTH_SHORT).show();
             }
 
         } catch (UnknownHostException une) {
@@ -257,6 +265,8 @@ public class OkHttpAPIHelperHandler {
 
             } else {
                 //요청에러 발생시(http 에러)
+                Toast.makeText(LKApplication.getLKApplication(),
+                        "Error in Loading\nPlease restart after few minutes", Toast.LENGTH_SHORT).show();
             }
 
         } catch (UnknownHostException une) {
@@ -319,6 +329,8 @@ public class OkHttpAPIHelperHandler {
 
             } else {
                 //요청에러 발생시(http 에러)
+                Toast.makeText(LKApplication.getLKApplication(),
+                        "Error in Loading\nPlease restart after few minutes", Toast.LENGTH_SHORT).show();
             }
 
         } catch (UnknownHostException une) {
@@ -379,7 +391,8 @@ public class OkHttpAPIHelperHandler {
                 }
             } else {
                 //요청에러 발생시(http 에러)
-                Log.e("toCart", "flag = false");
+                Toast.makeText(LKApplication.getLKApplication(),
+                        "Error in Loading\nPlease restart after few minutes", Toast.LENGTH_SHORT).show();
             }
 
         } catch (UnknownHostException une) {
@@ -437,6 +450,8 @@ public class OkHttpAPIHelperHandler {
             } else {
                 //요청에러 발생시(http 에러)
                 Log.e("toCart", "flag = false");
+                Toast.makeText(LKApplication.getLKApplication(),
+                        "Error in Loading\nPlease restart after few minutes", Toast.LENGTH_SHORT).show();
             }
 
         } catch (UnknownHostException une) {
@@ -491,6 +506,8 @@ public class OkHttpAPIHelperHandler {
             } else {
                 //요청에러 발생시(http 에러)
                 Log.e("Favor", "flag = false");
+                Toast.makeText(LKApplication.getLKApplication(),
+                        "Error in Loading\nPlease restart after few minutes", Toast.LENGTH_SHORT).show();
             }
 
         } catch (UnknownHostException une) {
@@ -600,7 +617,9 @@ public class OkHttpAPIHelperHandler {
                 }
             } else {
                 //요청에러 발생시(http 에러)
-                Log.e("checkoutJSONInsert", "flag = null  " + status);
+                Log.e("checkoutJSONInsert", "flag = false  "+status);
+                Toast.makeText(LKApplication.getLKApplication(),
+                        "Error in Loading\nPlease restart after few minutes", Toast.LENGTH_SHORT).show();
             }
 
         } catch (UnknownHostException une) {
@@ -654,6 +673,8 @@ public class OkHttpAPIHelperHandler {
                 }
             } else {
                 //요청에러 발생시(http 에러)
+                Toast.makeText(LKApplication.getLKApplication(),
+                        "Error in Loading\nPlease restart after few minutes", Toast.LENGTH_SHORT).show();
             }
 
         } catch (UnknownHostException une) {
@@ -715,6 +736,8 @@ public class OkHttpAPIHelperHandler {
             } else {
                 //요청에러 발생시(http 에러)
                 Log.i("searchJSONInsert()", "요청 에러");
+                Toast.makeText(LKApplication.getLKApplication(),
+                        "Error in Loading\nPlease restart after few minutes", Toast.LENGTH_SHORT).show();
             }
         } catch (UnknownHostException une) {
             Log.i("aaa", une.toString());
@@ -775,6 +798,8 @@ public class OkHttpAPIHelperHandler {
 
             } else {
                 //요청에러 발생시(http 에러)
+                Toast.makeText(LKApplication.getLKApplication(),
+                        "Error in Loading\nPlease restart after few minutes", Toast.LENGTH_SHORT).show();
             }
 
         } catch (UnknownHostException une) {
@@ -837,6 +862,8 @@ public class OkHttpAPIHelperHandler {
             } else {
                 //요청에러 발생시(http 에러)
                 Log.e("Handler 오류", "Flag is NULL");
+                Toast.makeText(LKApplication.getLKApplication(),
+                        "Error in Loading\nPlease restart after few minutes", Toast.LENGTH_SHORT).show();
 
             }
 
@@ -893,6 +920,8 @@ public class OkHttpAPIHelperHandler {
 
             } else {
                 //요청에러 발생시(http 에러)
+                Toast.makeText(LKApplication.getLKApplication(),
+                        "Error in Loading\nPlease restart after few minutes", Toast.LENGTH_SHORT).show();
             }
 
         } catch (UnknownHostException une) {
@@ -951,6 +980,102 @@ public class OkHttpAPIHelperHandler {
 
             } else {
                 //요청에러 발생시(http 에러)
+                Toast.makeText(LKApplication.getLKApplication(),
+                        "Error in Loading\nPlease restart after few minutes", Toast.LENGTH_SHORT).show();
+            }
+
+        } catch (UnknownHostException une) {
+            e("une", une.toString());
+        } catch (UnsupportedEncodingException uee) {
+            e("uee", uee.toString());
+        } catch (Exception e) {
+            e("e", e.toString());
+        } finally { /** TODO : Very Important!!! **/
+            if (response != null) {
+                response.close(); //3.* 이상에서는 반드시 닫아 준다.
+            }
+        }
+        return shopListEntityObjects;
+    }
+
+    /**
+     * 샵 필터 리스트
+     *
+     * @return
+     */
+    public static ArrayList<LKShopListObject> shopListJSONAllSelect(ArrayList<Integer> param) {
+        OkHttpClient toServer = null;
+        ArrayList<LKShopListObject> shopListEntityObjects = null;
+        boolean flag;
+        Response response = null;
+
+        try {
+            toServer = OkHttpInitSingletonManager.getOkHttpClient();
+
+            String queryString = "";
+            int cnt = 1;
+            for (int i = 0; i < param.size()-1; i++) {
+                if (param.get(i) == 1) {
+                    cnt++;
+                }
+            }
+
+            int cnt2 = 0;
+            for (int i = 0; i < param.size(); i++) {
+                if (i == 12) {
+                    switch (param.get(12)) {
+                        case 0:
+                            queryString += "alignment=Popularity";
+                            break;
+                        case 1:
+                            queryString += "alignment=Ratings";
+                            break;
+                        case 2:
+                            queryString += "alignment=Latest";
+                            break;
+                    }
+                }else {
+                    if (param.get(i) == 1) {
+                        queryString += "interest=";
+                        queryString += String.valueOf(i+1);
+                        cnt2++;
+                        if (cnt != cnt2) {
+                            queryString += "&";
+                        }
+                    }
+                }
+            }
+            Log.i("test", queryString);
+            Request request = new Request.Builder()
+                    .url(NetworkDefineConstant.SERVER_URL_SHOP_FILTERED_SELECT + queryString)
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
+                    .build();
+
+            response = toServer.newCall(request).execute();
+
+            flag = response.isSuccessful();
+
+            String returnedJSON;
+            JSONObject jsonObject = null;
+
+            if (flag) { //성공했다면
+                returnedJSON = response.body().string();
+                Log.e("test", returnedJSON);
+
+                try {
+                    jsonObject = new JSONObject(returnedJSON);
+
+                } catch (JSONException jsonE) {
+                    Log.e("json에러", jsonE.toString());
+                }
+                // Parser가 들어간다.
+                shopListEntityObjects = OkHttpJSONDataParseHandler.getJSONShopList(jsonObject);
+                Log.e("Handler 성공", "getJSONShopList Handler 성공");
+
+            } else {
+                //요청에러 발생시(http 에러)
+                Toast.makeText(LKApplication.getLKApplication(),
+                        "Error in Loading\nPlease restart after few minutes", Toast.LENGTH_SHORT).show();
             }
 
         } catch (UnknownHostException une) {
@@ -1007,7 +1132,8 @@ public class OkHttpAPIHelperHandler {
                 }
             } else {
                 //요청에러 발생시(http 에러)
-                Log.e("interests resultJSON", "Flag is NULL");
+                Toast.makeText(LKApplication.getLKApplication(),
+                        "Error in Loading\nPlease restart after few minutes", Toast.LENGTH_SHORT).show();
             }
 
         } catch (UnknownHostException une) {
@@ -1129,6 +1255,8 @@ public class OkHttpAPIHelperHandler {
 
             } else {
                 //요청에러 발생시(http 에러)
+                Toast.makeText(LKApplication.getLKApplication(),
+                        "Error in Loading\nPlease restart after few minutes", Toast.LENGTH_SHORT).show();
             }
 
         } catch (UnknownHostException une) {
@@ -1188,6 +1316,8 @@ public class OkHttpAPIHelperHandler {
 
             } else {
                 //요청에러 발생시(http 에러)
+                Toast.makeText(LKApplication.getLKApplication(),
+                        "Error in Loading\nPlease restart after few minutes", Toast.LENGTH_SHORT).show();
             }
 
         } catch (UnknownHostException une) {
