@@ -34,6 +34,7 @@ public class NetworkDefineConstant {
     public static String SERVER_URL_FAVOR_POST;
     public static String SERVER_URL_FACEBOOK_USER_INFO_INSERT;
     public static String AUTH_TOKEN ;
+    public static String SERVER_URL_PAYPAL_CHECKOUT_INFO;
     public static String AUTHORIZATION = "authorization";
 
 
@@ -79,6 +80,9 @@ public class NetworkDefineConstant {
         SERVER_URL_FACEBOOK_USER_INFO_INSERT=
                 HOST_URL + "/login";
         AUTH_TOKEN = LKSharedPreferencesManager.getInstance().getKeyToken();
+        SERVER_URL_PAYPAL_CHECKOUT_INFO=
+                HOST_URL + "/paypal";
+        
     }
 
     //다이얼로그 요청값

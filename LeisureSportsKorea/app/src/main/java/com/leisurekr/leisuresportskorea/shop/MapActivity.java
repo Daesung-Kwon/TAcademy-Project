@@ -113,7 +113,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             markerOptions.position(shopLatLng);
             //markerOptions.anchor(0.5f, 1);
             markerOptions.title(shopListObjects.get(i).shopAddress1);
-            markerOptions.snippet(shopListObjects.get(i).shopAddress2);
+            markerOptions.snippet(shopListObjects.get(i).shopAddress3 + shopListObjects.get(i).shopAddress2);
 
             currentMarker = gMap.addMarker(markerOptions);
             markersMap.put(i, currentMarker);

@@ -97,6 +97,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".SearchResultActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".PaypalWebViewActivity"
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".MyFirebaseMessagingService">
