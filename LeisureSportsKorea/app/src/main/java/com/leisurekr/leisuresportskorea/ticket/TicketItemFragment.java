@@ -92,8 +92,36 @@ public class TicketItemFragment extends Fragment {
                     activityIamge.setImageResource(R.drawable.ic_funboat);
                     break;
                 case "Ski":
-                    activityIamge.setImageResource(R.drawable.ic_waterski);
+                    activityIamge.setImageResource(R.drawable.ic_ski);
                     break;
+                case "ATV":
+                    activityIamge.setImageResource(R.drawable.ic_atv);
+                    break;
+                case "Bungee Jump":
+                    activityIamge.setImageResource(R.drawable.ic_bungee_jump);
+                    break;
+                case "Paintball":
+                    activityIamge.setImageResource(R.drawable.ic_paintball);
+                    break;
+                case "Paragliding":
+                    activityIamge.setImageResource(R.drawable.ic_paragliding);
+                    break;
+                case "Rafting":
+                    activityIamge.setImageResource(R.drawable.ic_rafting);
+                    break;
+                case "Scuba Diving":
+                    activityIamge.setImageResource(R.drawable.ic_scuba_diving);
+                    break;
+                case "Snowboard":
+                    activityIamge.setImageResource(R.drawable.ic_snowboard);
+                    break;
+                case "Surfing":
+                    activityIamge.setImageResource(R.drawable.ic_surfing);
+                    break;
+                case "Wakeboard":
+                    activityIamge.setImageResource(R.drawable.ic_wakeboard);
+                    break;
+
             }
 
             date.setText(ticket.getDate());

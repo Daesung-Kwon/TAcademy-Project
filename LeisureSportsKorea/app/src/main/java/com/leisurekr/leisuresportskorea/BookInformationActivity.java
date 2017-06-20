@@ -43,6 +43,7 @@ public class BookInformationActivity extends AppCompatActivity {
     ArrayList<CartObject> arrayList;
 
     Toolbar toolbar;
+    int type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +56,11 @@ public class BookInformationActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
+        type = intent.getIntExtra("type",0);
+        //Toast.makeText(BookInformationActivity.this, ""+type, Toast.LENGTH_SHORT).show();
         arrayList = (ArrayList<CartObject>) intent.getSerializableExtra("check out");
         if (arrayList == null) {
-            Toast.makeText(BookInformationActivity.this, "2", Toast.LENGTH_SHORT).show();
+
         }
 
         nameEdit = (TextInputEditText) findViewById(R.id.book_information_name);
@@ -89,6 +92,7 @@ public class BookInformationActivity extends AppCompatActivity {
                     checkoutObject.setStatus(2);
                     checkoutObject.setPicked(arrayList.get(i).isPicked());
                     checkoutObject.setProgramId(arrayList.get(i).getProgramObject().getId());
+                    checkoutObject.setBookid(arrayList.get(i).getId());
 
                     checkoutObjects[i] = checkoutObject;
                 }
@@ -104,7 +108,12 @@ public class BookInformationActivity extends AppCompatActivity {
                     Toast.makeText(BookInformationActivity.this,
                             "Please Input your phoneNumber",Toast.LENGTH_SHORT).show();
                 }else {
-                    new AsyncCheckoutInsert(BookInformationActivity.this, 2).execute(checkoutObjects);
+                    if(checkoutObjects.length>0) {
+                        for(int i=0;i<checkoutObjects.length;i++){
+                            new AsyncCheckoutInsert(BookInformationActivity.this, type).execute(checkoutObjects[i]);
+                        }
+
+                    }
                     Intent intent1 = new Intent(BookInformationActivity.this
                             , ProfileReservationActivity.class);
                     startActivity(intent1);

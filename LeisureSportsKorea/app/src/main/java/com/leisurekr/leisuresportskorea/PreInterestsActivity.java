@@ -11,8 +11,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.leisurekr.leisuresportskorea.common.NetworkDefineConstant;
 import com.leisurekr.leisuresportskorea.okhttp.OkHttpAPIHelperHandler;
 import com.leisurekr.leisuresportskorea.sharedPreferences.LKSharedPreferencesManager;
 import com.leisurekr.leisuresportskorea.shop.FilterImageAdapter;
@@ -72,7 +72,13 @@ public class PreInterestsActivity extends AppCompatActivity implements View.OnCl
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                gridAdapter.updateSelectedTag(position);
+                Log.e("PreIntersets","clicked: "+position);
+                if(position == 2 || position == 10 || position==11) {
+                    gridAdapter.updateSelectedTag(position);
+                }else{
+                    Toast.makeText(PreInterestsActivity.this,
+                            "We are preparing this Activity",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -95,11 +101,22 @@ public class PreInterestsActivity extends AppCompatActivity implements View.OnCl
                 }
                 break;
             case R.id.save_button_on_popup_activity:
+                int count =0;
                 if(isResult==true){
-                    new AsyncInterestsInsert().execute();
-                    intent.putExtra("result",interestsValues);
-                    setResult(0,intent);
-                    finish();
+                    for(int i=0;i<interestsValues.length;i++){
+                        if(interestsValues[i]==1){
+                            count++;
+                        }
+                    }
+                    if(count>0) {
+                        new AsyncInterestsInsert().execute();
+                        intent.putExtra("result", interestsValues);
+                        setResult(0, intent);
+                        finish();
+                    }else{
+                        Toast.makeText(PreInterestsActivity.this,
+                                "Please choose any Activities", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else{
                     // 최초 세팅 Interests 값 저장.

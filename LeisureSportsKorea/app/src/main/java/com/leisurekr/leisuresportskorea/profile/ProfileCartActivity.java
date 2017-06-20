@@ -89,7 +89,9 @@ public class ProfileCartActivity extends AppCompatActivity {
                     Toast.makeText(ProfileCartActivity.this, "1", Toast.LENGTH_SHORT).show();
                 }
                 intent.putExtra("check out", cartAdapter.checkedArray);
+                intent.putExtra("type",2);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -112,12 +114,14 @@ public class ProfileCartActivity extends AppCompatActivity {
             checkedArray = new ArrayList<>();
             CartObject cartObject;
             ProgramObject programObject;
-            if(arrayList!=null&&arrayList.get(0).programObject!=null) {
-                for (int j = 0; j < arrayList.size(); j++) {
-                    cartObject = arrayList.get(j);
-                    programObject = cartObject.programObject;
-                    total += programObject.getPrice();
-                    checkedArray.add(arrayList.get(j));
+            if (arrayList != null&&arrayList.size()>0) {
+                if (arrayList.get(0).programObject != null) {
+                    for (int j = 0; j < arrayList.size(); j++) {
+                        cartObject = arrayList.get(j);
+                        programObject = cartObject.programObject;
+                        total += programObject.getPrice();
+                        checkedArray.add(arrayList.get(j));
+                    }
                 }
             }
         }
@@ -179,7 +183,7 @@ public class ProfileCartActivity extends AppCompatActivity {
 
                 holder.text1.setText(shopObject.name + "'s");
                 holder.text2.setText(programObject.activityName);
-                holder.text3.setText(programObject.getName().substring(programObject.getActivityName().length()+1));
+                holder.text3.setText(programObject.getName().substring(programObject.getActivityName().length() + 1));
 
                 holder.date.setText(cartObject.getDate());
                 holder.time.setText(cartObject.getTime());
@@ -261,7 +265,7 @@ public class ProfileCartActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         adult = cartObject.getAdult();
                         children = cartObject.getChildren();
-                        total-=((adult * adultPrice) + (children * childrenPrice));
+                        total -= ((adult * adultPrice) + (children * childrenPrice));
                         if (adult >= 0) {
                             adult++;
                             holder.currentAdultText.setText("Adult " + Integer.toString(adult));
@@ -278,7 +282,7 @@ public class ProfileCartActivity extends AppCompatActivity {
                         }
                         cartObject.setAdult(adult);
                         holder.price.setText("$ " + ((adult * adultPrice) + (children * childrenPrice)));
-                        total+=((adult * adultPrice) + (children * childrenPrice));
+                        total += ((adult * adultPrice) + (children * childrenPrice));
                         totalPrice.setText("Order Subtotal $" + Integer.toString(total)
                                 + ", " + Integer.toString(checkedArray.size()) + " item(s) in your cart");
                     }
@@ -289,7 +293,7 @@ public class ProfileCartActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         adult = cartObject.getAdult();
                         children = cartObject.getChildren();
-                        total-=((adult * adultPrice) + (children * childrenPrice));
+                        total -= ((adult * adultPrice) + (children * childrenPrice));
                         if (adult > 0) {
                             adult--;
                             holder.currentAdultText.setText("Adult " + Integer.toString(adult));
@@ -308,7 +312,7 @@ public class ProfileCartActivity extends AppCompatActivity {
                         }
                         cartObject.setAdult(adult);
                         holder.price.setText("$ " + ((adult * adultPrice) + (children * childrenPrice)));
-                        total+=((adult * adultPrice) + (children * childrenPrice));
+                        total += ((adult * adultPrice) + (children * childrenPrice));
                         totalPrice.setText("Order Subtotal $" + Integer.toString(total)
                                 + ", " + Integer.toString(checkedArray.size()) + " item(s) in your cart");
                     }
@@ -318,7 +322,7 @@ public class ProfileCartActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         adult = cartObject.getAdult();
                         children = cartObject.getChildren();
-                        total-=((adult * adultPrice) + (children * childrenPrice));
+                        total -= ((adult * adultPrice) + (children * childrenPrice));
                         if (children >= 0) {
                             children++;
                             holder.currentChildrenText.setText("Children " + Integer.toString(children));
@@ -335,7 +339,7 @@ public class ProfileCartActivity extends AppCompatActivity {
                         }
                         cartObject.setChildren(children);
                         holder.price.setText("$ " + ((adult * adultPrice) + (children * childrenPrice)));
-                        total+=((adult * adultPrice) + (children * childrenPrice));
+                        total += ((adult * adultPrice) + (children * childrenPrice));
                         totalPrice.setText("Order Subtotal $" + Integer.toString(total)
                                 + ", " + Integer.toString(checkedArray.size()) + " item(s) in your cart");
                     }
@@ -346,7 +350,7 @@ public class ProfileCartActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         adult = cartObject.getAdult();
                         children = cartObject.getChildren();
-                        total-=((adult * adultPrice) + (children * childrenPrice));
+                        total -= ((adult * adultPrice) + (children * childrenPrice));
                         if (children > 0) {
                             children--;
                             holder.currentChildrenText.setText("Children " + Integer.toString(children));
@@ -365,7 +369,7 @@ public class ProfileCartActivity extends AppCompatActivity {
                         }
                         cartObject.setChildren(children);
                         holder.price.setText("$ " + ((adult * adultPrice) + (children * childrenPrice)));
-                        total+=((adult * adultPrice) + (children * childrenPrice));
+                        total += ((adult * adultPrice) + (children * childrenPrice));
                         totalPrice.setText("Order Subtotal $" + Integer.toString(total)
                                 + ", " + Integer.toString(checkedArray.size()) + " item(s) in your cart");
                     }
@@ -394,7 +398,7 @@ public class ProfileCartActivity extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
-            if(arrayList!=null)
+            if (arrayList != null)
                 return arrayList.size();
             else
                 return 0;
@@ -456,8 +460,6 @@ public class ProfileCartActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
-        Log.e("11","11");
         new AsyncCartJSONList().execute();
     }
 
@@ -486,32 +488,35 @@ public class ProfileCartActivity extends AppCompatActivity {
         }
     }
 
-    public class AsyncCartDelete extends AsyncTask<CartObject , Integer, String>{
+    public class AsyncCartDelete extends AsyncTask<CartObject, Integer, String> {
 
         private ProgressDialog progressDialog;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             progressDialog = ProgressDialog.show(ProfileCartActivity.this,
-                    "서버입력중","잠시만 기다려 주세요 ...", true);
+                    "서버입력중", "잠시만 기다려 주세요 ...", true);
         }
+
         @Override
         protected String doInBackground(CartObject... cartObjects) {
             return OkHttpAPIHelperHandler.cartJSONDelete(cartObjects);
         }
+
         @Override
         protected void onPostExecute(String result) {
             progressDialog.dismiss();
-            if( result != null){
-                if( result.equalsIgnoreCase("OK")){
+            if (result != null) {
+                if (result.equalsIgnoreCase("OK")) {
                     showDialog(NetworkDefineConstant.LK_INSERT_DIALOG_OK, null);
-                }else{
-                    showDialog(NetworkDefineConstant.LK_INSERT_DIALOG_FAIL,null);
+                } else {
+                    showDialog(NetworkDefineConstant.LK_INSERT_DIALOG_FAIL, null);
                 }
-            }else{
+            } else {
                 Bundle bundle = new Bundle();
                 bundle.putString("message", "삭제 중 문제 발생[디버깅]!");
-                showDialog(NetworkDefineConstant.LK_INSERT_DIALOG_FAIL,bundle);
+                showDialog(NetworkDefineConstant.LK_INSERT_DIALOG_FAIL, bundle);
             }
         }
     }

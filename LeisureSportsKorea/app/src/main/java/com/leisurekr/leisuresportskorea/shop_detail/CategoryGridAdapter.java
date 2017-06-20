@@ -1,7 +1,6 @@
 package com.leisurekr.leisuresportskorea.shop_detail;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +11,6 @@ import android.widget.TextView;
 import com.leisurekr.leisuresportskorea.R;
 
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by mobile on 2017. 6. 5..
@@ -24,10 +20,12 @@ public class CategoryGridAdapter extends BaseAdapter {
     private Context context;
     private HashMap<Integer, Integer> categoryMap;
     private static int MAX_GRID_COUNT = 4;
+    private static String[] values;
 
     public CategoryGridAdapter(Context context, String[] values) {
         this.context = context;
         this.categoryMap = new HashMap<>();
+        this.values = values;
 
         int cnt=0;
         for (int i=0; i < values.length; i++) {

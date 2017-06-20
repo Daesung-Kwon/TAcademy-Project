@@ -91,7 +91,10 @@ public class TicketActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
+            if(arrayList!=null)
             return arrayList.size();
+            else
+                return 0;
         }
 
         @Override

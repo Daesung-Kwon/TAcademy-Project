@@ -76,7 +76,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                 onBackPressed();
                 break;
             case R.id.save_button:
-                // TODO: 선택 값 서버 전송
+                finish();
 
                 break;
             case R.id.popularity_in_filter:

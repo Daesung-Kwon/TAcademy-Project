@@ -35,50 +35,61 @@ public class ActivityImageObject {
         activityDescrpption2 = (TextView) view.findViewById(R.id.activity_description2);
         activityDescrpption3 = (TextView) view.findViewById(R.id.activity_description3);
         activityPrice = (TextView) view.findViewById(R.id.activity_price);
-}
-    public void setData(int resid, String name, String description1
-            , String description2, int price){
-        view.setBackgroundResource(resid);
-        dim.setAlpha(0.3f);
-        switch (name){
-            case "Water Ski":
-                activityIcon.setImageResource(R.drawable.icon_waterski);
-                break;
-            case "Fun Boat":
-                activityIcon.setImageResource(R.drawable.icon_funboat);
-                break;
-        }
-
-        activityName.setText(name);
-        activityDescrpption1.setText(description1);
-        activityDescrpption2.setText(description2);
-        activityPrice.setText("$"+Integer.toString(price));
     }
 
-    public void setData(ActivityObject object){
+    public void setData(ActivityObject object) {
         Glide.with(LKApplication.getLKApplication()).load(object.programImage).into(imageView);
         dim.setAlpha(0.3f);
-        switch (object.activityName){
+
+        switch (object.activityName) {
             case "Water Ski":
-                activityIcon.setImageResource(R.drawable.icon_waterski);
+                activityIcon.setImageResource(R.drawable.ich_waterski);
                 break;
             case "Fun Boat":
-                activityIcon.setImageResource(R.drawable.icon_funboat);
+                activityIcon.setImageResource(R.drawable.ich_funboat);
                 break;
             case "Ski":
-                activityIcon.setImageResource(R.drawable.icon_waterski);
+                activityIcon.setImageResource(R.drawable.ich_ski);
                 break;
+            case "ATV":
+                activityIcon.setImageResource(R.drawable.ich_atv);
+                break;
+            case "Bungee Jump":
+                activityIcon.setImageResource(R.drawable.ich_bungee);
+                break;
+            case "Paintball":
+                activityIcon.setImageResource(R.drawable.ich_paint);
+                break;
+            case "Paragliding":
+                activityIcon.setImageResource(R.drawable.ich_para);
+                break;
+            case "Rafting":
+                activityIcon.setImageResource(R.drawable.ich_rafting);
+                break;
+            case "Scuba Diving":
+                activityIcon.setImageResource(R.drawable.ich_scub);
+                break;
+            case "Snowboard":
+                activityIcon.setImageResource(R.drawable.ich_snowboard);
+                break;
+            case "Surfing":
+                activityIcon.setImageResource(R.drawable.ich_surfing);
+                break;
+            case "Wakeboard":
+                activityIcon.setImageResource(R.drawable.ich_wakeboard);
+                break;
+
         }
 
         activityName.setText(object.activityName);
-        activityDescrpption1.setText(object.shopName+"'s ");
+        activityDescrpption1.setText(object.shopName + "'s ");
         activityDescrpption2.setText(object.activityName);
         activityDescrpption3.setText(object.programName
-                .substring(object.activityName.length()+1));
-        activityPrice.setText("$"+Integer.toString(object.price));
+                .substring(object.activityName.length() + 1));
+        activityPrice.setText("$" + Integer.toString(object.price));
     }
 
-    public void setOnClick(View.OnClickListener listener){
+    public void setOnClick(View.OnClickListener listener) {
         view.setOnClickListener(listener);
     }
 }

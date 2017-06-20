@@ -325,6 +325,7 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
                     Intent intent = new Intent(BookActivity.this, BookInformationActivity.class);
                     arrayList.add(cartObject);
                     intent.putExtra("check out", arrayList);
+                    intent.putExtra("type",1);
                     startActivity(intent);
                     finish();
                 }

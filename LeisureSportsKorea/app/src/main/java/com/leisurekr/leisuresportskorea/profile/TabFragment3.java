@@ -128,6 +128,7 @@ public class TabFragment3 extends android.support.v4.app.Fragment implements Vie
         @Override
         protected void onPostExecute(ProfileObject result) {
             //dialog.dismiss();
+            if(result != null)
             refresh(result);
 
         }

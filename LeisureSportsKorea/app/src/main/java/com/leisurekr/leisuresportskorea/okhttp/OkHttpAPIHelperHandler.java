@@ -111,7 +111,7 @@ public class OkHttpAPIHelperHandler {
 
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_RESERVATION_INFO_ALL_SELECT)
-                    .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION, LKSharedPreferencesManager.getInstance().getKeyToken())
                     .build();
 
             response = toServer.newCall(request).execute();
@@ -171,7 +171,7 @@ public class OkHttpAPIHelperHandler {
 
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_TICKET_INFO_ALL_SELECT)
-                    .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION, LKSharedPreferencesManager.getInstance().getKeyToken())
                     .build();
 
             response = toServer.newCall(request).execute();
@@ -230,7 +230,7 @@ public class OkHttpAPIHelperHandler {
 
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_PROFILE_ALL_SELECT)
-                    .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION, LKSharedPreferencesManager.getInstance().getKeyToken())
                     .build();
             response = toServer.newCall(request).execute();
             flag = response.isSuccessful();
@@ -287,7 +287,7 @@ public class OkHttpAPIHelperHandler {
 
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_CART_INFO_ALL_SELECT)
-                    .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION, LKSharedPreferencesManager.getInstance().getKeyToken())
                     .build();
 
             response = toServer.newCall(request).execute();
@@ -360,7 +360,7 @@ public class OkHttpAPIHelperHandler {
             //요청 세팅(form(Query String) 방식의 포스트)
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_BOOK_INSERT)
-                    .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION, LKSharedPreferencesManager.getInstance().getKeyToken())
                     .post(postBody)
                     .build();
             //동기 방식 실제 연결이 되고 요청이 이루어지는 부분
@@ -417,7 +417,7 @@ public class OkHttpAPIHelperHandler {
             //요청 세팅(form(Query String) 방식의 포스트)
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_EDIT_INSERT)
-                    .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION, LKSharedPreferencesManager.getInstance().getKeyToken())
                     .put(postBody)
                     .build();
             //동기 방식 실제 연결이 되고 요청이 이루어지는 부분
@@ -455,7 +455,7 @@ public class OkHttpAPIHelperHandler {
 
     public static String favorJSONInsert(FavorObject... favorObjects) {
 
-        Log.e("heart","중");
+        Log.e("heart", "중");
         boolean flag;
         String favorResultValue = "";
         FavorObject reqParams = favorObjects[0];
@@ -471,7 +471,7 @@ public class OkHttpAPIHelperHandler {
             //요청 세팅(form(Query String) 방식의 포스트)
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_FAVOR_POST)
-                    .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION, LKSharedPreferencesManager.getInstance().getKeyToken())
                     .post(postBody)
                     .build();
             //동기 방식 실제 연결이 되고 요청이 이루어지는 부분
@@ -507,7 +507,7 @@ public class OkHttpAPIHelperHandler {
         return favorResultValue;
     }
 
-    public static String checkoutJSONInsert(int status,CheckoutObject... checkoutObjects) {
+    public static String checkoutJSONInsert(int status, CheckoutObject... checkoutObjects) {
 
         boolean flag;
         String checkoutInsertResultValue = "";
@@ -520,32 +520,53 @@ public class OkHttpAPIHelperHandler {
         try {
             toServer = OkHttpInitSingletonManager.getOkHttpClient();
             //요청 바디부분을 Form세팅 url에 포함되지 않는 자료
-            RequestBody postBody=null;
+            RequestBody postBody = null;
             Request request = null;
             switch (status) {
+                case 1:
+                    Log.e("checkoutJSONinsert", Integer.toString(1));
+                    postBody = new FormBody.Builder()
+                            .add("name", reqParams[0].getName())
+                            .add("pNum", reqParams[0].getPhoneNum())
+                            .add("email", reqParams[0].getEmail())
+                            .add("date", reqParams[0].getDate())
+                            .add("time", reqParams[0].getTime())
+                            .add("adult", Integer.toString(reqParams[0].getAdult()))
+                            .add("child", Integer.toString(reqParams[0].getChild()))
+                            .add("status", Integer.toString(2))
+                            .add("programId", Integer.toString(reqParams[0].getProgramId()))
+                            .add("isPick", Boolean.toString(reqParams[0].getPicked()))
+                            .build();
+                    request = new Request.Builder()
+                            .url(NetworkDefineConstant.SERVER_URL_CHECKOUT_INSERT)
+                            .addHeader(NetworkDefineConstant.AUTHORIZATION, LKSharedPreferencesManager.getInstance().getKeyToken())
+                            .post(postBody)
+                            .build();
+
+                    break;
+
                 case 2:
-                    for(int i=0;i<reqParams.length;i++) {
                         postBody = new FormBody.Builder()
-                                .add("name", reqParams[i].getName())
-                                .add("pNum", reqParams[i].getPhoneNum())
-                                .add("email", reqParams[i].getEmail())
-                                .add("date", reqParams[i].getDate())
-                                .add("time", reqParams[i].getTime())
-                                .add("adult", Integer.toString(reqParams[i].getAdult()))
-                                .add("child", Integer.toString(reqParams[i].getChild()))
+                                .add("name", reqParams[0].getName())
+                                .add("pNum", reqParams[0].getPhoneNum())
+                                .add("email", reqParams[0].getEmail())
+                                .add("date", reqParams[0].getDate())
+                                .add("time", reqParams[0].getTime())
+                                .add("adult", Integer.toString(reqParams[0].getAdult()))
+                                .add("child", Integer.toString(reqParams[0].getChild()))
                                 .add("status", Integer.toString(status))
-                                .add("programId", Integer.toString(reqParams[i].getProgramId()))
-                                .add("isPick", Boolean.toString(reqParams[i].getPicked()))
+                                .add("programId", Integer.toString(reqParams[0].getProgramId()))
+                                .add("isPick", Boolean.toString(reqParams[0].getPicked()))
                                 .build();
                         request = new Request.Builder()
-                                .url(NetworkDefineConstant.SERVER_URL_CHECKOUT_INSERT)
+                                .url(NetworkDefineConstant.SERVER_URL_CHECKOUT_INSERT+"/"+reqParams[0].getBookid())
                                 .addHeader(NetworkDefineConstant.AUTHORIZATION, LKSharedPreferencesManager.getInstance().getKeyToken())
-                                .post(postBody)
+                                .put(postBody)
                                 .build();
-                    }
 
                     break;
                 case 4:
+                    Log.e("checkoutJSONinsert", Integer.toString(4));
                     postBody = new FormBody.Builder()
                             .add("date", reqParams[0].getDate())
                             .add("time", reqParams[0].getTime())
@@ -554,10 +575,11 @@ public class OkHttpAPIHelperHandler {
                             .add("status", Integer.toString(status))
                             .build();
                     request = new Request.Builder()
-                            .url(NetworkDefineConstant.SERVER_URL_RESERVATION_DELEDTE+"/"+reqParams[0].getBookid())
-                            .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
+                            .url(NetworkDefineConstant.SERVER_URL_RESERVATION_DELEDTE + "/" + reqParams[0].getBookid())
+                            .addHeader(NetworkDefineConstant.AUTHORIZATION, LKSharedPreferencesManager.getInstance().getKeyToken())
                             .put(postBody)
                             .build();
+
                     break;
             }
             //요청 세팅(form(Query String) 방식의 포스트)
@@ -578,7 +600,7 @@ public class OkHttpAPIHelperHandler {
                 }
             } else {
                 //요청에러 발생시(http 에러)
-                Log.e("checkoutJSONInsert", "flag = false  "+status);
+                Log.e("checkoutJSONInsert", "flag = null  " + status);
             }
 
         } catch (UnknownHostException une) {
@@ -599,7 +621,7 @@ public class OkHttpAPIHelperHandler {
 
         boolean flag;
         CartObject reqParams = cartObjects[0];
-        Log.e("searchJSONInsert()", " "+reqParams.getId());
+        Log.e("searchJSONInsert()", " " + reqParams.getId());
         Response response = null;
         OkHttpClient toServer;
         String cartDeleteResultValue = null;
@@ -611,7 +633,7 @@ public class OkHttpAPIHelperHandler {
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_CART_DELETE
                             + reqParams.getId())
-                    .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION, LKSharedPreferencesManager.getInstance().getKeyToken())
                     .delete()
                     .build();
             //동기 방식 실제 연결이 되고 요청이 이루어지는 부분
@@ -664,9 +686,9 @@ public class OkHttpAPIHelperHandler {
             //요청 세팅(form(Query String) 방식의 포스트)
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_SEARCH_INSERT
-                            + "date=" + reqParams.getDate() +"&loc=강원도" + "&adult=" + reqParams.getAdult()
+                            + "date=" + reqParams.getDate() + "&loc=강원도" + "&adult=" + reqParams.getAdult()
                             + "&child=" + reqParams.getChildren())
-                    .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION, LKSharedPreferencesManager.getInstance().getKeyToken())
                     .build();
             //동기 방식 실제 연결이 되고 요청이 이루어지는 부분
             response = toServer.newCall(request).execute();
@@ -725,7 +747,7 @@ public class OkHttpAPIHelperHandler {
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_SHOP_DETAIL_INFO_ALL_SELECT
                             + "/" + String.valueOf(shopId))
-                    .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION, LKSharedPreferencesManager.getInstance().getKeyToken())
                     .build();
 
             response = toServer.newCall(request).execute();
@@ -788,7 +810,7 @@ public class OkHttpAPIHelperHandler {
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_SHOP_ALL_SELECT
                             + "/" + String.valueOf(shopId))
-                    .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION, LKSharedPreferencesManager.getInstance().getKeyToken())
                     .build();
 
             response = toServer.newCall(request).execute();
@@ -844,7 +866,7 @@ public class OkHttpAPIHelperHandler {
 
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_LIKE_ALL_SELECT)
-                    .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION, LKSharedPreferencesManager.getInstance().getKeyToken())
                     .build();
 
             response = toServer.newCall(request).execute();
@@ -903,7 +925,7 @@ public class OkHttpAPIHelperHandler {
 
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_SHOP_ALL_SELECT)
-                    .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION, LKSharedPreferencesManager.getInstance().getKeyToken())
                     .build();
 
             response = toServer.newCall(request).execute();
@@ -947,6 +969,7 @@ public class OkHttpAPIHelperHandler {
 
     /**
      * 관심사 서버 저장
+     *
      * @return
      */
     public static String interestsJSONAllInsert(int[] data) {
@@ -957,14 +980,14 @@ public class OkHttpAPIHelperHandler {
         Response response = null;
         OkHttpClient toServer;
 
-        try{
+        try {
             toServer = OkHttpInitSingletonManager.getOkHttpClient();
             //요청 Body Form 세팅
             RequestBody postBody = requestBodyParseData(reqParams);
             //요청 세팅(form(Query String) 방식의 포스트)
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_INTERESTS_INSERT)
-                    .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION, LKSharedPreferencesManager.getInstance().getKeyToken())
                     .post(postBody)
                     .build();
             //동기 방식
@@ -972,29 +995,29 @@ public class OkHttpAPIHelperHandler {
 
             flag = response.isSuccessful();
             String returnedJSON;
-            if( flag ){ //성공했다면
+            if (flag) { //성공했다면
                 returnedJSON = response.body().string();
                 //Log.e("interests resultJSON", returnedJSON);
                 try {
                     JSONObject jsonObject = new JSONObject(returnedJSON);
                     insertResultValue = jsonObject.optString("msg");
                     Log.e("Handler 성공", "getJSONShopList Handler 성공");
-                }catch(JSONException jsone){
+                } catch (JSONException jsone) {
                     Log.e("interests json에러", jsone.toString());
                 }
-            }else{
+            } else {
                 //요청에러 발생시(http 에러)
                 Log.e("interests resultJSON", "Flag is NULL");
             }
 
-        }catch (UnknownHostException une) {
+        } catch (UnknownHostException une) {
             e("aaa", une.toString());
         } catch (UnsupportedEncodingException uee) {
             e("bbb", uee.toString());
         } catch (Exception e) {
             e("ccc", e.toString());
-        } finally{ /** TODO : Very Important!!! **/
-            if(response != null) {
+        } finally { /** TODO : Very Important!!! **/
+            if (response != null) {
                 response.close(); //3.* 이상에서는 반드시 닫아 준다.
             }
         }
@@ -1004,8 +1027,8 @@ public class OkHttpAPIHelperHandler {
     public static RequestBody requestBodyParseData(int[] data) {
         int[] parsedData = getParsingData(data);
         int length = 0;
-        for(int i=0;i<parsedData.length;i++){
-            if(parsedData[i]!=0){
+        for (int i = 0; i < parsedData.length; i++) {
+            if (parsedData[i] != 0) {
                 length++;
             }
         }
@@ -1042,12 +1065,12 @@ public class OkHttpAPIHelperHandler {
     }
 
     public static int[] getParsingData(int[] rawData) {
-        int[] parsed = {0,0,0,0,0,0,0,0,0,0,0,0};
+        int[] parsed = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
         int index = 0;
         for (int i = 0; i < rawData.length; i++) {
             if (rawData[i] == 1) {
-                parsed[index] = i+1;
+                parsed[index] = i + 1;
                 index++;
             }
         }
@@ -1080,7 +1103,7 @@ public class OkHttpAPIHelperHandler {
             //요청 세팅(form(Query String) 방식의 포스트)
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_FACEBOOK_USER_INFO_INSERT)
-                    .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION, LKSharedPreferencesManager.getInstance().getKeyToken())
                     .post(postBody)
                     .build();
             //동기 방식
@@ -1139,7 +1162,7 @@ public class OkHttpAPIHelperHandler {
 
             Request request = new Request.Builder()
                     .url(NetworkDefineConstant.SERVER_URL_SHOP_REVIEW_ALL_SELECT + mShopIDURL)
-                    .addHeader(NetworkDefineConstant.AUTHORIZATION,LKSharedPreferencesManager.getInstance().getKeyToken())
+                    .addHeader(NetworkDefineConstant.AUTHORIZATION, LKSharedPreferencesManager.getInstance().getKeyToken())
                     .build();
 
             response = toServer.newCall(request).execute();

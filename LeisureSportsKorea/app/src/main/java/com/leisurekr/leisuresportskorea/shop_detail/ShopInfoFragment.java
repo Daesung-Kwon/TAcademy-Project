@@ -11,8 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -26,18 +24,13 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.leisurekr.leisuresportskorea.LKApplication;
-import com.leisurekr.leisuresportskorea.PaypalWebViewActivity;
 import com.leisurekr.leisuresportskorea.R;
 import com.leisurekr.leisuresportskorea.home.CircleAnimIndicator;
 import com.leisurekr.leisuresportskorea.okhttp.OkHttpAPIHelperHandler;
-import com.leisurekr.leisuresportskorea.shop.ShopInfoOnMapObject;
-
-import java.util.ArrayList;
 
 /**
  * Created by mobile on 2017. 5. 31..
@@ -440,9 +433,11 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback, Vi
     }
 
     public void setShopActivities() {
-        Log.e("test",""+shopInfoObject.shopActivityTag.size());
+
         for (int i = 0; i < shopInfoObject.shopActivityTag.size(); i++) {
-            if (shopInfoObject.shopActivityTag.get(i) == true) {
+            if (shopInfoObject.shopActivityTag.get(i).equals(Boolean.TRUE)) {
+                /*Log.e("test",""+shopInfoObject.shopActivityTag.get(i));
+                Log.e("test",""+i);*/
                 shopActivityTags[i] = "1";
             }
         }

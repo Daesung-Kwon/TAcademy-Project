@@ -82,7 +82,7 @@ public class NetworkDefineConstant {
         AUTH_TOKEN = LKSharedPreferencesManager.getInstance().getKeyToken();
         SERVER_URL_PAYPAL_CHECKOUT_INFO=
                 HOST_URL + "/paypal";
-        
+
     }
 
     //다이얼로그 요청값
