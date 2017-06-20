@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,14 +34,10 @@ import com.leisurekr.leisuresportskorea.LKApplication;
 import com.leisurekr.leisuresportskorea.R;
 import com.leisurekr.leisuresportskorea.home.CircleAnimIndicator;
 import com.leisurekr.leisuresportskorea.okhttp.OkHttpAPIHelperHandler;
-<<<<<<< HEAD
-=======
-import com.leisurekr.leisuresportskorea.shop.ShopInfoOnMapObject;
-import com.leisurekr.leisuresportskorea.shop.TabFragment2;
 
 import java.util.ArrayList;
 import java.util.List;
->>>>>>> 771d769530fe477a0efb97c4f2d3b0501c7385fb
+
 
 /**
  * Created by mobile on 2017. 5. 31..
