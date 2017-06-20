@@ -33,6 +33,7 @@ public class NetworkDefineConstant {
     public static String SERVER_URL_REVIEW_INSERT;
     public static String SERVER_URL_FAVOR_POST;
     public static String SERVER_URL_FACEBOOK_USER_INFO_INSERT;
+    public static String SERVER_URL_PAYPAL_CHECKOUT_INFO;
     public static String AUTH_TOKEN = LKSharedPreferencesManager.getInstance().getKeyToken();
     public static String AUTHORIZATION = "authorization";
 
@@ -77,6 +78,8 @@ public class NetworkDefineConstant {
                 HOST_URL + "/likes";
         SERVER_URL_FACEBOOK_USER_INFO_INSERT=
                 HOST_URL + "/login";
+        SERVER_URL_PAYPAL_CHECKOUT_INFO=
+                HOST_URL + "/paypal";
 
         /*SERVER_URL_SHOP_ALL_SELECT =
                 HOST_URL + "/shops/"+AUTH_TOKEN;

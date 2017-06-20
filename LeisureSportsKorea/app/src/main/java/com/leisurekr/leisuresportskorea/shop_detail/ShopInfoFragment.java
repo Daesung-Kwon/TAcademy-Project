@@ -31,6 +31,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.leisurekr.leisuresportskorea.LKApplication;
+import com.leisurekr.leisuresportskorea.PaypalWebViewActivity;
 import com.leisurekr.leisuresportskorea.R;
 import com.leisurekr.leisuresportskorea.home.CircleAnimIndicator;
 import com.leisurekr.leisuresportskorea.okhttp.OkHttpAPIHelperHandler;
@@ -262,12 +263,17 @@ public class ShopInfoFragment extends Fragment implements OnMapReadyCallback, Vi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.call_btn:
-                intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:010-2056-7973"));
-                startActivity(intent);
+                Intent intent1 = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:010-2056-7973"));
+                startActivity(intent1);
                 break;
             case R.id.email_btn:
-                intent = new Intent(getActivity(), WriteReviewActivity.class);
-                startActivity(intent);
+                String uriText = "mailto:kownds.ken@gmail.com" +
+                                 "?subject=" + Uri.encode("Hello, Leisure Korea...") +
+                                 "&body=" + Uri.encode("to Leisure Korea,\n");
+                Uri uri = Uri.parse(uriText);
+                Intent intent2 = new Intent(Intent.ACTION_SENDTO);
+                intent2.setData(uri);
+                startActivity(Intent.createChooser(intent2, "Send email..."));
                 break;
             case R.id.shop_info_prevbtn:
                 if(currentPage > 1 && currentPage < 5) {
