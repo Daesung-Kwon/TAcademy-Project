@@ -6,12 +6,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -22,15 +19,13 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.leisurekr.leisuresportskorea.common.NetworkDefineConstant;
 import com.leisurekr.leisuresportskorea.okhttp.OkHttpAPIHelperHandler;
 import com.leisurekr.leisuresportskorea.okhttp.OkHttpJSONDataParseHandler;
 import com.leisurekr.leisuresportskorea.sharedPreferences.LKSharedPreferencesManager;
-import com.leisurekr.leisuresportskorea.shop_detail.LKShopListObject;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -98,6 +93,7 @@ public class LoginActivity extends AppCompatActivity{
         });
 
         googleLoginBtn = (Button) findViewById(R.id.lineLoginButton);
+        googleLoginBtn.setVisibility(View.GONE);
         googleLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,12 +102,13 @@ public class LoginActivity extends AppCompatActivity{
         });
 
         skipBtn = (TextView) findViewById(R.id.loginSkipButton);
+        skipBtn.setVisibility(View.GONE);
         skipBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    Intent skipIntent = new Intent(LoginActivity.this, MainActivity.class);
+                    /*Intent skipIntent = new Intent(LoginActivity.this, MainActivity.class);
                     LoginActivity.this.startActivity(skipIntent);
-                    finish();
+                    finish();*/
 
             }
         });
@@ -157,8 +154,17 @@ public class LoginActivity extends AppCompatActivity{
         @Override
         protected void onPostExecute(String result) {
             //dialog.dismiss();
+            Log.i("Get Token Success", result);
             if (result != null && result != "") {
-                Log.i("Get Token Success", result);
+                Log.i("Get Token Success1", result);
+                Log.i("token in Pre", NetworkDefineConstant.AUTH_TOKEN);
+                if(NetworkDefineConstant.AUTH_TOKEN == null
+                        || !NetworkDefineConstant.AUTH_TOKEN.equals(LKSharedPreferencesManager.getInstance()
+                        .getKeyToken())) {
+                    Log.i("token in Pre1",NetworkDefineConstant.AUTH_TOKEN);
+                    NetworkDefineConstant.AUTH_TOKEN = LKSharedPreferencesManager.getInstance()
+                            .getKeyToken();
+                }
                 storeTokenPref(result);
                 if (!PREFS_FOR_INTERESTS.equals(mPrefs.getString(KEY_INIT_INTERESTS, ""))) {
                     Intent intent = new Intent(getApplicationContext(), PreInterestsActivity.class);

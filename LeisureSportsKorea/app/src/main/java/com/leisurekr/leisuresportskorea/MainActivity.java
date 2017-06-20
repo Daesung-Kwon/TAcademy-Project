@@ -35,6 +35,7 @@ import android.widget.Toast;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.leisurekr.leisuresportskorea.interfaces.ShopListSetListener;
+import com.leisurekr.leisuresportskorea.sharedPreferences.LKSharedPreferencesManager;
 import com.leisurekr.leisuresportskorea.shop.FilterActivity;
 import com.leisurekr.leisuresportskorea.shop.MapActivity;
 import com.leisurekr.leisuresportskorea.shop_detail.LKShopListObject;
@@ -143,8 +144,14 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FirebaseMessaging.getInstance();
-        FirebaseInstanceId.getInstance().getToken();
+        Log.i("Get Token Main", LKSharedPreferencesManager.getInstance().getKeyToken());
+
+        if(LKSharedPreferencesManager.getInstance().getKeyFcm()==false) {
+            Log.d("fcm token","토큰 생성");
+            FirebaseMessaging.getInstance();
+            FirebaseInstanceId.getInstance().getToken();
+            LKSharedPreferencesManager.getInstance().setKeyFcm(true);
+        }
 
         searchView = findViewById(R.id.search_view);
         datelayout = (LinearLayout) searchView.findViewById(R.id.search_datelayout);

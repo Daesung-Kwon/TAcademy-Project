@@ -3,8 +3,6 @@ package com.leisurekr.leisuresportskorea.sharedPreferences;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import java.io.PrintStream;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -29,16 +27,29 @@ public class LKSharedPreferencesManager {
         mEditor = mPrefs.edit();
     }
 
-    public static final String KEY_ID = "id";
+    public static final String KEY_PUSH = "push";
     public static final String KEY_INIT_INTERESTS = "interests";
     public static final String KEY_TOKEN = "token";
+    public static final String KEY_FCM = "fcmtoken";
 
-    public void setId(String id) {
-        mEditor.putString(KEY_ID, id);
+
+
+    public void setKeyFcm(Boolean fcm){
+        mEditor.putBoolean(KEY_FCM, fcm);
         mEditor.commit();
     }
-    public String getId() {
-        return mPrefs.getString(KEY_ID, "");
+
+    public Boolean getKeyFcm() {
+        return mPrefs.getBoolean(KEY_FCM,false);
+    }
+
+
+    public void setIsPushed(Boolean isPushed) {
+        mEditor.putBoolean(KEY_PUSH, isPushed);
+        mEditor.commit();
+    }
+    public Boolean getIsPushed() {
+        return mPrefs.getBoolean(KEY_PUSH,true);
     }
 
     public void setKeyToken(String token) {

@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.leisurekr.leisuresportskorea.common.NetworkDefineConstant;
 import com.leisurekr.leisuresportskorea.okhttp.OkHttpAPIHelperHandler;
 import com.leisurekr.leisuresportskorea.sharedPreferences.LKSharedPreferencesManager;
 import com.leisurekr.leisuresportskorea.shop.FilterImageAdapter;
@@ -47,6 +48,8 @@ public class PreInterestsActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pre_select_interests);
+
+
 
         intent = getIntent();
         if(intent.getIntArrayExtra("init")!=null) {
@@ -137,6 +140,7 @@ public class PreInterestsActivity extends AppCompatActivity implements View.OnCl
 
         @Override
         protected String doInBackground(String... params) {
+            Log.d("get","preinter doinback");
             return OkHttpAPIHelperHandler.interestsJSONAllInsert(gridAdapter.tag);
         }
         @Override
@@ -153,15 +157,6 @@ public class PreInterestsActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
-        if(isResult==true){
-            setResult(1);
-            finish();
-        }
-        else{
-            Intent intent = new Intent(PreInterestsActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
+
     }
 }
