@@ -161,7 +161,11 @@ public class TimeDialog extends Dialog implements View.OnClickListener
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                time.setText(timetemp);
+                if(timetemp.length()>0) {
+                    time.setText(timetemp);
+                }else{
+                    time.setText(clickedButton.getText().toString());
+                }
                 dismiss();
             }
         });

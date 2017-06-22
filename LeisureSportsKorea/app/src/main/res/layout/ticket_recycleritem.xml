@@ -88,10 +88,10 @@
 
         <ImageView
             android:id="@+id/ticket_activityimage"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="25dp"
             android:layout_marginRight="@dimen/ticket_iconMariginRight"
             android:src="@drawable/ic_terms" />
 

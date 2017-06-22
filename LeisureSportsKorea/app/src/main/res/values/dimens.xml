@@ -120,7 +120,7 @@
     <dimen name="search_floatHeight">56dp</dimen>
 
     <!--Ticket화면-->
-    <dimen name="ticket_textPaddingLeft">20dp</dimen>
+    <dimen name="ticket_textPaddingLeft">15dp</dimen>
     <dimen name="ticket_textPaddingRigth">15dp</dimen>
     <dimen name="ticket_iconMariginRight">15dp</dimen>
     <dimen name="ticket_topTextSize">20sp</dimen>
