@@ -22,7 +22,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -175,7 +174,7 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
         private Animation slideInAnimation;
         public SearchAdapter(ArrayList<LKShopListObject> resources) {
             mResult = resources;
-            slideInAnimation = AnimationUtils.loadAnimation(SearchResultActivity.this, android.R.anim.slide_in_left);
+            //slideInAnimation = AnimationUtils.loadAnimation(SearchResultActivity.this, android.R.anim.slide_in_left);
         }
         public class ViewHolder extends RecyclerView.ViewHolder {
             public View mView;
@@ -258,7 +257,7 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
                 @Override
                 public void onClick(View v) {
                     Log.e("heart in home","click");
-                    /*final FavorObject favorObject = new FavorObject();
+                    final FavorObject favorObject = new FavorObject();
                     favorObject.setShopId(shopInfo.shopId);
                     favorObject.setUserId(1);
                     new Thread(new Runnable() {
@@ -278,12 +277,26 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
                                             holder.mLikes.setSelected(true);
                                         }
                                     }
-                                    TabFragment1.ft.detach(TabFragment2.tabFragment2)
-                                            .attach(TabFragment2.tabFragment2).commit();
+                                    /*FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                    ft.detach(TabFragment2.tabFragment2)
+                                            .attach(TabFragment2.tabFragment2)
+                                            .commit();*/
+                                            /*.commitAllowingStateLoss();*/
+
+                                    for(int i=0;i<mResult.size();i++){
+                                        if(mResult.get(i).shopName
+                                                .equals(holder.mShopName.getText().toString())){
+                                            if(mResult.get(i).likes==true){
+                                                mResult.get(i).likes=false;
+                                            }else{
+                                                mResult.get(i).likes=true;
+                                            }
+                                        }
+                                    }
                                 }
                             });
                         }
-                    }).start();*/
+                    }).start();
 
                 }
             });
@@ -306,6 +319,12 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        //outState.putString("WORKAROUND_FOR_BUG_19917_KEY", "WORKAROUND_FOR_BUG_19917_VALUE");
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
         Log.i("onStart()","onStart()");
@@ -316,6 +335,8 @@ public class SearchResultActivity extends AppCompatActivity implements View.OnCl
             flag=true;
         }
     }
+
+
 
     static ArrayList<String> tagList = null;
 

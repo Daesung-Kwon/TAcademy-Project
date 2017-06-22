@@ -11,11 +11,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
+
         android:gravity="center_vertical"
         android:orientation="vertical">
-
+        <!--android:background="?attr/selectableItemBackground"-->
         <TextView
         android:id="@+id/filtered_text_in_shop"
         android:layout_width="wrap_content"
@@ -44,7 +43,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_margin="12dp"
-            android:background="@drawable/btn_heart_unpress"
             android:elevation="10dp" />
 
         <ImageView

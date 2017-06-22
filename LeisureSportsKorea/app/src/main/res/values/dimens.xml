@@ -10,7 +10,11 @@
     <dimen name="padding_left_right">16dp</dimen>
 
     <!--Book Information화면-->
+    <dimen name="reservationDetails_textHeight">56dp</dimen>
+    <dimen name="reservationDetails_textMarginTop">31dp</dimen>
+    <dimen name="reservationDetails_textSize">14sp</dimen>
     <dimen name="bookInformation_textMarginTop">16dp</dimen>
+    <dimen name="bookInformation_iconMarginTop">16dp</dimen>
     <dimen name="bookInformation_listMarginTop">31dp</dimen>
     <dimen name="bookInformation_textPaddingRight">16dp</dimen>
     <dimen name="bookInformation_textPaddingLeft">10dp</dimen>

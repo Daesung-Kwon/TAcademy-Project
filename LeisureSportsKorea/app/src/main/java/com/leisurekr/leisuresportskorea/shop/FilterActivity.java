@@ -79,8 +79,6 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                 onBackPressed();
                 break;
             case R.id.save_button:
-                finish();
-
                 // TODO: 선택 값 서버 전송
                 Intent intent = new Intent();
                 ArrayList<Integer> param = new ArrayList<>();

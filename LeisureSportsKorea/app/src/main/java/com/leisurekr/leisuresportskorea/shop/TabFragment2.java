@@ -55,6 +55,7 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        Log.e("TabFragment2","onAttach()");
         if (context instanceof ShopListSetListener) {
             shopListSetListener = (ShopListSetListener) context;
         } else {
@@ -123,7 +124,6 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
                 super(view);
                 mView = view;
                 dim = (LinearLayout) view.findViewById(R.id.shop_dim);
-
                 mFilterTag = (TextView) view.findViewById(R.id.filtered_text_in_shop);
                 mShopMainImage = (ImageView) view.findViewById(R.id.shop_main_image);
                 mShopCircleImage = (ImageView) view.findViewById(R.id.shop_circle_image);
@@ -208,6 +208,16 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
                                         FragmentTransaction ft = getFragmentManager().beginTransaction();
                                         ft.detach(TabFragment1.tabFragment1)
                                                 .attach(TabFragment1.tabFragment1).commit();
+                                        for(int i=0;i<mResult.size();i++){
+                                            if(mResult.get(i).shopName
+                                                    .equals(holder.mShopName.getText().toString())){
+                                                if(mResult.get(i).likes==true){
+                                                    mResult.get(i).likes=false;
+                                                }else{
+                                                    mResult.get(i).likes=true;
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             });
@@ -230,8 +240,9 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
         }
 
         public void addAll(ArrayList<LKShopListObject> objects) {
-            this.mResult.clear();
-            this.mResult.addAll(objects);
+            //this.mResult.clear();
+            //this.mResult.addAll(objects);
+            this.mResult=objects;
 
             resultsCountTextView.setText(mResult.size() + " Results");
             tagList = new ArrayList<>();
@@ -340,24 +351,14 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
             Intent shareIntent = (Intent) intent.clone();
 
             if (info.activityInfo.packageName.toLowerCase().equals("com.facebook.katana")) {
-//facebook
                 shareIntent.setType("text/plain");
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "http:/leisurekr.com");
-// shareIntent.setType("image/jpg");
-// shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///"+mImagePath));
+
             } else if (info.activityInfo.packageName.toLowerCase().equals("com.kakao.talk")) {
-                /*shareIntent.setType("text/plain");
-                shareIntent.putExtra(Intent.EXTRA_TEXT, "http://www.google.com");*/
+
                 shareIntent.setType("text/plain");
                 shareIntent.putExtra(Intent.EXTRA_SUBJECT, "");
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "http:/leisurekr.com");
-                //shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///"+mImagePath));
-
-                /*File dirName = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + "/Camera");  //디렉토리를 지정합니다.
-                String fileName = "20170527_102814.jpg"; //공유할 이미지 파일 명
-                File file = new File(dirName, fileName); //image 파일의 경로를 설정합니다.
-                Uri mSaveImageUri = Uri.fromFile(file); //file의 경로를 uri로 변경합니다.*/
-                //shareIntent.putExtra(Intent.EXTRA_STREAM, mSaveImageUri);
 
             } else {
                 shareIntent.setType("text/plain");
@@ -365,12 +366,17 @@ public class TabFragment2 extends android.support.v4.app.Fragment {
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "http:/leisurekr.com");
             }
             shareIntent.setPackage(info.activityInfo.packageName);
-            //shareIntent.setPackage(info.activityInfo.packageName);
             shareIntentList.add(shareIntent);
         }
 
         Intent chooserIntent = Intent.createChooser(shareIntentList.remove(0), "select");
         chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, shareIntentList.toArray(new Parcelable[]{}));
         startActivity(chooserIntent);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.e("TabFragment2","onPause()");
     }
 }

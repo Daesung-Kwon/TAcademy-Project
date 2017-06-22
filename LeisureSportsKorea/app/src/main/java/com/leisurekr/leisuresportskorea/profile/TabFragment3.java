@@ -100,6 +100,9 @@ public class TabFragment3 extends android.support.v4.app.Fragment implements Vie
         favorites.setOnClickListener(this);
         settingBtn.setOnClickListener(this);
         cart.setOnClickListener(this);
+        aboutUs.setOnClickListener(this);
+        terms.setOnClickListener(this);
+        customerSupport.setOnClickListener(this);
 
         return view;
     }
@@ -152,6 +155,9 @@ public class TabFragment3 extends android.support.v4.app.Fragment implements Vie
                 profileImage.setImageResource(R.drawable.ic_fe);
                 break;
             case "Gender":
+                profileImage.setImageResource(R.drawable.ic_ne);
+                break;
+            default:
                 profileImage.setImageResource(R.drawable.ic_ne);
                 break;
 
@@ -212,6 +218,18 @@ public class TabFragment3 extends android.support.v4.app.Fragment implements Vie
                 break;
             case R.id.profile_favoriteslayout:
                 intent = new Intent(getContext(),ProfileFavoritesActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.profile_aboutuslayout:
+                intent = new Intent(getContext(),AboutUsActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.profile_termslayout:
+                intent = new Intent(getContext(),TermsActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.profile_customerlayout:
+                intent = new Intent(getContext(),CustomerActivity.class);
                 startActivity(intent);
                 break;
             default:

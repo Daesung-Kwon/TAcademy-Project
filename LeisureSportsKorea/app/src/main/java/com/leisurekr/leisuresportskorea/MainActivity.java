@@ -41,7 +41,6 @@ import com.leisurekr.leisuresportskorea.okhttp.OkHttpAPIHelperHandler;
 import com.leisurekr.leisuresportskorea.sharedPreferences.LKSharedPreferencesManager;
 import com.leisurekr.leisuresportskorea.shop.FilterActivity;
 import com.leisurekr.leisuresportskorea.shop.MapActivity;
-import com.leisurekr.leisuresportskorea.shop.TabFragment2;
 import com.leisurekr.leisuresportskorea.shop_detail.LKShopListObject;
 import com.leisurekr.leisuresportskorea.ticket.TicketActivity;
 
@@ -246,6 +245,7 @@ public class MainActivity extends AppCompatActivity
         // Adapter For View Pager
         pagerAdapter = new TabPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
+        /*viewPager.setOffscreenPageLimit(ViewPager.SCROLL_STATE_SETTLING);*/
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         // FAB Listener
@@ -359,6 +359,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
+        Log.e("MainActivity","onResume()");
+        pagerAdapter.notifyDataSetChanged();
         checkPermission();
     }
 
@@ -685,5 +687,15 @@ public class MainActivity extends AppCompatActivity
             }
         }
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.e("MainActivity","onPause()");
+    }
+
+
+
+
 }
 

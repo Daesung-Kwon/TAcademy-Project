@@ -268,32 +268,20 @@ public class ProfileFavoritesActivity extends AppCompatActivity {
             Intent shareIntent = (Intent) intent.clone();
 
             if (info.activityInfo.packageName.toLowerCase().equals("com.facebook.katana")) {
-//facebook
+
                 shareIntent.setType("text/plain");
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "http:/leisurekr.com");
-// shareIntent.setType("image/jpg");
-// shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///"+mImagePath));
+
             } else if(info.activityInfo.packageName.toLowerCase().equals("com.kakao.talk")) {
-                /*shareIntent.setType("text/plain");
-                shareIntent.putExtra(Intent.EXTRA_TEXT, "http://www.google.com");*/
                 shareIntent.setType("text/plain");
                 shareIntent.putExtra(Intent.EXTRA_SUBJECT, "");
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "http:/leisurekr.com");
-                //shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///"+mImagePath));
-
-                /*File dirName = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + "/Camera");  //디렉토리를 지정합니다.
-                String fileName = "20170527_102814.jpg"; //공유할 이미지 파일 명
-                File file = new File(dirName, fileName); //image 파일의 경로를 설정합니다.
-                Uri mSaveImageUri = Uri.fromFile(file); //file의 경로를 uri로 변경합니다.*/
-                //shareIntent.putExtra(Intent.EXTRA_STREAM, mSaveImageUri);
-
             }else{
                 shareIntent.setType("text/plain");
                 shareIntent.putExtra(Intent.EXTRA_SUBJECT, "");
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "http:/leisurekr.com");
             }
             shareIntent.setPackage(info.activityInfo.packageName);
-            //shareIntent.setPackage(info.activityInfo.packageName);
             shareIntentList.add(shareIntent);
         }
 

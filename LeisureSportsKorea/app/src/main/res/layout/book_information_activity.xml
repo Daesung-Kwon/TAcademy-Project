@@ -29,12 +29,12 @@
             <!--         맨위 글씨              -->
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
+                android:layout_height="@dimen/reservationDetails_textHeight"
                 android:layout_marginLeft="@dimen/bookInformation_textMarginLeft"
-                android:layout_marginTop="31dp"
+                android:layout_marginTop="@dimen/reservationDetails_textMarginTop"
                 android:text="Reservation Details"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textSize="14sp" />
+                android:textSize="@dimen/reservationDetails_textSize" />
 
             <!--         첫 번째 줄   name            -->
             <LinearLayout

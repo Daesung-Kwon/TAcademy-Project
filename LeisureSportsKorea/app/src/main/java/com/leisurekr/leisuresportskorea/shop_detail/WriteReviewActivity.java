@@ -292,8 +292,8 @@ public class WriteReviewActivity extends AppCompatActivity {
                     Toast.makeText(WriteReviewActivity.this, "Please write any message."
                             , Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(WriteReviewActivity.this, "send!" + shopId
-                            , Toast.LENGTH_SHORT).show();
+                    /*Toast.makeText(WriteReviewActivity.this, "send!" + shopId
+                            , Toast.LENGTH_SHORT).show();*/
                     reviewString = review.getText().toString();
                     new FileUpLoadAsyncTask().execute(fileLocation);
                 }
@@ -337,7 +337,6 @@ public class WriteReviewActivity extends AppCompatActivity {
                 if(fileLocation!=null) {
                     fileUploadBody = new MultipartBody.Builder()
                             .setType(MultipartBody.FORM) //파일 업로드시 반드시 설정
-                            .addFormDataPart("userId", Integer.toString(1)) //기본 쿼리
                             .addFormDataPart("shopId", Integer.toString(shopId))
                             .addFormDataPart("review", reviewString)
                             .addFormDataPart("star", Float.toString(rate))
@@ -346,7 +345,6 @@ public class WriteReviewActivity extends AppCompatActivity {
                 }else{
                     fileUploadBody = new MultipartBody.Builder()
                             .setType(MultipartBody.FORM) //파일 업로드시 반드시 설정
-                            .addFormDataPart("userId", Integer.toString(1)) //기본 쿼리
                             .addFormDataPart("shopId", Integer.toString(shopId))
                             .addFormDataPart("review", reviewString)
                             .addFormDataPart("star", Float.toString(rate))
@@ -377,9 +375,10 @@ public class WriteReviewActivity extends AppCompatActivity {
 
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            String message = "정상적으로 파일이 업로드 되었습니다";
+            finish();
+            /*String message = "정상적으로 파일이 업로드 되었습니다";
 
-            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();*/
         }
     }
 }
