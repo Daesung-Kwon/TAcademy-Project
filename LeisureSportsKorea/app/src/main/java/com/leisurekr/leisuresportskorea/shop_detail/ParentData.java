@@ -7,20 +7,22 @@ import java.util.ArrayList;
  */
 
 public class ParentData {
-    private String programName;
+    public String category;
     public ArrayList<ChildData> child;
 
-    public ParentData(String name) {
-        this.programName= name;
+    public ParentData() {}
+    public ParentData(String category) {
+        this.category= category;
         child = new ArrayList<>();
     }
 
+
     public String getProgramName() {
-        return programName;
+        return category;
     }
 
-    public void setProgramName(String programName) {
-        this.programName = programName;
+    public void setProgramName(String category) {
+        this.category = category;
     }
 
     public ArrayList<ChildData> getChild() {

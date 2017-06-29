@@ -14,11 +14,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.ViewTarget;
 import com.leisurekr.leisuresportskorea.profile.CartObject;
+import com.leisurekr.leisuresportskorea.profile.ProfileReservationActivity;
+import com.leisurekr.leisuresportskorea.profile.ProgramObject;
+import com.leisurekr.leisuresportskorea.profile.ShopObject;
 
 import java.util.ArrayList;
 
@@ -28,11 +37,13 @@ public class BookInformationActivity extends AppCompatActivity {
     TextInputEditText phoneEdit;
     TextInputEditText emailEdit;
 
+
     RecyclerView recyclerView;
     Button paypal;
     ArrayList<CartObject> arrayList;
 
     Toolbar toolbar;
+    int type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +56,11 @@ public class BookInformationActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
+        type = intent.getIntExtra("type",0);
+        //Toast.makeText(BookInformationActivity.this, ""+type, Toast.LENGTH_SHORT).show();
         arrayList = (ArrayList<CartObject>) intent.getSerializableExtra("check out");
         if (arrayList == null) {
-            Toast.makeText(BookInformationActivity.this, "2", Toast.LENGTH_SHORT).show();
+
         }
 
         nameEdit = (TextInputEditText) findViewById(R.id.book_information_name);
@@ -62,6 +75,52 @@ public class BookInformationActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         paypal = (Button) findViewById(R.id.book_information_paypal);
+        paypal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CheckoutObject [] checkoutObjects = new CheckoutObject[arrayList.size()];
+                CheckoutObject checkoutObject;
+                for(int i=0; i< arrayList.size();i++) {
+                    checkoutObject = new CheckoutObject();
+                    checkoutObject.setName(nameEdit.getText().toString());
+                    checkoutObject.setPhoneNum(phoneEdit.getText().toString());
+                    checkoutObject.setEmail(emailEdit.getText().toString());
+                    checkoutObject.setDate(arrayList.get(i).getDate());
+                    checkoutObject.setTime(arrayList.get(i).getTime());
+                    checkoutObject.setAdult(arrayList.get(i).getAdult());
+                    checkoutObject.setChild(arrayList.get(i).getChildren());
+                    checkoutObject.setStatus(2);
+                    checkoutObject.setPicked(arrayList.get(i).isPicked());
+                    checkoutObject.setProgramId(arrayList.get(i).getProgramObject().getId());
+                    checkoutObject.setBookid(arrayList.get(i).getId());
+
+                    checkoutObjects[i] = checkoutObject;
+                }
+
+                if(nameEdit.getText().toString().equals("")|| nameEdit.getText()==null){
+                    Toast.makeText(BookInformationActivity.this,
+                            "Please Input your name",Toast.LENGTH_SHORT).show();
+                }else if(phoneEdit.getText().toString().equals("")||phoneEdit.getText()==null){
+                    Toast.makeText(BookInformationActivity.this,
+                            "Please Input your phoneNumber",Toast.LENGTH_SHORT).show();
+                }else if(emailEdit.getText().toString().equals("") || emailEdit.getText()==null
+                        ||emailEdit.isInEditMode()){
+                    Toast.makeText(BookInformationActivity.this,
+                            "Please Input your phoneNumber",Toast.LENGTH_SHORT).show();
+                }else {
+                    if(checkoutObjects.length>0) {
+                        for(int i=0;i<checkoutObjects.length;i++){
+                            new AsyncCheckoutInsert(BookInformationActivity.this, type).execute(checkoutObjects[i]);
+                        }
+
+                    }
+                    Intent intent1 = new Intent(BookInformationActivity.this
+                            , ProfileReservationActivity.class);
+                    startActivity(intent1);
+                    finish();
+                }
+            }
+        });
     }
 
     class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.ViewHolder> {
@@ -83,13 +142,22 @@ public class BookInformationActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-            CartObject object = arrayList.get(position);
+        public void onBindViewHolder(final ViewHolder holder, int position) {
+            final CartObject object = arrayList.get(position);
+            ProgramObject programObject = object.getProgramObject();
+            ShopObject shopObject = programObject.getShopObject();
             if (object != null) {
-                holder.activityImage.setBackgroundResource(object.getActivityImage());
-                holder.text1.setText(object.getShopName() + "'s");
-                holder.text2.setText(object.getText1());
-                holder.text3.setText(object.getText2());
+                Glide.with(BookInformationActivity.this).load(shopObject.getImage())
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(new ViewTarget<LinearLayout, GlideDrawable>(holder.activityImage) {
+                            @Override
+                            public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                                holder.activityImage.setBackgroundDrawable(resource);
+                            }
+                        });
+                holder.text1.setText(shopObject.getName() + "'s");
+                holder.text2.setText(programObject.getActivityName());
+                holder.text3.setText(programObject.getName().substring(programObject.getActivityName().length()));
                 holder.date.setText((object.getDate()));
                 holder.time.setText(object.getTime());
                 adult = object.getAdult();
@@ -104,8 +172,14 @@ public class BookInformationActivity extends AppCompatActivity {
                     people = "Adult " + Integer.toString(adult);
                 }
                 holder.people.setText(people);
+                holder.isPickuped.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        object.setPicked(isChecked);
+                    }
+                });
             } else {
-                Log.e("1", "1111111111111111");
+                Log.e("BookInformation", "cartObject = null");
             }
         }
 
@@ -140,7 +214,6 @@ public class BookInformationActivity extends AppCompatActivity {
                 isPickuped = (CheckBox) itemView.findViewById(R.id.information_recycler_pickup);
             }
         }
-
     }
 
     @Override

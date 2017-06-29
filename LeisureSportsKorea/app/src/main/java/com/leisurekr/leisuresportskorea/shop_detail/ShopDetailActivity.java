@@ -1,34 +1,34 @@
 package com.leisurekr.leisuresportskorea.shop_detail;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.transition.Explode;
 import android.transition.Transition;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
 
 import com.leisurekr.leisuresportskorea.R;
 
 public class ShopDetailActivity extends AppCompatActivity {
-    CoordinatorLayout coordinatorLayout;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     Toolbar toolbar;
+    Intent intent;
+    int shopId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_detail);
 
-        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.main_content);
+        intent = getIntent();
+        shopId = intent.getIntExtra("shopId", -1);
 
         // Toolbar
         toolbar = (Toolbar) findViewById(R.id.shop_detail_toolbar);
@@ -40,14 +40,13 @@ public class ShopDetailActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.shop_detail_tabs);
         tabLayout.addTab(tabLayout.newTab().setText("Shop Info"));
         tabLayout.addTab(tabLayout.newTab().setText("Program Info"));
+        tabLayout.setTabTextColors(Color.parseColor("#550c0a"), Color.parseColor("#ffffff"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         // View Pager
         viewPager = (ViewPager) findViewById(R.id.shop_detail_viewpager);
+        setupViewPager(viewPager);
 
-        // Adapter For View Pager
-        ShopDetailPagerAdapter pagerAdapter = new ShopDetailPagerAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         // Set Tab Selected Listener
@@ -74,6 +73,14 @@ public class ShopDetailActivity extends AppCompatActivity {
             Transition exitTrans = new Explode(); // Fade(), Slide()
             Transition reenterTrans = new Explode(); // Fade(), Slide()
         }
+    }
+
+    private void setupViewPager(ViewPager viewPager) {
+        ShopDetailPagerAdapter shopDetailPagerAdapter = new ShopDetailPagerAdapter(getSupportFragmentManager());
+        shopDetailPagerAdapter.addFragment(ShopInfoFragment.newInstance(shopId));
+        shopDetailPagerAdapter.addFragment(ShopProgramFragment.newInstance(shopId));
+
+        viewPager.setAdapter(shopDetailPagerAdapter);
     }
 
     @Override

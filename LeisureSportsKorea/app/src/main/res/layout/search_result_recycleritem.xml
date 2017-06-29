@@ -17,40 +17,39 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/result_recycler_text"
+            android:id="@+id/filtered_text_in_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            android:text="#WATER SKI"
-            android:textSize="16sp"
             android:layout_alignParentLeft="true"
+            android:layout_margin="12dp"
+            android:elevation="10dp"
             android:textColor="@color/colorWhite"
-            android:elevation="10dp"/>
+            android:textSize="16sp" />
 
         <ImageView
-            android:id="@+id/result_recycler_favoricon"
+            android:id="@+id/favorite_item_icon_in_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_margin="12dp"
-            android:background="@drawable/btn_heart_unpress"
-            android:elevation="10dp"/>
+            android:elevation="10dp" />
 
         <ImageView
-            android:id="@+id/result_recycler_shareicon"
+            android:id="@+id/share_item_icon_in_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/result_recycler_favoricon"
-            android:layout_toLeftOf="@+id/result_recycler_favoricon"
-            android:layout_toStartOf="@+id/result_recycler_favoricon"
+            android:layout_alignTop="@+id/favorite_item_icon_in_result"
+            android:layout_toLeftOf="@+id/favorite_item_icon_in_result"
+            android:layout_toStartOf="@+id/favorite_item_icon_in_result"
             android:background="@drawable/btn_share_unpress"
-            android:elevation="10dp"/>
+            android:elevation="10dp" />
 
-        <LinearLayout
-            android:id="@+id/result_recycler_mainimage"
+        <ImageView
+            android:id="@+id/result_main_image"
             android:layout_width="match_parent"
             android:layout_height="280dp"
-            android:orientation="horizontal" />
+            android:orientation="horizontal"
+            android:scaleType="centerCrop" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -69,11 +68,11 @@
                 android:paddingTop="8dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/result_recycler_circleimage"
+                    android:id="@+id/result_circle_image"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    tools:ignore="RtlHardcoded"
-                    android:layout_marginTop="8dp"/>
+                    android:layout_marginTop="8dp"
+                    tools:ignore="RtlHardcoded" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -89,13 +88,13 @@
                         android:paddingTop="4dp">
 
                         <TextView
-                            android:id="@+id/result_recycler_name"
+                            android:id="@+id/result_name_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="26dp"
                             android:textColor="@color/colorWhite"
                             android:textSize="20sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -105,7 +104,7 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:id="@+id/result_recycler_mapicon"
+                            android:id="@+id/result_marker_icon"
                             android:layout_width="9dp"
                             android:layout_height="9dp"
                             android:layout_gravity="center"
@@ -113,7 +112,7 @@
                             android:background="@drawable/ic_map" />
 
                         <TextView
-                            android:id="@+id/result_recycler_location"
+                            android:id="@+id/result_location_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
@@ -137,18 +136,18 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:id="@+id/result_recycler_favo_icon"
+                            android:id="@+id/result_favor_icon"
                             android:layout_width="15dp"
                             android:layout_height="15dp"
-                            android:background="@drawable/ic_star"
-                            android:layout_gravity="center"/>
+                            android:layout_gravity="center"
+                            android:background="@drawable/ic_star_inact" />
 
                         <TextView
-                            android:id="@+id/result_recycler_rating"
+                            android:id="@+id/result_rating_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="right"
                             android:layout_marginLeft="8dp"
+                            android:gravity="right"
                             android:text="4.8"
                             android:textColor="@color/colorWhite"
                             android:textSize="22sp" />
@@ -159,17 +158,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:orientation="vertical"
-                        >
+                        android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/result_recycler_price"
+                            android:id="@+id/result_price_text"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center_horizontal"
                             android:text="$33"
                             android:textColor="@color/colorWhite"
-                            android:letterSpacing="0.1"
                             android:textSize="33sp" />
 
                     </LinearLayout>
@@ -179,11 +176,11 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/result_recycler_dim"
+                android:id="@+id/result_dim"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_alignParentBottom="true"
-                android:background="#000000"
+                android:background="#494949"
                 android:orientation="horizontal" />
         </RelativeLayout>
 

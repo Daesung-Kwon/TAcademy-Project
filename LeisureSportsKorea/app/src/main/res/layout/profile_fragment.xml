@@ -162,6 +162,7 @@
                         android:textSize="@dimen/list_textSize" />
 
                     <Switch
+                        android:id="@+id/profile_push"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical|end"

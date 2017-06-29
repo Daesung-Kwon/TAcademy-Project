@@ -14,7 +14,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.leisurekr.leisuresportskorea.AsyncCheckoutInsert;
+import com.leisurekr.leisuresportskorea.CheckoutObject;
 import com.leisurekr.leisuresportskorea.R;
+import com.leisurekr.leisuresportskorea.shop_detail.ShopDetailActivity;
+import com.leisurekr.leisuresportskorea.shop_detail.WriteReviewActivity;
 
 
 public class ReservationDetailActivity extends AppCompatActivity {
@@ -101,6 +105,37 @@ public class ReservationDetailActivity extends AppCompatActivity {
         detail = (Button) findViewById(R.id.reservation_detail_detailbtn);
         review = (Button) findViewById(R.id.reservation_detail_reviewbtn);
 
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CheckoutObject checkoutObject = new CheckoutObject();
+                checkoutObject.setBookid(reservation.getBookId());
+                checkoutObject.setAdult(reservation.getAdult());
+                checkoutObject.setChild(reservation.getChildren());
+                checkoutObject.setDate(reservation.getDate());
+                checkoutObject.setTime(reservation.getTime());
+                new AsyncCheckoutInsert(ReservationDetailActivity.this,4).execute(checkoutObject);
+                finish();
+            }
+        });
+        review.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ReservationDetailActivity.this, WriteReviewActivity.class);
+                intent.putExtra("id",shopObject.id);
+                startActivity(intent);
+            }
+        });
+
+        detail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ShopDetailActivity.class);
+                intent.putExtra("shopId", shopObject.getId()); // shopInfo.shopId
+                startActivity(intent);
+            }
+        });
+
         //backImage.setImageResource(reservation.getBackImage());
 
         if(reservation.programObject!=null) {
@@ -120,13 +155,41 @@ public class ReservationDetailActivity extends AppCompatActivity {
                 activityIamge.setImageResource(R.drawable.ic_funboat);
                 break;
             case "Ski":
-                activityIamge.setImageResource(R.drawable.ic_waterski);
+     activityIamge.setImageResource(R.drawable.ic_ski);
                 break;
+            case "ATV":
+                activityIamge.setImageResource(R.drawable.ic_atv);
+                break;
+            case "Bungee Jump":
+                activityIamge.setImageResource(R.drawable.ic_bungee_jump);
+                break;
+            case "Paintball":
+                activityIamge.setImageResource(R.drawable.ic_paintball);
+                break;
+            case "Paragliding":
+                activityIamge.setImageResource(R.drawable.ic_paragliding);
+                break;
+            case "Rafting":
+                activityIamge.setImageResource(R.drawable.ic_rafting);
+                break;
+            case "Scuba Diving":
+                activityIamge.setImageResource(R.drawable.ic_scuba_diving);
+                break;
+            case "Snowboard":
+                activityIamge.setImageResource(R.drawable.ic_snowboard);
+                break;
+            case "Surfing":
+                activityIamge.setImageResource(R.drawable.ic_surfing);
+                break;
+            case "Wakeboard":
+                activityIamge.setImageResource(R.drawable.ic_wakeboard);
+                break;
+
         }
 
         date.setText(reservation.getDate());
-        time.setText("15:00(!)");
-        price.setText("$"+Integer.toString(reservation.getPrice()));
+        time.setText(reservation.getTime());
+        price.setText("$"+Integer.toString(programObject.getPrice()));
 
         String s=" ";
         int adult = reservation.getAdult();
@@ -141,8 +204,8 @@ public class ReservationDetailActivity extends AppCompatActivity {
         }
         people.setText(s);
 
-        location1.setText(reservation.getLocation3()+", "+reservation.getLocation1()+",");
-        location2.setText(reservation.getLocation2());
+        location1.setText(shopObject.getLocation3()+",");
+        location2.setText(shopObject.getLocation2()+", "+shopObject.getLocation1());
 
         setLayout(reservation.getProgress());
         }

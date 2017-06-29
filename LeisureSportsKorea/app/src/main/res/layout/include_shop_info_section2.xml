@@ -9,22 +9,21 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp">
+        android:layout_height="wrap_content">
 
         <GridView
             android:id="@+id/shop_info_grid_view1"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:numColumns="4" />
+            android:numColumns="4"
+            android:clickable="false"/>
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="16dp"
         android:background="@android:color/darker_gray"/>
 
     <TextView
@@ -34,59 +33,58 @@
         android:layout_marginBottom="5dp"
         android:text="About the shop"
         android:textSize="16sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:textColor="@color/colorBlack"/>
     <TextView
         android:id="@+id/description_about_shop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="21dp"
         android:text="@string/shop_description"
+        android:lineSpacingExtra="6sp"
         android:textSize="13.3sp"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/s_amp_f"
         android:textSize="16sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:textColor="@color/colorBlack"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp">
+        android:layout_height="wrap_content">
 
         <GridView
             android:id="@+id/shop_info_grid_view2"
             android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="190dp"
-            android:numColumns="3"
-            android:layout_marginTop="16dp"/>
+            android:layout_height="175dp"
+            android:numColumns="3" />
+
     </RelativeLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="16dp"
         android:text="Things to prepare"
         android:textSize="16sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:textColor="@color/colorBlack"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp">
+        android:layout_height="wrap_content">
 
         <GridView
             android:id="@+id/shop_info_grid_view3"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:numColumns="4"
-            android:layout_marginTop="16dp"/>
+            android:numColumns="4" />
     </RelativeLayout>
 </LinearLayout>

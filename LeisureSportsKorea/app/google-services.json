@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "642913336767",
+    "firebase_url": "https://leisurekorea-7d2fd.firebaseio.com",
+    "project_id": "leisurekorea-7d2fd",
+    "storage_bucket": "leisurekorea-7d2fd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:642913336767:android:fa8edcf6c3ff1a77",
+        "android_client_info": {
+          "package_name": "com.leisurekr.leisuresportskorea"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "642913336767-63qtvmkfol5ogfvr82cme711u3l7havh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.leisurekr.leisuresportskorea",
+            "certificate_hash": "f1ab49b499e7a7f8dafc44132960296f0103495c"
+          }
+        },
+        {
+          "client_id": "642913336767-4cpvg7la2u5h7muebcrlk359sk4il6mk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBz1hdHJs-2__rU8cjCJingfPMmhBiV4qU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "642913336767-4cpvg7la2u5h7muebcrlk359sk4il6mk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

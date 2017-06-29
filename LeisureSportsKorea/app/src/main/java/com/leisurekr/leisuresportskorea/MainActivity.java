@@ -1,10 +1,12 @@
 package com.leisurekr.leisuresportskorea;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -32,17 +34,29 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.leisurekr.leisuresportskorea.interfaces.ShopListSetListener;
+import com.leisurekr.leisuresportskorea.okhttp.OkHttpAPIHelperHandler;
+import com.leisurekr.leisuresportskorea.sharedPreferences.LKSharedPreferencesManager;
 import com.leisurekr.leisuresportskorea.shop.FilterActivity;
 import com.leisurekr.leisuresportskorea.shop.MapActivity;
+import com.leisurekr.leisuresportskorea.shop_detail.LKShopListObject;
 import com.leisurekr.leisuresportskorea.ticket.TicketActivity;
 
+import java.util.ArrayList;
+
 import static com.leisurekr.leisuresportskorea.R.id.action_search;
+import static com.leisurekr.leisuresportskorea.shop.TabFragment2.rvAdapter;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity
+        implements View.OnClickListener, ShopListSetListener {
 
+    ArrayList<LKShopListObject> objectsFromShopList;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    TabPagerAdapter pagerAdapter;
     Toolbar toolbar;
 
     private View searchView;
@@ -108,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     static final int FILTER_REQUEST = 2;
     private Boolean isFabOpen = false;
     private FloatingActionButton fab, fab1, fab2;
+    private TextView textViewForFab1, textViewForFab2;
     private Animation fab_open, fab_close, rotate_forward, rotate_backward;
     Intent mapIntent;
     Intent filterIntent;
@@ -125,11 +140,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageView tabHome;
     ImageView tabShop;
     ImageView tabMypage;
+    ArrayList<Integer> query;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Log.i("Get Token Main", LKSharedPreferencesManager.getInstance().getKeyToken());
+
+        if(LKSharedPreferencesManager.getInstance().getKeyFcm()==false) {
+            Log.d("fcm token","토큰 생성");
+            FirebaseMessaging.getInstance();
+            FirebaseInstanceId.getInstance().getToken();
+            LKSharedPreferencesManager.getInstance().setKeyFcm(true);
+        }
 
         searchView = findViewById(R.id.search_view);
         datelayout = (LinearLayout) searchView.findViewById(R.id.search_datelayout);
@@ -148,11 +173,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SearchResultActivity.class);
-                intent.putExtra("date", date.getText().toString());
-                intent.putExtra("guest", guest.getText().toString());
-                intent.putExtra("location", location.getText().toString());
-                startActivity(intent);
+
+                if(date.getText().toString()==null||date.getText().toString().equals("Date")){
+                    Toast.makeText(MainActivity.this, "Please select Date of use"
+                            , Toast.LENGTH_SHORT).show();
+                }else if((adult == 0 && children == 0)||guest.getText().toString()
+                        .equals("No. of Guests")){
+                    Toast.makeText(MainActivity.this, "Please select Number of Guests"
+                            , Toast.LENGTH_SHORT).show();
+                }else if(location.getText().toString()==null||location.getText().toString()
+                        .equals("Location")){
+                    Toast.makeText(MainActivity.this, "Please select Location"
+                            , Toast.LENGTH_SHORT).show();
+                }else {
+                    Intent intent = new Intent(MainActivity.this, SearchResultActivity.class);
+                    intent.putExtra("date", date.getText().toString());
+                    intent.putExtra("dateString", dateString);
+                    intent.putExtra("guest", guest.getText().toString());
+                    intent.putExtra("adult", adult);
+                    intent.putExtra("children", children);
+                    intent.putExtra("location", location.getText().toString());
+                    startActivity(intent);
+                    if (searchView.getVisibility()==View.VISIBLE) {
+                        searchView.setVisibility(View.GONE);
+                        //toolbar.setTitle(tabs[0]);
+                        itemSearch.setVisible(true);
+                        itemTicket.setVisible(true);
+                        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                    }
+                }
             }
         });
         //searchButton = (FloatingActionButton) findViewById(R.id.search_actionbtn);
@@ -161,6 +210,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab1 = (FloatingActionButton) findViewById(R.id.fab1);
         fab2 = (FloatingActionButton) findViewById(R.id.fab2);
+        textViewForFab1 = (TextView) findViewById(R.id.text_for_fab1);
+        textViewForFab2 = (TextView) findViewById(R.id.text_for_fab2);
 
         // FAB Animation Setting
         fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
@@ -192,18 +243,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         viewPager = (ViewPager) findViewById(R.id.viewpager);
 
         // Adapter For View Pager
-        TabPagerAdapter pagerAdapter = new TabPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        pagerAdapter = new TabPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
+        /*viewPager.setOffscreenPageLimit(ViewPager.SCROLL_STATE_SETTLING);*/
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         // FAB Listener
         fab.hide();
+        textViewForFab1.setVisibility(View.INVISIBLE);
+        textViewForFab2.setVisibility(View.INVISIBLE);
         fab2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO : HHere, insert New Activity for Map
                 mapIntent = new Intent(MainActivity.this, MapActivity.class);
+                // Fragment2로 부터 Shop List 객체 가져와서 Map Activity로 값 전달.
+                mapIntent.putParcelableArrayListExtra("shopInfoList", objectsFromShopList);
                 startActivityForResult(mapIntent, MAP_REQUEST);
+                animateFAB();
 
             }
         });
@@ -212,7 +268,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(View v) {
                 // TODO : HHere, insert New Activity for Filter
                 filterIntent = new Intent(MainActivity.this, FilterActivity.class);
-                startActivity(filterIntent);
+                startActivityForResult(filterIntent, FILTER_REQUEST);
+                animateFAB();
 
             }
         });
@@ -223,12 +280,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 switch (id) {
                     case R.id.fab: {
                         animateFAB();
-                        break;
-                    }
-                    case R.id.fab1: {
-                        break;
-                    }
-                    case R.id.fab2: {
                         break;
                     }
                 }
@@ -295,24 +346,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
+            public void onTabReselected(TabLayout.Tab tab) {}
         });
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             Transition exitTrans = new Explode(); // Fade(), Slide()
-
             Transition reenterTrans = new Explode(); // Fade(), Slide()
-
-
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        Log.e("MainActivity","onResume()");
+        pagerAdapter.notifyDataSetChanged();
         checkPermission();
     }
 
@@ -362,14 +410,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (isFabOpen) {
             fab.startAnimation(rotate_backward);
             fab1.startAnimation(fab_close);
+            textViewForFab1.startAnimation(fab_close);
             fab2.startAnimation(fab_close);
+            textViewForFab2.startAnimation(fab_close);
             fab1.setClickable(false);
             fab2.setClickable(false);
             isFabOpen = false;
         } else {
             fab.startAnimation(rotate_forward);
             fab1.startAnimation(fab_open);
+            textViewForFab1.startAnimation(fab_open);
             fab2.startAnimation(fab_open);
+            textViewForFab2.startAnimation(fab_open);
             fab1.setClickable(true);
             fab2.setClickable(true);
             isFabOpen = true;
@@ -391,6 +443,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     int adult = 1;
     int children = 0;
+    String dateString=null;
 
 
     RadioGroup radioGroup;
@@ -416,6 +469,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 int year = datePicker.getYear();
                                 int month = datePicker.getMonth() + 1;
                                 int day = datePicker.getDayOfMonth();
+                                dateString = year + "-" + month + "-" + day;
                                 date.setText(Integer.toString(year)
                                         + "년 " + Integer.toString(month) + "월 " + Integer.toString(day) + "일");
 
@@ -510,6 +564,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    @Override
+    public void shopListSetData(ArrayList<LKShopListObject> data) {
+        objectsFromShopList = new ArrayList<>();
+
+        for (int i = 0; i < data.size(); i++) {
+            LKShopListObject obj = new LKShopListObject();
+
+            obj.activityName = data.get(i).activityName;
+            obj.price = data.get(i).price;
+            obj.shopId = data.get(i).shopId;
+            obj.shopIcon = data.get(i).shopIcon;
+            obj.shopName = data.get(i).shopName;
+            obj.shopAddress1 = data.get(i).shopAddress1;
+            obj.shopAddress2 = data.get(i).shopAddress2;
+            obj.shopAddress3 = data.get(i).shopAddress3;
+            obj.latitude = data.get(i).latitude;
+            obj.longitude = data.get(i).longitude;
+            obj.shopImages = data.get(i).shopImages;
+            obj.likes = data.get(i).likes;
+            obj.score = data.get(i).score;
+
+            objectsFromShopList.add(obj);
+        }
+    }
+
     class SearchClickLisenter implements View.OnClickListener {
         @Override
         public void onClick(View v) {
@@ -539,12 +618,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                     break;
             }
-
         }
     }
 
     private final long FINSH_INTERVAL_TIME = 2000;
     private long backPressedTime = 0;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == FILTER_REQUEST && resultCode == RESULT_OK) {
+            query = data.getIntegerArrayListExtra("filteredValue");
+            /*for (int i = 0; i < query.size(); i++) {
+                Log.i("test", ""+query.get(i));
+            }*/
+            new AsyncShopInfoJSONFilterList().execute();
+        }
+    }
 
     @Override
     public void onBackPressed() {
@@ -566,6 +657,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(getApplicationContext(), "'뒤로'버튼을한번더누르시면종료됩니다.", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    public class AsyncShopInfoJSONFilterList
+            extends AsyncTask<String, Integer, ArrayList<LKShopListObject>> {
+
+        ProgressDialog dialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //dialog = ProgressDialog.show(owner, "", "Loading...", true);
+        }
+
+        @Override
+        protected ArrayList<LKShopListObject> doInBackground(String... params) {
+            return OkHttpAPIHelperHandler.shopListJSONAllSelect(query);
+        }
+        @Override
+        protected void onPostExecute(ArrayList<LKShopListObject> result) {
+            //dialog.dismiss();
+            if (result != null && result.size() > 0) {
+                // MainActivity.class로 Object 전달
+                // Adapter result 값 Add
+                rvAdapter.addAll(result);
+                rvAdapter.notifyDataSetChanged();
+
+            }else {
+            }
+        }
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.e("MainActivity","onPause()");
     }
 }
 

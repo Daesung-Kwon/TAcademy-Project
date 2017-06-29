@@ -27,7 +27,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="2.5dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
@@ -77,7 +77,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="it's so cool! it's nice time :)"
-                    android:lines="1"/>
+                    android:lines="1"
+                    android:textSize="15sp"/>
 
             </LinearLayout>
 
@@ -98,6 +99,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/darker_gray" />
+        android:background="#ebebeb" />
 
 </LinearLayout>

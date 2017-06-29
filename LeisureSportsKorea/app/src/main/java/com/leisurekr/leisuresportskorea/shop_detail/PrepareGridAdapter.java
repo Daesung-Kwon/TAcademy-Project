@@ -1,6 +1,7 @@
 package com.leisurekr.leisuresportskorea.shop_detail;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,8 @@ public class PrepareGridAdapter extends BaseAdapter {
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View gridView;
+        String grayColor = "#838383";
+        String blackColor = "#000000";
 
         if (convertView == null) {
             gridView = new View(context);
@@ -51,8 +54,10 @@ public class PrepareGridAdapter extends BaseAdapter {
             TextView textView = (TextView) gridView.findViewById(R.id.grid_item_label);
             if (tag[position] == "0") {
                 textView.setText(PrepareIconList.getInactiveName(prepareMap.get(position)));
+                textView.setTextColor(Color.parseColor(grayColor));
             }else {
                 textView.setText(PrepareIconList.getActiveName(prepareMap.get(position)));
+                textView.setTextColor(Color.parseColor(blackColor));
             }
 
             ImageView imageView = (ImageView) gridView.findViewById(R.id.grid_item_image);

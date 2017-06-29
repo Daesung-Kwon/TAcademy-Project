@@ -56,7 +56,7 @@
                     android:layout_marginBottom="@dimen/reservation_detail_topImageMarginBottom"
                     android:layout_marginLeft="@dimen/reservation_detail_totalMarginLeft"
                     android:layout_marginRight="@dimen/reservation_detail_totalMarginRight"
-                    android:background="@drawable/list_text"
+                    android:background="@drawable/pic_box"
                     android:paddingLeft="@dimen/reservation_detail_topImagePaddinLeft"
                     android:paddingTop="@dimen/reservation_detail_topImagePaddinTop">
 

@@ -18,7 +18,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:background="?attr/colorPrimary"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -47,19 +48,39 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <android.support.design.widget.TextInputLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/profile_edit_listItemHeight"
-                android:layout_marginLeft="@dimen/profile_edit_middleMarginLeft"
-                android:layout_marginRight="@dimen/profile_edit_marginRight">
+                android:layout_height="wrap_content">
 
-                <android.support.design.widget.TextInputEditText
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/profile_edit_listItemHeight"
-                    android:layout_marginBottom="@dimen/profile_edit_marginBottom"
-                    android:gravity="center_vertical"
-                    android:hint="name" />
-            </android.support.design.widget.TextInputLayout>
+                    android:layout_marginLeft="@dimen/profile_edit_middleMarginLeft"
+                    android:layout_marginRight="@dimen/profile_edit_marginRight"
+                    android:orientation="horizontal">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/profile_edit_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/profile_edit_listItemHeight"
+                        android:layout_weight="8"
+                        android:gravity="center_vertical"
+                        android:background="@null"
+                        android:hint="Name" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/profile_edit_erase"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_close"
+                    android:background="@color/colorCartBackLightGray"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"/>
+            </RelativeLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -82,26 +103,29 @@
                     android:orientation="vertical">
 
                     <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/profile_edit_sex"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/profile_edit_listItemHeight"
-                        android:layout_gravity="bottom"
-                        android:layout_weight="1"
-                        android:entries="@array/Nationality"
-                        android:gravity="bottom" />
+
+                        android:entries="@array/Sex" />
+
+
+
                 </FrameLayout>
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="bottom"
                     android:layout_weight="1">
 
                     <android.support.design.widget.TextInputEditText
+                        android:id="@+id/profile_edit_age"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:background="@null"
-                        android:gravity="center_vertical"
-                        android:hint="age"
+                        android:gravity="top"
+                        android:hint="Age"
                         android:inputType="number" />
 
                 </android.support.design.widget.TextInputLayout>
@@ -130,14 +154,17 @@
                     android:layout_weight="1.1"
                     android:background="@color/colorPartition" />
             </LinearLayout>
-
             <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/appCompatSpinner"
+                android:id="@+id/profile_edit_nationality"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/profile_edit_listItemHeight"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:entries="@array/Nationality"
                 android:layout_marginLeft="@dimen/profile_edit_middleMarginLeft"
                 android:layout_marginRight="@dimen/profile_edit_marginRight"
-                android:entries="@array/Sex" />
+                android:gravity="bottom" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -158,14 +185,32 @@
                 android:layout_marginBottom="@dimen/profile_edit_marginBottom"
                 android:background="@color/colorPartition" />
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/profile_edit_listItemHeight"
-                android:layout_marginLeft="@dimen/profile_edit_marginLeft"
-                android:layout_marginRight="@dimen/profile_edit_marginRight"
-                android:text="Interests"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textSize="@dimen/profile_edit_listItemTextSize" />
+                android:layout_height="wrap_content"
+                android:id="@+id/profile_edit_interests">
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/profile_edit_listItemHeight"
+                    android:layout_marginLeft="@dimen/profile_edit_marginLeft"
+                    android:text="Interests"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="@dimen/profile_edit_listItemTextSize" />
+
+                <TextView
+                    android:id="@+id/profile_edit_interststext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="@dimen/profile_edit_interestsTextSize"
+                    android:layout_marginRight="@dimen/profile_edit_marginRight"
+                    android:layout_marginTop="5dp"/>
+
+            </RelativeLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -174,6 +219,7 @@
                 android:background="@color/colorPartition" />
 
             <TextView
+                android:id="@+id/profile_edit_sns"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/profile_edit_listItemHeight"
                 android:layout_marginLeft="@dimen/profile_edit_marginLeft"

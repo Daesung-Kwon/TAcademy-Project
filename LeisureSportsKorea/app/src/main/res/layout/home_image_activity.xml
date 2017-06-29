@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_linear"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/home_activity_imageWidth"
-    android:layout_height="@dimen/home_activity_imageHeight" >
+    android:layout_height="@dimen/home_activity_imageHeight">
+
+    <ImageView
+        android:id="@+id/activity_backimgae"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
 
     <ImageView
         android:layout_height="match_parent"
@@ -20,48 +25,56 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:elevation="10dp"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-    <ImageView
-        android:layout_marginTop="@dimen/home_activity_iconMarginTop"
-        android:layout_width="@dimen/home_activity_iconWidth"
-        android:layout_height="@dimen/home_activity_iconHeight"
-        android:id="@+id/activity_icon" />
+        <ImageView
+            android:id="@+id/activity_icon"
+            android:layout_width="@dimen/home_activity_iconWidth"
+            android:layout_height="@dimen/home_activity_iconHeight"
+            android:layout_marginTop="@dimen/home_activity_iconMarginTop" />
 
-    <TextView
-        android:layout_marginTop="@dimen/home_activity_text1MarginTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/activity_name"
-        android:textSize="@dimen/home_activity_text1Size"
-        android:textColor="@color/colorWhite"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
+        <TextView
+            android:id="@+id/activity_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/home_activity_text1MarginTop"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/home_activity_text1Size" />
 
-    <TextView
-        android:layout_marginTop="@dimen/home_activity_text2MarginTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/activity_description1"
-        android:textSize="@dimen/home_activity_text2Size"
-        android:textColor="#ffffff"/>
+        <TextView
+            android:id="@+id/activity_description1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/home_activity_text2MarginTop"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/home_activity_text2Size" />
 
-    <TextView
-        android:layout_marginTop="@dimen/home_activity_text3MarginTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/activity_description2"
-        android:textSize="@dimen/home_activity_text3Size"
-        android:textColor="#ffffff"/>
+        <TextView
+            android:id="@+id/activity_description2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/home_activity_text3MarginTop"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/home_activity_text3Size" />
 
-    <TextView
-        android:layout_marginTop="@dimen/home_activity_priceMarginTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/activity_price"
-        android:textSize="@dimen/home_activity_priceSize"
-        android:textColor="#ffffff"/>
+        <TextView
+            android:id="@+id/activity_description3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/home_activity_text3MarginTop"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/home_activity_text3Size" />
+
+        <TextView
+            android:id="@+id/activity_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/home_activity_priceMarginTop"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/home_activity_priceSize" />
 
     </LinearLayout>
 </FrameLayout>

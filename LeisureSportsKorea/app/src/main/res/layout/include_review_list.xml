@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -22,7 +22,8 @@
                 android:layout_height="wrap_content"
                 android:text="Review"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/colorBlack"/>
 
             <TextView
                 android:id="@+id/rating_total_count"
@@ -30,31 +31,33 @@
                 android:layout_height="wrap_content"
                 android:text="12"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/colorBlack"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16sp">
 
             <RatingBar
                 android:id="@+id/review_rating_bar"
+                style="@style/RatingbarTheme"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:numStars="5"
-                android:stepSize="0.2"
-                android:onClick="false"
-                style="?android:attr/ratingBarStyleSmall"/>
+                android:stepSize="0.5"
+                android:onClick="false" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray" />
+            android:layout_height="2dp"
+            android:background="#ebebeb" />
 
     </LinearLayout>
 

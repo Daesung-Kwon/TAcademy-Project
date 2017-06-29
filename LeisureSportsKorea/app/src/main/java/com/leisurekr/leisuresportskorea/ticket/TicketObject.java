@@ -64,6 +64,7 @@ public class TicketObject {
             this.adult = jsonObject.getInt("adult");
             this.children = jsonObject.getInt("child");
             //this.progress = jsonObject.getString("status"); //서버에서 이미 상태를 보고 승인이 된것만 온건지. 아니라면 내가 해야하므로 필요한 요소
+            time = jsonObject.getString("strTime");
             this.date = jsonObject.getString("strDate");
             programObject = new ProgramObject();
             programObject.setData(jsonObject.getJSONObject("program"));

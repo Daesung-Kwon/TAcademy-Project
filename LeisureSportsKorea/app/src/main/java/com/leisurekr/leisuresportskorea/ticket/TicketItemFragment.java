@@ -79,7 +79,8 @@ public class TicketItemFragment extends Fragment {
             shopObject = programObject.getShopObject();
             text1.setText(shopObject.getName() + "'s");
             text2.setText(programObject.getActivityName());
-            text3.setText(programObject.getName());
+            text3.setText(programObject.getName()
+                    .substring(programObject.getActivityName().length()+1));
             Glide.with(TicketItemFragment.this).load(shopObject.getImage()).into(backImage);
 
 
@@ -91,13 +92,41 @@ public class TicketItemFragment extends Fragment {
                     activityIamge.setImageResource(R.drawable.ic_funboat);
                     break;
                 case "Ski":
-                    activityIamge.setImageResource(R.drawable.ic_waterski);
+                    activityIamge.setImageResource(R.drawable.ic_ski);
                     break;
+                case "ATV":
+                    activityIamge.setImageResource(R.drawable.ic_atv);
+                    break;
+                case "Bungee Jump":
+                    activityIamge.setImageResource(R.drawable.ic_bungee_jump);
+                    break;
+                case "Paintball":
+                    activityIamge.setImageResource(R.drawable.ic_paintball);
+                    break;
+                case "Paragliding":
+                    activityIamge.setImageResource(R.drawable.ic_paragliding);
+                    break;
+                case "Rafting":
+                    activityIamge.setImageResource(R.drawable.ic_rafting);
+                    break;
+                case "Scuba Diving":
+                    activityIamge.setImageResource(R.drawable.ic_scuba_diving);
+                    break;
+                case "Snowboard":
+                    activityIamge.setImageResource(R.drawable.ic_snowboard);
+                    break;
+                case "Surfing":
+                    activityIamge.setImageResource(R.drawable.ic_surfing);
+                    break;
+                case "Wakeboard":
+                    activityIamge.setImageResource(R.drawable.ic_wakeboard);
+                    break;
+
             }
 
             date.setText(ticket.getDate());
-            time.setText("15:00(!)");
-            price.setText("$"+Integer.toString(ticket.getPrice()));
+            time.setText(ticket.getTime());
+            price.setText("$"+Integer.toString(programObject.getPrice()));
 
             String s=" ";
             int adult = ticket.getAdult();
@@ -112,49 +141,15 @@ public class TicketItemFragment extends Fragment {
             }
             people.setText(s);
 
-            location1.setText(ticket.getLocation3()+", "+ticket.getLocation1()+",");
-            location2.setText(ticket.getLocation2());
+            location1.setText(shopObject.getLocation3()+",");
+            location2.setText(shopObject.getLocation2()+", "+shopObject.getLocation1());
 
         }else{
             Log.e("ticket","ticket.programObject==null");
         }
 
-        //backImage.setImageResource(reservation.getBackImage());
-        //backImage.setBackgroundResource(ticket.getBackImage());
         dimLayout.setBackgroundColor(Color.BLACK);
         dimLayout.setAlpha(0.3f);
-
-//        text1.setText(ticket.getText1()+"'s");
-//        text2.setText(ticket.getText2());
-//        text3.setText(ticket.getText3());
-//        switch (ticket.getMain()){
-//            case "Water Ski":
-//                activityIamge.setImageResource(R.drawable.ic_waterski);
-//                break;
-//            case "Fun Boat":
-//                activityIamge.setImageResource(R.drawable.ic_funboat);
-//                break;
-//        }
-//
-//        date.setText(ticket.getDate());
-//        time.setText(ticket.getTime());
-//        price.setText("$"+Integer.toString(ticket.getPrice()));
-//
-//        String s=" ";
-//        int adult = ticket.getAdult();
-//        int children = ticket.getChildren();
-//        if (adult != 0 && children != 0) {
-//            s = "Adult " + Integer.toString(adult
-//            ) + ",  Children " + Integer.toString(children);
-//        } else if (adult == 0 && children != 0) {
-//            s = "Children " + Integer.toString(children);
-//        } else if (children == 0 && adult != 0) {
-//            s = "Adult " + Integer.toString(adult);
-//        }
-//        people.setText(s);
-//
-//        location1.setText(ticket.getLocation3()+", "+ticket.getLocation1()+",");
-//        location2.setText(ticket.getLocation2());
 
         return view;
     }

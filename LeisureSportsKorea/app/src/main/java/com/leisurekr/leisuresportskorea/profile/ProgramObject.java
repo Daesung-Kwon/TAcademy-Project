@@ -17,16 +17,19 @@ public class ProgramObject implements Serializable {
     int price;
     String activityName;
     ShopObject shopObject;
+    String image;
+
 
     public void setData(JSONObject object){
 
         try {
             id = object.getInt("id");
             name = object.getString("name");
-            //price = object.getInt("price");
+            price = object.getInt("price");
             activityName = object.getString("actName");
             shopObject = new ShopObject();
             shopObject.setData(object.getJSONObject("shop"));
+            image = object.getString("image");
 
             Log.e("파싱성공","Program 파싱 성공");
         }catch (JSONException e){
@@ -73,5 +76,13 @@ public class ProgramObject implements Serializable {
 
     public void setShopObject(ShopObject shopObject) {
         this.shopObject = shopObject;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

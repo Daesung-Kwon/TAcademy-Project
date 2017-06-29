@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.leisurekr.leisuresportskorea.R;
@@ -35,22 +36,6 @@ public class TicketActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         arrayList = new ArrayList<>();
-
-        TicketObject object1 = new TicketObject();
-        object1.setData(R.drawable.list_image,R.drawable.activityimagelight,"Water Ski","River City","Water Ski Beginner",
-                "Lesson Package",50,"Approved","May 22, 2017","17:00",2,0,"Apgujeong-dong","Gangnam-gu, Seoul","379-1");
-
-        TicketObject object2 = new TicketObject();
-        object2.setData(R.drawable.list_image,R.drawable.activityimagelight,"Water Ski","River City","Water Ski Beginner",
-                "Lesson Package",50,"Finished","May 22, 2017","15:00",2,0,"Apgujeong-dong","Gangnam-gu, Seoul","379-1");
-
-        TicketObject object3 = new TicketObject();
-        object3.setData(R.drawable.list_image,R.drawable.activityimagelight,"Water Ski","River City","Water Ski Beginner",
-                "Lesson Package",50,"Canceled","May 22, 2017","11:00",2,0,"Apgujeong-dong","Gangnam-gu, Seoul","379-1");
-
-        arrayList.add(object1);
-        arrayList.add(object2);
-        arrayList.add(object3);
 
         viewPager = (ViewPager) findViewById(R.id.ticket_viewpager);
         fm = getSupportFragmentManager();
@@ -83,11 +68,7 @@ public class TicketActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute( ArrayList<TicketObject> result) {
             dialog.dismiss();
-
-//            adapter = new TicketPagerAdapter(fm,result);
-//            viewPager.setAdapter(adapter);
-//            adapter.notifyDataSetChanged();
-
+            adapter.count=0;
             adapter.addAll(result);
         }
     }
@@ -109,7 +90,10 @@ public class TicketActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
+            if(arrayList!=null)
             return arrayList.size();
+            else
+                return 0;
         }
 
         @Override
@@ -119,10 +103,12 @@ public class TicketActivity extends AppCompatActivity {
             return ticketItemFragment;
         }
 
+        int count=0;
         @Override
         public int getItemPosition(Object object) {
-            for(int i=0;i<arrayList.size();i++)
-                ((TicketItemFragment)object).setTicket(arrayList.get(i));
+            Log.e("ticket","getItemPosition"+count);
+            ((TicketItemFragment)object).setTicket(arrayList.get(count));
+            count++;
             return POSITION_NONE;
         }
     }

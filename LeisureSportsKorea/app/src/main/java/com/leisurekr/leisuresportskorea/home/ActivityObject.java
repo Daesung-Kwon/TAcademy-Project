@@ -28,10 +28,10 @@ public class ActivityObject {
             programImage = object.getString("programImage");
             shopId = object.getInt("shopId");
             shopName = object.getString("shopName");
-
-            Log.e("activityObject", "1");
+            Log.e("activityObject", "activity 파싱 성공");
         }catch (JSONException e){
-            Log.e("Activity JSON Error",e.toString());
+            Log.e("Activity JSON Error","activity 파싱 오류");
+
         }
 
     }

@@ -14,6 +14,7 @@ import java.io.Serializable;
 
 public class ReservationObject implements Serializable{
 
+    private int bookId;
     private int leftBackImage;
     private int price;
     private int adult;
@@ -61,10 +62,12 @@ public class ReservationObject implements Serializable{
     public void setData(JSONObject jsonObject)
     {
         try {
+            this.bookId = jsonObject.getInt("id");
             this.adult = jsonObject.getInt("adult");
             this.children = jsonObject.getInt("child");
             this.progress = jsonObject.getString("status");
             this.date = jsonObject.getString("strDate");
+            time = jsonObject.getString("strTime");
             programObject = new ProgramObject();
             programObject.setData(jsonObject.getJSONObject("program"));
 
@@ -79,6 +82,22 @@ public class ReservationObject implements Serializable{
         }catch (JSONException e){
             Log.e("파싱 오류","reservation Parsing 오류");
         }
+    }
+
+    public int getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(int bookId) {
+        this.bookId = bookId;
+    }
+
+    public ProgramObject getProgramObject() {
+        return programObject;
+    }
+
+    public void setProgramObject(ProgramObject programObject) {
+        this.programObject = programObject;
     }
 
     public int getLeftBackImage() {

@@ -20,11 +20,12 @@ public class BannerObject {
             this.id=object.getInt("id");
             this.name=object.getString("shopName");
             JSONArray jsonArray = object.getJSONArray("shopImages");
-            this.image=jsonArray.getJSONObject(0).getString("image");
+            //this.image=jsonArray.getJSONObject(0).getString("image");
+            this.image=jsonArray.getJSONObject(0).getString("thumbnail");
 
-            Log.e("bannerobject", "1");
+            Log.e("bannerobject", "banner 파싱 성공");
         }catch (JSONException e){
-            Log.e("BennerObject JSON Error",e.toString());
+            Log.e("BennerObject JSON Error","banner 파싱 오류");
         }
 
     }

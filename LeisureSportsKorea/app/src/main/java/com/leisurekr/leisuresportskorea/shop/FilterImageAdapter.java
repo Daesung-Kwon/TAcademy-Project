@@ -7,10 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.leisurekr.leisuresportskorea.R;
-import com.leisurekr.leisuresportskorea.shop_detail.PrepareIconList;
 
 import java.util.HashMap;
 
@@ -21,24 +19,26 @@ import java.util.HashMap;
 public class FilterImageAdapter extends BaseAdapter {
     private Context context;
     private HashMap<Integer, Integer> interestMap;
-    private static int MAX_GRID_COUNT = 12;
-    private String[] tag;
-    ImageView imageView;
+    public int[] tag;
+    ImageView iconImage;
+    TextView iconName;
+    LayoutInflater inflater;
 
     int MAX_SELECTED_COUNT = 4;
     int currentSelectedCount;
 
-    public FilterImageAdapter(Context context, String[] values) {
+    public FilterImageAdapter(Context context, int[] values) {
         this.context = context;
         tag = values;
-
+        currentSelectedCount = getCurrentSelectedCount(tag);
         this.interestMap = new HashMap<>();
-        initValues();
+        inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        setValueMap();
     }
 
-    public void initValues() {
+    public void setValueMap() {
         for (int i=0; i < tag.length; i++) {
-            if (tag[i] == "0") {
+            if (tag[i] == 0) {
                 interestMap.put(i, FilteringList.getInactiveIcoList().get(i));
             }else {
                 interestMap.put(i, FilteringList.getActiveIcoList().get(i));
@@ -48,85 +48,70 @@ public class FilterImageAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater)
-                context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        View gridView;
-
         if (convertView == null) {
-            gridView = new View(context);
-
-            gridView = inflater.inflate(R.layout.interest_grid_item, null);
-
-            TextView textView = (TextView) gridView.findViewById(R.id.grid_item_label);
-            if (tag[position] == "0") {
-                textView.setText(FilteringList.getInactiveSportsName(interestMap.get(position)));
-            }else {
-                textView.setText(FilteringList.getActiveSportsName(interestMap.get(position)));
-            }
-
-            imageView = (ImageView) gridView.findViewById(R.id.grid_item_image);
-            imageView.setImageResource(interestMap.get(position));
-
-            final int p = position;
-            currentSelectedCount = getCurrentSelectedCount(tag);
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (currentSelectedCount == 4) {
-                        if (tag[p] == "1") {
-                            imageView.setImageResource(FilteringList.getInactiveIcoList().get(p));
-                            tag[p] = "0";
-                            currentSelectedCount--;
-                        }
-                    }else if (currentSelectedCount < 4) {
-                        if (tag[p] == "1") {
-                            imageView.setImageResource(FilteringList.getInactiveIcoList().get(p));
-                            tag[p] = "0";
-                            currentSelectedCount--;
-                        }else {
-                            imageView.setImageResource(FilteringList.getActiveIcoList().get(p));
-                            tag[p] = "1";
-                            currentSelectedCount++;
-                        }
-                    }
-                }
-            });
-
-        } else {
-            gridView = (View) convertView;
+            convertView = inflater.inflate(R.layout.interest_grid_item2, null);
         }
-        notifyDataSetChanged();
-        return gridView;
+
+        iconName = (TextView) convertView.findViewById(R.id.grid_item_label);
+        iconImage = (ImageView) convertView.findViewById(R.id.grid_item_image);
+
+        // 이미지 활성화
+        setValueMap();
+        refreshingItem(position);
+
+        return convertView;
     }
 
     @Override
-    public int getCount() { return MAX_GRID_COUNT; }
+    public int getCount() { return tag.length; }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return tag[position];
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
-    public void setChangeIconStatus(int position) {
-        if (tag[position] == "0") {
-            this.interestMap.remove(position);
-            tag[position] = "1";
-        }else {
-            this.interestMap.remove(position);
-            tag[position] = "0";
+    public void refreshingItem(int position) {
+        switch (tag[position]) {
+            case 0:
+                iconName.setText(FilteringList.getInactiveSportsName(interestMap.get(position)));
+                iconImage.setImageResource(FilteringList.getInactiveIcoList().get(position));
+                break;
+            case 1:
+                iconName.setText(FilteringList.getActiveSportsName(interestMap.get(position)));
+                iconImage.setImageResource(FilteringList.getActiveIcoList().get(position));
+                break;
         }
     }
 
-    public int getCurrentSelectedCount(String[] list) {
+    public void updateSelectedTag(int position) {
+        if (currentSelectedCount == MAX_SELECTED_COUNT) {
+            if (tag[position] == 1) {
+                tag[position] = 0;
+                currentSelectedCount--;
+                notifyDataSetChanged();
+            }
+        }else if (currentSelectedCount < MAX_SELECTED_COUNT) {
+            if (tag[position] == 1) {
+                tag[position] = 0;
+                currentSelectedCount--;
+                notifyDataSetChanged();
+            }else {
+                tag[position] = 1;
+                currentSelectedCount++;
+                notifyDataSetChanged();
+            }
+        }
+    }
+
+    public int getCurrentSelectedCount(int[] list) {
         int cnt = 0;
         for (int i = 0; i < list.length; i++) {
-            if (list[i] == "1") {
+            if (list[i] == 1) {
                 cnt++;
             }
         }

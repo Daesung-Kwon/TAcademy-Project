@@ -5,8 +5,8 @@ package com.leisurekr.leisuresportskorea;
  */
 
 public class BookObject {
-    private int activityImage;
-    private String shopName;
+    private String activityImage;
+    private String activityName;
     private String text1;
     private String text2;
     private int price;
@@ -16,11 +16,11 @@ public class BookObject {
     private int childrenPrice;
     private int totalPrice;
 
-    public void setData(int activityImage, String shopName, String text1, String text2
+    public void setData(String activityImage, String activityName, String text1, String text2
             , int price, int adult, int adultPrice, int children, int childrenPrice
             , int totalPrice){
         this.activityImage = activityImage;
-        this.shopName = shopName;
+        this.activityName = activityName;
         this.text1 = text1;
         this.text2 = text2;
         this.price = price;
@@ -31,20 +31,20 @@ public class BookObject {
         this.totalPrice = totalPrice;
     }
 
-    public int getActivityImage() {
+    public String getActivityImage() {
         return activityImage;
     }
 
-    public void setActivityImage(int activityImage) {
+    public void setActivityImage(String activityImage) {
         this.activityImage = activityImage;
     }
 
-    public String getShopName() {
-        return shopName;
+    public String getActivityName() {
+        return activityName;
     }
 
-    public void setShopName(String shopName) {
-        this.shopName = shopName;
+    public void setActivityName(String activityName) {
+        this.activityName = activityName;
     }
 
     public String getText1() {

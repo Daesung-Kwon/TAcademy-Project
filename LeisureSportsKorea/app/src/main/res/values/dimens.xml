@@ -10,7 +10,11 @@
     <dimen name="padding_left_right">16dp</dimen>
 
     <!--Book Information화면-->
+    <dimen name="reservationDetails_textHeight">56dp</dimen>
+    <dimen name="reservationDetails_textMarginTop">31dp</dimen>
+    <dimen name="reservationDetails_textSize">14sp</dimen>
     <dimen name="bookInformation_textMarginTop">16dp</dimen>
+    <dimen name="bookInformation_iconMarginTop">16dp</dimen>
     <dimen name="bookInformation_listMarginTop">31dp</dimen>
     <dimen name="bookInformation_textPaddingRight">16dp</dimen>
     <dimen name="bookInformation_textPaddingLeft">10dp</dimen>
@@ -83,7 +87,7 @@
     <dimen name="home_shop_nameSize">16sp</dimen>
     <dimen name="home_shop_nameMarginBottom">5dp</dimen>
 
-    <dimen name="home_shop_mapiconWidth">6dp</dimen>
+    <dimen name="home_shop_mapiconWidth">9dp</dimen>
     <dimen name="home_shop_mapiconHeight">9dp</dimen>
     <dimen name="home_shop_maptextSize">12sp</dimen>
 
@@ -116,7 +120,7 @@
     <dimen name="search_floatHeight">56dp</dimen>
 
     <!--Ticket화면-->
-    <dimen name="ticket_textPaddingLeft">20dp</dimen>
+    <dimen name="ticket_textPaddingLeft">15dp</dimen>
     <dimen name="ticket_textPaddingRigth">15dp</dimen>
     <dimen name="ticket_iconMariginRight">15dp</dimen>
     <dimen name="ticket_topTextSize">20sp</dimen>
@@ -140,8 +144,8 @@
     <dimen name="book_titleMarginLeft">16dp</dimen>
     <dimen name="book_priceMarginRight">16dp</dimen>
     <dimen name="book_priceMarginBottom">24dp</dimen>
-    <dimen name="book_priceSize">20sp</dimen>
-    <dimen name="book_titleSize">20sp</dimen>
+    <dimen name="book_priceSize">24sp</dimen>
+    <dimen name="book_titleSize">16sp</dimen>
     <dimen name="book_textSize">16sp</dimen>
 
     <!--Profile 화면-->
@@ -169,6 +173,7 @@
 
     <dimen name="profile_edit_listItemHeight">48dp</dimen>
     <dimen name="profile_edit_listItemTextSize">16sp</dimen>
+    <dimen name="profile_edit_interestsTextSize">12sp</dimen>
 
     <!--Profile Cart화면-->
     <dimen name="profile_cart_marginRight">10dp</dimen>

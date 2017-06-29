@@ -1,5 +1,10 @@
 package com.leisurekr.leisuresportskorea.profile;
 
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 /**
@@ -8,6 +13,7 @@ import java.io.Serializable;
 
 public class CartObject implements Serializable{
 
+    private int id;
     private String shopName;
     private int activityImage;
     private String text1;
@@ -20,8 +26,11 @@ public class CartObject implements Serializable{
     private int adultPrice;
     private int childrenPrice;
     private int totalPrice;
+    private boolean isPicked;
 
-    public void setData(int activityImage, String shopName, String text1, String text2,String date
+    ProgramObject programObject;
+
+    public void setData(int activityImage, String shopName, String text1, String text2, String date
             , String time, int adult, int adultPrice, int children, int childrenPrice,int price,int totalPrice
             ) {
 
@@ -37,6 +46,42 @@ public class CartObject implements Serializable{
         this.children = children;
         this.childrenPrice = childrenPrice;
         this.totalPrice = totalPrice;
+    }
+
+    public void setData(JSONObject jsonObject)
+    {
+        try {
+            id = jsonObject.getInt("id");
+            this.adult = jsonObject.getInt("adult");
+            this.children = jsonObject.getInt("child");
+            this.date = jsonObject.getString("strDate");
+            time = jsonObject.getString("strTime");
+
+            programObject = new ProgramObject();
+            programObject.setData(jsonObject.getJSONObject("program"));
+
+            adultPrice=jsonObject.getJSONObject("program").getInt("adultPrice");
+            childrenPrice=jsonObject.getJSONObject("program").getInt("childPrice");
+
+            if(adult < 0){
+                adult = 0;
+            }
+            if(children < 0){
+                children = 0;
+            }
+
+            Log.e("파싱성공","cart 파싱 성공");
+        }catch (JSONException e){
+            Log.e("파싱 오류","cart Parsing 오류");
+        }
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setShopname(String shopname) {
@@ -143,5 +188,21 @@ public class CartObject implements Serializable{
 
     public void setTotalPrice(int totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public ProgramObject getProgramObject() {
+        return programObject;
+    }
+
+    public void setProgramObject(ProgramObject programObject) {
+        this.programObject = programObject;
+    }
+
+    public boolean isPicked() {
+        return isPicked;
+    }
+
+    public void setPicked(boolean picked) {
+        isPicked = picked;
     }
 }

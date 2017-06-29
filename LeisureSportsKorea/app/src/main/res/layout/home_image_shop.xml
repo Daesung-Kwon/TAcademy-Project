@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#ffffff"
     app:cardCornerRadius="2dp">
 
     <RelativeLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
@@ -19,15 +19,18 @@
             android:id="@+id/bestshop_main_image"
             android:layout_width="@dimen/home_shop_imageWidth"
             android:layout_height="@dimen/home_shop_imageHeight"
-            android:orientation="horizontal" />
+            android:orientation="horizontal"
+            android:scaleType="centerCrop"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <TextView
             android:id="@+id/filtered_text_in_shop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_alignBottom="@id/bestshop_main_image"
-            android:layout_marginBottom="@dimen/home_shop_textAreaPaddingBottom"
+            android:layout_marginTop="@dimen/home_shop_textAreaPaddingBottom"
             android:layout_marginLeft="@dimen/home_shop_textAreaPaddingLeft"
             android:elevation="10dp"
             android:text="#WATER SKI"
@@ -37,7 +40,9 @@
         <RelativeLayout
             android:layout_width="@dimen/home_shop_imageWidth"
             android:layout_height="@dimen/home_shop_imageHeight"
-            android:layout_alignParentBottom="true">
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
 
             <ImageView
                 android:id="@+id/favorite_item_icon_in_shop"
@@ -57,6 +62,7 @@
                 android:layout_toLeftOf="@+id/favorite_item_icon_in_shop"
                 android:layout_toStartOf="@+id/favorite_item_icon_in_shop"
                 android:background="@drawable/btn_share_unpress"
+                android:layout_marginRight="12dp"
                 />
 
             <LinearLayout
@@ -131,7 +137,7 @@
                             android:layout_width="@dimen/home_shop_ratingIconWidth"
                             android:layout_height="@dimen/home_shop_ratingIconHeight"
                             android:layout_gravity="center"
-                            android:background="@drawable/ic_star" />
+                            android:background="@drawable/ic_star_inact" />
 
                         <TextView
                             android:id="@+id/bestshop_rating_text"
@@ -163,7 +169,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/home_shop_textAreaHeight"
                 android:layout_alignParentBottom="true"
-                android:background="#000000"
+                android:background="#494949"
                 android:orientation="horizontal" />
         </RelativeLayout>
 

@@ -26,6 +26,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/toolbarRed"
+            style="@style/MyCustomTabLayout"
+            app:tabIndicatorColor="@color/colorWhite"
             app:tabMinWidth="90dp"
             app:tabMode="fixed" />
 

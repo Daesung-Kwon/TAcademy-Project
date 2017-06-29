@@ -19,17 +19,18 @@ public class ShopObject implements Serializable {
     String location3;
     String image;
 
-    public void setData(JSONObject jsonObject){
+
+    public void setData(JSONObject jsonObject) {
         try {
             id = jsonObject.getInt("id");
             name = jsonObject.getString("name");
             image = jsonObject.getString("shopImage");
-//        location1 = jsonObject.getString("id");
-//        location2 = jsonObject.getInt("id");
-//        location3 = jsonObject.getInt("id");
-            Log.e("파싱성공","shop 파싱 성공");
-        }catch(JSONException e){
-            Log.e("파싱오류","shop 파싱 오류");
+            location1 = jsonObject.getString("address1");
+            location2 = jsonObject.getString("address2");
+            location3 = jsonObject.getString("address3");
+            Log.e("파싱성공", "shop 파싱 성공");
+        } catch (JSONException e) {
+            Log.e("파싱오류", "shop 파싱 오류");
         }
     }
 

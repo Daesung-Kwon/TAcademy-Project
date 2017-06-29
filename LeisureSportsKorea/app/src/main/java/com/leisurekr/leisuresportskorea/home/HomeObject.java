@@ -31,9 +31,8 @@ public class HomeObject {
                     bannerObject.setDate(object);
 
                     banners.add(bannerObject);
-                    Log.e("banner", banner.toString());
                 }catch (JSONException je) {
-                    Log.e("banner", "JSON파싱 중 에러발생", je);
+                    Log.e("home", "home에서 banner 파싱 중 에러발생", je);
                 }
             }
             for(int i=0; i<activityLength; i++){
@@ -44,9 +43,8 @@ public class HomeObject {
                     activityObject.setDate(object);
 
                     activities.add(activityObject);
-                    Log.e("activity", activity.toString());
                 }catch (JSONException je) {
-                    Log.e("activity", "JSON파싱 중 에러발생", je);
+                    Log.e("home", "home에서 activity 파싱 중 에러발생", je);
                 }
             }
             for(int i=0; i<shopLength; i++){
@@ -57,11 +55,11 @@ public class HomeObject {
                     shopObject.setDate(object);
 
                     shops.add(shopObject);
-                    Log.e("bestSop", activity.toString());
                 }catch (JSONException je) {
-                    Log.e("bestSop", "JSON파싱 중 에러발생", je);
+                    Log.e("home", "home에서 activity 파싱 중 에러발생", je);
                 }
             }
+            Log.e("home", "home 파싱 끝(성공 아닐수도)");
         }
 
     }

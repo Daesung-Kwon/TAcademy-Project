@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".LKApplication"
@@ -16,17 +18,19 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_api_key" />
-        <!--
-            <meta-data
+            android:value="@string/my_google_api_key" />
+        <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-        -->
+        <meta-data
+            android:name="com.leisurekr.leisuresportskorea.LKGlideModule"
+            android:value="GlideModule" />
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".SplashActivity"
+        <activity
+            android:name=".SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,6 +42,7 @@
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             tools:replace="android:theme">
             <intent-filter>
@@ -49,33 +54,79 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"
-            android:theme="@style/LoginTheme"/>
-        <activity android:name=".LoginMemberActivity" />
-        <activity android:name=".MemberRegisterActivity" />
         <activity
-            android:name=".MainActivity" />
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginTheme" />
         <activity
-            android:name=".shop.MapActivity" />
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".shop.FilterActivity" />
-        <activity android:name=".profile.ProfileEditActivity" />
-        <activity android:name=".profile.ProfileCartActivity" />
-        <activity android:name=".shop_detail.ShopDetailActivity" />
+            android:name=".PreInterestsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".shop.MapActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".shop.FilterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".profile.ProfileEditActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".profile.ProfileCartActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".shop_detail.ShopDetailActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".shop_detail.ReviewActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/ReviewListTheme" />
         <activity
             android:name=".shop_detail.WriteReviewActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/ReviewListTheme" />
-        <activity android:name=".profile.ProfileReservationActivity" />
-        <activity android:name=".profile.ReservationDetailActivity" />
-        <activity android:name=".ticket.TicketActivity" />
-        <activity android:name=".BookActivity" />
-        <activity android:name=".BookInformationActivity" />
-        <activity android:name=".profile.ProfileFavoritesActivity" />
-        <activity android:name=".Search" />
-        <activity android:name=".SearchResultActivity"></activity>
+        <activity
+            android:name=".profile.ProfileReservationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".profile.ReservationDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ticket.TicketActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BookActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BookInformationActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".profile.ProfileFavoritesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SearchResultActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PaypalWebViewActivity"
+            android:screenOrientation="portrait" />
+
+        <service android:name=".MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".profile.AboutUsActivity" />
+        <activity android:name=".profile.TermsActivity" />
+        <activity android:name=".profile.CustomerActivity"></activity>
     </application>
 
 </manifest>

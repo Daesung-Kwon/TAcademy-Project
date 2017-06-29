@@ -20,18 +20,35 @@ public class CategoryGridAdapter extends BaseAdapter {
     private Context context;
     private HashMap<Integer, Integer> categoryMap;
     private static int MAX_GRID_COUNT = 4;
+    private static String[] values;
 
     public CategoryGridAdapter(Context context, String[] values) {
         this.context = context;
-
         this.categoryMap = new HashMap<>();
+        this.values = values;
+
         int cnt=0;
         for (int i=0; i < values.length; i++) {
-            if (values[i] == "1") {
+            if (values[i].equals("1")) {
                 categoryMap.put(cnt, SportsCategoryList.getNormalIcoList().get(i));
                 cnt++;
             }
         }
+
+        /*Set<Integer> keys = categoryMap.keySet();
+        Iterator<Integer> iterator = keys.iterator();
+
+        Log.e("test","start");
+
+        for(int i=0; i<values.length;i++){
+            Log.e("test",values[i].toString());
+        }
+
+        while(iterator.hasNext()){
+            Integer key = iterator.next();
+            Log.e("test", ""+key);
+        }*/
+
     }
 
     @Override
@@ -59,7 +76,7 @@ public class CategoryGridAdapter extends BaseAdapter {
     }
 
     @Override
-    public int getCount() { return MAX_GRID_COUNT; }
+    public int getCount() { return categoryMap.size(); }
 
     @Override
     public Object getItem(int position) {

@@ -16,7 +16,6 @@
         tools:context="com.leisurekr.leisuresportskorea.profile.ReservationDetailActivity">
 
         <RelativeLayout
-
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="5"
@@ -25,7 +24,9 @@
             <ImageView
                 android:id="@+id/ticket_backimage"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"/>
+
 
             <LinearLayout
                 android:id="@+id/ticket_dim"
@@ -38,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="5"
-            android:background="@color/colorCartBackMedium">
+            android:background="@color/colorCartBackLightGray">
 
         </RelativeLayout>
 
@@ -50,7 +51,7 @@
         android:layout_height="135dp"
         android:layout_centerInParent="true"
         android:layout_margin="10dp"
-        android:background="@drawable/ticek_top"
+        android:background="@drawable/pic_box_1"
         android:paddingBottom="5dp"
         android:paddingLeft="13dp"
         android:paddingRight="5dp"
@@ -88,10 +89,10 @@
 
         <ImageView
             android:id="@+id/ticket_activityimage"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="25dp"
             android:layout_marginRight="@dimen/ticket_iconMariginRight"
             android:src="@drawable/ic_terms" />
 
@@ -101,7 +102,7 @@
         android:id="@+id/ticket_bottonimage"
         android:layout_below="@id/ticket_topimage"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/ticket_botton"
+        android:background="@drawable/pic_box_2"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginLeft="10dp"

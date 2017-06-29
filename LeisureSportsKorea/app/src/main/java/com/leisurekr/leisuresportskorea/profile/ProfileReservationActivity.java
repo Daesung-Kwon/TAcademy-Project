@@ -12,11 +12,14 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.ViewTarget;
 import com.leisurekr.leisuresportskorea.R;
 import com.leisurekr.leisuresportskorea.okhttp.OkHttpAPIHelperHandler;
 
@@ -41,21 +44,12 @@ public class ProfileReservationActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ReservationObject object1 = new ReservationObject();
-        object1.setData(R.drawable.pic_ti_2, "Water Ski", "River City", "Water Ski Beginner",
-                "Lesson Package", 50, "Approved", "May 22, 2017", "17:00", 2, 0, "Apgujeong-dong", "Gangnam-gu, Seoul", "379-1");
+        object1.setData(R.drawable.pic_waterski1, " ", " ", " ",
+                " ", 0, " ", " ", " ", 0, 0, " ", " ", " ");
 
-        ReservationObject object2 = new ReservationObject();
-        object2.setData(R.drawable.pic_ti_2, "Water Ski", "River City", "Water Ski Beginner",
-                "Lesson Package", 50, "Finished", "May 22, 2017", "15:00", 2, 0, "Apgujeong-dong", "Gangnam-gu, Seoul", "379-1");
-
-        ReservationObject object3 = new ReservationObject();
-        object3.setData(R.drawable.pic_ti_2, "Water Ski", "River City", "Water Ski Beginner",
-                "Lesson Package", 50, "Canceled", "May 22, 2017", "11:00", 2, 0, "Apgujeong-dong", "Gangnam-gu, Seoul", "379-1");
 
         arrayList = new ArrayList<>();
         arrayList.add(object1);
-        arrayList.add(object2);
-        arrayList.add(object3);
 
         recyclerView = (RecyclerView) findViewById(R.id.profile_reservation_recycler);
         adapter = new ReservationAdapter(arrayList);
@@ -113,71 +107,84 @@ public class ProfileReservationActivity extends AppCompatActivity {
                 holder.textView1.setText(shopObject.name + "'s");
                 holder.textView2.setText(programObject.activityName);
                 holder.textView3.setText(programObject.name);
-                Glide.with(ProfileReservationActivity.this).load(shopObject.image).into(holder.leftBackImage);
+                Glide.with(ProfileReservationActivity.this).load(programObject.image)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(new ViewTarget<LinearLayout, GlideDrawable>(holder.leftBackImage) {
+                            @Override
+                            public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                               holder.leftBackImage.setBackgroundDrawable(resource);
+
+                            }
+                        });
+
+                if (position == 0)
+                    holder.rootLayout.setPadding(0, 72, 0, 0);
+                else
+                    holder.rootLayout.setPadding(0, 0, 0, 0);
+                holder.rootLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Intent intent = new Intent(ProfileReservationActivity.this
+                                , ReservationDetailActivity.class);
+                        intent.putExtra("reservation", object);
+                        startActivity(intent);
+                    }
+                });
+                holder.dim.setAlpha(0.3f);
+                switch (object.getProgress()) {
+                    case "Approved":
+                        holder.rightBackImage.setBackgroundResource(R.drawable.pic_box_re_li_ap);
+                        break;
+                    case "Finished":
+                        holder.rightBackImage.setBackgroundResource(R.drawable.pic_box_re_li_fi);
+                        break;
+                    case "Canceled":
+                        holder.rightBackImage.setBackgroundResource(R.drawable.pic_box_re_li_ca);
+                        break;
+                }
+
+                //holder.price.setText("$" + Integer.toString(object.getPrice()));
+                holder.price.setText("$" + programObject.price);
+
+                holder.progress.setText(object.getProgress());
+                holder.date.setText(object.getDate());
+                if (adult != 0 && children != 0) {
+                    people = "Adult " + Integer.toString(adult
+                    ) + ",  Children " + Integer.toString(children);
+                } else if (adult == 0 && children != 0) {
+                    people = "Children " + Integer.toString(children);
+                } else if (children == 0 && adult != 0) {
+                    people = "Adult " + Integer.toString(adult);
+                }
+                holder.people.setText(people);
+                holder.location1.setText(shopObject.getLocation2()+",");
+                holder.location2.setText(shopObject.getLocation1());
+
+                //Glide.with(ProfileReservationActivity.this).load(shopObject.image).into(holder.leftBackImage);
                 //holder.leftBackImage.setImageResource(object.getLeftBackImage());
             }else{
                 holder.textView1.setText(object.getText1() + "'s");
                 holder.textView2.setText(object.getText2());
                 holder.textView3.setText(object.getText3());
-                holder.leftBackImage.setImageResource(R.drawable.pic_waterski1);
+                holder.leftBackImage.setBackgroundResource(R.drawable.pic_ti_2);
             }
-
-            if (position == 0)
-                holder.rootLayout.setPadding(0, 72, 0, 0);
-            else
-                holder.rootLayout.setPadding(0, 0, 0, 0);
-            holder.rootLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    Intent intent = new Intent(ProfileReservationActivity.this
-                            , ReservationDetailActivity.class);
-                    intent.putExtra("reservation", object);
-                    startActivity(intent);
-                }
-            });
-            holder.dim.setAlpha(0.3f);
-            switch (object.getProgress()) {
-                case "Approved":
-                    holder.rightBackImage.setBackgroundResource(R.drawable.approved);
-                    break;
-                case "Finished":
-                    holder.rightBackImage.setBackgroundResource(R.drawable.finished1);
-                    break;
-                case "Canceled":
-                    holder.rightBackImage.setBackgroundResource(R.drawable.canceled);
-                    break;
-            }
-
-            //holder.price.setText("$" + Integer.toString(object.getPrice()));
-            holder.price.setText("$" + 50);
-
-            holder.progress.setText(object.getProgress());
-            holder.date.setText(object.getDate());
-            if (adult != 0 && children != 0) {
-                people = "Adult " + Integer.toString(adult
-                ) + ",  Children " + Integer.toString(children);
-            } else if (adult == 0 && children != 0) {
-                people = "Children " + Integer.toString(children);
-            } else if (children == 0 && adult != 0) {
-                people = "Adult " + Integer.toString(adult);
-            }
-            holder.people.setText(people);
-            holder.location1.setText(object.getLocation1());
-            holder.location2.setText(object.getLocation2());
 
         }
 
         @Override
         public int getItemCount() {
-            return arrayList.size();
+            if(arrayList!=null)
+                return arrayList.size();
+            else
+                return 0;
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
 
             LinearLayout rootLayout;
             LinearLayout rightBackImage;
-            ImageView leftBackImage;
+            LinearLayout leftBackImage;
             LinearLayout dim;
             LinearLayout border;
 
@@ -197,7 +204,8 @@ public class ProfileReservationActivity extends AppCompatActivity {
                 super(itemView);
                 rootLayout = (LinearLayout) itemView.findViewById(R.id.reservation_recycler_rootlayout);
                 rightBackImage = (LinearLayout) itemView.findViewById(R.id.reservation_recycler_rightbackimage);
-                leftBackImage = (ImageView) itemView.findViewById(R.id.reservation_recycler_leftbackimage);
+                leftBackImage = (LinearLayout) itemView.findViewById(R.id.reservation_recycler_leftbackimage);
+
                 dim = (LinearLayout) itemView.findViewById(R.id.reservation_recycler_dim);
                 border = (LinearLayout) itemView.findViewById(R.id.reservation_recycler_border);
 

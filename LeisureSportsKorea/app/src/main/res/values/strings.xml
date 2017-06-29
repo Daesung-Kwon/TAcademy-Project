@@ -1,11 +1,114 @@
 <resources>
     <string name="app_name">Leisure Korea</string>
-    <string name="google_api_key">AIzaSyBulv6yQP_xfzDddnqdtYQDXv07hobYzIA</string>
+    <string name="my_google_api_key">AIzaSyBAgj87qwpm19Utstm2NNPIh-qbpFK_k5w</string>
     <string name="facebook_app_id">706253886233836</string>
     <string name="fb_login_protocol_scheme">fb706253886233836</string>
     <string name="lt">&lt;</string>
     <string name="gt">&gt;</string>
-    <string name="s_amp_f">Service &amp; Facility</string>
+    <string name="s_amp_f">Services &amp; Facilities</string>
+    <string name="pre_interests_desc">You can choose up to 4 activities.\nif you would like to reset,\nyou can do it in the MY PAGE</string>
     <string name="shop_description">Welcome to River City water leisure. We are located right at the center of the Seoul, Han River. Our speciality lies in water ski and wakeboard. Take a subway and enjoy the beautiful scenery of the metropolitan city at River City</string>
     <string name="refund_policy">Refund Policy. Refund Policy. Refund Policy. Refund Policy. Refund Policy. Refund Policy. Refund Policy. Refund Policy. Refund Policy. Refund Policy. Refund Policy. Refund Policy. Refund Policy. Refund Policy. Refund Policy. Refund Policy.</string>
+    <string name="aboutUs_title">Welcome to Leisure Korea!</string>
+
+    <string name="aboutUs_context1">Hi! This is Team Leisure Korea. We are seven college graduates who loves leisure sports. Korea’s nature provides abundant leisure sports opportunities because we have all four seasons: Spring, Summer, Autumn, and Winter. Unfortunately, our team found out that lots of foreigners have trouble enjoying leisure sports in Korea. But, don’t worry. We have come for your rescue!</string>
+    <string name="aboutUs_context2">In our service, you can:</string>
+    <string name="aboutUs_subtitle1">Save Time</string>
+    <string name="aboutUs_subcontext1">We’ve collected famous Korean leisure sports shops.</string>
+    <string name="aboutUs_subtitle2">Save Money</string>
+    <string name="aboutUs_subcontext2">We connect the shops to customers directly.</string>
+    <string name="aboutUs_subtitle3">Customize</string>
+    <string name="aboutUs_subcontext3">All you need to enjoy leisure sports in Korea is in this service.</string>
+
+    <string name="terms_title">Terms of Service</string>
+    <string name="terms_subtitle1">By using Leisure Korea Services, you agree to these conditions. Please read them carefully.</string>
+    <string name="terms_subcontext1">We offer a wide range of Leisure Korea Services, and sometimes additional terms may apply. When you use a Leisure Korea Service you also will be subject to the guidelines, terms and agreements applicable to that Leisure Korea Service (“Service Terms”). If these Conditions of Use are inconsistent with the Service Terms, those Service Terms will control.</string>
+    <string name="terms_subtitle2">CANCELLATION/REFUND/CHANGE POLICY</string>
+    <string name="terms_subcontext2">Every product has different cancellation policy. You have the responsibility to check the Cancellation Policy and Frequently Asked Questions (FAQs) for each product before check out. We will grant refund or changes according to the policies.</string>
+    <string name="terms_subtitle3">PRODUCT DESCRIPTIONS</string>
+    <string name="terms_subcontext3">Leisure Korea attempts to be as accurate as possible. However, Leisure Korea does not warrant product descriptions or other content of any Leisure Korea Service is accurate, complete, reliable, current, or error-free. As our products are travel services, experience of each day can vary according to weather, traffic, other customers, guide, driver, political situation, etc. and Leisure Korea is not responsible for such changes.</string>
+    <string name="terms_subtitle4">LIMITATION OF ROLES AND LIABILITY</string>
+    <string name="terms_subcontext4">Leisure Korea only acts as an agent in booking travel services at respective Service Providers, therefore does not take liability for actions, inconveniences, accidents caused by the Service Providers. Leisure Korea only will support with interpretation in resolving the dispute between you and the Service Providers but will not be responsible for any action including but not limited to reimbursement, compensation and insurance payment.
+</string>
+    <string name="terms_subtitle5">DISCLAIMER OF WARRANTIES AND LIMITATION OF LIABILITY
+</string>
+    <string name="terms_subcontext5">The Leisure Korea services and all information, content, materials, products (including software) and other services included on or otherwise made available to you through the Leisure Korea services are provided by Leisure Korea on an “as is” and “as available” basis, unless otherwise specified in writing. Leisure Korea makes no representations or warranties of any kind, express or implied, as to the operation of the Leisure Korea services, or the information, content, materials, products (including software) or other services included on or otherwise made available to you through the Leisure Korea services, unless otherwise specified in writing. You expressly agree that your use of the Leisure Korea services is at your sole risk.
+To the full extent permissible by applicable law, Leisure Korea disclaims all warranties, express or implied, including, but not limited to, implied warranties of merchantability and fitness for a particular purpose. Leisure Korea does not warrant that the Leisure Korea services, information, content, materials, products (including software) or other services included on or otherwise made available to you through the Leisure Korea services, Leisure Korea’s servers or electronic communications sent from Leisure Korea are free of viruses or other harmful components. Leisure Korea will not be liable for any damages of any kind arising from the use of any Leisure Korea service, or from any information, content, materials, products (including software) or other services included on or otherwise made available to you through any Leisure Korea service, including, but not limited to direct, indirect, incidental, punitive, and consequential damages, unless otherwise specified in writing.
+* Fulfillment of the service promised is under the Service Provider’s responsibility.
+</string>
+    <string name="terms_subtitle6">TICKETS
+</string>
+    <string name="terms_subcontext6">Leisure Korea aids in ticket purchase agreement with respective Service Provider on behalf of customer.
+</string>
+    <string name="terms_subtitle7">TOURS
+</string>
+    <string name="terms_subcontext7">Leisure Korea aids in tour product purchase agreement with respective tour operators on behalf of customer.
+</string>
+    <string name="terms_subtitle8">PRIVATE TRANSPORTATION
+</string>
+    <string name="terms_subcontext8">Leisure Korea aids in \n1) car rental and driver dispatch agreement with respective car rental companies on behalf of customer or\n2) taxi ride agreement with taxi company or individual taxi driver on behalf of customer
+</string>
+    <string name="terms_subtitle9">PRICING</string>
+    <string name="terms_subcontext9">In addition to the listed price of each product, service Charges, extra Hour Charges may apply to some products. Except where noted otherwise, tax is included in the price. 
+Leisure Korea and Service Providers reserve the right to change prices or terms and conditions of products at any time without prior notice. 
+</string>
+    <string name="terms_subtitle10">PRIVACY POLICY
+</string>
+    <string name="terms_subcontext10">Customer information is collected and compiled anonymously;
+1) for the purpose of processing your order and
+2) for our statistical purposes to help us enhance the shopping experience for our customers. We will keep the information confidential and not share. 
+</string>
+    <string name="terms_subtitle11">YOUR ACCOUNT
+</string>
+    <string name="terms_subcontext11">By purchasing once on our Site, your Account will automatically be created. Your purchase information will be stored. If you use any Leisure Korea Service, you are responsible for maintaining the confidentiality of your account and password and for restricting access to your computer, and you agree to accept responsibility for all activities that occur under your account or password. Korea reserves the right to refuse service, terminate accounts, remove or edit content, or cancel orders in its sole discretion.
+</string>
+    <string name="terms_subtitle12">ACCESS LIMITATION; Cancellation by Leisure Korea
+</string>
+    <string name="terms_subcontext12">We may, in our sole discretion, with or without notice to you (i) suspend, limit your access to, or terminate your use of the Site or Services, (ii) suspend, limit your access to, or terminate your Account, or (iii) prohibit you from using the Site or Services. Notwithstanding this section, these Terms will survive indefinitely unless and until we choose to terminate them.</string>
+    <string name="terms_subtitle13">REGISTERED USER ACCOUNT CANCELLATION</string>
+    <string name="terms_subcontext13">If you are a Registered User, you may cancel your Account for any reason at any time by sending an email to info@funtastickorea.com. In the event your Account has pending transactions or payments, we will make reasonable efforts to ensure such transactions are completed but we are under no obligation to do so.</string>
+    <string name="terms_subtitle14">REVIEWS, COMMENTS, COMMUNICATIONS, AND OTHER CONTENT
+</string>
+    <string name="terms_subcontext14">Visitors may post reviews, comments and submit suggestions, ideas, comments, questions, or other information, so long as the content is not illegal, obscene, threatening, defamatory, invasive of privacy, infringing of intellectual property rights, or otherwise injurious to third parties or objectionable and does not consist of or contain software viruses, political campaigning, commercial solicitation, chain letters, mass mailings, or any form of “spam.” You may not use a false e-mail address, impersonate any person or entity, or otherwise mislead as to the origin of a card or other content. Leisure Korea reserves the right (but not the obligation) to remove or edit such contents, but does not regularly review posted content.
+</string>
+    <string name="terms_subtitle15">ELECTRONIC COMMUNICATIONS
+</string>
+    <string name="terms_subcontext15">When you use any Leisure Korea services, or send e-mails to us, you are communicating with us electronically. You consent to receive communications from us electronically. We will communicate with you by e-mail or by posting notices on this site or through the other Leisure Korea Services. You agree that all agreements, notices, disclosures and other communications that we provide to you electronically satisfy any legal requirement that such communications be in writing.
+</string>
+    <string name="terms_subtitle16">COPYRIGHT
+</string>
+    <string name="terms_subcontext16">All content included in or made available through any Leisure Korea Service, such as text, graphics, logos, button icons, images, audio clips, digital downloads, and data compilations is the property of Leisure Korea or its content suppliers and protected by South Korea and international copyright laws. The compilation of all content included in or made available through any Leisure Korea Service is the exclusive property of Leisure Korea and protected by South Korea and international copyright laws.
+</string>
+    <string name="terms_subtitle17">COPYRIGHT COMPLAINTS
+</string>
+    <string name="terms_subcontext17">Leisure Korea respects the intellectual property of others. If you believe that your work has been copied in a way that constitutes copyright infringement, please email us at info@funtastickorea.com.
+</string>
+    <string name="terms_subtitle18">OTHER BUSINESSES
+</string>
+    <string name="terms_subcontext18">Parties other than Leisure Korea operate stores, provide services, or sell product lines on this site. In addition, we provide links to the sites of affiliated companies and certain other businesses. We are not responsible for examining or evaluating, and we do not warrant the offerings of, any of these businesses or individuals or the content of their Web sites. Leisure Korea does not assume any responsibility or liability for the actions, product, and content of all these and any other third parties. You should carefully review their privacy statements and other conditions of use.
+</string>
+    <string name="terms_subtitle19">DISPUTES
+</string>
+    <string name="terms_subcontext19">Any dispute or claim relating in any way to your use of any Leisure Korea Service, or to any products or services sold through Funtastickorea.com will be resolved by binding arbitration, rather than in court.
+We each agree that any dispute resolution proceedings will be conducted only on an individual basis and not in a class, consolidated or representative action. If for any reason a claim proceeds in court rather than in arbitration we each waive any right to a jury trial. We also both agree that you or we may bring suit in court to enjoin infringement or other misuse of intellectual property rights.
+</string>
+    <string name="terms_subtitle20">APPLICABLE LAW
+</string>
+    <string name="terms_subcontext20">By using any Leisure Korea Service, you agree that the laws of South Korea will govern these Conditions of Use and any dispute of any sort that might arise between you and Leisure Korea.
+</string>
+    <string name="terms_subtitle21">SITE POLICIES, MODIFICATION, AND SEVERABILITY</string>
+    <string name="terms_subcontext21">We reserve the right to make changes to our site, policies, Service Terms, and these Conditions of Use at any time. If any of these conditions shall be deemed invalid, void, or for any reason unenforceable, that condition shall be deemed severable and shall not affect the validity and enforceability of any remaining condition.</string>
+    <string name="terms_subtitle22">OUR ADDRESS</string>
+    <string name="terms_subcontext22">Leisure Korea\nIrwon-dong, Gangnam-gu, Seoul, Republic of Korea
+\mE-mail: leisurekorea45@gmail.com
+\mPhone: +82)10-6863-1025
+</string>
+
+    <string name="customer_context1">If you need any help, please contact us.\nE-mail: leisurekorea45@gmail.com\mPhone Number: +82)10-6863-1025</string>
+    <string name="customer_context2">Kakao ID: mpbn</string>
+    <string name="customer_context3">Line ID: leisurekorea45</string>
+    <string name="customer_context4">WhatsAPP: +82)10-6863-1025</string>
+    <string name="customer_context5">One day ride: $100 (Standard Hours: 10 hours, Additional $15 is charged for extra hours)</string>
+    <string name="customer_context6">If you need a ride for a day, please contact me via above contacts. We can give ride for up to 4 people with the 1998 Grandeur.</string>
+
 </resources>
