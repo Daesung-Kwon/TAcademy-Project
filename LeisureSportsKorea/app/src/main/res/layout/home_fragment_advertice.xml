@@ -3,35 +3,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <ViewFlipper
         android:id="@+id/home_viewflipper_ad"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
+        <LinearLayout
             android:id="@+id/home_image1_ad"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"/>
-
-        <ImageView
+            ></LinearLayout>
+        <LinearLayout
             android:id="@+id/home_image2_ad"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"/>
-
-        <ImageView
+            ></LinearLayout>
+        <LinearLayout
             android:id="@+id/home_image3_ad"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"/>
-
-        <ImageView
+            ></LinearLayout>
+        <LinearLayout
             android:id="@+id/home_image4_ad"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"/>
+            ></LinearLayout>
+
     </ViewFlipper>
 
     <com.leisurekr.leisuresportskorea.home.CircleAnimIndicator

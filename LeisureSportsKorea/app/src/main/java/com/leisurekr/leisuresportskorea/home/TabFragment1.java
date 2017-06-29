@@ -21,6 +21,10 @@ import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.ViewTarget;
 import com.leisurekr.leisuresportskorea.FavorObject;
 import com.leisurekr.leisuresportskorea.LKApplication;
 import com.leisurekr.leisuresportskorea.MainActivity;
@@ -46,10 +50,10 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
     RecyclerView recyclerView;
     ViewPager viewPager;
 
-    ImageView adverticeImage1;
-    ImageView adverticeImage2;
-    ImageView adverticeImage3;
-    ImageView adverticeImage4;
+    LinearLayout adverticeImage1;
+    LinearLayout adverticeImage2;
+    LinearLayout adverticeImage3;
+    LinearLayout adverticeImage4;
     ViewFlipper viewFlipper;
     Button previous;
     LinearLayout predim;
@@ -67,7 +71,7 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
 
     TextView groupShopName;
 
-    ImageView mShopMainImage1;
+    LinearLayout mShopMainImage1;
     LinearLayout dim1;
     ImageView mShopCircleImage1;
     TextView mShopName1;
@@ -76,7 +80,7 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
     ImageView heart1;
     ImageView share1;
 
-    ImageView mShopMainImage2;
+    LinearLayout mShopMainImage2;
     LinearLayout dim2;
     ImageView mShopCircleImage2;
     TextView mShopName2;
@@ -85,7 +89,7 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
     ImageView heart2;
     ImageView share2;
 
-    ImageView mShopMainImage3;
+    LinearLayout mShopMainImage3;
     LinearLayout dim3;
     ImageView mShopCircleImage3;
     TextView mShopName3;
@@ -94,7 +98,7 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
     ImageView heart3;
     ImageView share3;
 
-    ImageView mShopMainImage4;
+    LinearLayout mShopMainImage4;
     LinearLayout dim4;
     ImageView mShopCircleImage4;
     TextView mShopName4;
@@ -103,7 +107,7 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
     ImageView heart4;
     ImageView share4;
 
-    ImageView mShopMainImage5;
+    LinearLayout mShopMainImage5;
     LinearLayout dim5;
     ImageView mShopCircleImage5;
     TextView mShopName5;
@@ -141,10 +145,10 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
         //Home 화면 advertice 부분
         View advertice = view.findViewById(R.id.advertice);
 
-        adverticeImage1 = (ImageView) advertice.findViewById(R.id.home_image1_ad);
-        adverticeImage2 = (ImageView) advertice.findViewById(R.id.home_image2_ad);
-        adverticeImage3 = (ImageView) advertice.findViewById(R.id.home_image3_ad);
-        adverticeImage4 = (ImageView) advertice.findViewById(R.id.home_image4_ad);
+        adverticeImage1 = (LinearLayout) advertice.findViewById(R.id.home_image1_ad);
+        adverticeImage2 = (LinearLayout) advertice.findViewById(R.id.home_image2_ad);
+        adverticeImage3 = (LinearLayout) advertice.findViewById(R.id.home_image3_ad);
+        adverticeImage4 = (LinearLayout) advertice.findViewById(R.id.home_image4_ad);
 
         adverticeImage1.setOnClickListener(this);
         adverticeImage2.setOnClickListener(this);
@@ -240,7 +244,7 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
         View shop4 = bestshop.findViewById(R.id.home_image4_shop);
         View shop5 = bestshop.findViewById(R.id.home_image5_shop);
 
-        mShopMainImage1 = (ImageView) shop1.findViewById(R.id.bestshop_main_image);
+        mShopMainImage1 = (LinearLayout) shop1.findViewById(R.id.bestshop_main_image);
         dim1 = (LinearLayout) shop1.findViewById(R.id.bestshop_dim);
         mShopCircleImage1 = (ImageView) shop1.findViewById(R.id.bestshop_circle_image);
         mShopName1 = (TextView) shop1.findViewById(R.id.bestshop_name_text);
@@ -283,7 +287,7 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
 
             }
         });
-        mShopMainImage2 = (ImageView) shop2.findViewById(R.id.bestshop_main_image);
+        mShopMainImage2 = (LinearLayout) shop2.findViewById(R.id.bestshop_main_image);
         dim2 = (LinearLayout) shop2.findViewById(R.id.bestshop_dim);
         mShopCircleImage2 = (ImageView) shop2.findViewById(R.id.bestshop_circle_image);
         mShopName2 = (TextView) shop2.findViewById(R.id.bestshop_name_text);
@@ -325,7 +329,7 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
 
             }
         });
-        mShopMainImage3 = (ImageView) shop3.findViewById(R.id.bestshop_main_image);
+        mShopMainImage3 = (LinearLayout) shop3.findViewById(R.id.bestshop_main_image);
         dim3 = (LinearLayout) shop3.findViewById(R.id.bestshop_dim);
         mShopCircleImage3 = (ImageView) shop3.findViewById(R.id.bestshop_circle_image);
         mShopName3 = (TextView) shop3.findViewById(R.id.bestshop_name_text);
@@ -367,7 +371,7 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
 
             }
         });
-        mShopMainImage4 = (ImageView) shop4.findViewById(R.id.bestshop_main_image);
+        mShopMainImage4 = (LinearLayout) shop4.findViewById(R.id.bestshop_main_image);
         dim4 = (LinearLayout) shop4.findViewById(R.id.bestshop_dim);
         mShopCircleImage4 = (ImageView) shop4.findViewById(R.id.bestshop_circle_image);
         mShopName4 = (TextView) shop4.findViewById(R.id.bestshop_name_text);
@@ -409,7 +413,7 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
 
             }
         });
-        mShopMainImage5 = (ImageView) shop5.findViewById(R.id.bestshop_main_image);
+        mShopMainImage5 = (LinearLayout) shop5.findViewById(R.id.bestshop_main_image);
         dim5 = (LinearLayout) shop5.findViewById(R.id.bestshop_dim);
         mShopCircleImage5 = (ImageView) shop5.findViewById(R.id.bestshop_circle_image);
         mShopName5 = (TextView) shop5.findViewById(R.id.bestshop_name_text);
@@ -545,7 +549,7 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
                 Log.i("TabFramgent1","result is null");
             }else {
                 homeObject = result;
-                setData();
+                updateUi();
             }
         }
     }
@@ -554,7 +558,7 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
     ArrayList<ActivityObject> activities;
     ArrayList<ShopObject> shops;
 
-    public void setData() {
+    public void updateUi() {
 
         if(homeObject!=null) {
             banners = homeObject.banners;
@@ -565,11 +569,34 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
         if(banners!=null&&banners.size()==4) {
 
             //Log.e("banner image",bannerTest.banners.get(0).image);
-            Glide.with(this).load(banners.get(0).image).into(adverticeImage1);
-            Glide.with(this).load(banners.get(1).image).into(adverticeImage2);
-            Glide.with(this).load(banners.get(2).image).into(adverticeImage3);
-            Glide.with(this).load(banners.get(3).image).into(adverticeImage4);
-
+            Glide.with(this).load(banners.get(0).image).diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(new ViewTarget<LinearLayout, GlideDrawable>(adverticeImage1) {
+                        @Override
+                        public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                            adverticeImage1.setBackground(resource);
+                        }
+                    });
+            Glide.with(this).load(banners.get(1).image).diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(new ViewTarget<LinearLayout, GlideDrawable>(adverticeImage2) {
+                        @Override
+                        public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                            adverticeImage2.setBackground(resource);
+                        }
+                    });
+            Glide.with(this).load(banners.get(2).image).diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(new ViewTarget<LinearLayout, GlideDrawable>(adverticeImage3) {
+                        @Override
+                        public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                            adverticeImage3.setBackground(resource);
+                        }
+                    });
+            Glide.with(this).load(banners.get(3).image).diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(new ViewTarget<LinearLayout, GlideDrawable>(adverticeImage4) {
+                        @Override
+                        public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                            adverticeImage4.setBackground(resource);
+                        }
+                    });
         }
 
         if(activities!=null&&activities.size()==5) {
@@ -581,7 +608,13 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
         }
 
         if(activities!=null&&shops.size()==5) {
-            Glide.with(LKApplication.getLKApplication()).load(shops.get(0).image).into(mShopMainImage1);
+            Glide.with(LKApplication.getLKApplication()).load(shops.get(0).image)
+                    .into(new ViewTarget<LinearLayout,GlideDrawable>(mShopMainImage1) {
+                        @Override
+                        public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                            mShopMainImage1.setBackground(resource);
+                        }
+                    });
             mShopMainImage1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -611,7 +644,13 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
                 heart1.setSelected(false);
             }
 
-            Glide.with(LKApplication.getLKApplication()).load(shops.get(1).image).into(mShopMainImage2);
+            Glide.with(LKApplication.getLKApplication()).load(shops.get(1).image)
+                    .into(new ViewTarget<LinearLayout,GlideDrawable>(mShopMainImage2) {
+                @Override
+                public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                    mShopMainImage2.setBackground(resource);
+                }
+            });
             mShopMainImage2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -642,7 +681,13 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
             });
 
 
-            Glide.with(LKApplication.getLKApplication()).load(shops.get(2).image).into(mShopMainImage3);
+            Glide.with(LKApplication.getLKApplication()).load(shops.get(2).image)
+                    .into(new ViewTarget<LinearLayout,GlideDrawable>(mShopMainImage3) {
+                        @Override
+                        public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                            mShopMainImage3.setBackground(resource);
+                        }
+                    });
             mShopMainImage3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -672,7 +717,13 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
                 }
             });
 
-            Glide.with(LKApplication.getLKApplication()).load(shops.get(3).image).into(mShopMainImage4);
+            Glide.with(LKApplication.getLKApplication()).load(shops.get(3).image)
+                    .into(new ViewTarget<LinearLayout,GlideDrawable>(mShopMainImage4) {
+                        @Override
+                        public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                            mShopMainImage4.setBackground(resource);
+                        }
+                    });
             mShopMainImage4.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -702,7 +753,13 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
                 }
             });
 
-            Glide.with(LKApplication.getLKApplication()).load(shops.get(4).image).into(mShopMainImage5);
+            Glide.with(LKApplication.getLKApplication()).load(shops.get(4).image)
+                    .into(new ViewTarget<LinearLayout,GlideDrawable>(mShopMainImage5) {
+                        @Override
+                        public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                            mShopMainImage5.setBackground(resource);
+                        }
+                    });
             mShopMainImage5.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

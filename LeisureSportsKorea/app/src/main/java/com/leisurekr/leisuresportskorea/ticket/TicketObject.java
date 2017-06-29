@@ -32,8 +32,6 @@ public class TicketObject {
 
     ProgramObject programObject;
 
-
-
     public TicketObject() {
 
     }

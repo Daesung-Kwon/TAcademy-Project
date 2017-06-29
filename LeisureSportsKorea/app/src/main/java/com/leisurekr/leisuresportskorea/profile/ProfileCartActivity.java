@@ -179,10 +179,25 @@ public class ProfileCartActivity extends AppCompatActivity {
                             }
                         });
 
-
                 holder.text1.setText(shopObject.name + "'s");
                 holder.text2.setText(programObject.activityName);
-                holder.text3.setText(programObject.getName().substring(programObject.getActivityName().length() + 1));
+
+                //프로그램 이름에 Packeage가 붙은 경우에만 액티비티 이름이 반복되므로
+                String programName = programObject.getName();
+                if(!programName.contains("Package")){
+                    holder.text3.setText(programName);
+                }else{
+                    if(programObject.activityName.equals("Fun Boat")){
+                        holder.text3.setText(programName
+                                .substring(programObject.getActivityName().length() + 2));
+                    }else {
+                        holder.text3.setText(programName
+                                .substring(programObject.getActivityName().length() + 1));
+                    }
+                }
+
+
+                /*.substring(programObject.getActivityName().length() + 1)*/
 
                 holder.date.setText(cartObject.getDate());
                 holder.time.setText(cartObject.getTime());

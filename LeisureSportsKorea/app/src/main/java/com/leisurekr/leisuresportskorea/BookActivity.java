@@ -110,19 +110,19 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
                     //Fun Boat가 아닌경우에는 공백만 제거하기 위해 +1을 한다.
                     //activityName이 null인 경우는 관심사에 포함되지 않은 개별 종목이 오는경우 이름을 분리하지 않는다.
                     //
-        if(activityName!=null) {
-            if(groupId!=R.id.individual_program_elv) {
-                if (activityName.equals("Fun Boat")) {
-                    a = programName.substring(activityName.length() + 2);
-                } else {
-                    a = programName.substring(activityName.length() + 1);
-                }
-            }else{
-                a = programName;
-            }
+
+        if(!programName.contains("Package")){
+            a=programName;
         }else{
-            a = programName;
+            if(activityName.equals("Fun Boat")){
+                a=programName
+                        .substring(activityName.length() + 2);
+            }else {
+                a=programName
+                        .substring(activityName.length() + 1);
+            }
         }
+
         object.setData(programImage
                 , s+". "+activityName
                 , a
