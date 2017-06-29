@@ -186,7 +186,7 @@ public class ProfileCartActivity extends AppCompatActivity {
 
             if (adult != 0 && children != 0) {
                 people = "   Adult " + Integer.toString(adult
-                ) + ",  Children " + Integer.toString(children);
+                ) + "\n   Children " + Integer.toString(children);
             } else if (adult == 0 && children != 0) {
                 people = "   Children " + Integer.toString(children);
             } else if (children == 0 && adult != 0) {
@@ -241,7 +241,7 @@ public class ProfileCartActivity extends AppCompatActivity {
                         holder.currentAdultText.setText("Adult " + Integer.toString(adult));
                         if (adult != 0 && children != 0) {
                             people = "   Adult " + Integer.toString(adult
-                            ) + ",  Children " + Integer.toString(children);
+                            ) + "\n   Children " + Integer.toString(children);
                         } else if (adult == 0 && children != 0) {
                             people = "   Children " + Integer.toString(children);
                         } else if (children == 0 && adult != 0) {
@@ -265,7 +265,7 @@ public class ProfileCartActivity extends AppCompatActivity {
                         holder.currentAdultText.setText("Adult " + Integer.toString(adult));
                         if (adult != 0 && children != 0) {
                             people = "   Adult " + Integer.toString(adult
-                            ) + ",  Children " + Integer.toString(children);
+                            ) + "\n   Children" + Integer.toString(children);
                         } else if (adult == 0 && children != 0) {
                             people = "   Children " + Integer.toString(children);
                         } else if (children == 0 && adult != 0) {
@@ -290,7 +290,7 @@ public class ProfileCartActivity extends AppCompatActivity {
                         holder.currentChildrenText.setText("Children " + Integer.toString(children));
                         if (adult != 0 && children != 0) {
                             people = "   Adult " + Integer.toString(adult
-                            ) + ",  Children " + Integer.toString(children);
+                            ) + "\n   Children" + Integer.toString(children);
                         } else if (adult == 0 && children != 0) {
                             people = "   Children " + Integer.toString(children);
                         } else if (children == 0 && adult != 0) {
@@ -314,7 +314,7 @@ public class ProfileCartActivity extends AppCompatActivity {
                         holder.currentChildrenText.setText("Children " + Integer.toString(children));
                         if (adult != 0 && children != 0) {
                             people = "   Adult " + Integer.toString(adult
-                            ) + ",  Children " + Integer.toString(children);
+                            ) + "\n   Children" + Integer.toString(children);
                         } else if (adult == 0 && children != 0) {
                             people = "   Children " + Integer.toString(children);
                         } else if (children == 0 && adult != 0) {
@@ -378,8 +378,8 @@ public class ProfileCartActivity extends AppCompatActivity {
             public TextView currentChildrenText;
             public ImageView subChildren;
             public TextView price;
-            public Button cancleEditBtn;
-            public Button okEditBtn;
+            //public Button cancleEditBtn;
+            //public Button okEditBtn;
 
             public ViewHolder(View itemView) {
                 super(itemView);
@@ -404,8 +404,8 @@ public class ProfileCartActivity extends AppCompatActivity {
                 currentChildrenText = (TextView) itemView.findViewById(R.id.cart_recycler_currentchildren);
                 subChildren = (ImageView) itemView.findViewById(R.id.cart_recycler_subchildren);
                 price = (TextView) itemView.findViewById(R.id.cart_recycler_price);
-                cancleEditBtn = (Button) itemView.findViewById(R.id.cart_recycler_canceleditbtn);
-                okEditBtn = (Button) itemView.findViewById(R.id.cart_recycler_okeditbtn);
+                //cancleEditBtn = (Button) itemView.findViewById(R.id.cart_recycler_canceleditbtn);
+                //okEditBtn = (Button) itemView.findViewById(R.id.cart_recycler_okeditbtn);
             }
         }
     }

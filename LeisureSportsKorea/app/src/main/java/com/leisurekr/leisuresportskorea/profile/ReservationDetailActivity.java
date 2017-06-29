@@ -13,17 +13,20 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.leisurekr.leisuresportskorea.R;
 
 
 public class ReservationDetailActivity extends AppCompatActivity {
 
     ReservationObject reservation;
+    ProgramObject programObject;
+    ShopObject shopObject;
 
     LinearLayout rootLayout;
     LinearLayout dimLayout;
 
-    RelativeLayout backImage;
+    ImageView backImage;
     RelativeLayout topImage;
     //ImageView backImage;
     //ImageView topImage;
@@ -71,7 +74,7 @@ public class ReservationDetailActivity extends AppCompatActivity {
         dimLayout = (LinearLayout) findViewById(R.id.reservation_detail_dim);
 
 
-        backImage = (RelativeLayout) findViewById(R.id.reservation_detail_backimage);
+        backImage = (ImageView) findViewById(R.id.reservation_detail_backimage);
         topImage = (RelativeLayout) findViewById(R.id.reservation_detail_topimage);
         text1 = (TextView) findViewById(R.id.reservation_detail_text1);
         text2 = (TextView) findViewById(R.id.reservation_detail_text2);
@@ -99,21 +102,30 @@ public class ReservationDetailActivity extends AppCompatActivity {
         review = (Button) findViewById(R.id.reservation_detail_reviewbtn);
 
         //backImage.setImageResource(reservation.getBackImage());
-        backImage.setBackgroundResource(reservation.getLeftBackImage());
-        text1.setText(reservation.getText1()+"'s");
-        text2.setText(reservation.getText2());
-        text3.setText(reservation.getText3());
-        switch (reservation.getMain()){
+
+        if(reservation.programObject!=null) {
+            programObject = reservation.programObject;
+            shopObject = programObject.shopObject;
+            text1.setText(shopObject.name + "'s");
+            text2.setText(programObject.activityName);
+            text3.setText(programObject.name);
+            Glide.with(ReservationDetailActivity.this).load(shopObject.image).into(backImage);
+
+
+        switch (programObject.activityName){
             case "Water Ski":
                 activityIamge.setImageResource(R.drawable.ic_waterski);
                 break;
             case "Fun Boat":
                 activityIamge.setImageResource(R.drawable.ic_funboat);
                 break;
+            case "Ski":
+                activityIamge.setImageResource(R.drawable.ic_waterski);
+                break;
         }
 
         date.setText(reservation.getDate());
-        time.setText(reservation.getTime());
+        time.setText("15:00(!)");
         price.setText("$"+Integer.toString(reservation.getPrice()));
 
         String s=" ";
@@ -133,6 +145,7 @@ public class ReservationDetailActivity extends AppCompatActivity {
         location2.setText(reservation.getLocation2());
 
         setLayout(reservation.getProgress());
+        }
     }
 
     public void setLayout(String mode){

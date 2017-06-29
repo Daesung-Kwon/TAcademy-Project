@@ -163,7 +163,7 @@
                 android:layout_height="@dimen/profile_edit_listItemHeight"
                 android:layout_marginLeft="@dimen/profile_edit_marginLeft"
                 android:layout_marginRight="@dimen/profile_edit_marginRight"
-                android:text="Email"
+                android:text="Interests"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:textSize="@dimen/profile_edit_listItemTextSize" />
 

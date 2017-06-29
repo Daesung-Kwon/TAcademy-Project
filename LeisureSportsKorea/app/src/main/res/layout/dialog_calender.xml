@@ -13,10 +13,10 @@
         android:visibility="gone">
 
         <ImageView
-            android:layout_width="17dp"
-            android:layout_height="17dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/ic_alarm"
+            android:src="@drawable/btn_close"
             />
 
         <TextView
@@ -24,6 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
+            android:layout_marginRight="50dp"
             android:text="Date"
             android:textSize="20sp"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"

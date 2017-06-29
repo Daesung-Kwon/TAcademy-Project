@@ -13,15 +13,16 @@
         android:visibility="visible">
 
         <ImageView
-            android:layout_width="17dp"
-            android:layout_height="17dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/ic_alarm" />
+            android:src="@drawable/btn_close" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginRight="50dp"
             android:gravity="center"
             android:text="Time"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
@@ -163,7 +164,10 @@
             android:id="@+id/time_save"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="save"/>
+            android:text="save"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorRed"
+            android:textSize="20sp"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -29,7 +29,7 @@
         android:layout_height="1dp"
         android:layout_marginLeft="@dimen/guests_totalMarginLeft"
         android:layout_marginRight="@dimen/guests_totalMarginRight"
-        android:background="@color/colorLightBule"/>
+        android:background="@color/colorCartBackLightGray"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -43,7 +43,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/colorLightBule"
+            android:background="@color/colorCartBackLightGray"
             android:src="@drawable/ic_minus" />
 
         <TextView
@@ -59,7 +59,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/colorLightBule"
+            android:background="@color/colorCartBackLightGray"
             android:src="@drawable/ic_plus" />
     </LinearLayout>
 
@@ -68,7 +68,7 @@
         android:layout_height="1dp"
         android:layout_marginLeft="@dimen/guests_totalMarginLeft"
         android:layout_marginRight="@dimen/guests_totalMarginRight"
-        android:background="@color/colorLightBule"
+        android:background="@color/colorCartBackLightGray"
         android:layout_marginBottom="8dp"/>
 
     <LinearLayout
@@ -76,7 +76,7 @@
         android:layout_height="1dp"
         android:layout_marginLeft="@dimen/guests_totalMarginLeft"
         android:layout_marginRight="@dimen/guests_totalMarginRight"
-        android:background="@color/colorLightBule" />
+        android:background="@color/colorCartBackLightGray" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -91,7 +91,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/colorLightBule"
+            android:background="@color/colorCartBackLightGray"
             android:src="@drawable/ic_minus" />
 
         <TextView
@@ -107,7 +107,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/colorLightBule"
+            android:background="@color/colorCartBackLightGray"
             android:src="@drawable/ic_plus" />
     </LinearLayout>
 
@@ -116,6 +116,6 @@
         android:layout_height="1dp"
         android:layout_marginLeft="@dimen/guests_totalMarginLeft"
         android:layout_marginRight="@dimen/guests_totalMarginRight"
-        android:background="@color/colorLightBule"
+        android:background="@color/colorCartBackLightGray"
         android:layout_marginBottom="18dp"/>
 </LinearLayout>

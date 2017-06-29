@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
@@ -17,6 +16,8 @@ import android.widget.ViewFlipper;
 import com.bumptech.glide.Glide;
 import com.leisurekr.leisuresportskorea.R;
 import com.leisurekr.leisuresportskorea.okhttp.OkHttpAPIHelperHandler;
+
+import java.util.ArrayList;
 
 /**
  * Created by mobile on 2017. 5. 11..
@@ -35,8 +36,8 @@ public class TabFragment1 extends android.support.v4.app.Fragment {
     ImageView adverticeImage3;
     ImageView adverticeImage4;
     ViewFlipper viewFlipper;
-    Button previous;
-    Button next;
+   /* Button previous;
+    Button next;*/
 
     TextView groupActivityName;
     ActivityImageObject activityImage1;
@@ -53,15 +54,15 @@ public class TabFragment1 extends android.support.v4.app.Fragment {
     ShopImageObject shopImage4;
     ShopImageObject shopImage5;
 
-    int count=1;
+    int count = 1;
 
-    HomeObject bannerTest;
+    HomeObject homeObject;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        final View view = inflater.inflate(R.layout.home_fragment,container,false);
+        final View view = inflater.inflate(R.layout.home_fragment, container, false);
 
 
         //Home 화면 advertice 부분
@@ -80,7 +81,7 @@ public class TabFragment1 extends android.support.v4.app.Fragment {
         viewFlipper = (ViewFlipper) advertice.findViewById(R.id.home_viewflipper_ad);
 
         circleAnimIndicator = (CircleAnimIndicator) advertice.findViewById(R.id.home_advertice_indicator);
-        previous = (Button) advertice.findViewById(R.id.home_prevbtn_ad);
+        /*previous = (Button) advertice.findViewById(R.id.home_prevbtn_ad);
         next = (Button) advertice.findViewById(R.id.home_nextbtn_ad);
 
         previous.setOnClickListener(new View.OnClickListener() {
@@ -102,7 +103,7 @@ public class TabFragment1 extends android.support.v4.app.Fragment {
                     circleAnimIndicator.selectDot(count-1);
                 }
             }
-        });
+        });*/
 
         //Home 화면 recommendActivity 부분
         View recommendActivity = view.findViewById(R.id.recommendactivity);
@@ -118,15 +119,15 @@ public class TabFragment1 extends android.support.v4.app.Fragment {
 
         groupActivityName.setText("Recommended Activities");
         activityImage1.setData(R.drawable.pic_waterski1,
-                "Water Ski","River city's water ski","Beginer Lesson Package",300);
+                "Water Ski", "River city's water ski", "Beginer Lesson Package", 300);
         activityImage2.setData(R.drawable.pic_funboat1,
-                "Fun Boat","River city's fun boat","Beginer Lesson Package",300);
+                "Fun Boat", "River city's fun boat", "Beginer Lesson Package", 300);
         activityImage3.setData(R.drawable.pic_waterski1,
-                "Water Ski","River city's water ski","Beginer Lesson Package",300);
+                "Water Ski", "River city's water ski", "Beginer Lesson Package", 300);
         activityImage4.setData(R.drawable.pic_funboat1,
-                "Fun Boat","River city's fun boat","Beginer Lesson Package",300);
+                "Fun Boat", "River city's fun boat", "Beginer Lesson Package", 300);
         activityImage5.setData(R.drawable.pic_waterski1,
-                "Water Ski","River city's water ski","Beginer Lesson Package",300);
+                "Water Ski", "River city's water ski", "Beginer Lesson Package", 300);
 
 
         //Home 화면 Best Shop 부분
@@ -140,11 +141,11 @@ public class TabFragment1 extends android.support.v4.app.Fragment {
         shopImage5 = new ShopImageObject(bestshop.findViewById(R.id.home_image5_shop));
 
         groupShopName.setText("Best Shop");
-        shopImage1.setData(R.drawable.pic_shop,"Costa Lesuire Sport","Han River", "4.8");
-        shopImage2.setData(R.drawable.pic_shop,"Costa Lesuire Sport","Han River", "4.8");
-        shopImage3.setData(R.drawable.pic_shop,"Costa Lesuire Sport","Han River", "4.8");
-        shopImage4.setData(R.drawable.pic_shop,"Costa Lesuire Sport","Han River", "4.8");
-        shopImage5.setData(R.drawable.pic_shop,"Costa Lesuire Sport","Han River", "4.8");
+        shopImage1.setData(R.drawable.pic_shop, "Costa Lesuire Sport", "Han River", "4.8");
+        shopImage2.setData(R.drawable.pic_shop, "Costa Lesuire Sport", "Han River", "4.8");
+        shopImage3.setData(R.drawable.pic_shop, "Costa Lesuire Sport", "Han River", "4.8");
+        shopImage4.setData(R.drawable.pic_shop, "Costa Lesuire Sport", "Han River", "4.8");
+        shopImage5.setData(R.drawable.pic_shop, "Costa Lesuire Sport", "Han River", "4.8");
 
         initIndicaotor();
         return view;
@@ -159,13 +160,31 @@ public class TabFragment1 extends android.support.v4.app.Fragment {
 
     }
 
-    public void setData(){
+    public void setData() {
+
+        ArrayList<BannerObject> banners = homeObject.banners;
+        ArrayList<ActivityObject> activities = homeObject.activities;
+        ArrayList<ShopObject> shops = homeObject.shops;
 
         //Log.e("banner image",bannerTest.banners.get(0).image);
-        Glide.with(this).load(bannerTest.banners.get(0).image).into(adverticeImage1);
-        Glide.with(this).load(bannerTest.banners.get(1).image).into(adverticeImage2);
-        Glide.with(this).load(bannerTest.banners.get(2).image).into(adverticeImage3);
-        Glide.with(this).load(bannerTest.banners.get(3).image).into(adverticeImage4);
+        Glide.with(this).load(banners.get(0).image).into(adverticeImage1);
+        Glide.with(this).load(banners.get(1).image).into(adverticeImage2);
+        Glide.with(this).load(banners.get(2).image).into(adverticeImage3);
+        Glide.with(this).load(banners.get(3).image).into(adverticeImage4);
+
+        activityImage1.setData(activities.get(0));
+        activityImage2.setData(activities.get(1));
+        activityImage3.setData(activities.get(2));
+        activityImage4.setData(activities.get(3));
+        activityImage5.setData(activities.get(4));
+
+        shopImage1.setData(shops.get(0));
+        shopImage2.setData(shops.get(1));
+        shopImage3.setData(shops.get(2));
+        shopImage4.setData(shops.get(3));
+        shopImage5.setData(shops.get(0));
+
+
     }
 
     public class AsyncShopInfoJSONList
@@ -183,23 +202,24 @@ public class TabFragment1 extends android.support.v4.app.Fragment {
         protected HomeObject doInBackground(String... params) {
             return OkHttpAPIHelperHandler.homeJSONAllSelect();
         }
+
         @Override
         protected void onPostExecute(HomeObject result) {
             dialog.dismiss();
-            bannerTest = result;
+            homeObject = result;
             setData();
         }
     }
 
-    private void initIndicaotor(){
+    private void initIndicaotor() {
 
         //원사이의 간격
         circleAnimIndicator.setItemMargin(15);
         //애니메이션 속도
         circleAnimIndicator.setAnimDuration(300);
         //indecator 생성
-        circleAnimIndicator.setSavePosition(count-1);
+        circleAnimIndicator.setSavePosition(count - 1);
         circleAnimIndicator.createDotPanel(4
-                , R.drawable.icon_navi_unpress , R.drawable.icon_navi_press);
+                , R.drawable.icon_navi_unpress, R.drawable.icon_navi_press);
     }
 }

@@ -1,6 +1,12 @@
 package com.leisurekr.leisuresportskorea.profile;
 
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
+
 
 /**
  * Created by user on 2017-05-30.
@@ -23,6 +29,8 @@ public class ReservationObject implements Serializable{
     private String location1;
     private String location2;
     private String location3;
+
+    ProgramObject programObject;
 
 
 
@@ -48,6 +56,29 @@ public class ReservationObject implements Serializable{
         this.location1 = location1;
         this.location2 = location2;
         this.location3 = location3;
+    }
+
+    public void setData(JSONObject jsonObject)
+    {
+        try {
+            this.adult = jsonObject.getInt("adult");
+            this.children = jsonObject.getInt("child");
+            this.progress = jsonObject.getString("status");
+            this.date = jsonObject.getString("strDate");
+            programObject = new ProgramObject();
+            programObject.setData(jsonObject.getJSONObject("program"));
+
+            if(adult < 0){
+                adult = 0;
+            }
+            if(children < 0){
+                children = 0;
+            }
+
+            Log.e("파싱성공","reservation 파싱 성공");
+        }catch (JSONException e){
+            Log.e("파싱 오류","reservation Parsing 오류");
+        }
     }
 
     public int getLeftBackImage() {

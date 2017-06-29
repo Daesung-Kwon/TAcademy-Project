@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -26,14 +27,14 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
     TextView time;
 
     TextView currentAdult;
-    Button subAdult;
+    ImageView subAdult;
     TextView currentNumberAdult;
-    Button addAdult;
+    ImageView addAdult;
 
     TextView currentChildren;
-    Button subChildren;
+    ImageView subChildren;
     TextView currentNumberChildren;
-    Button addChildren;
+    ImageView addChildren;
 
     TextView totalPrice;
 
@@ -74,14 +75,14 @@ public class BookActivity extends AppCompatActivity implements View.OnClickListe
         time = (TextView) findViewById(R.id.book_time);
 
         currentAdult = (TextView) findViewById(R.id.book_currentadult);
-        subAdult = (Button) findViewById(R.id.book_subadult);
+        subAdult = (ImageView) findViewById(R.id.book_subadult);
         currentNumberAdult = (TextView) findViewById(R.id.book_currentnumber_adult);
-        addAdult = (Button) findViewById(R.id.book_addadult);
+        addAdult = (ImageView) findViewById(R.id.book_addadult);
 
         currentChildren = (TextView) findViewById(R.id.book_currentchildren);
-        subChildren = (Button) findViewById(R.id.book_subchildren);
+        subChildren = (ImageView) findViewById(R.id.book_subchildren);
         currentNumberChildren = (TextView) findViewById(R.id.book_currentnumber_children);
-        addChildren = (Button) findViewById(R.id.book_addchildren);
+        addChildren = (ImageView) findViewById(R.id.book_addchildren);
 
         totalPrice = (TextView) findViewById(R.id.book_totalprice);
 

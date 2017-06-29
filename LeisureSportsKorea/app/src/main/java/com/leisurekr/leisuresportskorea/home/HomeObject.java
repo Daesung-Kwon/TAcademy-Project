@@ -14,11 +14,15 @@ import java.util.ArrayList;
 
 public class HomeObject {
     ArrayList<BannerObject> banners = new ArrayList<>();
+    ArrayList<ActivityObject> activities = new ArrayList<>();
+    ArrayList<ShopObject> shops = new ArrayList<>();
     JSONObject object;
 
     public void setData(JSONArray banner, JSONArray activity, JSONArray shop){
         if(banner!=null){
             int bannerLength = banner.length();
+            int activityLength = activity.length();
+            int shopLength = shop.length();
             for(int i=0; i<bannerLength; i++){
                 try {
                     object = banner.getJSONObject(i);
@@ -27,10 +31,35 @@ public class HomeObject {
                     bannerObject.setDate(object);
 
                     banners.add(bannerObject);
-                    Log.e("RequestAllList", object.getJSONArray("shopImages").toString());
-                    Log.e("RequestAllList", banner.toString());
+                    Log.e("banner", banner.toString());
                 }catch (JSONException je) {
-                    Log.e("RequestAllList", "JSON파싱 중 에러발생", je);
+                    Log.e("banner", "JSON파싱 중 에러발생", je);
+                }
+            }
+            for(int i=0; i<activityLength; i++){
+                try {
+                    object = activity.getJSONObject(i);
+
+                    ActivityObject activityObject = new ActivityObject();
+                    activityObject.setDate(object);
+
+                    activities.add(activityObject);
+                    Log.e("activity", activity.toString());
+                }catch (JSONException je) {
+                    Log.e("activity", "JSON파싱 중 에러발생", je);
+                }
+            }
+            for(int i=0; i<shopLength; i++){
+                try {
+                    object = shop.getJSONObject(i);
+
+                    ShopObject shopObject = new ShopObject();
+                    shopObject.setDate(object);
+
+                    shops.add(shopObject);
+                    Log.e("bestSop", activity.toString());
+                }catch (JSONException je) {
+                    Log.e("bestSop", "JSON파싱 중 에러발생", je);
                 }
             }
         }
