@@ -1,10 +1,12 @@
 package com.leisurekr.leisuresportskorea.profile;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.ViewTarget;
+import com.facebook.login.LoginManager;
+import com.leisurekr.leisuresportskorea.LoginActivity;
 import com.leisurekr.leisuresportskorea.R;
 import com.leisurekr.leisuresportskorea.okhttp.OkHttpAPIHelperHandler;
 import com.leisurekr.leisuresportskorea.sharedPreferences.LKSharedPreferencesManager;
@@ -103,6 +107,7 @@ public class TabFragment3 extends android.support.v4.app.Fragment implements Vie
         aboutUs.setOnClickListener(this);
         terms.setOnClickListener(this);
         customerSupport.setOnClickListener(this);
+        logout.setOnClickListener(this);
 
         return view;
     }
@@ -231,6 +236,23 @@ public class TabFragment3 extends android.support.v4.app.Fragment implements Vie
             case R.id.profile_customerlayout:
                 intent = new Intent(getContext(),CustomerActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.profile_logoutlayout:
+                new AlertDialog.Builder(getContext()).setTitle("Log Out?").setMessage("Do you want to log out?").setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        LKSharedPreferencesManager.getInstance().removeAll();
+                        LoginManager.getInstance().logOut();
+                        Intent intent1 = new Intent(getContext(), LoginActivity.class);
+                        startActivity(intent1);
+                    }
+                }).setNegativeButton("Cancle", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                }).show();
+
                 break;
             default:
                 break;

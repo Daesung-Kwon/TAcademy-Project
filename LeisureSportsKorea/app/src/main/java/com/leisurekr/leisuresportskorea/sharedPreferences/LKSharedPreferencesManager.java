@@ -12,6 +12,7 @@ import java.util.Set;
 public class LKSharedPreferencesManager {
     // 싱글톤 패턴으로 한번만 생성
     private static LKSharedPreferencesManager instance;
+
     public static LKSharedPreferencesManager getInstance() {
         if (instance == null) {
             instance = new LKSharedPreferencesManager();
@@ -33,6 +34,10 @@ public class LKSharedPreferencesManager {
     public static final String KEY_FCM = "fcmtoken";
 
 
+    public void removeAll(){
+        mEditor.clear();
+        mEditor.commit();
+    }
 
     public void setKeyFcm(Boolean fcm){
         mEditor.putBoolean(KEY_FCM, fcm);

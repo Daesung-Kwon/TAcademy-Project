@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,9 +45,6 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
     static MainActivity owner;
     CircleAnimIndicator circleAnimIndicator;
 
-    RecyclerView recyclerView;
-    ViewPager viewPager;
-
     LinearLayout adverticeImage1;
     LinearLayout adverticeImage2;
     LinearLayout adverticeImage3;
@@ -60,14 +55,12 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
     Button next;
     LinearLayout nextdim;
 
-
     TextView groupActivityName;
     ActivityImageObject activityImage1;
     ActivityImageObject activityImage2;
     ActivityImageObject activityImage3;
     ActivityImageObject activityImage4;
     ActivityImageObject activityImage5;
-
 
     TextView groupShopName;
 
@@ -115,12 +108,6 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
     TextView mShopRating5;
     ImageView heart5;
     ImageView share5;
-
-    ShopImageObject shopImage1;
-    ShopImageObject shopImage2;
-    ShopImageObject shopImage3;
-    ShopImageObject shopImage4;
-    ShopImageObject shopImage5;
 
     int count = 0;//뷰 플리퍼 레이아웃 체인지 리스너가 기본 1번 실행되므로 1을 더한수가 1이 되야함
     int count2 = 0;
@@ -220,8 +207,7 @@ public class TabFragment1 extends android.support.v4.app.Fragment implements Vie
         View recommendActivity = view.findViewById(R.id.recommendactivity);
 
         groupActivityName = (TextView) recommendActivity.findViewById(R.id.home_activity_groupname);
-        //ImageView image = (ImageView) v.findViewById(R.id.activity_icon);
-        //image.setImageResource(R.drawable.f);
+
         activityImage1 = new ActivityImageObject(recommendActivity.findViewById(R.id.home_activity_image1));
         activityImage2 = new ActivityImageObject(recommendActivity.findViewById(R.id.home_activity_image2));
         activityImage3 = new ActivityImageObject(recommendActivity.findViewById(R.id.home_activity_image3));

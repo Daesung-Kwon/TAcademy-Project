@@ -6,6 +6,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.ViewTarget;
 import com.leisurekr.leisuresportskorea.LKApplication;
 import com.leisurekr.leisuresportskorea.R;
 
@@ -16,7 +20,7 @@ import com.leisurekr.leisuresportskorea.R;
 public class ActivityImageObject {
 
     View view;
-    ImageView imageView;
+    LinearLayout backImage;
     LinearLayout dim;
     ImageView activityIcon;
     TextView activityName;
@@ -27,7 +31,7 @@ public class ActivityImageObject {
 
     public ActivityImageObject(View view) {
         this.view = view;
-        imageView = (ImageView) view.findViewById(R.id.activity_backimgae);
+        backImage = (LinearLayout) view.findViewById(R.id.activity_backimgae);
         dim = (LinearLayout) view.findViewById(R.id.activity_dim);
         activityIcon = (ImageView) view.findViewById(R.id.activity_icon);
         activityName = (TextView) view.findViewById(R.id.activity_name);
@@ -37,8 +41,14 @@ public class ActivityImageObject {
         activityPrice = (TextView) view.findViewById(R.id.activity_price);
     }
 
-    public void setData(ActivityObject object) {
-        Glide.with(LKApplication.getLKApplication()).load(object.programImage).into(imageView);
+    public void setData(final ActivityObject object) {
+        Glide.with(LKApplication.getLKApplication()).load(object.programImage)
+                .diskCacheStrategy(DiskCacheStrategy.ALL).into(new ViewTarget<LinearLayout,GlideDrawable>(backImage) {
+            @Override
+            public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                backImage.setBackground(resource);
+            }
+        });
         dim.setAlpha(0.3f);
 
         switch (object.activityName) {

@@ -5,16 +5,22 @@
     android:layout_width="@dimen/home_activity_imageWidth"
     android:layout_height="@dimen/home_activity_imageHeight">
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/activity_backimgae"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop" />-->
 
-    <ImageView
-        android:layout_height="match_parent"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:id="@+id/activity_backimgae"/>
+        android:layout_height="match_parent"
+        android:id="@+id/activity_backimgae">
+    </LinearLayout>
+
+    <!--<ImageView-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:id="@+id/activity_backimgae"/>-->
 
     <LinearLayout
         android:id="@+id/activity_dim"
